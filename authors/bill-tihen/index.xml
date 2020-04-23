@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bill Tihen | btihen</title>
+    <link>https://btihen.github.io/authors/bill-tihen/</link>
+      <atom:link href="https://btihen.github.io/authors/bill-tihen/index.xml" rel="self" type="application/rss+xml" />
+    <description>Bill Tihen</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 14 Apr 2020 18:57:00 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Bill Tihen</title>
+      <link>https://btihen.github.io/authors/bill-tihen/</link>
+    </image>
+    
+    <item>
+      <title>Rails_6_clean_input</title>
+      <link>https://btihen.github.io/post/rails_6_clean_input/</link>
+      <pubDate>Tue, 14 Apr 2020 18:57:00 +0200</pubDate>
+      <guid>https://btihen.github.io/post/rails_6_clean_input/</guid>
+      <description>&lt;p&gt;We can make a new data type that strips leading and trailing spaces from input fields.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/types
+touch app/types/string_stripped_type.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The content of the file to remove leading and trailing spaces from input strings.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StringSquishedType&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ActiveRecord&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;String
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cast&lt;/span&gt;(value)
+    value&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_s&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;squish
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Now we can make a &lt;code&gt;form_object&lt;/code&gt; to use this type:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/forms
+touch app/forms/user_form.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The content of the file is a standard ruby object with &lt;code&gt;ActiveModel&lt;/code&gt; included:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;32
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;33
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;34
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;35
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;36
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;37
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;38
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;39
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;40
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;41
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;42
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;43
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;44
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;45
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;46
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;47
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;48
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;49
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;50
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;51
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;52
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;53
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;54
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;55
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;56
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;57
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;58
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;59
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;60
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;61
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;62
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;63
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;64
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;65
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;66
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;67
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;68
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;69
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;70
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;71
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;72
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;73
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;74
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;75
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;76
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;77
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;78
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;79
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;80
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;81
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;82
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;83
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;UserForm&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# ActiveModel provides: initialization with a hash, validations, errors, interaction with view helpers&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ActiveModel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Model&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# provides the ability to check for changed attributes&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ActiveModel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Dirty&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# allows casting of specific attribute types&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ActiveModel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Attributes&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# these two methods are needed if backed by an `active_record` model&lt;/span&gt;
+  delegate &lt;span style=&#34;color:#e6db74&#34;&gt;:id&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:persisted?&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;to&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;:user&lt;/span&gt;,  &lt;span style=&#34;color:#e6db74&#34;&gt;allow_nil&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# if there is no active record_model then ActiveModel needs:&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# def id&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   nil&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# def persisted?&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   false&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# should no longer be necessary, but if form_for and url_paths are broken try:&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# def self.model_name&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   ActiveModel::Name.new(self, nil, &amp;#39;User&amp;#39;)&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# default initiator is usually enough, if not build your own&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# def initialize(attribs={})&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   super&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# any attributs backed by `active_model - then add:&lt;/span&gt;
+  delegate &lt;span style=&#34;color:#e6db74&#34;&gt;:first_name&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:last_name&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;to&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;:user&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# allows id to be assigned by the form - attributes here use the db backed type (or are not cast at all)&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;attr_accessor&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;:id&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# now you can tell rails how to cast these values&lt;/span&gt;
+  attribute &lt;span style=&#34;color:#e6db74&#34;&gt;:first_name&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:string_squished&lt;/span&gt;
+  attribute &lt;span style=&#34;color:#e6db74&#34;&gt;:last_name&lt;/span&gt;,  string_squished
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# now we can add our form validations&lt;/span&gt;
+  validates &lt;span style=&#34;color:#e6db74&#34;&gt;:first_name&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;presence&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  validates &lt;span style=&#34;color:#e6db74&#34;&gt;:last_name&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;presence&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+
+  validates &lt;span style=&#34;color:#e6db74&#34;&gt;:user_validation&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# this is helpful for the controller&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;new_from&lt;/span&gt;(user)
+    attribs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {}
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;present?
+      attribs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { id:         user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;id,
+                  &lt;span style=&#34;color:#e6db74&#34;&gt;first_name&lt;/span&gt;: user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;first_name,
+                  &lt;span style=&#34;color:#e6db74&#34;&gt;last_name&lt;/span&gt;:  user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;last_name,
+                }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt;(attribs)
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;user&lt;/span&gt;
+    @user     &lt;span style=&#34;color:#f92672&#34;&gt;||=&lt;/span&gt; assign_user_attribs
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;assign_user_attribs&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;# get / create instance&lt;/span&gt;
+    user &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;find_by(id: id) &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# update user attributes from form&lt;/span&gt;
+    user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;first_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; first_name
+    user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;last_name  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; last_name
+    user
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# convenient if root model has validations&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;user_validation&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;valid?
+
+    user&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;errors&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;each &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;attribute_name, error_message&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;
+      &lt;span style=&#34;color:#75715e&#34;&gt;# add the user model errors to our form attributes&lt;/span&gt;
+      errors&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(attribute_sym, error_message)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Demos and Feedback in the Classroom</title>
+      <link>https://btihen.github.io/publication/feedback_collaborative_student_learning_tieoneline/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/feedback_collaborative_student_learning_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Build Confidence: Exploration and Student Choice</title>
+      <link>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieoneline/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pull vs Push: Student Centric</title>
+      <link>https://btihen.github.io/publication/pull_vs_push_tieonline/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/pull_vs_push_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Importance of Challenge: Engaged, Deep Learning</title>
+      <link>https://btihen.github.io/publication/importance_of_challenge_tieoneline/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/importance_of_challenge_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Roots of Agile for Education</title>
+      <link>https://btihen.github.io/publication/root_for_agile_in_education_tieoneline/</link>
+      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/root_for_agile_in_education_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Patient Explanations Lead to Good Things</title>
+      <link>https://btihen.github.io/publication/patient_explanations_spotlight_article/</link>
+      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/patient_explanations_spotlight_article/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Getting Agile at School</title>
+      <link>https://btihen.github.io/publication/getting_agile_at_school_chapter/</link>
+      <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
+      <guid>https://btihen.github.io/publication/getting_agile_at_school_chapter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Designed to Float your Boat</title>
+      <link>https://btihen.github.io/publication/designed_to_float_your_boat_article/</link>
+      <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/designed_to_float_your_boat_article/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School</title>
+      <link>https://btihen.github.io/coverage/agile_in_education_interview/</link>
+      <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/coverage/agile_in_education_interview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Agile in Education at Leysin American School</title>
+      <link>https://btihen.github.io/coverage/agile_in_education_at_las_interview/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/coverage/agile_in_education_at_las_interview/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

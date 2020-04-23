@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://btihen.github.io/explore/crystal/cli/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/explore/mint/cli/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/example/example1/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/example/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/explore/crystal/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/explore/mint/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/example/example2/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/contact/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/bill-tihen/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/input/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/rails/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post/rails_6_clean_input/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/</loc>
+    <lastmod>2020-04-14T18:57:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication_types/0/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/agile/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/feedback_collaborative_student_learning_tieoneline/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/education/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/emotional-safety/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/feedback/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/paul-magnuson/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication_types/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/student-choice/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieoneline/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/challenge/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/confidence/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/engagement/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/natural-assessment/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/non-judgemental/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/paul-magunson/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/uplift/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/effectiveness/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/pull_vs_push_tieonline/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/deep-learning/</loc>
+    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/egagement/</loc>
+    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/importance_of_challenge_tieoneline/</loc>
+    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/meaningful-context/</loc>
+    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/multiple-levels/</loc>
+    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/collaboration/</loc>
+    <lastmod>2019-12-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/manifesto/</loc>
+    <lastmod>2019-12-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/people-focus/</loc>
+    <lastmod>2019-12-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/root_for_agile_in_education_tieoneline/</loc>
+    <lastmod>2019-12-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication_types/2/</loc>
+    <lastmod>2019-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/agie/</loc>
+    <lastmod>2019-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/patient_explanations_spotlight_article/</loc>
+    <lastmod>2019-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/self-regulation/</loc>
+    <lastmod>2019-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/student-coice/</loc>
+    <lastmod>2019-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/explore/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication_types/6/</loc>
+    <lastmod>2019-04-16T18:04:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/daniel-patton/</loc>
+    <lastmod>2019-04-16T18:04:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/getting_agile_at_school_chapter/</loc>
+    <lastmod>2019-04-16T18:04:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/nicola-cosgrove/</loc>
+    <lastmod>2019-04-16T18:04:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/project-based/</loc>
+    <lastmod>2019-04-16T18:04:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/privacy/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/terms/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/dan-patton/</loc>
+    <lastmod>2018-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/designed_to_float_your_boat_article/</loc>
+    <lastmod>2018-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/coverage/agile_in_education_interview/</loc>
+    <lastmod>2017-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/agility/</loc>
+    <lastmod>2017-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/coverage/</loc>
+    <lastmod>2017-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/coverage/agile_in_education_at_las_interview/</loc>
+    <lastmod>2016-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/howard-sublett/</loc>
+    <lastmod>2016-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/agile-classrooms/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/coverage/agile_classrooms_article/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/john-miller/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/john-miller/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/middle-school/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/scrum-workshop/</loc>
+    <lastmod>2015-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/authors/btihen/</loc>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/talk/</loc>
+  </url>
+  
+</urlset>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications | btihen</title>
+    <link>https://btihen.github.io/publication/</link>
+      <atom:link href="https://btihen.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <description>Publications</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Publications</title>
+      <link>https://btihen.github.io/publication/</link>
+    </image>
+    
+    <item>
+      <title>Demos and Feedback in the Classroom</title>
+      <link>https://btihen.github.io/publication/feedback_collaborative_student_learning_tieoneline/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/feedback_collaborative_student_learning_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Build Confidence: Exploration and Student Choice</title>
+      <link>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieoneline/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pull vs Push: Student Centric</title>
+      <link>https://btihen.github.io/publication/pull_vs_push_tieonline/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/pull_vs_push_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Importance of Challenge: Engaged, Deep Learning</title>
+      <link>https://btihen.github.io/publication/importance_of_challenge_tieoneline/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/importance_of_challenge_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Roots of Agile for Education</title>
+      <link>https://btihen.github.io/publication/root_for_agile_in_education_tieoneline/</link>
+      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/root_for_agile_in_education_tieoneline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Patient Explanations Lead to Good Things</title>
+      <link>https://btihen.github.io/publication/patient_explanations_spotlight_article/</link>
+      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/patient_explanations_spotlight_article/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Getting Agile at School</title>
+      <link>https://btihen.github.io/publication/getting_agile_at_school_chapter/</link>
+      <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
+      <guid>https://btihen.github.io/publication/getting_agile_at_school_chapter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Designed to Float your Boat</title>
+      <link>https://btihen.github.io/publication/designed_to_float_your_boat_article/</link>
+      <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/designed_to_float_your_boat_article/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
