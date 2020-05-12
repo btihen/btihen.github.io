@@ -237,7 +237,7 @@
   
   <meta property="og:site_name" content="btihen">
   <meta property="og:url" content="https://btihen.github.io/post/phoenix_1_5_live_view_basics/">
-  <meta property="og:title" content="Phoenix 1.5 LiveView Basics | btihen">
+  <meta property="og:title" content="Phoenix 1.5 LiveView &amp; PubSub Basics | btihen">
   <meta property="og:description" content="Create a simple web counter app to learn how Phoenix 1.5 LiveView works.  Phoenix LiveView allows dynamic webpages with fast update times -- without JavaScript."><meta property="og:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
   <meta property="twitter:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png"><meta property="og:locale" content="en-us">
   
@@ -270,7 +270,7 @@
     "@type": "WebPage",
     "@id": "https://btihen.github.io/post/phoenix_1_5_live_view_basics/"
   },
-  "headline": "Phoenix 1.5 LiveView Basics",
+  "headline": "Phoenix 1.5 LiveView \u0026 PubSub Basics",
   
   "datePublished": "2020-05-10T17:01:53+02:00",
   "dateModified": "2020-05-10T17:01:53+02:00",
@@ -306,7 +306,7 @@
 
 
 
-  <title>Phoenix 1.5 LiveView Basics | btihen</title>
+  <title>Phoenix 1.5 LiveView &amp; PubSub Basics | btihen</title>
 
 </head>
 
@@ -590,10 +590,10 @@
   
   
 <div class="article-container pt-3">
-  <h1>Phoenix 1.5 LiveView Basics</h1>
+  <h1>Phoenix 1.5 LiveView &amp; PubSub Basics</h1>
 
   
-  <p class="page-subtitle">A Websocket Counter &ndash; without JavaScript</p>
+  <p class="page-subtitle">Create a Dynamic Web GUI without JavaScript!</p>
   
 
   
@@ -666,45 +666,41 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>I have been watching Phoenix and Elixir for a while, but the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video:</p>
+      <p>I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;feature=youtu.be">https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;feature=youtu.be</a></li>
 </ul>
-<p>which is very cool, but I wanted to understand how things actually work &ndash; So I found a Phoenix 1.4 tutorial (without using the liveview generators since it wasn&rsquo;t so tightly integrated into Phoenix at that time) and would translate that into Phoenix 1.5. Here is the video and blog I used to guide me:</p>
+<p>which is very cool.  I wanted to learn more and found this Phoenix 1.4 tutorial:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=2bipVjOcvdI">https://www.youtube.com/watch?v=2bipVjOcvdI</a></li>
 <li><a href="https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html">https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html</a></li>
 </ul>
-<p>Since I am just learning the Phoenix Framework and will need to refer to this for my self to remember how to do basic things &ndash; I&rsquo;ve documented every little detail.</p>
-<h2 id="step-0---setup">Step 0 - Setup</h2>
-<p>Setup environment &amp; newest version of elixir (I am using exenv):</p>
+<p>and decided to translate that into Phoenix 1.5. This is what follows.</p>
+<p><strong>NOTE:</strong> Since I am just learning the Phoenix Framework and will need to refer to this for my self to remember how to do basic things &ndash; I&rsquo;ve documented every little detail.</p>
+<h3 id="step-0---setup-environment">Step 0 - setup environment</h3>
+<p>Setup environment &amp; newest version of elixir:</p>
 <pre><code>exenv install 1.10.3
 exenv global
 exenv local 1.10.3
 </code></pre>
 <p>Install the 1.5.1 phx_new generator:</p>
 <p><code>mix archive.install hex phx_new 1.5.1</code></p>
-<p>Create the project:</p>
+<h3 id="step-1-create-a-phoenix-project-with-liveview">Step 1: Create a Phoenix Project with LiveView</h3>
+<p>Create the project (notice the <code>--live</code> - that enables LiveView, <code>--no-ecto</code> - keeps the project smaller since we won&rsquo;t be persisting any data):</p>
 <p><code>mix phx.new counter --no-ecto --live</code></p>
 <p>enter project and create init commit:</p>
-<p><code>cd counter</code></p>
-<p>Now we will run the auto generated test to be sure all is good:</p>
-<p><code>mix text</code></p>
-<p>Now we will start phoenix to be sure all is running:</p>
-<p><code>mix phx.server</code></p>
-<p>Now go to the web page it is server (probably): <code>localhost:4000</code></p>
-<p>It all looks good so we can make our first commit.</p>
-<p><code>git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;init&quot;</code></p>
-<h2 id="step-1---simple-counter-page">Step 1 - simple counter page</h2>
+<pre><code>cd counter
+git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;init&quot;
+</code></pre>
+<h3 id="step-2---simple-counter-page-using-liveview">Step 2 - simple counter page using LiveView</h3>
 <p>Make a counter_live folder &amp; an index.ex file:</p>
 <pre><code>mkdir lib/counter_web/live/counter_live
 touch lib/counter_web/live/counter_live/index.ex
 </code></pre>
-<p>add the following contents:</p>
-<pre><code>cat &lt;&lt;&quot;EOF&quot;&gt; lib/counter_web/live/counter_live/index.ex
+<p>Add the following contents:</p>
+<pre><code># lib/counter_web/live/counter_live/index.ex
 defmodule CounterWeb.CounterLive.Index do
   use CounterWeb, :live_view
-  # use Phoenix.LiveView
 
   # since we don't have a db to pull from we initialize on mount
   @impl true
@@ -714,42 +710,45 @@ defmodule CounterWeb.CounterLive.Index do
 
   def render(assigns) do
     ~L&quot;&quot;&quot;
-      &lt;h1&gt;Live Counter&lt;/h1&gt;
-      &lt;p&gt;
-        &lt;b&gt;Here is a great complex page&lt;/b&gt;
-      &lt;/p&gt;
-      &lt;div&gt;
-        &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-        &lt;button phx-click=&quot;dec&quot;&gt;-&lt;/button&gt;
-        &lt;button phx-click=&quot;inc&quot;&gt;+&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div&gt;
-        &lt;button phx-click=&quot;clear&quot;&gt;clear&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;p&gt;
-        &lt;i&gt;even more awesome content&lt;/i&gt;
-      &lt;/p&gt;
+    &lt;h1&gt;Live Counter&lt;/h1&gt;
+    &lt;p&gt;
+      &lt;b&gt;Here is a great complex page&lt;/b&gt;
+    &lt;/p&gt;
+
+    &lt;div&gt;
+      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
+      &lt;button phx-click=&quot;dec&quot;&gt;-&lt;/button&gt;
+      &lt;button phx-click=&quot;inc&quot;&gt;+&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;button phx-click=&quot;clear&quot;&gt;clear&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;
+      &lt;i&gt;even more awesome content&lt;/i&gt;
+    &lt;/p&gt;
     &quot;&quot;&quot;
   end
 
+  # event handler for &lt;button phx-click=&quot;inc&quot;&gt;
   def handle_event(&quot;inc&quot;, _, socket) do
     {:noreply, update(socket, :val, &amp;(&amp;1 + 1))}
   end
 
+  # event handler for &lt;button phx-click=&quot;dec&quot;&gt;
   def handle_event(&quot;dec&quot;, _, socket) do
     {:noreply, update(socket, :val, &amp;(&amp;1 - 1))}
   end
 
+  # event handler for &lt;button phx-click=&quot;clear&quot;&gt;
   def handle_event(&quot;clear&quot;, _, socket) do
     {:noreply, update(socket, :val, &amp;(&amp;1 - &amp;1))}
     # {:noreply, update(socket, :val, 0)} # very slow - why?
   end
 
 end
-EOF
 </code></pre>
-<p>Notice: <code>phx-click=&quot;clear&quot;</code> refers to a <code>handle_event</code> which is similar to JavaScript events (but SERVER SIDE)! :)</p>
-<p>Now update the routers and it should work:</p>
+<p>Now update the routers (so we can get to the new webpage &ndash; now our app should work:</p>
 <pre><code>  scope &quot;/&quot;, CounterWeb do
     pipe_through :browser
 
@@ -757,19 +756,26 @@ EOF
     live &quot;/&quot;, CounterLive.Index, :index # add this line
   end
 </code></pre>
-<p>now start pheonix:</p>
+<p>Start pheonix:</p>
 <p><code>mix phx.server</code></p>
-<p>now to:</p>
+<p>Go to:</p>
 <p><code>localhost:4000</code></p>
-<p>it works - we have our counter.</p>
-<p>Lets run the test:</p>
-<p><code>mix test</code></p>
-<p>Opps - we need to fix the homepage test:</p>
-<p>since we replaced the original route we need to delete the existing LivePageTest and create a new test for our counter page:</p>
+<p>You should now see the website and the counter should function</p>
+<p>Assuming all is good, I&rsquo;ll take a git snapshot:</p>
+<pre><code>git add .
+git commit -m &quot;counter with live update&quot;
+</code></pre>
+<h3 id="step-3---running-tests">Step 3 - Running tests</h3>
+<p>In order to run the tests we type:</p>
+<pre><code>mix test
+</code></pre>
+<p>We see that PageLive test fails.  This is because we replaced this behavior with <code>CounterLive</code></p>
+<p>To fix this we will create a <strong>CounterLive</strong> test and delete <strong>PageLive</strong> test.</p>
 <pre><code>rm test/counter_web/live/page_live_text.exs
-
 touch test/counter_web/live/counter_live_text.exs
-cat &lt;&lt;&quot;EOF&quot; &gt; test/counter_web/live/counter_live_text.exs
+</code></pre>
+<p>Here is the code for our new test: it basically just checks to be sure our Title is on the page:</p>
+<pre><code># test/counter_web/live/counter_live_text.exs
 defmodule CounterWeb.CounterLiveTest do
   use CounterWeb.ConnCase
 
@@ -782,21 +788,18 @@ defmodule CounterWeb.CounterLiveTest do
   end
 
 end
-EOF
 </code></pre>
-<p>Now we can test again <code>mix test</code></p>
-<p>cool - all is green  <em>(Ideally - I hopefully one can test the live view actions &ndash; without cucumber - but I don&rsquo;t know how yet.)</em></p>
-<p>I&rsquo;ll take a git snapshot:</p>
+<p>Now we can test again: <code>mix test</code></p>
+<p>Now that works, lets take another git snapshot:</p>
 <pre><code>git add .
 git commit -m &quot;counter with live update&quot;
 </code></pre>
-<h2 id="step-2----us-a-template-with-live_view">Step 2 &ndash; us a template with live_view</h2>
-<p>create a template file (helpful for complex html pages, but simple to create):</p>
+<h3 id="step-4----liveview-templates">Step 4 &ndash; LiveView Templates</h3>
+<p>Create a template file (helpful for complex html pages, but simple to create):</p>
 <p><code>touch lib/counter_web/live/counter_live/index.html.leex</code></p>
-<p>now just copy the html (from the render method into this file):</p>
-<pre><code>cat &lt;&lt;&quot;EOF&quot; &gt; lib/counter_web/live/counter_live/index.html.leex
+<p>Now just copy the html (from the render method into this file):</p>
+<pre><code># lib/counter_web/live/counter_live/index.html.leex
 &lt;h1&gt;Live Counter&lt;/h1&gt;
-
 &lt;p&gt;
   &lt;b&gt;Here is a great complex page&lt;/b&gt;
 &lt;/p&gt;
@@ -813,47 +816,34 @@ git commit -m &quot;counter with live update&quot;
 &lt;p&gt;
   &lt;i&gt;even more awesome content&lt;/i&gt;
 &lt;/p&gt;
-EOF
 </code></pre>
-<p>now point <code>lib/counter_web/live/counter_live/index.ex</code> to this file by replacing render with an apply command:</p>
-<pre><code>  defp apply_action(socket, :index, _params) do
+<p>Now point <code>lib/counter_web/live/counter_live/index.ex</code> to this file by replacing render with an apply command:</p>
+<pre><code>  # add this new function
+  defp apply_action(socket, :index, _params) do
     socket
   end
-  #  def render(assigns) do
+  # remove this funtion
+  # def render(assigns) do
   #  ~L&quot;&quot;&quot;
-  #    &lt;h1&gt;Live Counter&lt;/h1&gt;
-  #    &lt;p&gt;
-  #      &lt;b&gt;Here is a great complex page&lt;/b&gt;
-  #    &lt;/p&gt;
-  #    &lt;div&gt;
-  #      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-  #      &lt;button phx-click=&quot;dec&quot;&gt;-&lt;/button&gt;
-  #      &lt;button phx-click=&quot;inc&quot;&gt;+&lt;/button&gt;
-  #    &lt;/div&gt;
-  #    &lt;div&gt;
-  #      &lt;button phx-click=&quot;clear&quot;&gt;clear&lt;/button&gt;
-  #    &lt;/div&gt;
-  #    &lt;p&gt;
-  #      &lt;i&gt;even more awesome content&lt;/i&gt;
-  #    &lt;/p&gt;
-  #  &quot;&quot;&quot;
+  #   ...
+  #   &quot;&quot;&quot;
   # end
 </code></pre>
-<p>apply_action understand the rest commands such as :new, etc.</p>
-<p>THIS ALLOWS a nice clean separation of code logic from the HTML template (or JSON, etc).</p>
-<p>now try the app again and it should still work!</p>
-<p>and test again: <code>mix test</code></p>
-<p>now git snapshot:</p>
+<p><strong>NOTE:</strong> <code>apply_action</code> understands the <strong>rest</strong> verbs such as <code>:new</code>, <code>:show</code> etc.</p>
+<p>Now try the app again and it should still work!</p>
+<p>Assuming it still works, I&rsquo;ll take another git snapshot:</p>
 <pre><code>git add .
 git commit -m &quot;counter using a template&quot;
 </code></pre>
-<h1 id="step-3---using-reusable-live-components">step 3 - Using Reusable Live Components</h1>
-<p>create a file for the component:</p>
-<pre><code>touch lib/counter_web/live/counter_live/counter_component.ex
-</code></pre>
-<p>Now you can move the dynamic html and it&rsquo;s associated functions into this file:</p>
-<pre><code>cat &lt;&lt;&quot;EOF&quot; &gt; lib/counter_web/live/counter_live/counter_component.ex
-# lib/counter_web/live/counter_live/counter_component.ex
+<h3 id="step-5---reusable-components--isolation">Step 5 - Reusable Components (&amp; isolation)</h3>
+<p>This allows complex components to be <strong>reused</strong> within multiple templates and <strong>isolation</strong> to keep one&rsquo;s mental scope minimal.</p>
+<p>Create a file for the component:</p>
+<p><code>touch lib/counter_web/live/counter_live/counter_component.ex</code></p>
+<p>Move the dynamic html and it&rsquo;s associated functions into this file, it&rsquo;s important to import the live_components into this file using:</p>
+<p><code>use CounterWeb, :live_component</code></p>
+<p>In order to encapsulate the events into the component we will also move the event handlers into the component file.</p>
+<p>So this file will now look like:</p>
+<pre><code># lib/counter_web/live/counter_live/counter_component.ex
 defmodule CounterWeb.CounterLive.CounterComponent do
   use CounterWeb, :live_component
 
@@ -884,32 +874,48 @@ defmodule CounterWeb.CounterLive.CounterComponent do
   end
 
 end
-EOF
 </code></pre>
-<p>NOTICE: the <code>@myself</code> this means that the function is found locally (for even better encapsulation).</p>
-<p>Its important to import the live view suff again.</p>
-<p>Now update the live template to point at the component:</p>
-<p>in <code>lib/counter_web/live/counter_live/index.ex</code> REMOVE:</p>
-<pre><code>&lt;div&gt;
-  &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-  &lt;button phx-click=&quot;dec&quot;&gt;-&lt;/button&gt;
-  &lt;button phx-click=&quot;inc&quot;&gt;+&lt;/button&gt;
-&lt;/div&gt;
-&lt;div&gt;
-   &lt;button phx-click=&quot;clear&quot;&gt;clear&lt;/button&gt;
-&lt;/div&gt;
+<p>Notice the button tags are slightly more complex</p>
+<p><code>&lt;button phx-click=&quot;dec&quot; phx-target=&quot;&lt;%= @myself %&gt;&quot;&gt;</code></p>
+<p>the <strong>@myself</strong> basically informs the event that the handler is within the component.</p>
+<p>Now update the live template to point at the component using:</p>
+<p><code>&lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;</code></p>
+<p>Also note we need to pass the @val value into the component using:</p>
+<p><code>id: 0, val: @val</code></p>
+<p>its a little wierd, but we need to pass an <strong>id</strong> even if there is no ecto backed record.</p>
+<p>Now the template file looks like a normal template file again (focused on formating):</p>
+<pre><code># lib/counter_web/live/counter_live/index.ex
+defmodule CounterWeb.CounterLive.Index do
+  use CounterWeb, :live_view
+
+  # since we don't have a db to pull from we initialize on mount
+  @impl true
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, :val, 0)}
+  end
+
+  def render(assigns) do
+    ~L&quot;&quot;&quot;
+    &lt;h1&gt;Live Counter&lt;/h1&gt;
+    &lt;p&gt;
+      &lt;b&gt;Here is a great complex page&lt;/b&gt;
+    &lt;/p&gt;
+
+    &lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;
+
+    &lt;p&gt;
+      &lt;i&gt;even more awesome content&lt;/i&gt;
+    &lt;/p&gt;
+    &quot;&quot;&quot;
+  end
+
+end
 </code></pre>
-<p>AND in <code>lib/counter_web/live/counter_live/index.ex</code> REPLACE WITH:</p>
-<pre><code>&lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;
-</code></pre>
-<p>Now all the dynamic aspects are all encapsulated as a component &ndash; so we can make complex dynamic pages and keep the our headspace needed to update anyone aspect small.</p>
-<p>test one last time <code>mix test</code></p>
-<p>one last git snapshot:</p>
+<p>Lets check that this still works.</p>
+<p>Assuming it still works, I&rsquo;ll make one last git snapshot:</p>
 <pre><code>git add .
 git commit -m &quot;live pages using isolated components - like JS does&quot;
 </code></pre>
-<p>Cool!</p>
-<p>I like this framework!</p>
 
     </div>
 
@@ -932,7 +938,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;text=Phoenix%201.5%20LiveView%20Basics" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;text=Phoenix%201.5%20LiveView%20&amp;amp;%20PubSub%20Basics" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -945,7 +951,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;t=Phoenix%201.5%20LiveView%20Basics" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;t=Phoenix%201.5%20LiveView%20&amp;amp;%20PubSub%20Basics" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -958,7 +964,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
       
       
       <li>
-        <a href="mailto:?subject=Phoenix%201.5%20LiveView%20Basics&amp;body=https://btihen.github.io/post/phoenix_1_5_live_view_basics/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Phoenix%201.5%20LiveView%20&amp;amp;%20PubSub%20Basics&amp;body=https://btihen.github.io/post/phoenix_1_5_live_view_basics/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -971,7 +977,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;title=Phoenix%201.5%20LiveView%20Basics" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;title=Phoenix%201.5%20LiveView%20&amp;amp;%20PubSub%20Basics" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -984,7 +990,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20LiveView%20Basics%20https://btihen.github.io/post/phoenix_1_5_live_view_basics/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20LiveView%20&amp;amp;%20PubSub%20Basics%20https://btihen.github.io/post/phoenix_1_5_live_view_basics/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -997,7 +1003,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;title=Phoenix%201.5%20LiveView%20Basics" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.github.io/post/phoenix_1_5_live_view_basics/&amp;title=Phoenix%201.5%20LiveView%20&amp;amp;%20PubSub%20Basics" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
