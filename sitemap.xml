@@ -43,11 +43,71 @@
   
   <url>
     <loc>https://btihen.github.io/authors/</loc>
-    <lastmod>2020-05-10T17:01:53+02:00</lastmod>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/authors/bill-tihen/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/code/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/docker/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post/docker_intro_with_mail_catcher/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/email/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/testing/</loc>
+    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/elixir/</loc>
+    <lastmod>2020-05-10T17:01:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/interactive/</loc>
+    <lastmod>2020-05-10T17:01:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/liveview/</loc>
+    <lastmod>2020-05-10T17:01:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/phoenix/</loc>
     <lastmod>2020-05-10T17:01:53+02:00</lastmod>
   </url>
   
@@ -57,8 +117,13 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/post/</loc>
+    <loc>https://btihen.github.io/tags/pubsub/</loc>
     <lastmod>2020-05-10T17:01:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/agile/</loc>
+    <lastmod>2020-05-03T19:25:09+02:00</lastmod>
   </url>
   
   <url>
@@ -73,11 +138,6 @@
   
   <url>
     <loc>https://btihen.github.io/post/kanban_usage/</loc>
-    <lastmod>2020-05-03T19:25:09+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/</loc>
     <lastmod>2020-05-03T19:25:09+02:00</lastmod>
   </url>
   
@@ -508,10 +568,6 @@
   
   <url>
     <loc>https://btihen.github.io/authors/btihen/</loc>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/</loc>
   </url>
   
   <url>

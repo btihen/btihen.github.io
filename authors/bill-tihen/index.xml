@@ -5,12 +5,176 @@
     <link>https://btihen.github.io/authors/bill-tihen/</link>
       <atom:link href="https://btihen.github.io/authors/bill-tihen/index.xml" rel="self" type="application/rss+xml" />
     <description>Bill Tihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 10 May 2020 17:01:53 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 12 May 2020 21:19:09 +0200</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Bill Tihen</title>
       <link>https://btihen.github.io/authors/bill-tihen/</link>
     </image>
+    
+    <item>
+      <title>Docker Intro using MailCatcher</title>
+      <link>https://btihen.github.io/post/docker_intro_with_mail_catcher/</link>
+      <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
+      <guid>https://btihen.github.io/post/docker_intro_with_mail_catcher/</guid>
+      <description>&lt;h3 id=&#34;setup&#34;&gt;&lt;strong&gt;SETUP&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;First we need to get the repo (or at least the docker file)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# get the mailcatcher repo
+git clone git@github.com:sj26/mailcatcher.git
+
+# go into mailcather repo
+cd mailcatcher
+
+# configure to use the newest `released` gem version of mailcatcher
+sed -i.bu1 &#39;s/FROM ruby:2.5/FROM ruby:2.6/&#39; Dockerfile
+sed -i.bu2 &#39;s/ARG VERSION=0.6.5/ARG VERSION=0.7.1/&#39; Dockerfile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Dockerfile should now look like (which is actually all that is actually needed):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM ruby:2.6
+MAINTAINER Samuel Cochran &amp;lt;sj26@sj26.com&amp;gt;
+
+ARG VERSION=0.7.1
+
+RUN gem install mailcatcher -v $VERSION
+
+EXPOSE 1025 1080
+
+ENTRYPOINT [&amp;quot;mailcatcher&amp;quot;, &amp;quot;--foreground&amp;quot;]
+CMD [&amp;quot;--ip&amp;quot;, &amp;quot;0.0.0.0&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-image&#34;&gt;&lt;strong&gt;BUILD IMAGE&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now you can download the docker image and install the gems into it with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# -t adds repository:tag info -- the &#39;.&#39; at the end is important:
+docker build -t btihen/mailcatcher:ruby_2.6 .
+# ...
+# should end with something like
+# Successfully built 21e0de2bdd68
+
+# now tag it as the lasted image:
+docker build -t garaio.azurecr.io/garaio/mailcatcher:latest .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now you can see your list of docker images (you should see the starting image/container we just created):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker images
+REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
+garaio.azurecr.io/gario/mailcatcher   latest              21e0de2bdd68        8 minutes ago       870MB
+garaio.azurecr.io/gario/mailcatcher   ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+ruby                                  2.6                 a98425292e84        2 weeks ago         843MB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-container&#34;&gt;&lt;strong&gt;BUILD CONTAINER&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now start the docker image using the build image id (&lt;code&gt;-d&lt;/code&gt; allows it to run in the backgroud, &lt;code&gt;-p 1025:1025 -p 1080:1080&lt;/code&gt; opens a connection on ports 1025 &amp;amp; 1080 from localhost to the docker image):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# build a container so we can test our image
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher garaio.azurecr.io/garaio/mailcatcher:latest
+
+# or if you like ids better
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
+
+# if you forgot the image-id you can list the images with:
+docker images
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;testing-http--smtp&#34;&gt;&lt;strong&gt;TESTING (http &amp;amp; smtp)&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;now you should be able to go to &lt;code&gt;http://localhost:1080&lt;/code&gt; and see the mailcatcher webpage.&lt;/p&gt;
+&lt;p&gt;now lets test the smtp side from the cli using these instructions: &lt;code&gt;https://www.shellhacks.com/send-email-smtp-server-command-line/&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# connect to the mail server
+$ telnet localhost 1025
+# or
+$ telnet 127.0.0.1 1025
+220 smtp.domain.ext ESMTP Sendmail ?version-number?; ?date+time+gmtoffset?
+
+# declare yourself (IP or DNS)
+&amp;gt; HELO local.domain.name
+250 smtp.domain.ext Hello local.domain.name [xxx.xxx.xxx.xxx], pleased to meet you
+
+# declare who the email is from:
+&amp;gt; MAIL FROM: test@local.domain.name
+250 2.1.0 sender@adress.ext... Sender ok
+
+# declare who should get the email:
+&amp;gt; RCPT TO: recipient@adress.ext
+250 2.1.5 recipient@adress.ext... Recipient ok
+
+# setup the DATA transmission:
+ &amp;gt; DATA
+354 Enter mail, end with &amp;quot;.&amp;quot; on a line by itself
+
+# type a subject two returns and a message ending with &#39;.&#39; (on its own line):
+SUBJECT: Test message
+
+Hello,
+this is a TEST message,
+please don&#39;t reply.
+Thank you.
+.
+
+# end the connection
+&amp;gt; QUIT
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now check the mail has arrived in mailcatcher at &lt;code&gt;localhost:1080&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming you see the email sent - you can be sure your image &amp;amp; container is setup properly.&lt;/p&gt;
+&lt;h3 id=&#34;stopping-exited-container&#34;&gt;&lt;strong&gt;STOPPING (exited) CONTAINER&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;When we are done with mailcatcher we can stop the docker process:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker ps -a
+docker kill mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;starting-built-but-exited-containers&#34;&gt;&lt;strong&gt;STARTING BUILT (but exited) CONTAINERS&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;To restart mailcatcher at a later date simply type:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker start mailcatcher&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sharing-images-once-they-work&#34;&gt;&lt;strong&gt;SHARING IMAGES (once they work)&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# login to the Azure Container Repository
+docker login garaio.azurecr.io -u garaio -p see_keypass_vault
+
+# upload the new image
+docker push garaio.azurecr.io/garaio/mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;retrieving-shared-image&#34;&gt;&lt;strong&gt;RETRIEVING SHARED IMAGE&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;az acr login --name garaio
+az acr repository list --name garaio --output table
+
+# getting the image
+docker pull garaio.azurecr.io/garaio/image_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;containerize the image&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# these are the default local ports - adjust to your needs
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher garaio.azurecr.io/garaio/mailcatcher:latest
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;start the container&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker start mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;listing-garaio-images&#34;&gt;&lt;strong&gt;LISTING GARAIO IMAGES&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;One-time install&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# if needed install the azure cli
+brew update &amp;amp;&amp;amp; brew install azure-cli
+
+# the following may also be needed:
+brew update &amp;amp;&amp;amp; brew install python3 &amp;amp;&amp;amp; brew upgrade python3
+brew link --overwrite python3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Retrieve the image list&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# login with the azure-cli
+az acr login --name garaio
+
+# list the images
+az acr repository list --name garaio --output table
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;removing-containers&#34;&gt;&lt;strong&gt;REMOVING CONTAINERS&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;when we no longer need mailcatcher we can remove it with (&lt;code&gt;-a&lt;/code&gt; lists running and stopped containers):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker ps -a
+docker rm mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;REMOVING IMAGES&lt;/strong&gt;
+To fully clean up and remove (images &amp;ndash; after the containers are removed):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+btihen/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
+ruby                2.5                 a98425292e84        2 weeks ago         843MB
+
+$ docker image rm 21e0de2bdd68
+
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ruby                2.5                 a98425292e84        2 weeks ago         843MB
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
