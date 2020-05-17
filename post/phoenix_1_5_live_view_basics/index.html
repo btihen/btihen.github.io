@@ -628,7 +628,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    5 min read
+    6 min read
   </span>
   
 
@@ -699,65 +699,130 @@ git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;init&quot;
 <pre><code>mkdir lib/counter_web/live/counter_live
 touch lib/counter_web/live/counter_live/index.ex
 </code></pre>
-<p>Add the following contents:</p>
-<pre><code># lib/counter_web/live/counter_live/index.ex
-defmodule CounterWeb.CounterLive.Index do
-  use CounterWeb, :live_view
+<p>Add the following contents:
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># lib/counter_web/live/counter_live/index.ex</span>
+defmodule <span style="color:#a6e22e">CounterWeb.CounterLive.Index</span> do
+  use <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_view</span>
 
-  # since we don't have a db to pull from we initialize on mount
-  @impl true
+  <span style="color:#75715e"># since we don&#39;t have a db to pull from we initialize on mount</span>
+  <span style="color:#a6e22e">@impl</span> true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :val, 0)}
+    {<span style="color:#e6db74">:ok</span>, assign(socket, <span style="color:#e6db74">:val</span>, <span style="color:#ae81ff">0</span>)}
   end
 
   def render(assigns) do
-    ~L&quot;&quot;&quot;
-    &lt;h1&gt;Live Counter&lt;/h1&gt;
-    &lt;p&gt;
-      &lt;b&gt;Here is a great complex page&lt;/b&gt;
-    &lt;/p&gt;
-
-    &lt;div&gt;
-      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-      &lt;button phx-click=&quot;dec&quot;&gt;-&lt;/button&gt;
-      &lt;button phx-click=&quot;inc&quot;&gt;+&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div&gt;
-      &lt;button phx-click=&quot;clear&quot;&gt;clear&lt;/button&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;
-      &lt;i&gt;even more awesome content&lt;/i&gt;
-    &lt;/p&gt;
-    &quot;&quot;&quot;
+    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    &lt;h1&gt;Live Counter&lt;/h1&gt;
+</span><span style="color:#e6db74">    &lt;p&gt;
+</span><span style="color:#e6db74">      &lt;b&gt;Here is a great complex page&lt;/b&gt;
+</span><span style="color:#e6db74">    &lt;/p&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;div&gt;
+</span><span style="color:#e6db74">      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
+</span><span style="color:#e6db74">      &lt;button phx-click=&#34;dec&#34;&gt;-&lt;/button&gt;
+</span><span style="color:#e6db74">      &lt;button phx-click=&#34;inc&#34;&gt;+&lt;/button&gt;
+</span><span style="color:#e6db74">    &lt;/div&gt;
+</span><span style="color:#e6db74">    &lt;div&gt;
+</span><span style="color:#e6db74">      &lt;button phx-click=&#34;clear&#34;&gt;clear&lt;/button&gt;
+</span><span style="color:#e6db74">    &lt;/div&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;p&gt;
+</span><span style="color:#e6db74">      &lt;i&gt;even more awesome content&lt;/i&gt;
+</span><span style="color:#e6db74">    &lt;/p&gt;
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
   end
 
-  # event handler for &lt;button phx-click=&quot;inc&quot;&gt;
-  def handle_event(&quot;inc&quot;, _, socket) do
-    {:noreply, update(socket, :val, &amp;(&amp;1 + 1))}
+  <span style="color:#75715e"># event handler for &lt;button phx-click=&#34;inc&#34;&gt;</span>
+  def handle_event(<span style="color:#e6db74">&#34;inc&#34;</span>, _, socket) do
+    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))}
   end
 
-  # event handler for &lt;button phx-click=&quot;dec&quot;&gt;
-  def handle_event(&quot;dec&quot;, _, socket) do
-    {:noreply, update(socket, :val, &amp;(&amp;1 - 1))}
+  <span style="color:#75715e"># event handler for &lt;button phx-click=&#34;dec&#34;&gt;</span>
+  def handle_event(<span style="color:#e6db74">&#34;dec&#34;</span>, _, socket) do
+    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))}
   end
 
-  # event handler for &lt;button phx-click=&quot;clear&quot;&gt;
-  def handle_event(&quot;clear&quot;, _, socket) do
-    {:noreply, update(socket, :val, &amp;(&amp;1 - &amp;1))}
-    # {:noreply, update(socket, :val, 0)} # very slow - why?
+  <span style="color:#75715e"># event handler for &lt;button phx-click=&#34;clear&#34;&gt;</span>
+  def handle_event(<span style="color:#e6db74">&#34;clear&#34;</span>, _, socket) do
+    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> &amp;1))}
+    <span style="color:#75715e"># {:noreply, update(socket, :val, 0)} # very slow - why?</span>
   end
 
-end
-</code></pre>
-<p>Now update the routers (so we can get to the new webpage &ndash; now our app should work:</p>
-<pre><code>  scope &quot;/&quot;, CounterWeb do
-    pipe_through :browser
+end</code></pre></td></tr></table>
+</div>
+</div></p>
+<p>Now update the routers (so we can get to the new webpage &ndash; now our app should work:
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">  scope <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">CounterWeb</span> do
+    pipe_through <span style="color:#e6db74">:browser</span>
 
-    # live &quot;/&quot;, PageLive, :index        # remove this line
-    live &quot;/&quot;, CounterLive.Index, :index # add this line
-  end
-</code></pre>
+    <span style="color:#75715e"># live &#34;/&#34;, PageLive, :index        # remove this line</span>
+    live <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">CounterLive.Index</span>, <span style="color:#e6db74">:index</span> <span style="color:#75715e"># add this line</span>
+  end</code></pre></td></tr></table>
+</div>
+</div></p>
 <p>Start pheonix:</p>
 <p><code>mix phx.server</code></p>
 <p>Go to:</p>
@@ -776,21 +841,39 @@ git commit -m &quot;counter with live update&quot;
 <pre><code>rm test/counter_web/live/page_live_text.exs
 touch test/counter_web/live/counter_live_text.exs
 </code></pre>
-<p>Here is the code for our new test: it basically just checks to be sure our Title is on the page:</p>
-<pre><code># test/counter_web/live/counter_live_text.exs
-defmodule CounterWeb.CounterLiveTest do
-  use CounterWeb.ConnCase
+<p>Here is the code for our new test: it basically just checks to be sure our Title is on the page:
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># test/counter_web/live/counter_live_text.exs</span>
+defmodule <span style="color:#a6e22e">CounterWeb.CounterLiveTest</span> do
+  use <span style="color:#a6e22e">CounterWeb.ConnCase</span>
 
-  import CounterWeb.CounterLive.Index
+  import <span style="color:#a6e22e">CounterWeb.CounterLive.Index</span>
 
-  test &quot;disconnected and connected render&quot;, %{conn: conn} do
-    {:ok, page_live, disconnected_html} = live(conn, &quot;/&quot;)
-    assert disconnected_html =~ &quot;Live Counter&quot;
-    assert render(page_live) =~ &quot;Live Counter&quot;
+  test <span style="color:#e6db74">&#34;disconnected and connected render&#34;</span>, %{<span style="color:#e6db74">conn</span>: conn} do
+    {<span style="color:#e6db74">:ok</span>, page_live, disconnected_html} <span style="color:#f92672">=</span> live(conn, <span style="color:#e6db74">&#34;/&#34;</span>)
+    assert disconnected_html <span style="color:#f92672">=~</span> <span style="color:#e6db74">&#34;Live Counter&#34;</span>
+    assert render(page_live) <span style="color:#f92672">=~</span> <span style="color:#e6db74">&#34;Live Counter&#34;</span>
   end
 
-end
-</code></pre>
+end</code></pre></td></tr></table>
+</div>
+</div></p>
 <p>Now we can test again: <code>mix test</code></p>
 <p>Now that works, lets take another git snapshot:</p>
 <pre><code>git add .
@@ -800,7 +883,7 @@ git commit -m &quot;counter with live update&quot;
 <p>Create a template file (helpful for complex html pages, but simple to create):</p>
 <p><code>touch lib/counter_web/live/counter_live/index.html.leex</code></p>
 <p>Now just copy the html (from the render method into this file):</p>
-<pre><code># lib/counter_web/live/counter_live/index.html.leex
+<pre><code class="language-linenos=table,linenostart=1" data-lang="linenos=table,linenostart=1"># lib/counter_web/live/counter_live/index.html.leex
 &lt;h1&gt;Live Counter&lt;/h1&gt;
 &lt;p&gt;
   &lt;b&gt;Here is a great complex page&lt;/b&gt;
@@ -808,29 +891,43 @@ git commit -m &quot;counter with live update&quot;
 
 &lt;div&gt;
   &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-  &lt;button phx-click=&quot;dec&quot;&gt;-&lt;/button&gt;
-  &lt;button phx-click=&quot;inc&quot;&gt;+&lt;/button&gt;
+  &lt;button phx-click=&#34;dec&#34;&gt;-&lt;/button&gt;
+  &lt;button phx-click=&#34;inc&#34;&gt;+&lt;/button&gt;
 &lt;/div&gt;
 &lt;div&gt;
-   &lt;button phx-click=&quot;clear&quot;&gt;clear&lt;/button&gt;
+   &lt;button phx-click=&#34;clear&#34;&gt;clear&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;p&gt;
   &lt;i&gt;even more awesome content&lt;/i&gt;
-&lt;/p&gt;
-</code></pre>
+&lt;/p&gt;</code></pre>
 <p>Now point <code>lib/counter_web/live/counter_live/index.ex</code> to this file by replacing render with an apply command:</p>
-<pre><code>  # add this new function
-  defp apply_action(socket, :index, _params) do
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">  <span style="color:#75715e"># add this new function</span>
+  defp apply_action(socket, <span style="color:#e6db74">:index</span>, _params) do
     socket
   end
-  # remove this funtion
-  # def render(assigns) do
-  #  ~L&quot;&quot;&quot;
-  #   ...
-  #   &quot;&quot;&quot;
-  # end
-</code></pre>
+  <span style="color:#75715e"># remove this funtion</span>
+  <span style="color:#75715e"># def render(assigns) do</span>
+  <span style="color:#75715e">#  ~L&#34;&#34;&#34;</span>
+  <span style="color:#75715e">#   ...</span>
+  <span style="color:#75715e">#   &#34;&#34;&#34;</span>
+  <span style="color:#75715e"># end</span></code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>NOTE:</strong> <code>apply_action</code> understands the <strong>rest</strong> verbs such as <code>:new</code>, <code>:show</code> etc.</p>
 <p>Now try the app again and it should still work!</p>
 <p>Assuming it still works, I&rsquo;ll take another git snapshot:</p>
@@ -844,39 +941,75 @@ git commit -m &quot;counter using a template&quot;
 <p>Move the dynamic html and it&rsquo;s associated functions into this file, it&rsquo;s important to import the live_components into this file using:</p>
 <p><code>use CounterWeb, :live_component</code></p>
 <p>In order to encapsulate the events into the component we will also move the event handlers into the component file.</p>
-<p>So this file will now look like:</p>
-<pre><code># lib/counter_web/live/counter_live/counter_component.ex
-defmodule CounterWeb.CounterLive.CounterComponent do
-  use CounterWeb, :live_component
+<p>So this file will now look like:
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># lib/counter_web/live/counter_live/counter_component.ex</span>
+defmodule <span style="color:#a6e22e">CounterWeb.CounterLive.CounterComponent</span> do
+  use <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_component</span>
 
   def render(assigns) do
-    ~L&quot;&quot;&quot;
-    &lt;div&gt;
-      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-      &lt;button phx-click=&quot;dec&quot; phx-target=&quot;&lt;%= @myself %&gt;&quot;&gt;-&lt;/button&gt;
-      &lt;button phx-click=&quot;inc&quot; phx-target=&quot;&lt;%= @myself %&gt;&quot;&gt;+&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div&gt;
-      &lt;button phx-click=&quot;clear&quot; phx-target=&quot;&lt;%= @myself %&gt;&quot;&gt;clear&lt;/button&gt;
-    &lt;/div&gt;
-    &quot;&quot;&quot;
+    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    &lt;div&gt;
+</span><span style="color:#e6db74">      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
+</span><span style="color:#e6db74">      &lt;button phx-click=&#34;dec&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;-&lt;/button&gt;
+</span><span style="color:#e6db74">      &lt;button phx-click=&#34;inc&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;+&lt;/button&gt;
+</span><span style="color:#e6db74">    &lt;/div&gt;
+</span><span style="color:#e6db74">    &lt;div&gt;
+</span><span style="color:#e6db74">      &lt;button phx-click=&#34;clear&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;clear&lt;/button&gt;
+</span><span style="color:#e6db74">    &lt;/div&gt;
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
   end
 
-  def handle_event(&quot;inc&quot;, _, socket) do
-    {:noreply, update(socket, :val, &amp;(&amp;1 + 1))}
+  def handle_event(<span style="color:#e6db74">&#34;inc&#34;</span>, _, socket) do
+    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))}
   end
 
-  def handle_event(&quot;dec&quot;, _, socket) do
-    {:noreply, update(socket, :val, &amp;(&amp;1 - 1))}
+  def handle_event(<span style="color:#e6db74">&#34;dec&#34;</span>, _, socket) do
+    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))}
   end
 
-  def handle_event(&quot;clear&quot;, _, socket) do
-    # {:noreply, update(socket, :val, 0)} # very slow - why?
-    {:noreply, update(socket, :val, &amp;(&amp;1 - &amp;1))}
+  def handle_event(<span style="color:#e6db74">&#34;clear&#34;</span>, _, socket) do
+    <span style="color:#75715e"># {:noreply, update(socket, :val, 0)} # very slow - why?</span>
+    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> &amp;1))}
   end
 
-end
-</code></pre>
+end</code></pre></td></tr></table>
+</div>
+</div></p>
 <p>Notice the button tags are slightly more complex</p>
 <p><code>&lt;button phx-click=&quot;dec&quot; phx-target=&quot;&lt;%= @myself %&gt;&quot;&gt;</code></p>
 <p>the <strong>@myself</strong> basically informs the event that the handler is within the component.</p>
@@ -886,33 +1019,64 @@ end
 <p><code>id: 0, val: @val</code></p>
 <p>its a little wierd, but we need to pass an <strong>id</strong> even if there is no ecto backed record.</p>
 <p>Now the template file looks like a normal template file again (focused on formating):</p>
-<pre><code># lib/counter_web/live/counter_live/index.ex
-defmodule CounterWeb.CounterLive.Index do
-  use CounterWeb, :live_view
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># lib/counter_web/live/counter_live/index.ex</span>
+defmodule <span style="color:#a6e22e">CounterWeb.CounterLive.Index</span> do
+  use <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_view</span>
 
-  # since we don't have a db to pull from we initialize on mount
-  @impl true
+  <span style="color:#75715e"># since we don&#39;t have a db to pull from we initialize on mount</span>
+  <span style="color:#a6e22e">@impl</span> true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :val, 0)}
+    {<span style="color:#e6db74">:ok</span>, assign(socket, <span style="color:#e6db74">:val</span>, <span style="color:#ae81ff">0</span>)}
   end
 
   def render(assigns) do
-    ~L&quot;&quot;&quot;
-    &lt;h1&gt;Live Counter&lt;/h1&gt;
-    &lt;p&gt;
-      &lt;b&gt;Here is a great complex page&lt;/b&gt;
-    &lt;/p&gt;
-
-    &lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;
-
-    &lt;p&gt;
-      &lt;i&gt;even more awesome content&lt;/i&gt;
-    &lt;/p&gt;
-    &quot;&quot;&quot;
+    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    &lt;h1&gt;Live Counter&lt;/h1&gt;
+</span><span style="color:#e6db74">    &lt;p&gt;
+</span><span style="color:#e6db74">      &lt;b&gt;Here is a great complex page&lt;/b&gt;
+</span><span style="color:#e6db74">    &lt;/p&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &lt;p&gt;
+</span><span style="color:#e6db74">      &lt;i&gt;even more awesome content&lt;/i&gt;
+</span><span style="color:#e6db74">    &lt;/p&gt;
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
   end
 
-end
-</code></pre>
+end</code></pre></td></tr></table>
+</div>
+</div>
 <p>Lets check that this still works.</p>
 <p>Assuming it still works, I&rsquo;ll make one last git snapshot:</p>
 <pre><code>git add .

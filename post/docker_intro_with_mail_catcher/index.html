@@ -696,25 +696,25 @@ CMD [&quot;--ip&quot;, &quot;0.0.0.0&quot;]
 <h3 id="build-image"><strong>BUILD IMAGE</strong></h3>
 <p>Now you can download the docker image and install the gems into it with:</p>
 <pre><code># -t adds repository:tag info -- the '.' at the end is important:
-docker build -t btihen/mailcatcher:ruby_2.6 .
+docker build -t btihen.azurecr.io/ruby/mailcatcher:ruby_2.6 .
 # ...
 # should end with something like
 # Successfully built 21e0de2bdd68
 
-# now tag it as the lasted image:
-docker build -t garaio.azurecr.io/garaio/mailcatcher:latest .
+# now tag it as the **lasted** image with:
+docker build -t btihen.azurecr.io/ruby/mailcatcher:latest .
 </code></pre>
 <p>now you can see your list of docker images (you should see the starting image/container we just created):</p>
 <pre><code>docker images
 REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-garaio.azurecr.io/gario/mailcatcher   latest              21e0de2bdd68        8 minutes ago       870MB
-garaio.azurecr.io/gario/mailcatcher   ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+btihen.azurecr.io/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen.azurecr.io/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
 ruby                                  2.6                 a98425292e84        2 weeks ago         843MB
 </code></pre>
 <h3 id="build-container"><strong>BUILD CONTAINER</strong></h3>
 <p>Now start the docker image using the build image id (<code>-d</code> allows it to run in the backgroud, <code>-p 1025:1025 -p 1080:1080</code> opens a connection on ports 1025 &amp; 1080 from localhost to the docker image):</p>
 <pre><code># build a container so we can test our image
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher garaio.azurecr.io/garaio/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
 
 # or if you like ids better
 docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
@@ -771,26 +771,26 @@ docker kill mailcatcher
 <p><code>docker start mailcatcher</code></p>
 <h3 id="sharing-images-once-they-work"><strong>SHARING IMAGES (once they work)</strong></h3>
 <pre><code># login to the Azure Container Repository
-docker login garaio.azurecr.io -u garaio -p see_keypass_vault
+docker login btihen.azurecr.io -u username -p xxxxxxxxxxx
 
 # upload the new image
-docker push garaio.azurecr.io/garaio/mailcatcher
+docker push btihen.azurecr.io/ruby/mailcatcher
 </code></pre>
 <h3 id="retrieving-shared-image"><strong>RETRIEVING SHARED IMAGE</strong></h3>
-<pre><code>az acr login --name garaio
-az acr repository list --name garaio --output table
+<pre><code>az acr login --name username
+az acr repository list --name username --output table
 
 # getting the image
-docker pull garaio.azurecr.io/garaio/image_name
+docker pull btihen.azurecr.io/ruby/image_name
 </code></pre>
 <p><strong>containerize the image</strong></p>
 <pre><code># these are the default local ports - adjust to your needs
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher garaio.azurecr.io/garaio/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
 </code></pre>
 <p><strong>start the container</strong></p>
 <pre><code>docker start mailcatcher
 </code></pre>
-<h3 id="listing-garaio-images"><strong>LISTING GARAIO IMAGES</strong></h3>
+<h3 id="listing-repo-images"><strong>LISTING Repo IMAGES</strong></h3>
 <p><strong>One-time install</strong></p>
 <pre><code># if needed install the azure cli
 brew update &amp;&amp; brew install azure-cli
@@ -801,10 +801,10 @@ brew link --overwrite python3
 </code></pre>
 <p><strong>Retrieve the image list</strong></p>
 <pre><code># login with the azure-cli
-az acr login --name garaio
+az acr login --name username
 
 # list the images
-az acr repository list --name garaio --output table
+az acr repository list --name username --output table
 </code></pre>
 <h3 id="removing-containers"><strong>REMOVING CONTAINERS</strong></h3>
 <p>when we no longer need mailcatcher we can remove it with (<code>-a</code> lists running and stopped containers):</p>

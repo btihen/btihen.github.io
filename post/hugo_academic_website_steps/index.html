@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="githug and submodules to publish a hugo site">
+  <meta name="description" content="hugo web (with the Academic Theme) and using git submodules and github to publish a free website">
 
   
   <link rel="alternate" hreflang="en-us" href="https://btihen.github.io/post/hugo_academic_website_steps/">
@@ -235,8 +235,8 @@
   
   <meta property="og:site_name" content="btihen">
   <meta property="og:url" content="https://btihen.github.io/post/hugo_academic_website_steps/">
-  <meta property="og:title" content="Publish Hugo Website using Github | btihen">
-  <meta property="og:description" content="githug and submodules to publish a hugo site"><meta property="og:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
+  <meta property="og:title" content="Hugo Website using Github | btihen">
+  <meta property="og:description" content="hugo web (with the Academic Theme) and using git submodules and github to publish a free website"><meta property="og:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
   <meta property="twitter:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -268,7 +268,7 @@
     "@type": "WebPage",
     "@id": "https://btihen.github.io/post/hugo_academic_website_steps/"
   },
-  "headline": "Publish Hugo Website using Github",
+  "headline": "Hugo Website using Github",
   
   "datePublished": "2020-05-16T10:39:21+02:00",
   "dateModified": "2020-05-16T10:39:21+02:00",
@@ -286,7 +286,7 @@
       "url": "https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_192x192_fit_lanczos_2.png"
     }
   },
-  "description": "githug and submodules to publish a hugo site"
+  "description": "hugo web (with the Academic Theme) and using git submodules and github to publish a free website"
 }
 </script>
 
@@ -304,7 +304,7 @@
 
 
 
-  <title>Publish Hugo Website using Github | btihen</title>
+  <title>Hugo Website using Github | btihen</title>
 
 </head>
 
@@ -588,7 +588,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Publish Hugo Website using Github</h1>
+  <h1>Hugo Website using Github</h1>
 
   
   <p class="page-subtitle">Using the Academic Theme</p>
@@ -628,7 +628,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    6 min read
+    8 min read
   </span>
   
 
@@ -668,18 +668,25 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="install-hugo">install hugo</h2>
+      <h3 id="step-0-install-hugo">step 0: install hugo</h3>
 <pre><code>brew install hugo
 </code></pre>
-<h2 id="create-an-username_website-repo-on-your-github">create an <code>username_website</code> repo on your github</h2>
-<p>I&rsquo;ll assume your github account is <code>username</code></p>
-<h2 id="clone-the-academic-repo-locally">clone the academic repo locally</h2>
+<h3 id="step-1-create-a-public-username_website-repo">step 1: create a <strong>public</strong> <code>username_website</code> repo</h3>
+<p>I&rsquo;ll assume your github account is <code>username</code> I think this repo needs to be publicly readable (not 100% sure)</p>
+<h3 id="step-2-clone-the-academic-hugo-locally">step 2: clone the academic hugo locally</h3>
 <pre><code>git clone https://github.com/sourcethemes/academic-kickstart.git username_website
 cd academic_website
 git submodule update --init --recursive  # without this the site won't start correctly
 </code></pre>
 <p>be sure you have many files within: <strong><code>themes/academic</code></strong></p>
-<h2 id="point-this-repo-to-your-username_website-repo">point this repo to your <code>username_website</code> repo</h2>
+<h3 id="step-3-update-gitignore--public-folder">step 3: Update .gitignore &amp; public folder</h3>
+<ol>
+<li>update <code>.gitignore</code> remove the line with <code>public</code></li>
+<li>be sure there is no <code>public</code> folder (yet), if there is remove it and all its contents.</li>
+</ol>
+<h3 id="step-4-point-this-repo-to-your-username_website-repo">step 4: point this repo to your <code>username_website</code> repo</h3>
+<p>I have found the easiest way to overwrite the source <code>origin</code> repo is to do this by hand.</p>
+<p>Currently your <code>.git/config</code> file will currently look like (notice the url referencing: <code>git://github.com/sourcethemes/academic-kickstart.git</code> - this is what we need to update):</p>
 <pre><code>[core]
 	repositoryformatversion = 0
 	filemode = true
@@ -694,10 +701,10 @@ git submodule update --init --recursive  # without this the site won't start cor
 	remote = origin
 	merge = refs/heads/master
 </code></pre>
-<p>change the origin url usuing:</p>
+<p>change the origin url by hand or by using sed:</p>
 <pre><code>sed -i.bak -e 's/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/' .git/config
 </code></pre>
-<p>Now this file should look like:</p>
+<p>when your <code>.git/config</code> file is correct it will look like:</p>
 <pre><code>[core]
 	repositoryformatversion = 0
 	filemode = true
@@ -719,22 +726,22 @@ git submodule update --init --recursive  # without this the site won't start cor
 # git commit -m &quot;Initial commit&quot;
 # git push -u origin master
 </code></pre>
-<h2 id="configure-website-basics">configure website basics</h2>
-<h3 id="set-your-site-name">Set your site name:</h3>
+<h3 id="step-5-configure-website-basics">step 5: configure website basics</h3>
+<h4 id="5a-set-your-site-name">5A: Set your site name:</h4>
 <p>in <code>config/_default/config.toml</code></p>
 <p>find the <code>title</code> attribute and set it to <code>username</code> (or whatever is appropriate)</p>
-<h3 id="pick-a-themes">Pick a themes</h3>
+<h4 id="5b-pick-a-themes">5B: Pick a themes</h4>
 <p>from <a href="https://sourcethemes.com/academic/themes/">https://sourcethemes.com/academic/themes/</a></p>
 <p>in <code>config/_default/config.toml</code></p>
 <p>find the <code>theme</code> attribute and set it to your favorite theme color (or leave it as is)</p>
-<h3 id="site-logo--favicon">site logo &amp; favicon</h3>
+<h4 id="5c-site-logo--favicon">5C: site logo &amp; favicon</h4>
 <p>Put your image files into assets/images:</p>
 <ul>
 <li><code>logo.png</code> (the logo on your webpage) file and</li>
 <li><code>icon.png</code> (the favicon - icon in the webtab)</li>
 </ul>
 <p>You can go to <code>https://www.namecheap.com/logo-maker</code> and make a logo</p>
-<h3 id="menu-items">menu items</h3>
+<h4 id="5d-menu-items">5D: menu items</h4>
 <p>in <code>config/_default/menus.toml</code></p>
 <p>remove any items you won&rsquo;t use.  In my case this file now looks like:</p>
 <pre><code>[[main]]
@@ -754,7 +761,7 @@ git submodule update --init --recursive  # without this the site won't start cor
 </code></pre>
 <p>These will also be the sections on the home page that will be enabled and configured.</p>
 <p>The larger the weight the further to the <strong>right</strong> the item will be shown.</p>
-<h2 id="configure-site-parameters">configure site parameters</h2>
+<h3 id="step-6-configure-site-parameters">step 6: configure site parameters</h3>
 <p>You may want to read through all the params - but the ones listed here are enough to get started.</p>
 <ul>
 <li><strong>site_type</strong> &ndash; in the file: <code>config/_default/params.toml</code>: be sure to configure the <code>site_type</code> variable</li>
@@ -767,7 +774,7 @@ git submodule update --init --recursive  # without this the site won't start cor
 <li><strong>configure social details</strong> &ndash; optional</li>
 <li><strong>Regional Settings</strong> &ndash; NOTE: The date display settings seems to have a bug &ndash; so I don&rsquo;t recommend adjusting that.</li>
 </ul>
-<h2 id="configure-your-homepage">configure your homepage</h2>
+<h3 id="step-7-configure-your-homepage">step 7: configure your homepage</h3>
 <p>At this point I suggest starting <code>hugo server</code> so you can watch your edits.</p>
 <p>Now go into the folder <code>content/home</code> and we will adjust or disable the files in this folder.</p>
 <ul>
@@ -787,13 +794,14 @@ git submodule update --init --recursive  # without this the site won't start cor
 <p><strong><code>accomplishments.md</code></strong> - (and all other home page sections you decide not to display) change <code>active=true</code> to <strong><code>active=false</code></strong></p>
 </li>
 </ul>
-<h3 id="about-page"><code>about</code> page</h3>
+<h4 id="7a-about-page">7A: <code>about</code> page</h4>
+<p>I prefer to use the <code>about</code> page when it is a person&rsquo;s site and the <code>people</code> page when the site is about a group effort.</p>
 <ul>
-<li><strong><code>about.md</code></strong> - I have changed the title to <code>about</code> &ndash; NOTE: the material displayed here comes from the page: <code>content/authours/admin</code> (or whatever name you change the folder to &ndash; be sure to use the same name in <code>content/home/about.md</code> in the variable <code>author = &quot;admin&quot;</code>)</li>
+<li><strong><code>about.md</code></strong> - I change the title to <code>about</code> &ndash; NOTE: the material displayed here comes from the page: <code>content/authours/admin</code> (or whatever name you change the folder to &ndash; be sure to use the same name in <code>content/home/about.md</code> in the variable <code>author = &quot;admin&quot;</code>)</li>
 </ul>
 <p>Now adjust the file: <code>content/authors/admin/_index.md</code> &ndash; below the <code>---</code> toward the end of the file you can add your own free text to the about page.</p>
 <p>now add a nice image (of the person or org to this folder and call it: <strong><code>avatar.jpeg</code></strong>)</p>
-<h3 id="people-or-team-page"><code>people</code> (or Team) page</h3>
+<h4 id="7b-people-or-team-page">7B: <code>people</code> (or Team) page</h4>
 <p>To create a list of peolple and their bios for a site.</p>
 <p>edit <strong><code>people.md</code></strong></p>
 <ul>
@@ -807,46 +815,90 @@ git submodule update --init --recursive  # without this the site won't start cor
 </code></pre>
 <p>Now create additional folders in: <code>content/authors/</code>
 for example I might make a page for me with:</p>
-<pre><code>mkdir content/authors/btihen
-cp content/authors/admin/_index.md content/authors/btihen/_index.md
+<pre><code>mkdir content/authors/person_name
+cp content/authors/admin/* content/authors/person_name/*
 </code></pre>
-<p>now edit: <code>content/authors/btihen/_index.md</code></p>
-<p>it is important to add the variable: <code>user_groups = [&quot;Educators&quot;]</code> (one or more of the groups)</p>
-<p>of course edit the settings to match the person&rsquo;s profile.</p>
-<h3 id="when-the-site-is-good-enough-in-your-localbrowser-its-time-to-take-a-git-snapshot-and-publish">when the site is good enough in your localbrowser its time to take a git snapshot and publish.</h3>
-<p>edit your <code>.gitignore</code> file to track <code>public</code> (just delete this line)</p>
-<p>now create your git snapshot:</p>
+<ul>
+<li>edit: <code>content/authors/person_name/_index.md</code> to match the person</li>
+<li>add to: <code>content/authors/person_name/_index.md</code> the variable: <code>user_groups = [&quot;Educators&quot;]</code> <em>(one or more of the groups listed in the [content] tag)</em></li>
+<li>replace <code>content/authors/person_name/avatar.png</code> with a photo of the person (or delete the file if no photo is desired)</li>
+</ul>
+<h3 id="step-8-test-publish-to-usernamegithubio">step 8: Test publish to <code>username.github.io</code></h3>
+<p>When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)</p>
+<h4 id="8a-public-folder-non-existent">8A: public folder (non-existent)</h4>
+<p>The first time you do setup for publishing it is important this folder doesn&rsquo;t exist yet and that <code>public</code> isn&rsquo;t listed in the .gitignore` file</p>
+<h4 id="8b-git-snapshot">8B: git snapshot</h4>
+<p><strong>(DO NOT YET GENERATE your website)</strong></p>
+<p>Create your git snapshot (very important at this point since the next steps are tricky)</p>
 <pre><code>git add .
 git commit -m &quot;First draft of homepage&quot;
 git push
 </code></pre>
-<p>now we will generate the <code>static</code> site for our webpage</p>
-<pre><code>hugo -d public
-git add .
-git commit -m &quot;added static pages to publish&quot;
-</code></pre>
-<h2 id="setup-your-site-to-to-publish-a-github-webpage">setup your site to to publish a github webpage!</h2>
-<p>This is a little tricky, but quite workable.</p>
-<p>First we need to make a second repo on github called: <code>username.github.io</code> it MUST be exactly your username.github.io for this to work.</p>
-<p>CREATE with A README (or add one) before now &ndash; before this next step!</p>
-<p>now go back into your website code and type:</p>
+<h4 id="8c-make-second-github-repo-usernamegithubio">8C: make second github repo <strong><code>username.github.io</code></strong></h4>
+<p>Now make a second <strong>public</strong> repo (CLICK THE BOX TO INCLUDE A <strong>README</strong> and/or a <strong>LISENCE</strong> file!) on github called <strong><code>username.github.io</code></strong>, this MUST be exactly: <code>username.github.io</code> for this to work!</p>
+<p>Double check your repo is not empty, but has a <strong>README</strong> and/or a <strong>LISENCE</strong> file.</p>
+<p>NOW go to github repo <strong>settings</strong> and click on <strong>manage access</strong> and be sure you have permission to at administer (or at least write to this repo) &ndash; probably not so click the <strong><code>invite teams or people</code></strong> button and add yourself as an admin (an other as needed).</p>
+<h4 id="8d-clone-usernamegithubio-to-public-within-your-hugo-project">8D: clone <strong><code>username.github.io</code></strong> to public (within your Hugo project)</h4>
+<p>now go back into your website code (root folder) and type:</p>
 <pre><code>git clone https://github.com/username/username.github.io.git public
 </code></pre>
-<p>if you see: <code>warning: You appear to have cloned an empty repository.</code> &ndash; you will have problems!</p>
-<p>Now add the username.github.io repo as a submodule to your website code repo using:</p>
-<pre><code>git submodule add -b master https://github.com/username/username.github.io.git public`
+<p>if you see: <code>warning: You appear to have cloned an empty repository.</code> &ndash; go back to the repo and create a README file!</p>
+<h4 id="8e-check-your-permissions">8E: check your permissions</h4>
+<p>enter you public folder and create an <code>index.html</code> file and put in very simple html code: <code>&lt;h1&gt;Hello username.github.io&lt;/h1&gt;</code></p>
+<pre><code>cd public
+touch index.html
+echo '&lt;h1&gt;Hello username.github.io&lt;/h1&gt;' &gt;&gt; index.html
 </code></pre>
-<p>now in <code>.git/config</code> you might see:</p>
+<p>now check this in and push it to github.</p>
+<pre><code>git add .
+git commit -m &quot;test webpage&quot;
+git push
+</code></pre>
+<p>At this point you should see a bunch of message and toward the end you should see a line with:</p>
+<pre><code>To github.com:username/username.github.io.git
+</code></pre>
+<p>If instead you get the error:</p>
+<pre><code>remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
+fatal: unable to access 'https://github.com/peakchallenges/peakchallenges.github.io.git/': The requested URL returned error: 403
+</code></pre>
+<p>go back and check your site permissions.</p>
+<p>If site permissions aren&rsquo;t a problem do the following:</p>
+<p>re-create your website repo <code>username.github.io.git</code> outside the webcode project.</p>
+<pre><code>git clone git@github.com:username/username.github.io.git
+cd username.github.io
+echo '&lt;h1&gt;Hello username.github.io - v1&lt;/h1&gt;' &gt;&gt; index.html
+git add index.html
+git commit -m &quot;update readme and test permissions&quot;
+git push
+</code></pre>
+<p>assuming this works then move this repo into the hugo repo:</p>
+<pre><code>rm -rf username_website/public
+mv username.github.io username_website/public
+cd username_website/public
+echo '&lt;h1&gt;Hello username.github.io - v2&lt;/h1&gt;' &gt;&gt; index.html
+git commit -am &quot;update readme and test permissions within hugo project&quot;
+git push
+</code></pre>
+<h4 id="8f-check-the-website">8F: check the website</h4>
+<p>Wait a few minutes and go to the website <code>https://username.github.io</code> and be sure you see your newly published html page.</p>
+<h3 id="step-9-configure-public-as-a-submodule">step 9: configure <code>public</code> as a <strong>submodule</strong></h3>
+<p>Now add the username.github.io repo as a submodule to your website code repo using.  This allows nested projects without confusing git.</p>
+<p>First be sure you are in the hugo root and not the public folder and type:</p>
+<pre><code>cd public
+git submodule add -b master https://github.com/username/username.github.io.git public`
+</code></pre>
+<p>now in <code>.git/modules</code> you might see a folder called <code>public</code> (with a bunch of stuff in it) if not simply edit your <code>.git/config</code> so that after:</p>
 <pre><code>[submodule &quot;themes/academic&quot;]
   path = themes/academic
   url = https://github.com/gcushen/hugo-academic.git
-
-[submodule &quot;public&quot;]
+</code></pre>
+<p>you see:</p>
+<pre><code>[submodule &quot;public&quot;]
   path = public
   url = https://github.com/username/username.github.io.git
   branch = master
 </code></pre>
-<p>if not add it with:</p>
+<p>You can add it by hand or with:</p>
 <pre><code>cat &lt;&lt;&quot;EOF&quot; &gt;&gt; git/config
 [submodule &quot;public&quot;]
   path = public
@@ -854,9 +906,8 @@ git commit -m &quot;added static pages to publish&quot;
   branch = master
 EOF
 </code></pre>
-<p>NOW go to github repo <strong>settings</strong> and click on <strong>manage access</strong> and be sure you have permission to at administer (or at least write to this repo) &ndash; probably not so click the <strong><code>invite teams or people</code></strong> button and add yourself as an admin (an other as needed).</p>
-<h2 id="publish-your-new-github-webpage">publish your new github webpage:</h2>
-<p>do the following:</p>
+<h3 id="step-10-publish-your-new-hugo-webpage">step 10: publish your new Hugo webpage:</h3>
+<p>Now to publish the Hugo site you prepared do the following:</p>
 <pre><code>hugo -d public
 cd public
 git add .
@@ -865,38 +916,10 @@ git push
 # toward the end you should see: `To github.com:username/username.github.io.git`
 cd ..
 </code></pre>
-<p>if you get the error:</p>
-<pre><code>remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
-fatal: unable to access 'https://github.com/peakchallenges/peakchallenges.github.io.git/': The requested URL returned error: 403
-</code></pre>
-<p>then go back and fix the permissions in the last step.</p>
-<p>If that still is a problem, then re-create your local repo <code>username.github.io.git</code> outside the webcode project.</p>
-<pre><code>git clone git@github.com:username/username.github.io.git
-cd username.github.io
-# update the readme
-git commit -am &quot;update readme and test permissions&quot;
-git push
-</code></pre>
-<p>assuming this works:</p>
-<pre><code>rm -rf username_website/public
-mv username.github.io username_website/public
-cd username_website/public
-# update the readme again
-git commit -am &quot;update readme and test permissions within webcode&quot;
-git push
-</code></pre>
-<p>assuming this now works do:</p>
-<pre><code>cd ..
-hugo -d public
-cd public
-git add .
-git commit -m &quot;publish new content on: xx-xx-xxxx&quot;
-git push
-cd ..
-git status
-# commit if needed
-</code></pre>
-<p>now to go <a href="https://username.github.io/">https://username.github.io/</a> (it might take a few minutes to publish)</p>
+<p>Follow this proceedure every time you update your site.</p>
+<p>NOTE: BE SURE NOT TO delete the folder <code>public/.git/</code> or you will need to reconfigure your public submodule.</p>
+<p>now go back to <code>https://username.github.io</code> and you should see your hugo site!</p>
+<p>(This might take a few minutes &ndash; up to a half-hour &ndash; to publish)</p>
 
     </div>
 
@@ -931,7 +954,7 @@ git status
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.github.io/post/hugo_academic_website_steps/&amp;text=Publish%20Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.github.io/post/hugo_academic_website_steps/&amp;text=Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -944,7 +967,7 @@ git status
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.github.io/post/hugo_academic_website_steps/&amp;t=Publish%20Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.github.io/post/hugo_academic_website_steps/&amp;t=Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -957,7 +980,7 @@ git status
       
       
       <li>
-        <a href="mailto:?subject=Publish%20Hugo%20Website%20using%20Github&amp;body=https://btihen.github.io/post/hugo_academic_website_steps/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Hugo%20Website%20using%20Github&amp;body=https://btihen.github.io/post/hugo_academic_website_steps/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -970,7 +993,7 @@ git status
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.github.io/post/hugo_academic_website_steps/&amp;title=Publish%20Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.github.io/post/hugo_academic_website_steps/&amp;title=Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -983,7 +1006,7 @@ git status
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Publish%20Hugo%20Website%20using%20Github%20https://btihen.github.io/post/hugo_academic_website_steps/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Hugo%20Website%20using%20Github%20https://btihen.github.io/post/hugo_academic_website_steps/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -996,7 +1019,7 @@ git status
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.github.io/post/hugo_academic_website_steps/&amp;title=Publish%20Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.github.io/post/hugo_academic_website_steps/&amp;title=Hugo%20Website%20using%20Github" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
