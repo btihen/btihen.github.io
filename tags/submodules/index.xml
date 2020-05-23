@@ -144,33 +144,63 @@ git submodule update --init --recursive  # without this the site won&#39;t start
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;7a-about-page&#34;&gt;7A: &lt;code&gt;about&lt;/code&gt; page&lt;/h4&gt;
-&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.&lt;/p&gt;
+&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.  So in this case:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/author_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;about.md&lt;/code&gt;&lt;/strong&gt; - I change the title to &lt;code&gt;about&lt;/code&gt; &amp;ndash; NOTE: the material displayed here comes from the page: &lt;code&gt;content/authours/admin&lt;/code&gt; (or whatever name you change the folder to &amp;ndash; be sure to use the same name in &lt;code&gt;content/home/about.md&lt;/code&gt; in the variable &lt;code&gt;author = &amp;quot;admin&amp;quot;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;change the title to whatever you like: biography, about, etc&amp;hellip;&lt;/li&gt;
+&lt;li&gt;change the variable &lt;code&gt;author&lt;/code&gt; to match the name you used to generate you profile above, ie:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Now adjust the file: &lt;code&gt;content/authors/admin/_index.md&lt;/code&gt; &amp;ndash; below the &lt;code&gt;---&lt;/code&gt; toward the end of the file you can add your own free text to the about page.&lt;/p&gt;
-&lt;p&gt;now add a nice image (of the person or org to this folder and call it: &lt;strong&gt;&lt;code&gt;avatar.jpeg&lt;/code&gt;&lt;/strong&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;author = &amp;quot;author_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the file so the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/author_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;7b-people-or-team-page&#34;&gt;7B: &lt;code&gt;people&lt;/code&gt; (or Team) page&lt;/h4&gt;
-&lt;p&gt;To create a list of peolple and their bios for a site.&lt;/p&gt;
-&lt;p&gt;edit &lt;strong&gt;&lt;code&gt;people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;disable &lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mark the &lt;code&gt;active&lt;/code&gt; variable as &lt;code&gt;false&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;active=false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;enable &lt;code&gt;content/home/people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;set &lt;code&gt;active=true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;create reasonable group name(s) in the section (for example):&lt;/li&gt;
+&lt;li&gt;create sub-group names:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code&gt;[content]
-  # Choose which groups/teams of users to display.
-  #   Edit `user_groups` in each user&#39;s profile to add them to one or more of these groups.
-  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Agilists&amp;quot;]
+  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Researchers&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now create additional folders in: &lt;code&gt;content/authors/&lt;/code&gt;
-for example I might make a page for me with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir content/authors/person_name
-cp content/authors/admin/* content/authors/person_name/*
+&lt;p&gt;or alternatively, use an empty string to create a team without sub-teams:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Create the people (authors)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/person_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add one (or more) &lt;code&gt;user_group&lt;/code&gt; to the person&amp;rsquo;s profile using the &lt;code&gt;user_groups&lt;/code&gt; variable:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you used an empty string in &lt;code&gt;people.md&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
-&lt;li&gt;edit: &lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt; to match the person&lt;/li&gt;
-&lt;li&gt;add to: &lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt; the variable: &lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]&lt;/code&gt; &lt;em&gt;(one or more of the groups listed in the [content] tag)&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;replace &lt;code&gt;content/authors/person_name/avatar.png&lt;/code&gt; with a photo of the person (or delete the file if no photo is desired)&lt;/li&gt;
+&lt;li&gt;Edit this file so that the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/person_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;step-8-test-publish-to-usernamegithubio&#34;&gt;step 8: Test publish to &lt;code&gt;username.github.io&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)&lt;/p&gt;

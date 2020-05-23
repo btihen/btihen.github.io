@@ -242,7 +242,7 @@
     
       <meta property="article:published_time" content="2020-05-16T10:39:21&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-05-16T10:39:21&#43;02:00">
+    <meta property="article:modified_time" content="2020-05-23T10:39:21&#43;02:00">
   
 
   
@@ -271,7 +271,7 @@
   "headline": "Hugo Website using Github",
   
   "datePublished": "2020-05-16T10:39:21+02:00",
-  "dateModified": "2020-05-16T10:39:21+02:00",
+  "dateModified": "2020-05-23T10:39:21+02:00",
   
   "author": {
     "@type": "Person",
@@ -483,6 +483,28 @@
         
         
         
+
+        <li class="nav-item">
+          <a class="nav-link " href="/courses"><span>Courses</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
           
           
           
@@ -618,8 +640,10 @@
     
     
       
+          Last updated on
+      
     
-    Sat, May 16, 2020
+    Sat, May 23, 2020
   </span>
   
 
@@ -795,33 +819,63 @@ git submodule update --init --recursive  # without this the site won't start cor
 </li>
 </ul>
 <h4 id="7a-about-page">7A: <code>about</code> page</h4>
-<p>I prefer to use the <code>about</code> page when it is a person&rsquo;s site and the <code>people</code> page when the site is about a group effort.</p>
+<p>I prefer to use the <code>about</code> page when it is a person&rsquo;s site and the <code>people</code> page when the site is about a group effort.  So in this case:</p>
+<pre><code>hugo new --kind authors authors/author_name
+</code></pre>
+<p><strong><code>content/home/about.md</code></strong></p>
 <ul>
-<li><strong><code>about.md</code></strong> - I change the title to <code>about</code> &ndash; NOTE: the material displayed here comes from the page: <code>content/authours/admin</code> (or whatever name you change the folder to &ndash; be sure to use the same name in <code>content/home/about.md</code> in the variable <code>author = &quot;admin&quot;</code>)</li>
+<li>change the title to whatever you like: biography, about, etc&hellip;</li>
+<li>change the variable <code>author</code> to match the name you used to generate you profile above, ie:</li>
 </ul>
-<p>Now adjust the file: <code>content/authors/admin/_index.md</code> &ndash; below the <code>---</code> toward the end of the file you can add your own free text to the about page.</p>
-<p>now add a nice image (of the person or org to this folder and call it: <strong><code>avatar.jpeg</code></strong>)</p>
+<pre><code>author = &quot;author_name&quot;
+</code></pre>
+<p><strong><code>content/authors/author_name/_index.md</code></strong></p>
+<ul>
+<li>Adjust the file so the information is accurate</li>
+<li>below the <code>---</code> toward the end of the file, add your own free text to the about page.</li>
+</ul>
+<p><strong><code>content/authors/author_name/avatar.jpeg</code></strong> (png, jpg, etc also work)</p>
+<ul>
+<li>add an attractive image to the folder <code>content/authors/author_name/</code> and name it: <strong><code>avatar.jpg</code></strong></li>
+</ul>
 <h4 id="7b-people-or-team-page">7B: <code>people</code> (or Team) page</h4>
-<p>To create a list of peolple and their bios for a site.</p>
-<p>edit <strong><code>people.md</code></strong></p>
+<p><strong>disable <code>content/home/about.md</code></strong></p>
+<ul>
+<li>Mark the <code>active</code> variable as <code>false</code>:</li>
+</ul>
+<pre><code>active=false
+</code></pre>
+<p><strong>enable <code>content/home/people.md</code></strong></p>
 <ul>
 <li>set <code>active=true</code></li>
-<li>create reasonable group name(s) in the section (for example):</li>
+<li>create sub-group names:</li>
 </ul>
 <pre><code>[content]
-  # Choose which groups/teams of users to display.
-  #   Edit `user_groups` in each user's profile to add them to one or more of these groups.
-  user_groups = [&quot;Educators&quot;, &quot;Agilists&quot;]
+  user_groups = [&quot;Educators&quot;, &quot;Researchers&quot;]
 </code></pre>
-<p>Now create additional folders in: <code>content/authors/</code>
-for example I might make a page for me with:</p>
-<pre><code>mkdir content/authors/person_name
-cp content/authors/admin/* content/authors/person_name/*
+<p>or alternatively, use an empty string to create a team without sub-teams:</p>
+<pre><code>[content]
+  user_groups = [&quot;&quot;]
+</code></pre>
+<p><strong>Create the people (authors)</strong></p>
+<pre><code>hugo new --kind authors authors/person_name
+</code></pre>
+<p><strong><code>content/authors/person_name/_index.md</code></strong></p>
+<ul>
+<li>add one (or more) <code>user_group</code> to the person&rsquo;s profile using the <code>user_groups</code> variable:</li>
+</ul>
+<pre><code>user_groups = [&quot;Educators&quot;]
+</code></pre>
+<p>if you used an empty string in <code>people.md</code> add:</p>
+<pre><code>user_groups = [&quot;&quot;]
 </code></pre>
 <ul>
-<li>edit: <code>content/authors/person_name/_index.md</code> to match the person</li>
-<li>add to: <code>content/authors/person_name/_index.md</code> the variable: <code>user_groups = [&quot;Educators&quot;]</code> <em>(one or more of the groups listed in the [content] tag)</em></li>
-<li>replace <code>content/authors/person_name/avatar.png</code> with a photo of the person (or delete the file if no photo is desired)</li>
+<li>Edit this file so that the information is accurate</li>
+<li>below the <code>---</code> toward the end of the file, add your own free text to the about page.</li>
+</ul>
+<p><strong><code>content/authors/person_name/avatar.jpeg</code></strong> (png, jpg, etc also work)</p>
+<ul>
+<li>add an attractive image to the folder <code>content/authors/person_name/</code> and name it: <strong><code>avatar.jpg</code></strong></li>
 </ul>
 <h3 id="step-8-test-publish-to-usernamegithubio">step 8: Test publish to <code>username.github.io</code></h3>
 <p>When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)</p>

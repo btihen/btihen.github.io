@@ -5,12 +5,62 @@
     <link>https://btihen.github.io/categories/code/</link>
       <atom:link href="https://btihen.github.io/categories/code/index.xml" rel="self" type="application/rss+xml" />
     <description>Code</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 16 May 2020 10:39:21 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 23 May 2020 10:39:21 +0200</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Code</title>
       <link>https://btihen.github.io/categories/code/</link>
     </image>
+    
+    <item>
+      <title>Hugo Academic Content Commands</title>
+      <link>https://btihen.github.io/post/hugo_academic_cheatsheet/</link>
+      <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post/hugo_academic_cheatsheet/</guid>
+      <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/firstname_lastname
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add person&amp;rsquo;s image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/authors/firstname_lastname/avatar.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-blog&#34;&gt;Create a Blog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind post post/blog_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;images within the article&lt;/strong&gt; - add images to the article folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp image.jpg content/post/blog_title/article_image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and add it to the content using: &lt;code&gt;![kanban](example.jpg)&lt;/code&gt; within the article&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/post/blog_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-a-publication-reference&#34;&gt;Add a Publication Reference&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind publication publication/publication_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/publication/publication_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a pdf&lt;/strong&gt; (with the same name as the folder) and it will be automatically available&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.pdf content/publication/publication_title/publication_title.pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;Create a Project&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind project project/project_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/project/project_name/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-talk&#34;&gt;Create a Talk&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind talk talk/my-talk-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Talk Slides&lt;/strong&gt; are a bit more complicated see:
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34;&gt;https://sourcethemes.com/academic/docs/managing-content/#create-slides&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;course-documentation&#34;&gt;Course (Documentation)&lt;/h2&gt;
+&lt;p&gt;This is tricky (copy and rename an existing &lt;code&gt;course&lt;/code&gt; and adapt it)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;courses&lt;/code&gt; can be renamed and can have multiple folders (courses) within it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; the &lt;code&gt;algebra_1&lt;/code&gt; folder cannot have any sub-folders. Within an actual course all materials must be within a FLAT hierarchy.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Website using Github</title>
@@ -144,33 +194,63 @@ git submodule update --init --recursive  # without this the site won&#39;t start
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;7a-about-page&#34;&gt;7A: &lt;code&gt;about&lt;/code&gt; page&lt;/h4&gt;
-&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.&lt;/p&gt;
+&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.  So in this case:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/author_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;about.md&lt;/code&gt;&lt;/strong&gt; - I change the title to &lt;code&gt;about&lt;/code&gt; &amp;ndash; NOTE: the material displayed here comes from the page: &lt;code&gt;content/authours/admin&lt;/code&gt; (or whatever name you change the folder to &amp;ndash; be sure to use the same name in &lt;code&gt;content/home/about.md&lt;/code&gt; in the variable &lt;code&gt;author = &amp;quot;admin&amp;quot;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;change the title to whatever you like: biography, about, etc&amp;hellip;&lt;/li&gt;
+&lt;li&gt;change the variable &lt;code&gt;author&lt;/code&gt; to match the name you used to generate you profile above, ie:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Now adjust the file: &lt;code&gt;content/authors/admin/_index.md&lt;/code&gt; &amp;ndash; below the &lt;code&gt;---&lt;/code&gt; toward the end of the file you can add your own free text to the about page.&lt;/p&gt;
-&lt;p&gt;now add a nice image (of the person or org to this folder and call it: &lt;strong&gt;&lt;code&gt;avatar.jpeg&lt;/code&gt;&lt;/strong&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;author = &amp;quot;author_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the file so the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/author_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;7b-people-or-team-page&#34;&gt;7B: &lt;code&gt;people&lt;/code&gt; (or Team) page&lt;/h4&gt;
-&lt;p&gt;To create a list of peolple and their bios for a site.&lt;/p&gt;
-&lt;p&gt;edit &lt;strong&gt;&lt;code&gt;people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;disable &lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mark the &lt;code&gt;active&lt;/code&gt; variable as &lt;code&gt;false&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;active=false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;enable &lt;code&gt;content/home/people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;set &lt;code&gt;active=true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;create reasonable group name(s) in the section (for example):&lt;/li&gt;
+&lt;li&gt;create sub-group names:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code&gt;[content]
-  # Choose which groups/teams of users to display.
-  #   Edit `user_groups` in each user&#39;s profile to add them to one or more of these groups.
-  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Agilists&amp;quot;]
+  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Researchers&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now create additional folders in: &lt;code&gt;content/authors/&lt;/code&gt;
-for example I might make a page for me with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir content/authors/person_name
-cp content/authors/admin/* content/authors/person_name/*
+&lt;p&gt;or alternatively, use an empty string to create a team without sub-teams:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Create the people (authors)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/person_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add one (or more) &lt;code&gt;user_group&lt;/code&gt; to the person&amp;rsquo;s profile using the &lt;code&gt;user_groups&lt;/code&gt; variable:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you used an empty string in &lt;code&gt;people.md&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
-&lt;li&gt;edit: &lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt; to match the person&lt;/li&gt;
-&lt;li&gt;add to: &lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt; the variable: &lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]&lt;/code&gt; &lt;em&gt;(one or more of the groups listed in the [content] tag)&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;replace &lt;code&gt;content/authors/person_name/avatar.png&lt;/code&gt; with a photo of the person (or delete the file if no photo is desired)&lt;/li&gt;
+&lt;li&gt;Edit this file so that the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/person_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;step-8-test-publish-to-usernamegithubio&#34;&gt;step 8: Test publish to &lt;code&gt;username.github.io&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)&lt;/p&gt;
@@ -277,7 +357,10 @@ cd ..
       <link>https://btihen.github.io/post/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
       <guid>https://btihen.github.io/post/docker_intro_with_mail_catcher/</guid>
-      <description>&lt;h3 id=&#34;setup&#34;&gt;&lt;strong&gt;SETUP&lt;/strong&gt;&lt;/h3&gt;
+      <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
+&lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
+&lt;h3 id=&#34;setup&#34;&gt;&lt;strong&gt;SETUP&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;First we need to get the repo (or at least the docker file)&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# get the mailcatcher repo
 git clone git@github.com:sj26/mailcatcher.git
@@ -305,25 +388,25 @@ CMD [&amp;quot;--ip&amp;quot;, &amp;quot;0.0.0.0&amp;quot;]
 &lt;h3 id=&#34;build-image&#34;&gt;&lt;strong&gt;BUILD IMAGE&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;Now you can download the docker image and install the gems into it with:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# -t adds repository:tag info -- the &#39;.&#39; at the end is important:
-docker build -t btihen.azurecr.io/ruby/mailcatcher:ruby_2.6 .
+docker build -t btihen/ruby/mailcatcher:ruby_2.6 .
 # ...
 # should end with something like
 # Successfully built 21e0de2bdd68
 
 # now tag it as the **lasted** image with:
-docker build -t btihen.azurecr.io/ruby/mailcatcher:latest .
+docker build -t btihen/ruby/mailcatcher:latest .
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now you can see your list of docker images (you should see the starting image/container we just created):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;docker images
-REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-btihen.azurecr.io/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
-btihen.azurecr.io/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
-ruby                                  2.6                 a98425292e84        2 weeks ago         843MB
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+ruby                       2.6                 a98425292e84        2 weeks ago         843MB
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;build-container&#34;&gt;&lt;strong&gt;BUILD CONTAINER&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;Now start the docker image using the build image id (&lt;code&gt;-d&lt;/code&gt; allows it to run in the backgroud, &lt;code&gt;-p 1025:1025 -p 1080:1080&lt;/code&gt; opens a connection on ports 1025 &amp;amp; 1080 from localhost to the docker image):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# build a container so we can test our image
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
 
 # or if you like ids better
 docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
@@ -380,21 +463,21 @@ docker kill mailcatcher
 &lt;p&gt;&lt;code&gt;docker start mailcatcher&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&#34;sharing-images-once-they-work&#34;&gt;&lt;strong&gt;SHARING IMAGES (once they work)&lt;/strong&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;# login to the Azure Container Repository
-docker login btihen.azurecr.io -u username -p xxxxxxxxxxx
+docker login btihen -u username -p xxxxxxxxxxx
 
 # upload the new image
-docker push btihen.azurecr.io/ruby/mailcatcher
+docker push btihen/ruby/mailcatcher
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;retrieving-shared-image&#34;&gt;&lt;strong&gt;RETRIEVING SHARED IMAGE&lt;/strong&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;az acr login --name username
 az acr repository list --name username --output table
 
 # getting the image
-docker pull btihen.azurecr.io/ruby/image_name
+docker pull btihen/ruby/image_name
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;containerize the image&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# these are the default local ports - adjust to your needs
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;start the container&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;docker start mailcatcher
@@ -423,9 +506,9 @@ docker rm mailcatcher
 &lt;p&gt;&lt;strong&gt;REMOVING IMAGES&lt;/strong&gt;
 To fully clean up and remove (images &amp;ndash; after the containers are removed):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-btihen/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
-ruby                2.5                 a98425292e84        2 weeks ago         843MB
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
+ruby                     2.5                 a98425292e84        2 weeks ago         843MB
 
 $ docker image rm 21e0de2bdd68
 

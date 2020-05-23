@@ -242,7 +242,7 @@
     
       <meta property="article:published_time" content="2020-05-12T21:19:09&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-05-12T21:19:09&#43;02:00">
+    <meta property="article:modified_time" content="2020-05-23T21:19:09&#43;02:00">
   
 
   
@@ -271,7 +271,7 @@
   "headline": "Docker Intro using MailCatcher",
   
   "datePublished": "2020-05-12T21:19:09+02:00",
-  "dateModified": "2020-05-12T21:19:09+02:00",
+  "dateModified": "2020-05-23T21:19:09+02:00",
   
   "author": {
     "@type": "Person",
@@ -483,6 +483,28 @@
         
         
         
+
+        <li class="nav-item">
+          <a class="nav-link " href="/courses"><span>Courses</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
           
           
           
@@ -591,7 +613,7 @@
   <h1>Docker Intro using MailCatcher</h1>
 
   
-  <p class="page-subtitle">Safely Test email sending in a dev enviornment</p>
+  <p class="page-subtitle">Safely Test email sending in a dev environment</p>
   
 
   
@@ -618,8 +640,10 @@
     
     
       
+          Last updated on
+      
     
-    Tue, May 12, 2020
+    Sat, May 23, 2020
   </span>
   
 
@@ -668,7 +692,10 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h3 id="setup"><strong>SETUP</strong></h3>
+      <h3 id="intro"><strong>Intro</strong></h3>
+<p>It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).</p>
+<p>To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.</p>
+<h3 id="setup"><strong>SETUP</strong></h3>
 <p>First we need to get the repo (or at least the docker file)</p>
 <pre><code># get the mailcatcher repo
 git clone git@github.com:sj26/mailcatcher.git
@@ -696,25 +723,25 @@ CMD [&quot;--ip&quot;, &quot;0.0.0.0&quot;]
 <h3 id="build-image"><strong>BUILD IMAGE</strong></h3>
 <p>Now you can download the docker image and install the gems into it with:</p>
 <pre><code># -t adds repository:tag info -- the '.' at the end is important:
-docker build -t btihen.azurecr.io/ruby/mailcatcher:ruby_2.6 .
+docker build -t btihen/ruby/mailcatcher:ruby_2.6 .
 # ...
 # should end with something like
 # Successfully built 21e0de2bdd68
 
 # now tag it as the **lasted** image with:
-docker build -t btihen.azurecr.io/ruby/mailcatcher:latest .
+docker build -t btihen/ruby/mailcatcher:latest .
 </code></pre>
 <p>now you can see your list of docker images (you should see the starting image/container we just created):</p>
 <pre><code>docker images
-REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-btihen.azurecr.io/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
-btihen.azurecr.io/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
-ruby                                  2.6                 a98425292e84        2 weeks ago         843MB
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+ruby                       2.6                 a98425292e84        2 weeks ago         843MB
 </code></pre>
 <h3 id="build-container"><strong>BUILD CONTAINER</strong></h3>
 <p>Now start the docker image using the build image id (<code>-d</code> allows it to run in the backgroud, <code>-p 1025:1025 -p 1080:1080</code> opens a connection on ports 1025 &amp; 1080 from localhost to the docker image):</p>
 <pre><code># build a container so we can test our image
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
 
 # or if you like ids better
 docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
@@ -771,21 +798,21 @@ docker kill mailcatcher
 <p><code>docker start mailcatcher</code></p>
 <h3 id="sharing-images-once-they-work"><strong>SHARING IMAGES (once they work)</strong></h3>
 <pre><code># login to the Azure Container Repository
-docker login btihen.azurecr.io -u username -p xxxxxxxxxxx
+docker login btihen -u username -p xxxxxxxxxxx
 
 # upload the new image
-docker push btihen.azurecr.io/ruby/mailcatcher
+docker push btihen/ruby/mailcatcher
 </code></pre>
 <h3 id="retrieving-shared-image"><strong>RETRIEVING SHARED IMAGE</strong></h3>
 <pre><code>az acr login --name username
 az acr repository list --name username --output table
 
 # getting the image
-docker pull btihen.azurecr.io/ruby/image_name
+docker pull btihen/ruby/image_name
 </code></pre>
 <p><strong>containerize the image</strong></p>
 <pre><code># these are the default local ports - adjust to your needs
-docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen.azurecr.io/ruby/mailcatcher:latest
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
 </code></pre>
 <p><strong>start the container</strong></p>
 <pre><code>docker start mailcatcher
@@ -814,9 +841,9 @@ docker rm mailcatcher
 <p><strong>REMOVING IMAGES</strong>
 To fully clean up and remove (images &ndash; after the containers are removed):</p>
 <pre><code>$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-btihen/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
-ruby                2.5                 a98425292e84        2 weeks ago         843MB
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
+ruby                     2.5                 a98425292e84        2 weeks ago         843MB
 
 $ docker image rm 21e0de2bdd68
 

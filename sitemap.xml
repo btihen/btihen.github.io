@@ -13,16 +13,6 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/courses/example/example1/</loc>
-    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/courses/example/</loc>
-    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/explore/crystal/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url>
@@ -33,87 +23,127 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/courses/example/example2/</loc>
-    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/contact/contact/</loc>
   </url>
   
   <url>
+    <loc>https://btihen.github.io/courses/boat_design/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/boat_design/example1/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/boat_design/example2/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/robot_gardner/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/robot_gardner/example1/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/courses/robot_gardner/example2/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/academic-theme/</loc>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.github.io/authors/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/authors/bill-tihen/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/categories/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/categories/code/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/commands/</loc>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/git/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/hugo/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/post/hugo_academic_website_steps/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <loc>https://btihen.github.io/post/hugo_academic_cheatsheet/</loc>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/post/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/static-site/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/submodules/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/</loc>
-    <lastmod>2020-05-16T10:39:21+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post/hugo_academic_website_steps/</loc>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/submodules/</loc>
+    <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/docker/</loc>
-    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/post/docker_intro_with_mail_catcher/</loc>
-    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/email/</loc>
-    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/testing/</loc>
-    <lastmod>2020-05-12T21:19:09+02:00</lastmod>
+    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
   <url>

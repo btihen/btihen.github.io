@@ -5,12 +5,62 @@
     <link>https://btihen.github.io/tags/static-site/</link>
       <atom:link href="https://btihen.github.io/tags/static-site/index.xml" rel="self" type="application/rss+xml" />
     <description>Static Site</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 16 May 2020 10:39:21 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 23 May 2020 10:39:21 +0200</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Static Site</title>
       <link>https://btihen.github.io/tags/static-site/</link>
     </image>
+    
+    <item>
+      <title>Hugo Academic Content Commands</title>
+      <link>https://btihen.github.io/post/hugo_academic_cheatsheet/</link>
+      <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post/hugo_academic_cheatsheet/</guid>
+      <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/firstname_lastname
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add person&amp;rsquo;s image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/authors/firstname_lastname/avatar.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-blog&#34;&gt;Create a Blog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind post post/blog_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;images within the article&lt;/strong&gt; - add images to the article folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp image.jpg content/post/blog_title/article_image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and add it to the content using: &lt;code&gt;![kanban](example.jpg)&lt;/code&gt; within the article&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/post/blog_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-a-publication-reference&#34;&gt;Add a Publication Reference&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind publication publication/publication_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/publication/publication_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a pdf&lt;/strong&gt; (with the same name as the folder) and it will be automatically available&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.pdf content/publication/publication_title/publication_title.pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;Create a Project&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind project project/project_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/project/project_name/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-talk&#34;&gt;Create a Talk&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind talk talk/my-talk-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Talk Slides&lt;/strong&gt; are a bit more complicated see:
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34;&gt;https://sourcethemes.com/academic/docs/managing-content/#create-slides&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;course-documentation&#34;&gt;Course (Documentation)&lt;/h2&gt;
+&lt;p&gt;This is tricky (copy and rename an existing &lt;code&gt;course&lt;/code&gt; and adapt it)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;courses&lt;/code&gt; can be renamed and can have multiple folders (courses) within it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; the &lt;code&gt;algebra_1&lt;/code&gt; folder cannot have any sub-folders. Within an actual course all materials must be within a FLAT hierarchy.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Hugo Website using Github</title>
@@ -144,33 +194,63 @@ git submodule update --init --recursive  # without this the site won&#39;t start
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;7a-about-page&#34;&gt;7A: &lt;code&gt;about&lt;/code&gt; page&lt;/h4&gt;
-&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.&lt;/p&gt;
+&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.  So in this case:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/author_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;about.md&lt;/code&gt;&lt;/strong&gt; - I change the title to &lt;code&gt;about&lt;/code&gt; &amp;ndash; NOTE: the material displayed here comes from the page: &lt;code&gt;content/authours/admin&lt;/code&gt; (or whatever name you change the folder to &amp;ndash; be sure to use the same name in &lt;code&gt;content/home/about.md&lt;/code&gt; in the variable &lt;code&gt;author = &amp;quot;admin&amp;quot;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;change the title to whatever you like: biography, about, etc&amp;hellip;&lt;/li&gt;
+&lt;li&gt;change the variable &lt;code&gt;author&lt;/code&gt; to match the name you used to generate you profile above, ie:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Now adjust the file: &lt;code&gt;content/authors/admin/_index.md&lt;/code&gt; &amp;ndash; below the &lt;code&gt;---&lt;/code&gt; toward the end of the file you can add your own free text to the about page.&lt;/p&gt;
-&lt;p&gt;now add a nice image (of the person or org to this folder and call it: &lt;strong&gt;&lt;code&gt;avatar.jpeg&lt;/code&gt;&lt;/strong&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;author = &amp;quot;author_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the file so the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/author_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;7b-people-or-team-page&#34;&gt;7B: &lt;code&gt;people&lt;/code&gt; (or Team) page&lt;/h4&gt;
-&lt;p&gt;To create a list of peolple and their bios for a site.&lt;/p&gt;
-&lt;p&gt;edit &lt;strong&gt;&lt;code&gt;people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;disable &lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mark the &lt;code&gt;active&lt;/code&gt; variable as &lt;code&gt;false&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;active=false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;enable &lt;code&gt;content/home/people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;set &lt;code&gt;active=true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;create reasonable group name(s) in the section (for example):&lt;/li&gt;
+&lt;li&gt;create sub-group names:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code&gt;[content]
-  # Choose which groups/teams of users to display.
-  #   Edit `user_groups` in each user&#39;s profile to add them to one or more of these groups.
-  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Agilists&amp;quot;]
+  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Researchers&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now create additional folders in: &lt;code&gt;content/authors/&lt;/code&gt;
-for example I might make a page for me with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir content/authors/person_name
-cp content/authors/admin/* content/authors/person_name/*
+&lt;p&gt;or alternatively, use an empty string to create a team without sub-teams:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Create the people (authors)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/person_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add one (or more) &lt;code&gt;user_group&lt;/code&gt; to the person&amp;rsquo;s profile using the &lt;code&gt;user_groups&lt;/code&gt; variable:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you used an empty string in &lt;code&gt;people.md&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;&amp;quot;]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
-&lt;li&gt;edit: &lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt; to match the person&lt;/li&gt;
-&lt;li&gt;add to: &lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt; the variable: &lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]&lt;/code&gt; &lt;em&gt;(one or more of the groups listed in the [content] tag)&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;replace &lt;code&gt;content/authors/person_name/avatar.png&lt;/code&gt; with a photo of the person (or delete the file if no photo is desired)&lt;/li&gt;
+&lt;li&gt;Edit this file so that the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/person_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;step-8-test-publish-to-usernamegithubio&#34;&gt;step 8: Test publish to &lt;code&gt;username.github.io&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)&lt;/p&gt;
