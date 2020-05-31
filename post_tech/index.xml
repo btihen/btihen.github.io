@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts | btihen</title>
+    <link>https://btihen.github.io/post_tech/</link>
+      <atom:link href="https://btihen.github.io/post_tech/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 31 May 2020 13:22:48 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>Posts</title>
+      <link>https://btihen.github.io/post_tech/</link>
+    </image>
+    
+    <item>
+      <title>Github Website with a Custom Domain &amp; SSL</title>
+      <link>https://btihen.github.io/post_tech/github_website_with_custom_domain/</link>
+      <pubDate>Sun, 31 May 2020 13:22:48 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/github_website_with_custom_domain/</guid>
+      <description>&lt;h3 id=&#34;step-0-buy-a-domain-name&#34;&gt;step 0: buy a domain name&lt;/h3&gt;
+&lt;p&gt;For these instructions use the (Namecheap)[https://www.namecheap.com/] service to buy your Domain.&lt;/p&gt;
+&lt;h3 id=&#34;step-1-point-your-domain-name-at-usernamegithubio-optional&#34;&gt;step 1: point your domain name at: username.github.io (optional)&lt;/h3&gt;
+&lt;p&gt;This takes quite a steps and disables https (more steps follow to renable ssl).  This article got me oriented:
+&lt;a href=&#34;https://dev.to/rightfrombasics/connecting-namecheap-domain-with-github-pages-3nn6&#34;&gt;https://dev.to/rightfrombasics/connecting-namecheap-domain-with-github-pages-3nn6&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;log into Namecheap&lt;/li&gt;
+&lt;li&gt;On the left is a sidebar with &lt;strong&gt;Dashboard&lt;/strong&gt; and the top.  Click on the &lt;strong&gt;Domain List&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Find your domain name and click the &lt;strong&gt;manage&lt;/strong&gt; button on the far right.&lt;/li&gt;
+&lt;li&gt;Along the top click on &lt;strong&gt;Advanced DNS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add your A records to the DNS config.  I typed: &lt;code&gt;dig btihen.github.io&lt;/code&gt; (of course replace with your github website name) and got:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.10.6 &amp;lt;&amp;lt;&amp;gt;&amp;gt; btihen.github.io
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 28239
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;btihen.github.io.		IN	A
+
+;; ANSWER SECTION:
+btihen.github.io.	3600	IN	A	185.199.110.153
+btihen.github.io.	3600	IN	A	185.199.109.153
+btihen.github.io.	3600	IN	A	185.199.108.153
+btihen.github.io.	3600	IN	A	185.199.111.153
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So created the following A Records:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;type          Host  Value             TTL
+A Record      @     185.199.110.153   Automatic
+A Record      @     185.199.109.153   Automatic
+A Record      @     185.199.108.153   Automatic
+A Record      @     185.199.111.153   Automatic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Then I created a CNAME record:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;type          Host  Value             TTL
+CNAME Record  www   btihen.github.io  Automatic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-2-configure-you-github-site-to-accept-the-domain&#34;&gt;step 2: configure you github site to accept the domain&lt;/h3&gt;
+&lt;p&gt;You need to make a file called CNAME in the root of your username.github.io repo and it contents must be your new domain name.&lt;/p&gt;
+&lt;p&gt;For example I used:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+touch CNAME
+echo &#39;btihen.me&#39; &amp;gt;&amp;gt; CNAME
+git add .
+git commit -m &#39;accept the domain name: btihen.me&#39;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-3-stop-and-check&#34;&gt;step 3: stop and check&lt;/h3&gt;
+&lt;p&gt;NOW: &lt;code&gt;http://your-domain-name.com&lt;/code&gt; should work&lt;/p&gt;
+&lt;h3 id=&#34;step-4-free-ssl-for-the-domain&#34;&gt;step 4: Free ssl for the domain&lt;/h3&gt;
+&lt;p&gt;following the advice from: &lt;a href=&#34;https://dev.to/rightfrombasics/adding-ssl-to-your-site-free-1fa7&#34;&gt;https://dev.to/rightfrombasics/adding-ssl-to-your-site-free-1fa7&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;create a 
+&lt;a href=&#34;https://www.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cloudflare&lt;/a&gt; account.&lt;/li&gt;
+&lt;li&gt;choose the dns feature&lt;/li&gt;
+&lt;li&gt;allow cloudflare to scan your dns records (it should get the same results as when you do: &lt;code&gt;dig username.github.io&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Continue through the cloudflare process &amp;amp; cloudflare will eventually give you 2 nameservers to use.&lt;/li&gt;
+&lt;li&gt;Now you can have cloudflare take over your dns &amp;ndash; log into Namecheap&lt;/li&gt;
+&lt;li&gt;On the left is a sidebar with &lt;strong&gt;Dashboard&lt;/strong&gt; and the top.  Click on the &lt;strong&gt;Domain List&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Find your domain name and click the &lt;strong&gt;manage&lt;/strong&gt; button on the far right.&lt;/li&gt;
+&lt;li&gt;On the top bar choose &lt;strong&gt;Domain&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Find the &lt;strong&gt;Nameservers&lt;/strong&gt; section&lt;/li&gt;
+&lt;li&gt;Choose &lt;strong&gt;Custom DNS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add the tow servers given to you by Cloudflare and save.&lt;/li&gt;
+&lt;li&gt;Go back to cloudflare and choose &lt;strong&gt;Full&lt;/strong&gt; end to end encryption&lt;/li&gt;
+&lt;li&gt;Choose &lt;strong&gt;Always Use HTTPS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Save and click the &lt;strong&gt;Re-check now&lt;/strong&gt; button.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Unfortunately, now you need to wait up to two days :( for the dns service to transfer from Namecheap to Cloudflare.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hugo Academic Content Commands</title>
+      <link>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</link>
+      <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</guid>
+      <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/firstname_lastname
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add person&amp;rsquo;s image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/authors/firstname_lastname/avatar.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-blog&#34;&gt;Create a Blog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind post post/blog_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;images within the article&lt;/strong&gt; - add images to the article folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp image.jpg content/post/blog_title/article_image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and add it to the content using: &lt;code&gt;![kanban](example.jpg)&lt;/code&gt; within the article&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/post/blog_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-a-publication-reference&#34;&gt;Add a Publication Reference&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind publication publication/publication_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/publication/publication_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a pdf&lt;/strong&gt; (with the same name as the folder) and it will be automatically available&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.pdf content/publication/publication_title/publication_title.pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;Create a Project&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind project project/project_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/project/project_name/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-talk&#34;&gt;Create a Talk&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind talk talk/my-talk-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Talk Slides&lt;/strong&gt; are a bit more complicated see:
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34;&gt;https://sourcethemes.com/academic/docs/managing-content/#create-slides&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;course-documentation&#34;&gt;Course (Documentation)&lt;/h2&gt;
+&lt;p&gt;This is tricky (copy and rename an existing &lt;code&gt;course&lt;/code&gt; and adapt it)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;courses&lt;/code&gt; can be renamed and can have multiple folders (courses) within it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; the &lt;code&gt;algebra_1&lt;/code&gt; folder cannot have any sub-folders. Within an actual course all materials must be within a FLAT hierarchy.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hugo Website using Github</title>
+      <link>https://btihen.github.io/post_tech/hugo_academic_website_steps/</link>
+      <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/hugo_academic_website_steps/</guid>
+      <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-1-create-a-public-username_website-repo&#34;&gt;step 1: create a &lt;strong&gt;public&lt;/strong&gt; &lt;code&gt;username_website&lt;/code&gt; repo&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ll assume your github account is &lt;code&gt;username&lt;/code&gt; I think this repo needs to be publicly readable (not 100% sure)&lt;/p&gt;
+&lt;h3 id=&#34;step-2-clone-the-academic-hugo-locally&#34;&gt;step 2: clone the academic hugo locally&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/sourcethemes/academic-kickstart.git username_website
+cd academic_website
+git submodule update --init --recursive  # without this the site won&#39;t start correctly
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure you have many files within: &lt;strong&gt;&lt;code&gt;themes/academic&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-3-update-gitignore--public-folder&#34;&gt;step 3: Update .gitignore &amp;amp; public folder&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;update &lt;code&gt;.gitignore&lt;/code&gt; remove the line with &lt;code&gt;public&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;be sure there is no &lt;code&gt;public&lt;/code&gt; folder (yet), if there is remove it and all its contents.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;step-4-point-this-repo-to-your-username_website-repo&#34;&gt;step 4: point this repo to your &lt;code&gt;username_website&lt;/code&gt; repo&lt;/h3&gt;
+&lt;p&gt;I have found the easiest way to overwrite the source &lt;code&gt;origin&lt;/code&gt; repo is to do this by hand.&lt;/p&gt;
+&lt;p&gt;Currently your &lt;code&gt;.git/config&lt;/code&gt; file will currently look like (notice the url referencing: &lt;code&gt;git://github.com/sourcethemes/academic-kickstart.git&lt;/code&gt; - this is what we need to update):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &amp;quot;origin&amp;quot;]
+	url = git://github.com/sourcethemes/academic-kickstart.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &amp;quot;master&amp;quot;]
+	remote = origin
+	merge = refs/heads/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;change the origin url by hand or by using sed:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sed -i.bak -e &#39;s/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/&#39; .git/config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when your &lt;code&gt;.git/config&lt;/code&gt; file is correct it will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &amp;quot;origin&amp;quot;]
+	url = git@github.com:username/username_website.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &amp;quot;master&amp;quot;]
+	remote = origin
+	merge = refs/heads/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now you can push this local repo to your github repo using:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git push -u origin --all
+# git init
+# git add .
+# git commit -m &amp;quot;Initial commit&amp;quot;
+# git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5-configure-website-basics&#34;&gt;step 5: configure website basics&lt;/h3&gt;
+&lt;h4 id=&#34;5a-set-your-site-name&#34;&gt;5A: Set your site name:&lt;/h4&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/config.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;find the &lt;code&gt;title&lt;/code&gt; attribute and set it to &lt;code&gt;username&lt;/code&gt; (or whatever is appropriate)&lt;/p&gt;
+&lt;h4 id=&#34;5b-pick-a-themes&#34;&gt;5B: Pick a themes&lt;/h4&gt;
+&lt;p&gt;from &lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34;&gt;https://sourcethemes.com/academic/themes/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/config.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;find the &lt;code&gt;theme&lt;/code&gt; attribute and set it to your favorite theme color (or leave it as is)&lt;/p&gt;
+&lt;h4 id=&#34;5c-site-logo--favicon&#34;&gt;5C: site logo &amp;amp; favicon&lt;/h4&gt;
+&lt;p&gt;Put your image files into assets/images:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;logo.png&lt;/code&gt; (the logo on your webpage) file and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;icon.png&lt;/code&gt; (the favicon - icon in the webtab)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can go to &lt;code&gt;https://www.namecheap.com/logo-maker&lt;/code&gt; and make a logo&lt;/p&gt;
+&lt;h4 id=&#34;5d-menu-items&#34;&gt;5D: menu items&lt;/h4&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/menus.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;remove any items you won&amp;rsquo;t use.  In my case this file now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[[main]]
+  name = &amp;quot;Posts&amp;quot;
+  url = &amp;quot;#posts&amp;quot;
+  weight = 20
+
+[[main]]
+  name = &amp;quot;About&amp;quot;
+  url = &amp;quot;#about&amp;quot;
+  weight = 50
+
+[[main]]
+  name = &amp;quot;Contact&amp;quot;
+  url = &amp;quot;#contact&amp;quot;
+  weight = 60
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These will also be the sections on the home page that will be enabled and configured.&lt;/p&gt;
+&lt;p&gt;The larger the weight the further to the &lt;strong&gt;right&lt;/strong&gt; the item will be shown.&lt;/p&gt;
+&lt;h3 id=&#34;step-6-configure-site-parameters&#34;&gt;step 6: configure site parameters&lt;/h3&gt;
+&lt;p&gt;You may want to read through all the params - but the ones listed here are enough to get started.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;site_type&lt;/strong&gt; &amp;ndash; in the file: &lt;code&gt;config/_default/params.toml&lt;/code&gt;: be sure to configure the &lt;code&gt;site_type&lt;/code&gt; variable&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;configure &amp;lsquo;contact details&amp;rsquo;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;if you choose not to add an email, then be sure to set the variable &lt;code&gt;email_form=0&lt;/code&gt; on the &lt;code&gt;content/home/contact.md&lt;/code&gt; file!&lt;/li&gt;
+&lt;li&gt;if you choose not to enter an address and coordinates the in the &lt;code&gt;[map]&lt;/code&gt; section set the &lt;code&gt;engine=0&lt;/code&gt; to avoid problems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;configure social details&lt;/strong&gt; &amp;ndash; optional&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regional Settings&lt;/strong&gt; &amp;ndash; NOTE: The date display settings seems to have a bug &amp;ndash; so I don&amp;rsquo;t recommend adjusting that.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-7-configure-your-homepage&#34;&gt;step 7: configure your homepage&lt;/h3&gt;
+&lt;p&gt;At this point I suggest starting &lt;code&gt;hugo server&lt;/code&gt; so you can watch your edits.&lt;/p&gt;
+&lt;p&gt;Now go into the folder &lt;code&gt;content/home&lt;/code&gt; and we will adjust or disable the files in this folder.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;disable with: &lt;code&gt;active=false&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;enable with: &lt;code&gt;active=true&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;oder with: &lt;code&gt;weight=20&lt;/code&gt; the bigger the number the further down on the page is show (I suggest you use the same weights used in the menu)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;contact.md&lt;/code&gt;&lt;/strong&gt; - review and see if changes are desired.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;accomplishments.md&lt;/code&gt;&lt;/strong&gt; - (and all other home page sections you decide not to display) change &lt;code&gt;active=true&lt;/code&gt; to &lt;strong&gt;&lt;code&gt;active=false&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;7a-about-page&#34;&gt;7A: &lt;code&gt;about&lt;/code&gt; page&lt;/h4&gt;
+&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.  So in this case:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/author_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;change the title to whatever you like: biography, about, etc&amp;hellip;&lt;/li&gt;
+&lt;li&gt;change the variable &lt;code&gt;author&lt;/code&gt; to match the name you used to generate you profile above, ie:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;author = &amp;quot;author_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the file so the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/author_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;7b-people-or-team-page&#34;&gt;7B: &lt;code&gt;people&lt;/code&gt; (or Team) page&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;disable &lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mark the &lt;code&gt;active&lt;/code&gt; variable as &lt;code&gt;false&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;active=false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;enable &lt;code&gt;content/home/people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set &lt;code&gt;active=true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;create sub-group names:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Researchers&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or alternatively, use an empty string to create a team without sub-teams:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Create the people (authors)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/person_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add one (or more) &lt;code&gt;user_group&lt;/code&gt; to the person&amp;rsquo;s profile using the &lt;code&gt;user_groups&lt;/code&gt; variable:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you used an empty string in &lt;code&gt;people.md&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit this file so that the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/person_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-8-test-publish-to-usernamegithubio&#34;&gt;step 8: Test publish to &lt;code&gt;username.github.io&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)&lt;/p&gt;
+&lt;h4 id=&#34;8a-public-folder-non-existent&#34;&gt;8A: public folder (non-existent)&lt;/h4&gt;
+&lt;p&gt;The first time you do setup for publishing it is important this folder doesn&amp;rsquo;t exist yet and that &lt;code&gt;public&lt;/code&gt; isn&amp;rsquo;t listed in the .gitignore` file&lt;/p&gt;
+&lt;h4 id=&#34;8b-git-snapshot&#34;&gt;8B: git snapshot&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;(DO NOT YET GENERATE your website)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create your git snapshot (very important at this point since the next steps are tricky)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;First draft of homepage&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;8c-make-second-github-repo-usernamegithubio&#34;&gt;8C: make second github repo &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Now make a second &lt;strong&gt;public&lt;/strong&gt; repo (CLICK THE BOX TO INCLUDE A &lt;strong&gt;README&lt;/strong&gt; and/or a &lt;strong&gt;LISENCE&lt;/strong&gt; file!) on github called &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt;, this MUST be exactly: &lt;code&gt;username.github.io&lt;/code&gt; for this to work!&lt;/p&gt;
+&lt;p&gt;Double check your repo is not empty, but has a &lt;strong&gt;README&lt;/strong&gt; and/or a &lt;strong&gt;LISENCE&lt;/strong&gt; file.&lt;/p&gt;
+&lt;p&gt;NOW go to github repo &lt;strong&gt;settings&lt;/strong&gt; and click on &lt;strong&gt;manage access&lt;/strong&gt; and be sure you have permission to at administer (or at least write to this repo) &amp;ndash; probably not so click the &lt;strong&gt;&lt;code&gt;invite teams or people&lt;/code&gt;&lt;/strong&gt; button and add yourself as an admin (an other as needed).&lt;/p&gt;
+&lt;h4 id=&#34;8d-clone-usernamegithubio-to-public-within-your-hugo-project&#34;&gt;8D: clone &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt; to public (within your Hugo project)&lt;/h4&gt;
+&lt;p&gt;now go back into your website code (root folder) and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/username/username.github.io.git public
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you see: &lt;code&gt;warning: You appear to have cloned an empty repository.&lt;/code&gt; &amp;ndash; go back to the repo and create a README file!&lt;/p&gt;
+&lt;h4 id=&#34;8e-check-your-permissions&#34;&gt;8E: check your permissions&lt;/h4&gt;
+&lt;p&gt;enter you public folder and create an &lt;code&gt;index.html&lt;/code&gt; file and put in very simple html code: &lt;code&gt;&amp;lt;h1&amp;gt;Hello username.github.io&amp;lt;/h1&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+touch index.html
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now check this in and push it to github.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;test webpage&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this point you should see a bunch of message and toward the end you should see a line with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;To github.com:username/username.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If instead you get the error:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
+fatal: unable to access &#39;https://github.com/peakchallenges/peakchallenges.github.io.git/&#39;: The requested URL returned error: 403
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;go back and check your site permissions.&lt;/p&gt;
+&lt;p&gt;If site permissions aren&amp;rsquo;t a problem do the following:&lt;/p&gt;
+&lt;p&gt;re-create your website repo &lt;code&gt;username.github.io.git&lt;/code&gt; outside the webcode project.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:username/username.github.io.git
+cd username.github.io
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io - v1&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+git add index.html
+git commit -m &amp;quot;update readme and test permissions&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming this works then move this repo into the hugo repo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf username_website/public
+mv username.github.io username_website/public
+cd username_website/public
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io - v2&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+git commit -am &amp;quot;update readme and test permissions within hugo project&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;8f-check-the-website&#34;&gt;8F: check the website&lt;/h4&gt;
+&lt;p&gt;Wait a few minutes and go to the website &lt;code&gt;https://username.github.io&lt;/code&gt; and be sure you see your newly published html page.&lt;/p&gt;
+&lt;h3 id=&#34;step-9-configure-public-as-a-submodule&#34;&gt;step 9: configure &lt;code&gt;public&lt;/code&gt; as a &lt;strong&gt;submodule&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now add the username.github.io repo as a submodule to your website code repo using.  This allows nested projects without confusing git.&lt;/p&gt;
+&lt;p&gt;First be sure you are in the hugo root and not the public folder and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+git submodule add -b master https://github.com/username/username.github.io.git public`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now in &lt;code&gt;.git/modules&lt;/code&gt; you might see a folder called &lt;code&gt;public&lt;/code&gt; (with a bunch of stuff in it) if not simply edit your &lt;code&gt;.git/config&lt;/code&gt; so that after:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;themes/academic&amp;quot;]
+  path = themes/academic
+  url = https://github.com/gcushen/hugo-academic.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you see:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;public&amp;quot;]
+  path = public
+  url = https://github.com/username/username.github.io.git
+  branch = master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can add it by hand or with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;&amp;quot;EOF&amp;quot; &amp;gt;&amp;gt; git/config
+[submodule &amp;quot;public&amp;quot;]
+  path = public
+  url = https://github.com/username/username.github.io.git
+  branch = master
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-10-publish-your-new-hugo-webpage&#34;&gt;step 10: publish your new Hugo webpage:&lt;/h3&gt;
+&lt;p&gt;Now to publish the Hugo site you prepared do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo -d public
+cd public
+git add .
+git commit -m &amp;quot;first webpage content&amp;quot;
+git push
+# toward the end you should see: `To github.com:username/username.github.io.git`
+cd ..
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Follow this proceedure every time you update your site.&lt;/p&gt;
+&lt;p&gt;NOTE: BE SURE NOT TO delete the folder &lt;code&gt;public/.git/&lt;/code&gt; or you will need to reconfigure your public submodule.&lt;/p&gt;
+&lt;p&gt;now go back to &lt;code&gt;https://username.github.io&lt;/code&gt; and you should see your hugo site!&lt;/p&gt;
+&lt;p&gt;(This might take a few minutes &amp;ndash; up to a half-hour &amp;ndash; to publish)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Docker Intro using MailCatcher</title>
+      <link>https://btihen.github.io/post_tech/docker_intro_with_mail_catcher/</link>
+      <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/docker_intro_with_mail_catcher/</guid>
+      <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
+&lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
+&lt;h3 id=&#34;setup&#34;&gt;&lt;strong&gt;SETUP&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;First we need to get the repo (or at least the docker file)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# get the mailcatcher repo
+git clone git@github.com:sj26/mailcatcher.git
+
+# go into mailcather repo
+cd mailcatcher
+
+# configure to use the newest `released` gem version of mailcatcher
+sed -i.bu1 &#39;s/FROM ruby:2.5/FROM ruby:2.6/&#39; Dockerfile
+sed -i.bu2 &#39;s/ARG VERSION=0.6.5/ARG VERSION=0.7.1/&#39; Dockerfile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Dockerfile should now look like (which is actually all that is actually needed):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM ruby:2.6
+MAINTAINER Samuel Cochran &amp;lt;sj26@sj26.com&amp;gt;
+
+ARG VERSION=0.7.1
+
+RUN gem install mailcatcher -v $VERSION
+
+EXPOSE 1025 1080
+
+ENTRYPOINT [&amp;quot;mailcatcher&amp;quot;, &amp;quot;--foreground&amp;quot;]
+CMD [&amp;quot;--ip&amp;quot;, &amp;quot;0.0.0.0&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-image&#34;&gt;&lt;strong&gt;BUILD IMAGE&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now you can download the docker image and install the gems into it with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# -t adds repository:tag info -- the &#39;.&#39; at the end is important:
+docker build -t btihen/ruby/mailcatcher:ruby_2.6 .
+# ...
+# should end with something like
+# Successfully built 21e0de2bdd68
+
+# now tag it as the **lasted** image with:
+docker build -t btihen/ruby/mailcatcher:latest .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now you can see your list of docker images (you should see the starting image/container we just created):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker images
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+ruby                       2.6                 a98425292e84        2 weeks ago         843MB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-container&#34;&gt;&lt;strong&gt;BUILD CONTAINER&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now start the docker image using the build image id (&lt;code&gt;-d&lt;/code&gt; allows it to run in the backgroud, &lt;code&gt;-p 1025:1025 -p 1080:1080&lt;/code&gt; opens a connection on ports 1025 &amp;amp; 1080 from localhost to the docker image):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# build a container so we can test our image
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
+
+# or if you like ids better
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
+
+# if you forgot the image-id you can list the images with:
+docker images
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;testing-http--smtp&#34;&gt;&lt;strong&gt;TESTING (http &amp;amp; smtp)&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;now you should be able to go to &lt;code&gt;http://localhost:1080&lt;/code&gt; and see the mailcatcher webpage.&lt;/p&gt;
+&lt;p&gt;now lets test the smtp side from the cli using these instructions: &lt;code&gt;https://www.shellhacks.com/send-email-smtp-server-command-line/&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# connect to the mail server
+$ telnet localhost 1025
+# or
+$ telnet 127.0.0.1 1025
+220 smtp.domain.ext ESMTP Sendmail ?version-number?; ?date+time+gmtoffset?
+
+# declare yourself (IP or DNS)
+&amp;gt; HELO local.domain.name
+250 smtp.domain.ext Hello local.domain.name [xxx.xxx.xxx.xxx], pleased to meet you
+
+# declare who the email is from:
+&amp;gt; MAIL FROM: test@local.domain.name
+250 2.1.0 sender@adress.ext... Sender ok
+
+# declare who should get the email:
+&amp;gt; RCPT TO: recipient@adress.ext
+250 2.1.5 recipient@adress.ext... Recipient ok
+
+# setup the DATA transmission:
+ &amp;gt; DATA
+354 Enter mail, end with &amp;quot;.&amp;quot; on a line by itself
+
+# type a subject two returns and a message ending with &#39;.&#39; (on its own line):
+SUBJECT: Test message
+
+Hello,
+this is a TEST message,
+please don&#39;t reply.
+Thank you.
+.
+
+# end the connection
+&amp;gt; QUIT
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now check the mail has arrived in mailcatcher at &lt;code&gt;localhost:1080&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming you see the email sent - you can be sure your image &amp;amp; container is setup properly.&lt;/p&gt;
+&lt;h3 id=&#34;stopping-exited-container&#34;&gt;&lt;strong&gt;STOPPING (exited) CONTAINER&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;When we are done with mailcatcher we can stop the docker process:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker ps -a
+docker kill mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;starting-built-but-exited-containers&#34;&gt;&lt;strong&gt;STARTING BUILT (but exited) CONTAINERS&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;To restart mailcatcher at a later date simply type:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker start mailcatcher&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sharing-images-once-they-work&#34;&gt;&lt;strong&gt;SHARING IMAGES (once they work)&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# login to the Azure Container Repository
+docker login btihen -u username -p xxxxxxxxxxx
+
+# upload the new image
+docker push btihen/ruby/mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;retrieving-shared-image&#34;&gt;&lt;strong&gt;RETRIEVING SHARED IMAGE&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;az acr login --name username
+az acr repository list --name username --output table
+
+# getting the image
+docker pull btihen/ruby/image_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;containerize the image&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# these are the default local ports - adjust to your needs
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;start the container&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker start mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;listing-repo-images&#34;&gt;&lt;strong&gt;LISTING Repo IMAGES&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;One-time install&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# if needed install the azure cli
+brew update &amp;amp;&amp;amp; brew install azure-cli
+
+# the following may also be needed:
+brew update &amp;amp;&amp;amp; brew install python3 &amp;amp;&amp;amp; brew upgrade python3
+brew link --overwrite python3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Retrieve the image list&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# login with the azure-cli
+az acr login --name username
+
+# list the images
+az acr repository list --name username --output table
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;removing-containers&#34;&gt;&lt;strong&gt;REMOVING CONTAINERS&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;when we no longer need mailcatcher we can remove it with (&lt;code&gt;-a&lt;/code&gt; lists running and stopped containers):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker ps -a
+docker rm mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;REMOVING IMAGES&lt;/strong&gt;
+To fully clean up and remove (images &amp;ndash; after the containers are removed):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ docker images
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
+ruby                     2.5                 a98425292e84        2 weeks ago         843MB
+
+$ docker image rm 21e0de2bdd68
+
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ruby                2.5                 a98425292e84        2 weeks ago         843MB
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
+      <link>https://btihen.github.io/post_tech/phoenix_1_5_live_view_basics/</link>
+      <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/phoenix_1_5_live_view_basics/</guid>
+      <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;which is very cool.  I wanted to learn more and found this Phoenix 1.4 tutorial:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=2bipVjOcvdI&#34;&gt;https://www.youtube.com/watch?v=2bipVjOcvdI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&#34;&gt;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and decided to translate that into Phoenix 1.5. This is what follows.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Since I am just learning the Phoenix Framework and will need to refer to this for my self to remember how to do basic things &amp;ndash; I&amp;rsquo;ve documented every little detail.&lt;/p&gt;
+&lt;h3 id=&#34;step-0---setup-environment&#34;&gt;Step 0 - setup environment&lt;/h3&gt;
+&lt;p&gt;Setup environment &amp;amp; newest version of elixir:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;exenv install 1.10.3
+exenv global
+exenv local 1.10.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Install the 1.5.1 phx_new generator:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mix archive.install hex phx_new 1.5.1&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-1-create-a-phoenix-project-with-liveview&#34;&gt;Step 1: Create a Phoenix Project with LiveView&lt;/h3&gt;
+&lt;p&gt;Create the project (notice the &lt;code&gt;--live&lt;/code&gt; - that enables LiveView, &lt;code&gt;--no-ecto&lt;/code&gt; - keeps the project smaller since we won&amp;rsquo;t be persisting any data):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mix phx.new counter --no-ecto --live&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;enter project and create init commit:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd counter
+git init &amp;amp;&amp;amp; git add -A &amp;amp;&amp;amp; git commit -m &amp;quot;init&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-2---simple-counter-page-using-liveview&#34;&gt;Step 2 - simple counter page using LiveView&lt;/h3&gt;
+&lt;p&gt;Make a counter_live folder &amp;amp; an index.ex file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir lib/counter_web/live/counter_live
+touch lib/counter_web/live/counter_live/index.ex
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add the following contents:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;32
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;33
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;34
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;35
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;36
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;37
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;38
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;39
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;40
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;41
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;42
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;43
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;44
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;45
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;46
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;47
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;48
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;49
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
+  def mount(_params, _session, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
+  end
+
+  def render(assigns) do
+    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  end
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;&lt;/span&gt;
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;&lt;/span&gt;
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;&lt;/span&gt;
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
+    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Now update the routers (so we can get to the new webpage &amp;ndash; now our app should work:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; do
+    pipe_through &lt;span style=&#34;color:#e6db74&#34;&gt;:browser&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# live &amp;#34;/&amp;#34;, PageLive, :index        # remove this line&lt;/span&gt;
+    live &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterLive.Index&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# add this line&lt;/span&gt;
+  end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Start pheonix:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Go to:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;localhost:4000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You should now see the website and the counter should function&lt;/p&gt;
+&lt;p&gt;Assuming all is good, I&amp;rsquo;ll take a git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;counter with live update&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-3---running-tests&#34;&gt;Step 3 - Running tests&lt;/h3&gt;
+&lt;p&gt;In order to run the tests we type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We see that PageLive test fails.  This is because we replaced this behavior with &lt;code&gt;CounterLive&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To fix this we will create a &lt;strong&gt;CounterLive&lt;/strong&gt; test and delete &lt;strong&gt;PageLive&lt;/strong&gt; test.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm test/counter_web/live/page_live_text.exs
+touch test/counter_web/live/counter_live_text.exs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is the code for our new test: it basically just checks to be sure our Title is on the page:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# test/counter_web/live/counter_live_text.exs&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
+
+  import &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
+
+  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, page_live, disconnected_html} &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; live(conn, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;)
+    assert disconnected_html &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
+    assert render(page_live) &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Now we can test again: &lt;code&gt;mix test&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now that works, lets take another git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;counter with live update&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-4----liveview-templates&#34;&gt;Step 4 &amp;ndash; LiveView Templates&lt;/h3&gt;
+&lt;p&gt;Create a template file (helpful for complex html pages, but simple to create):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;touch lib/counter_web/live/counter_live/index.html.leex&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now just copy the html (from the render method into this file):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-linenos=table,linenostart=1&#34; data-lang=&#34;linenos=table,linenostart=1&#34;&gt;# lib/counter_web/live/counter_live/index.html.leex
+&amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;
+  &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&amp;lt;/p&amp;gt;
+
+&amp;lt;div&amp;gt;
+  &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+  &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+  &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div&amp;gt;
+   &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;p&amp;gt;
+  &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now point &lt;code&gt;lib/counter_web/live/counter_live/index.ex&lt;/code&gt; to this file by replacing render with an apply command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
+  defp apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) do
+    socket
+  end
+  &lt;span style=&#34;color:#75715e&#34;&gt;# remove this funtion&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# def render(assigns) do&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#  ~L&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   ...&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; &lt;code&gt;apply_action&lt;/code&gt; understands the &lt;strong&gt;rest&lt;/strong&gt; verbs such as &lt;code&gt;:new&lt;/code&gt;, &lt;code&gt;:show&lt;/code&gt; etc.&lt;/p&gt;
+&lt;p&gt;Now try the app again and it should still work!&lt;/p&gt;
+&lt;p&gt;Assuming it still works, I&amp;rsquo;ll take another git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;counter using a template&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5---reusable-components--isolation&#34;&gt;Step 5 - Reusable Components (&amp;amp; isolation)&lt;/h3&gt;
+&lt;p&gt;This allows complex components to be &lt;strong&gt;reused&lt;/strong&gt; within multiple templates and &lt;strong&gt;isolation&lt;/strong&gt; to keep one&amp;rsquo;s mental scope minimal.&lt;/p&gt;
+&lt;p&gt;Create a file for the component:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;touch lib/counter_web/live/counter_live/counter_component.ex&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Move the dynamic html and it&amp;rsquo;s associated functions into this file, it&amp;rsquo;s important to import the live_components into this file using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;use CounterWeb, :live_component&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In order to encapsulate the events into the component we will also move the event handlers into the component file.&lt;/p&gt;
+&lt;p&gt;So this file will now look like:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
+
+  def render(assigns) do
+    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  end
+
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Notice the button tags are slightly more complex&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;button phx-click=&amp;quot;dec&amp;quot; phx-target=&amp;quot;&amp;lt;%= @myself %&amp;gt;&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;the &lt;strong&gt;@myself&lt;/strong&gt; basically informs the event that the handler is within the component.&lt;/p&gt;
+&lt;p&gt;Now update the live template to point at the component using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Also note we need to pass the @val value into the component using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;id: 0, val: @val&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;its a little wierd, but we need to pass an &lt;strong&gt;id&lt;/strong&gt; even if there is no ecto backed record.&lt;/p&gt;
+&lt;p&gt;Now the template file looks like a normal template file again (focused on formating):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
+  def mount(_params, _session, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
+  end
+
+  def render(assigns) do
+    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Lets check that this still works.&lt;/p&gt;
+&lt;p&gt;Assuming it still works, I&amp;rsquo;ll make one last git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;live pages using isolated components - like JS does&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
