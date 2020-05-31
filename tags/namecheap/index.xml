@@ -90,7 +90,7 @@ git push
 &lt;li&gt;Choose &lt;strong&gt;Always Use HTTPS&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Save and click the &lt;strong&gt;Re-check now&lt;/strong&gt; button.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Unfortunately, now you need to wait up to two days :( for the dns service to transfer from Namecheap to Cloudflare.&lt;/p&gt;
+&lt;p&gt;Unfortunately, now you need to wait for a 1/2 hour or morefor the dns service to transfer from Namecheap to Cloudflare.  Theoretically up to 48 hours (but a 1/2 hour is much more typical).&lt;/p&gt;
 </description>
     </item>
     
