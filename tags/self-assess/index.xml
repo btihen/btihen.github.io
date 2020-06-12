@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Natural Assessment | btihen</title>
-    <link>https://btihen.github.io/tags/natural-assessment/</link>
-      <atom:link href="https://btihen.github.io/tags/natural-assessment/index.xml" rel="self" type="application/rss+xml" />
-    <description>Natural Assessment</description>
+    <title>Self-Assess | btihen</title>
+    <link>https://btihen.github.io/tags/self-assess/</link>
+      <atom:link href="https://btihen.github.io/tags/self-assess/index.xml" rel="self" type="application/rss+xml" />
+    <description>Self-Assess</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 11 Jun 2020 15:01:22 +0200</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
-      <title>Natural Assessment</title>
-      <link>https://btihen.github.io/tags/natural-assessment/</link>
+      <title>Self-Assess</title>
+      <link>https://btihen.github.io/tags/self-assess/</link>
     </image>
     
     <item>
@@ -28,14 +28,6 @@
 &lt;p&gt;To ensure that students learn the process of &lt;strong&gt;deliberate practice&lt;/strong&gt;, it is important to create a classroom environment where it is straightforward for students to be able to self-assess. I have found the best way to do this is to use &lt;strong&gt;&amp;lsquo;natural&amp;rsquo; assessments&lt;/strong&gt;. At least in the world of code, engineering, and physics, this is pretty straightforward. Make rubrics in which the students can test themselves, e.g. in a class making boats, the rubric will ask if it floats with a payload, say a large coin. For areas where natural assessment isn’t as easy, I teach the kids how to get (and give) each other helpful feedback (described in a later article). In this way, students are helping each other, learning from each other, and in the end self-assessing what to do with the feedback. They are no longer as reliant on the teacher.&lt;/p&gt;
 &lt;p&gt;The beauty of letting students learn this way, when there is safety to explore &lt;i&gt;&lt;b&gt;(&amp;amp; make mistakes)&lt;/b&gt;&lt;/i&gt;, is that the students often enjoy the learning, gain self-confidence, and possibly learn the &lt;strong&gt;JOY&lt;/strong&gt; of learning. If this joy of learning becomes commonplace in education, we are very likely to have many more joyful, lifelong learners and innovators.&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Build Confidence: Exploration and Student Choice</title>
-      <link>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieonline/</link>
-      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieonline/</guid>
-      <description></description>
     </item>
     
   </channel>
