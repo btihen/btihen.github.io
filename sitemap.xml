@@ -58,22 +58,67 @@
   
   <url>
     <loc>https://btihen.github.io/authors/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/authors/bill-tihen/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/categories/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/code/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/elixir/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/phoenix/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_tech/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/preloading/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/relationships/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/templates/</loc>
+    <lastmod>2020-07-04T13:06:29+02:00</lastmod>
   </url>
   
   <url>
@@ -132,11 +177,6 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/cloudflare/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url>
@@ -158,11 +198,6 @@
   
   <url>
     <loc>https://btihen.github.io/tags/namecheap/</loc>
-    <lastmod>2020-05-31T13:22:48+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/post_tech/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url>
   
@@ -267,11 +302,6 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/categories/code/</loc>
-    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/commands/</loc>
     <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
@@ -327,22 +357,12 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/elixir/</loc>
-    <lastmod>2020-05-10T17:01:53+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/interactive/</loc>
     <lastmod>2020-05-10T17:01:53+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/liveview/</loc>
-    <lastmod>2020-05-10T17:01:53+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/phoenix/</loc>
     <lastmod>2020-05-10T17:01:53+02:00</lastmod>
   </url>
   
