@@ -30,7 +30,7 @@
   <meta name="description" content="This article covers how to create a new app with contexts, relationships, preloading, etc.  The basics for most dynamic websites (excluding authentication). Comming later.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/">
 
   
 
@@ -218,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/">
+  <link rel="canonical" href="https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/">
 
   
   
@@ -234,15 +234,15 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/">
-  <meta property="og:title" content="Phoenix 1.5 Blog | btihen">
+  <meta property="og:url" content="https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/">
+  <meta property="og:title" content="Phoenix 1.5 Blog Intro | btihen">
   <meta property="og:description" content="This article covers how to create a new app with contexts, relationships, preloading, etc.  The basics for most dynamic websites (excluding authentication). Comming later."><meta property="og:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
   <meta property="twitter:image" content="https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2020-07-04T13:06:29&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-07-04T13:06:29&#43;02:00">
+    <meta property="article:modified_time" content="2020-07-05T13:06:29&#43;02:00">
   
 
   
@@ -261,7 +261,7 @@
 
 
 
-  <title>Phoenix 1.5 Blog | btihen</title>
+  <title>Phoenix 1.5 Blog Intro | btihen</title>
 
 </head>
 
@@ -572,7 +572,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Phoenix 1.5 Blog</h1>
+  <h1>Phoenix 1.5 Blog Intro</h1>
 
   
   <p class="page-subtitle">Learn Basic Relationships in Phoneix</p>
@@ -602,8 +602,10 @@
     
     
       
+          Last updated on
+      
     
-    Sat, Jul 4, 2020
+    Sun, Jul 5, 2020
   </span>
   
 
@@ -619,7 +621,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a>, <a href="/categories/phoenix/">Phoenix</a>, <a href="/categories/elixir/">Elixir</a></span>
   
 
 </div>
@@ -835,17 +837,23 @@ whe we look in the Accounts API we see: <code>list_users()</code></p>
   alias FeenixIntro.Accounts
   # ...
   def new(conn, _params) do
-    # get users from the Accounts context
-    users = Accounts.list_users()
     changeset = Blogs.change_post(%Post{})
+    # replace:
+    # render(conn, &quot;new.html&quot;, changeset: changeset)
+    # with:
+    # collection of users for post form
+    users = Accounts.list_users()
+    # include the collection of users to the new form
     render(conn, &quot;new.html&quot;, changeset: changeset, users: users)
-    # users: users - sends the users to the form as @users
   end
   # ...
   def edit(conn, %{&quot;id&quot; =&gt; id}) do
     post = Blogs.get_post!(id)
-    users = Accounts.list_users()
     changeset = Blogs.change_post(post)
+    # replace:
+    render(conn, &quot;edit.html&quot;, post: post, changeset: changeset)
+    # with:
+    users = Accounts.list_users()
     render(conn, &quot;edit.html&quot;, post: post, changeset: changeset, users: users)
   end
 # ...
@@ -938,10 +946,6 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tags/phoenix/">Phoenix</a>
-  
-  <a class="badge badge-light" href="/tags/elixir/">Elixir</a>
-  
   <a class="badge badge-light" href="/tags/relationships/">Relationships</a>
   
   <a class="badge badge-light" href="/tags/templates/">Templates</a>
@@ -963,7 +967,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/&amp;text=Phoenix%201.5%20Blog" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/&amp;text=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -976,7 +980,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/&amp;t=Phoenix%201.5%20Blog" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/&amp;t=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -989,7 +993,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
       
       
       <li>
-        <a href="mailto:?subject=Phoenix%201.5%20Blog&amp;body=https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Phoenix%201.5%20Blog%20Intro&amp;body=https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1002,7 +1006,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/&amp;title=Phoenix%201.5%20Blog" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/&amp;title=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1015,7 +1019,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20Blog%20https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20Blog%20Intro%20https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1028,7 +1032,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/&amp;title=Phoenix%201.5%20Blog" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/&amp;title=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

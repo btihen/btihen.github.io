@@ -13,10 +13,10 @@
     </image>
     
     <item>
-      <title>Phoenix 1.5 Blog</title>
-      <link>https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/</link>
+      <title>Phoenix 1.5 Blog Intro</title>
+      <link>https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/phoenix_1_5_blog_n_relations/</guid>
+      <guid>https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;
@@ -205,17 +205,23 @@ whe we look in the Accounts API we see: &lt;code&gt;list_users()&lt;/code&gt;&lt
   alias FeenixIntro.Accounts
   # ...
   def new(conn, _params) do
-    # get users from the Accounts context
-    users = Accounts.list_users()
     changeset = Blogs.change_post(%Post{})
+    # replace:
+    # render(conn, &amp;quot;new.html&amp;quot;, changeset: changeset)
+    # with:
+    # collection of users for post form
+    users = Accounts.list_users()
+    # include the collection of users to the new form
     render(conn, &amp;quot;new.html&amp;quot;, changeset: changeset, users: users)
-    # users: users - sends the users to the form as @users
   end
   # ...
   def edit(conn, %{&amp;quot;id&amp;quot; =&amp;gt; id}) do
     post = Blogs.get_post!(id)
-    users = Accounts.list_users()
     changeset = Blogs.change_post(post)
+    # replace:
+    render(conn, &amp;quot;edit.html&amp;quot;, post: post, changeset: changeset)
+    # with:
+    users = Accounts.list_users()
     render(conn, &amp;quot;edit.html&amp;quot;, post: post, changeset: changeset, users: users)
   end
 # ...
