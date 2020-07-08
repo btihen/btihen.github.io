@@ -1,16 +1,1657 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>btihen</title>
+    <title>Bill Tihen | btihen</title>
     <link>https://btihen.github.io/authors/btihen/</link>
       <atom:link href="https://btihen.github.io/authors/btihen/index.xml" rel="self" type="application/rss+xml" />
-    <description>btihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright>
+    <description>Bill Tihen</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 04 Jul 2020 13:06:29 +0200</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
-      <title>btihen</title>
+      <title>Bill Tihen</title>
       <link>https://btihen.github.io/authors/btihen/</link>
     </image>
+    
+    <item>
+      <title>Phoenix 1.5 Blog Intro</title>
+      <link>https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/</link>
+      <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/</guid>
+      <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
+&lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;create a project&lt;/li&gt;
+&lt;li&gt;create a resource&lt;/li&gt;
+&lt;li&gt;dropdown list of a collection&lt;/li&gt;
+&lt;li&gt;pre-load/display sub-reources&lt;/li&gt;
+&lt;li&gt;create a has_many relationship&lt;/li&gt;
+&lt;li&gt;create a belongs_to relationship&lt;/li&gt;
+&lt;li&gt;delete has_many sub-resources when top resource is deleted&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;getting-started---create-an-app&#34;&gt;Getting Started - create an app&lt;/h2&gt;
+&lt;p&gt;find the most recent phoenix version:
+&lt;a href=&#34;https://github.com/phoenixframework/phoenix/releases&#34;&gt;https://github.com/phoenixframework/phoenix/releases&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix archive.install hex phx_new 1.5.3
+mix phx.new feenix_intro
+cd feenix_intro
+mix ecto.create
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;test with: &lt;code&gt;mix phx.server&lt;/code&gt; and go to &lt;code&gt;http://localhost:4000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Ideally you see a the Phoenix Start Page.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s create a git snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git init &amp;amp;&amp;amp; git add -A &amp;amp;&amp;amp; git commit -m &amp;quot;init&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-contexts&#34;&gt;Create Contexts&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Context helps us create areas of code isolation and creates an API for other contexts to use&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In our case we will need a Blogs and Accounts (better would have been Authors) context&lt;/p&gt;
+&lt;p&gt;Blogs will have the posts and comments and Accounts will have the user and login credentials and user relationships (why not)?  To see the full documentation on Contexts see: &lt;a href=&#34;https://hexdocs.pm/phoenix/contexts.html&#34;&gt;https://hexdocs.pm/phoenix/contexts.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We will generate two resources and Contexts (and add more later) - lets start with users who will post their blogs (users will be within the Accounts context and posts will be within the Blogs context):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.gen.html Accounts User users name:string email:string username:string:unique
+mix phx.gen.html Blogs Post posts title:string body:text user_id:references:users
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice we can generate unique fields with &lt;code&gt;:unique&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And we can generate relationships (foriegn keys) with &lt;code&gt;references&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now that we have generated our code - we need to make a few updates:&lt;/p&gt;
+&lt;p&gt;First: we need to update our routes in the scope area to look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/ideas_web/router.ex
+  scope &amp;quot;/&amp;quot;, FeenixIntroWeb do
+    pipe_through :browser
+
+    get &amp;quot;/&amp;quot;, PageController, :index
+    resources &amp;quot;/users&amp;quot;, UserController
+    resources &amp;quot;/posts&amp;quot;, PostController
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE: the API&amp;rsquo;s for our Contexts &lt;code&gt;Accounts&lt;/code&gt; and &lt;code&gt;Blogs&lt;/code&gt; is in &lt;code&gt;lib/feenix_intro/accounts.ex&lt;/code&gt; and &lt;code&gt;lib/feenix_intro/blogs/post.ex&lt;/code&gt; respectively - as we add more info into these contexts these files will get long!  &lt;strong&gt;Ideally you will always interact with the Context API and not the Repo directly this will help create much more managable code.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;define-the-has_many-relationship&#34;&gt;Define the has_many relationship&lt;/h2&gt;
+&lt;p&gt;Before we migrate we need to define the relationships:&lt;/p&gt;
+&lt;p&gt;so we update the users with a has_many relationship to posts&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro/accounts/user.ex
+defmodule FeenixIntro.Accounts.User do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias FeenixIntro.Blogs.Post
+
+  @required_fields [:name, :email, :username]
+
+  schema &amp;quot;users&amp;quot; do
+    has_many(:posts, Post)
+
+    field :name, :string
+    field :email, :string
+    field :username, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(user, attrs) do
+    user
+    |&amp;gt; cast(attrs, @required_fields)
+    |&amp;gt; validate_required(@required_fields)
+    |&amp;gt; unique_constraint(:username)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you skip the alias, then &lt;code&gt;has_many&lt;/code&gt; needs to be written as: &lt;code&gt;has_many(:posts, FeenixIntro.Blogs.Post)&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;define-the-belongs_to-relationship&#34;&gt;Define the belongs_to relationship&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANT:&lt;/strong&gt; replace the &lt;code&gt;field :user_id, :id&lt;/code&gt; with &lt;code&gt;belongs_to(:user, User)&lt;/code&gt; &amp;ndash; you CAN&amp;rsquo;T have both!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro/blogs/post.ex
+defmodule FeenixIntro.Blogs.Post do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias FeenixIntro.Blogs.Post
+  alias FeenixIntro.Accounts.User
+
+  @required_fields [:user_id, :title, :body]
+
+  schema &amp;quot;posts&amp;quot; do
+    belongs_to(:user, User)
+
+    # field :user_id, :id
+    field :body, :string
+    field :title, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(post, attrs) do
+    post
+    |&amp;gt; cast(attrs, @required_fields)
+    |&amp;gt; validate_required(@required_fields)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE: &lt;code&gt;@required_fields [:user_id, :title, :body]&lt;/code&gt; isn&amp;rsquo;t required, but as things change defining a constant that can be reused can be convient.&lt;/p&gt;
+&lt;h2 id=&#34;auto-delete-sub-resources&#34;&gt;Auto delete sub-resources&lt;/h2&gt;
+&lt;p&gt;To be sure we don&amp;rsquo;t have unreferenced blogs if a user gets deleted we need to change our Blog migration to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# priv/repo/migrations/20200704152318_create_posts.exs
+defmodule FeenixIntro.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :title, :string
+      add :body, :text
+      # remove the default
+      # add :user_id, references(:users, on_delete: :nothing)
+      # add the following to auto delete posts if user is deleted!
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+
+      timestamps()
+    end
+
+    create index(:posts, [:user_id])
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now it should be safe to migrate using:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;seed-data&#34;&gt;Seed Data&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s create seed data so that one we know how to do that and two have some data to test before we get all our views and forms working:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# priv/repo/seeds.exs
+
+# Script for populating the database. You can run it as:
+#
+#     mix run priv/repo/seeds.exs
+#
+# We recommend using the bang functions (`insert!`, `update!`
+# and so on) as they will fail if something goes wrong.
+
+alias FeenixIntro.Repo
+alias FeenixIntro.Blogs.Post
+alias FeenixIntro.Accounts.User
+
+# reset the datastore
+Repo.delete_all(User) # this should also delete all Posts
+
+# insert people
+me = Repo.insert!(%User{ name: &amp;quot;Bill&amp;quot;, email: &amp;quot;bill@example.com&amp;quot;, username: &amp;quot;bill&amp;quot; })
+dog = Repo.insert!(%User{ name: &amp;quot;Nyima&amp;quot;, email: &amp;quot;nyima@example.com&amp;quot;, username: &amp;quot;nyima&amp;quot; })
+Repo.insert!(%Post{ user_id: me.id, title: &amp;quot;Elixir&amp;quot;, body: &amp;quot;Very cool ideas&amp;quot; })
+Repo.insert!(%Post{ user_id: me.id, title: &amp;quot;Phoenix&amp;quot;, body: &amp;quot;live is fascinating&amp;quot; })
+Repo.insert!(%Post{ user_id: dog.id, title: &amp;quot;Walk&amp;quot;, body: &amp;quot;oh cool&amp;quot; })
+Repo.insert!(%Post{ user_id: dog.id, title: &amp;quot;Dinner&amp;quot;, body: &amp;quot;YES!&amp;quot; })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now as the comments state run:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix run priv/repo/seeds.exs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;testing&#34;&gt;Testing&lt;/h2&gt;
+&lt;p&gt;run:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.server
+# or if you prefer:
+# iex -S mix phx.server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Test USERS:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Go to: &lt;code&gt;http://localhost:4000/users&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;when we list users and create users - all is well&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TEST POSTS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Go to: &lt;code&gt;http://localhost:4000/posts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;when we do the same withe posts - we get an error creating new posts and we don&amp;rsquo;t see the author in index and show&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we can&amp;rsquo;t create a post since we required the user_id and there is not field for that&lt;/li&gt;
+&lt;li&gt;we can&amp;rsquo;t list the author&amp;rsquo;s name (just the author&amp;rsquo;s ID) until we preload the author along with the post&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;fix-post-creation-with-a-dropdown-list-of-resources&#34;&gt;Fix Post creation with a dropdown list of resources&lt;/h2&gt;
+&lt;p&gt;Normally, this would be done with session info to autoselect the authenticated author, but that is for another day.  In this case, we will demonstrate how to load and pass a collection and use that to populate a dropdown entry.&lt;/p&gt;
+&lt;p&gt;In the controller we must load users and add the user_id to the post form:
+whe we look in the Accounts API we see: &lt;code&gt;list_users()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro_web/controllers/post_controller.ex
+  # ...
+  # add the accounts context alias
+  alias FeenixIntro.Accounts
+  # ...
+  def new(conn, _params) do
+    changeset = Blogs.change_post(%Post{})
+    # replace:
+    # render(conn, &amp;quot;new.html&amp;quot;, changeset: changeset)
+    # with:
+    # collection of users for post form
+    users = Accounts.list_users()
+    # include the collection of users to the new form
+    render(conn, &amp;quot;new.html&amp;quot;, changeset: changeset, users: users)
+  end
+  # ...
+  def edit(conn, %{&amp;quot;id&amp;quot; =&amp;gt; id}) do
+    post = Blogs.get_post!(id)
+    changeset = Blogs.change_post(post)
+    # replace:
+    render(conn, &amp;quot;edit.html&amp;quot;, post: post, changeset: changeset)
+    # with:
+    users = Accounts.list_users()
+    render(conn, &amp;quot;edit.html&amp;quot;, post: post, changeset: changeset, users: users)
+  end
+# ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to adapt the form to give us a choice of users:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro_web/templates/post/form.html.eex
+&amp;lt;%= form_for @changeset, @action, fn f -&amp;gt; %&amp;gt;
+  &amp;lt;%= if @changeset.action do %&amp;gt;
+    &amp;lt;div class=&amp;quot;alert alert-danger&amp;quot;&amp;gt;
+      &amp;lt;p&amp;gt;Oops, something went wrong! Please check the errors below.&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;% end %&amp;gt;
+
+  &amp;lt;%= label f, &amp;quot;Author&amp;quot; %&amp;gt;
+  &amp;lt;%= select f, :user_id, Enum.map(@users, &amp;amp;{&amp;amp;1.name, &amp;amp;1.id}) %&amp;gt;
+  &amp;lt;%= error_tag f, :user %&amp;gt;
+  # ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming you can create posts now, lets make another git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;users and posts resources can be created&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;display-the-author-of-post-with-preloads&#34;&gt;Display the Author of Post (with Preloads)&lt;/h2&gt;
+&lt;p&gt;lets display the Blog author - that&amp;rsquo;s often interesting to others.
+We can do this with preloading in our Blog context:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro/blogs.ex
+  # change this line:
+  # def list_posts, do: Repo.all(Post)
+  def list_posts do
+    Post
+    |&amp;gt; Repo.all()
+    |&amp;gt; Repo.preload(:user)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and also our get_post&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro/blogs.ex
+  # change:
+  # def get_post!(id), do: Repo.get!(Post, id)
+  # into:
+  def get_post!(id) do
+    Post
+    |&amp;gt; Repo.get!(id)
+    |&amp;gt; Repo.preload(:user)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we can update our index and show page to display the author&amp;rsquo;s name at the top of the page:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro_web/templates/post/show.html.eex
+&amp;lt;h1&amp;gt;Show Post&amp;lt;/h1&amp;gt;
+
+&amp;lt;ul&amp;gt;
+
+  &amp;lt;li&amp;gt;
+    &amp;lt;strong&amp;gt;Author:&amp;lt;/strong&amp;gt;
+    &amp;lt;%= @post.user.name %&amp;gt;
+  &amp;lt;/li&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and in the index too:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/feenix_intro_web/templates/post/index.html.eex
+# ...
+&amp;lt;%= for post &amp;lt;- @posts do %&amp;gt;
+    &amp;lt;tr&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= post.user.name %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= post.title %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= post.body %&amp;gt;&amp;lt;/td&amp;gt;
+# ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming authors and preload works properly, we can make another git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;source-code&#34;&gt;Source code&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/btihen/PhoenixIntro&#34;&gt;https://github.com/btihen/PhoenixIntro&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;helpful-resources-used&#34;&gt;Helpful Resources used:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://elixircasts.io/phoenix-contexts&#34;&gt;https://elixircasts.io/phoenix-contexts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/conradwt/zero-to-graphql-using-phoenix&#34;&gt;https://github.com/conradwt/zero-to-graphql-using-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e&#34;&gt;https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n&#34;&gt;https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549&#34;&gt;https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rework through Deliberate Practice</title>
+      <link>https://btihen.github.io/post_edu/student_rework_self_assigned/</link>
+      <pubDate>Thu, 11 Jun 2020 15:01:22 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/student_rework_self_assigned/</guid>
+      <description>&lt;p&gt;Good learning projects (quite possibly all interesting projects), must have the right amount of complexity and built-in imperfections due to design trade-offs and compromises. This ensures that projects aren’t google-able AND are challenging enough to encourage real learning. I like to think that “challenging enough” ensures that students experience a sense of the “hero’s journey” while working on their projects and then when they are successful they will have a sense of pride in what they learned and accomplished.&lt;/p&gt;
+&lt;p&gt;This level of complexity has two side effects that are common in the real world, but uncommon in education:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;how to arrive at the best solution is unknown and uncertain (by even the teacher) and will require exploration - quite possibly there is more than one workable solution; and&lt;/li&gt;
+&lt;li&gt;the process of exploring to find a workable solution will involve what is commonly called the dreaded deadend or, in my field of tech, going down the rabbit hole. Unfortunately, this is often seen as a problem - not knowing and not understanding is, after all, what schools set out to correct. Allowing students to head in the wrong direction, especially since many people value efficiency (for example, discovering the fastest way to learn), can seem wrong-headed, but schools in theory should value worthwhile learning as their top priority, not speed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ideally, as students work, they self-assess, self-reflect, and self-correct their own work. It is, unfortunately, very common that we as teachers correct students and we as teachers tell them not only what to rework, and how to do it. This may be efficient at getting certain results - for example, completed projects. However, I question if that is valuable learning. When we judge student work, students learn to work toward the approval found in a grade, which alters learning. Additionally, when we tell students what to do, they don’t learn to self-regulate and self-motivate their own learning processes.&lt;/p&gt;
+&lt;p&gt;On the other hand, when students can engage in &lt;strong&gt;deliberate practice&lt;/strong&gt; (where they self-assess, self-reflect, self-correct, and choose to &lt;strong&gt;redo&lt;/strong&gt; until they themselves are satisfied), then students not only learn the classroom curriculum, but also lifeworthy skills, including: problem solving skills, balancing competing design needs, grit (stick-to-it-ive-ness), self-directed learning, and the joy of learning and discovery. In this way, students are much more likely to become life-long learners.&lt;/p&gt;
+&lt;p&gt;To ensure that students learn the process of &lt;strong&gt;deliberate practice&lt;/strong&gt;, it is important to create a classroom environment where it is straightforward for students to be able to self-assess. I have found the best way to do this is to use &lt;strong&gt;&amp;lsquo;natural&amp;rsquo; assessments&lt;/strong&gt;. At least in the world of code, engineering, and physics, this is pretty straightforward. Make rubrics in which the students can test themselves, e.g. in a class making boats, the rubric will ask if it floats with a payload, say a large coin. For areas where natural assessment isn’t as easy, I teach the kids how to get (and give) each other helpful feedback (described in a later article). In this way, students are helping each other, learning from each other, and in the end self-assessing what to do with the feedback. They are no longer as reliant on the teacher.&lt;/p&gt;
+&lt;p&gt;The beauty of letting students learn this way, when there is safety to explore &lt;i&gt;&lt;b&gt;(&amp;amp; make mistakes)&lt;/b&gt;&lt;/i&gt;, is that the students often enjoy the learning, gain self-confidence, and possibly learn the &lt;strong&gt;JOY&lt;/strong&gt; of learning. If this joy of learning becomes commonplace in education, we are very likely to have many more joyful, lifelong learners and innovators.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Github Website with a Custom Domain &amp; SSL</title>
+      <link>https://btihen.github.io/post_tech/github_website_with_custom_domain/</link>
+      <pubDate>Sun, 31 May 2020 13:22:48 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/github_website_with_custom_domain/</guid>
+      <description>&lt;h3 id=&#34;step-0-buy-a-domain-name&#34;&gt;step 0: buy a domain name&lt;/h3&gt;
+&lt;p&gt;For these instructions use the (Namecheap)[https://www.namecheap.com/] service to buy your Domain.&lt;/p&gt;
+&lt;h3 id=&#34;step-1-point-your-domain-name-at-usernamegithubio-optional&#34;&gt;step 1: point your domain name at: username.github.io (optional)&lt;/h3&gt;
+&lt;p&gt;This takes quite a steps and disables https (more steps follow to renable ssl).  This article got me oriented:
+&lt;a href=&#34;https://dev.to/rightfrombasics/connecting-namecheap-domain-with-github-pages-3nn6&#34;&gt;https://dev.to/rightfrombasics/connecting-namecheap-domain-with-github-pages-3nn6&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;log into Namecheap&lt;/li&gt;
+&lt;li&gt;On the left is a sidebar with &lt;strong&gt;Dashboard&lt;/strong&gt; and the top.  Click on the &lt;strong&gt;Domain List&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Find your domain name and click the &lt;strong&gt;manage&lt;/strong&gt; button on the far right.&lt;/li&gt;
+&lt;li&gt;Along the top click on &lt;strong&gt;Advanced DNS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add your A records to the DNS config.  I typed: &lt;code&gt;dig btihen.github.io&lt;/code&gt; (of course replace with your github website name) and got:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.10.6 &amp;lt;&amp;lt;&amp;gt;&amp;gt; btihen.github.io
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 28239
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;btihen.github.io.		IN	A
+
+;; ANSWER SECTION:
+btihen.github.io.	3600	IN	A	185.199.110.153
+btihen.github.io.	3600	IN	A	185.199.109.153
+btihen.github.io.	3600	IN	A	185.199.108.153
+btihen.github.io.	3600	IN	A	185.199.111.153
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So created the following A Records:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;type          Host  Value             TTL
+A Record      @     185.199.110.153   Automatic
+A Record      @     185.199.109.153   Automatic
+A Record      @     185.199.108.153   Automatic
+A Record      @     185.199.111.153   Automatic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Then I created a CNAME record:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;type          Host  Value             TTL
+CNAME Record  www   btihen.github.io  Automatic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-2-configure-you-github-site-to-accept-the-domain&#34;&gt;step 2: configure you github site to accept the domain&lt;/h3&gt;
+&lt;p&gt;You need to make a file called CNAME in the root of your username.github.io repo and it contents must be your new domain name.&lt;/p&gt;
+&lt;p&gt;For example I used:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+touch CNAME
+echo &#39;btihen.me&#39; &amp;gt;&amp;gt; CNAME
+git add .
+git commit -m &#39;accept the domain name: btihen.me&#39;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-3-stop-and-check&#34;&gt;step 3: stop and check&lt;/h3&gt;
+&lt;p&gt;NOW: &lt;code&gt;http://your-domain-name.com&lt;/code&gt; should work&lt;/p&gt;
+&lt;h3 id=&#34;step-4-free-ssl-for-the-domain&#34;&gt;step 4: Free ssl for the domain&lt;/h3&gt;
+&lt;p&gt;following the advice from: &lt;a href=&#34;https://dev.to/rightfrombasics/adding-ssl-to-your-site-free-1fa7&#34;&gt;https://dev.to/rightfrombasics/adding-ssl-to-your-site-free-1fa7&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;create a 
+&lt;a href=&#34;https://www.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cloudflare&lt;/a&gt; account.&lt;/li&gt;
+&lt;li&gt;choose the dns feature&lt;/li&gt;
+&lt;li&gt;allow cloudflare to scan your dns records (it should get the same results as when you do: &lt;code&gt;dig username.github.io&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Continue through the cloudflare process &amp;amp; cloudflare will eventually give you 2 nameservers to use.&lt;/li&gt;
+&lt;li&gt;Now you can have cloudflare take over your dns &amp;ndash; log into Namecheap&lt;/li&gt;
+&lt;li&gt;On the left is a sidebar with &lt;strong&gt;Dashboard&lt;/strong&gt; and the top.  Click on the &lt;strong&gt;Domain List&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Find your domain name and click the &lt;strong&gt;manage&lt;/strong&gt; button on the far right.&lt;/li&gt;
+&lt;li&gt;On the top bar choose &lt;strong&gt;Domain&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Find the &lt;strong&gt;Nameservers&lt;/strong&gt; section&lt;/li&gt;
+&lt;li&gt;Choose &lt;strong&gt;Custom DNS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add the tow servers given to you by Cloudflare and save.&lt;/li&gt;
+&lt;li&gt;Go back to cloudflare and choose &lt;strong&gt;Full&lt;/strong&gt; end to end encryption&lt;/li&gt;
+&lt;li&gt;Choose &lt;strong&gt;Always Use HTTPS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Save and click the &lt;strong&gt;Re-check now&lt;/strong&gt; button.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Unfortunately, now you need to wait for a 1/2 hour or morefor the dns service to transfer from Namecheap to Cloudflare.  Theoretically up to 48 hours (but a 1/2 hour is much more typical).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploration in the Classroom</title>
+      <link>https://btihen.github.io/post_edu/learning_loop_exploration/</link>
+      <pubDate>Sat, 30 May 2020 16:57:16 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/learning_loop_exploration/</guid>
+      <description>&lt;p&gt;Fun and a sense of adventure can be crucial to classroom engagement and learning. Cultivating a sense of adventure is similar to encouraging an atmosphere of playfulness and joy of learning. This can be quite straightforward when students are allowed to create their own goals and their own context for the goals within the curriculum. Of course, any good adventure can’t be too easy. It’s the teacher’s job to make sure a project has no obvious, googleable answer.&lt;/p&gt;
+&lt;p&gt;We might worry that making the project hard and beyond what the students know how to do could be unfair or even unjust. This might be true. When students are used to the mindset of getting things right the first time, it is difficult for them to take an idea and ‘play’ with it until something works. This adjustment takes some time, but once they get the hang of it, students enjoy exploring and they learn quickly.&lt;/p&gt;
+&lt;p&gt;Personally, I most enjoy  observing how students learn resilience through ‘playing’ with ideas and trying different options until they find a solution. In fact, in today’s world it may be more important to learn resilience, persistence, and finding the next small workable step in order to progress toward a goal.&lt;/p&gt;
+&lt;p&gt;Of course creating an environment where exploration can thrive requires not doing a few things, too - such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Not judging or criticizing mistakes or rework&lt;/li&gt;
+&lt;li&gt;Not judging the work or its qualities, instead let the kids cultivate their own pride and ownership (the minimum quality tests need clear, objective and observable)&lt;/li&gt;
+&lt;li&gt;Not celebrating the answers, but celebrating the exploratory and learning aspects.&lt;/li&gt;
+&lt;li&gt;Not requiring that every student have the same depth of knowledge in each part of the project. It&amp;rsquo;s important to define baseline knowledge they all need to have - but after that they need to be free to explore more deeply what the student finds interesting.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To encourage exploration we have found that the following the guidance for a growth mindset is very helpful:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Praise the grit and perseverance of arriving at a workable solution;&lt;/li&gt;
+&lt;li&gt;Cultivate the mindset of finding the next workable thing to try, even when there is no clear path to the goal; and&lt;/li&gt;
+&lt;li&gt;Encourage / expect (maybe even require) rework and changes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On a practical note, it is important to create projects that are complex and have some built-in conflict that requires balancing and tradeoffs. This is important for several reasons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Without trade-offs, a problem isn’t realistic and can be too easily googled.  The problem must be challenging enough or it isn’t engaging (but it needs to be workable).&lt;/li&gt;
+&lt;li&gt;Having to resolve a conflict or resolve tradeoffs and still arrive at one&amp;rsquo;s goals requires students to really go into depth and learn that aspect extra well.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; In the world of engineering, it is important to have a solid generalist understanding of the field (like the basic required information tested at school), but that is rarely enough for most teams. It is important to be a specialist in at least one area of interest &amp;ndash; these are called ‘T’ shaped engineers - engineers that have gone deep into two areas are even more valuable and are called ‘π’ shaped engineers. I’m advocating for creating projects (and classroom environments) in school that cultivate the same generalist / specialist mindset that is often expected in graduate school and professional lives. Art curriculums have long taught the core skills and ideas and then expected students to explore and expand upon their interests. Imagine how engaging education could be when all aspects of schools encouraged choice and exploration.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Teaching this way can be uncomfortable for teachers who may traditionally have felt that they need to operate as the expert who knows everything. To model the idea, however, that you don’t have to know everything, it is actually helpful not to know everything. In fact, you cannot give students a quick answer, which cuts off their chance to think through the problem, and instead you explore with the students and model how to learn and resolve difficult problems. The teacher must simply understand the basics and vocabulary of the field to help students interpret what they find.  Of course the teacher must also be comfortable modeling exploring the unknown with the kids.
+ploring the unknown with the kids.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Explore, Uplift and Reflect</title>
+      <link>https://btihen.github.io/post_edu/explore_uplift_reflect/</link>
+      <pubDate>Sun, 24 May 2020 15:16:45 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/explore_uplift_reflect/</guid>
+      <description>&lt;p&gt;Basically a mix of having the kids build on their strengths, &lt;strong&gt;exploring&lt;/strong&gt; the doing project based with and goal and within a context of the student&amp;rsquo;s choice.  The project-work uses many agile processes*, one step outside their knowledge/comfort,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Agility in this context means small-teams that work with small aspects of a bigger objective and build their knowledge / project iteratively and reflect (on demo suggestions (feedback) AND their own learning process) to inform the next iteration and enjoy the exploration of knowledge.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;teachers-responsibilities--activities&#34;&gt;Teacher&amp;rsquo;s Responsibilities &amp;amp; Activities&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;UPLIFT&lt;/strong&gt; &lt;em&gt;BUILD SUCCESS AND CONFIDENCE&lt;/em&gt; &amp;ndash; &lt;strong&gt;I personally like to borrow from the concept of the Hero&amp;rsquo;s Journey&lt;/strong&gt; - Help the student have a context and need to learn &amp;amp; &lt;strong&gt;apply&lt;/strong&gt; knowledge to the point where they can SOLVE A COMPLEX CHALLENGE to meet the goal within the context of the learning objectives of the class (or unit).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Uplifted Atmosphere&lt;/strong&gt; - guide kids to encourage strengths&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;re-enforce&lt;/em&gt; activities that builds the student&amp;rsquo;s confidence and joy in learning&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;re-direct&lt;/em&gt; distracting /destructive activities toward helpful actions&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;exploration&lt;/em&gt; create an atmosphere where learning can be fun, meaningful and exploratory (like young kids) and not stressful and time-based&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Natural Assessment &amp;amp; Motivation&lt;/strong&gt; - whenever possible &amp;amp; allowed - I avoid grading, assessing and correcting students.  Instead, I encourage nature assessments and motivation.
+&lt;em&gt;For example, while building boats, have a pool and criteria for &amp;ldquo;tracking&amp;rdquo;, &amp;ldquo;load&amp;rdquo;, etc. and have the students test the boat in the pool - where everyone can see and test the qualities.  To that end, I find it very helpful if the students work will be publicly viewed and seen by others - preferably with the students present to &amp;ldquo;show&amp;rdquo; their product &amp;amp; experience the pride (or embarrassment in their work).  That&amp;rsquo;s often much more ownership than a grade.&lt;/em&gt;
+If a state or other external final exam like an AP test is part of the course &amp;ndash; then I suggest after covering the material in the project based way &amp;ndash; then spend the last part of the class doing practice exams until the students are comfortable with the exam aspects of the knowledge.  This mixed approach has been very successful in teaching AP Computer Science (nearly all students received the top score 19 of 20 students).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Teaching Activities&lt;/strong&gt; - guide kids to learn the materials (rarely instruct)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;guide students to other students who can help them&lt;/li&gt;
+&lt;li&gt;help the students smallify their work to find something they can research &amp;amp; solve (the next doable step just beyond their skill-level)&lt;/li&gt;
+&lt;li&gt;help the students with keywords, concepts and vocabulary to do the research for their next step&lt;/li&gt;
+&lt;li&gt;help the students understand and interpret their research they found but don&amp;rsquo;t fully understand&lt;/li&gt;
+&lt;li&gt;help the students apply their research they&amp;rsquo;ve understood conceptually, but unsure how to implement&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;students-responsibilities--activities&#34;&gt;Student&amp;rsquo;s Responsibilities &amp;amp; Activities&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Choice&lt;/strong&gt; - of goals and context within the context of the learning objectives of the class (or unit).  &lt;em&gt;For example to teach middle school students 3-D Analytical Geometry &amp;amp; Fluid Dynamics - students create companies and design a boat of their choice (and print versions of it as they refine it).  Each boat will need a specialty with a specialty (stability, comfort for people, speed, tracking, efficiency, load, &amp;hellip;) and can overcome some adversity (wind, waves, currents, &amp;hellip;)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Context&lt;/strong&gt; - students need to create a context they own for their chosen goal.  &lt;em&gt;This means creating a story (an explanation / real or imagined) for the importance of their chosen goal. For example when teaching Earth Sciences students could choose to make an Earthquake alarm system to help people in stay safe.  To that end they also have to consider the consequences of their system if people rely on it - and choose at least one failure condition they can mitigate.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Natural Assessment&lt;/strong&gt; - Students need to learn to take ownership for tracking their own knowledge, resources and quality.  &lt;em&gt;To that end, I avoid personally telling them what to correct, instead they need to get peer-reviews, do demos and get feedback from others and assess their work against their stated goals.  To that end I almost always require a public display of their work with them present.  Either a presentation or demos where people come by and they demo / explain their work.  I also have them practice within the class with each other - where they can see the quality and ideas of others with enough time to adjust their own work to meet their own standards or pride and avoid a sense of embarrassment (or not).&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Demos &amp;amp; Constructive Feedback&lt;/strong&gt; - ideally I have the kids have a project journal and demo notes and reflections need to be recorded&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Demos are IMPORTANT - putting students in the learners driver seat.  Students need to learn to get / ask for (&lt;strong&gt;pull&lt;/strong&gt;) their feedback to assess and adjust the quality and progress of their work (with help from the &lt;em&gt;Natural Assessment as a reality check &amp;ndash; not the teacher - &amp;lsquo;What does the water say?&#39;&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;Students must learn to give &amp;amp; hear &amp;amp; accept feedback in their work.  To that end there are 4 rules to make this work - with more experience these can be loosened some:
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;plan&lt;/strong&gt; what and how to present the demo (&amp;amp; what the feedback might be - both likes and changes)&lt;/li&gt;
+&lt;li&gt;present the demo &amp;amp; &lt;strong&gt;receiving feedback&lt;/strong&gt; - &lt;strong&gt;listen &amp;amp; take notes&lt;/strong&gt; (no challenges - keep it safe to &lt;strong&gt;give feedback&lt;/strong&gt;, further explanations or clarifications of misunderstandings - simply note ones reaction and reflect on how to improve the demo - theres no problem with doing a second demo with another group if the first group didn&amp;rsquo;t understand).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Giving Feedback&lt;/strong&gt; - includes two aspects:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;what is &lt;strong&gt;liked&lt;/strong&gt; and how that matches what is understood about the group&amp;rsquo;s goals&lt;/li&gt;
+&lt;li&gt;what they think would make the work &lt;strong&gt;even better&lt;/strong&gt; (if something should change then is needs to be worded as - &amp;ldquo;I like this &amp;lsquo;pointy bow&amp;rsquo; and think it would be even better with a rounded bow&amp;rdquo;) - constructive and positive feedback (this takes practice &amp;ndash; kids (and teachers) are not well versed in &lt;strong&gt;&amp;ldquo;Pixar&amp;rsquo;s yes and &amp;hellip;&amp;quot;&lt;/strong&gt; feedback process&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;&lt;strong&gt;using a suggestion&lt;/strong&gt; each project must accept at least &lt;strong&gt;ONE&lt;/strong&gt; suggestion from another group (and credit them) and explain how they made the suggestion their own and integrated it into the project.  Without this - they cannot submit the project (its incomplete)!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Exploration&lt;/strong&gt; - kids should learn to enjoy learning&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;DO VERY little direct instruction (if any) - have the kids explore until they get a bit stuck (but don&amp;rsquo;t make them beg for help, just be patient and help them get unstuck - DON&amp;rsquo;T TELL THEM SOLUTIONS)&lt;/li&gt;
+&lt;li&gt;learning need to change (as much as possible) from an external &amp;ldquo;death march&amp;rdquo; &lt;strong&gt;pushed&lt;/strong&gt; by the curriculum, but instead turned into a lean &lt;strong&gt;pull&lt;/strong&gt; system by the students own needs, interests and desire to fulfill their own chosen goals within their chosen context.&lt;/li&gt;
+&lt;li&gt;ideally students track what they research and learn in the project journal.  Then all kids on the team have access to all the info (&amp;amp; is responsible to know what is known by others on the team - that is the homework - to know what others have done and be aware and understand it).  Occasionally, I look at the journal and ask other kids in the group to explain what another has researched and if the kids doesn&amp;rsquo;t know the material then the &amp;lsquo;researcher&amp;rsquo; is responsible to ensure the others on team &amp;lsquo;catch up&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Path&lt;/strong&gt; - &lt;strong&gt;The Hero&amp;rsquo;s Journey &amp;amp; Smallify&lt;/strong&gt; - initially students are unfamilier with solving big complex problems without one clear &amp;lsquo;Googable&amp;rsquo; answer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;smallify&lt;/strong&gt; - students need to learn to find the next workable step just beyond their knowledge &amp;ndash; but doable (initially kids need help with this!)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;small enough&lt;/strong&gt; - where its easy to have false starts, make lots of changes and explore and after feedback &amp;ndash; make changes without being upset at the invested time.  &lt;strong&gt;Small enough means that it is fun to explore and make changes!&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hero&amp;rsquo;s Journey&lt;/strong&gt; - each project needs to involve complexity &lt;em&gt;(that has no one right solution)&lt;/em&gt; but involves a complex compromise to arrive at one&amp;rsquo;s goals.  This helps the students really learn the depth of the material and the compromises needed to accomplish their goals. (there have been recent studies showing that people only fully understand a topic and its related implications when they go through process of exploring complex compromises)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Reflection &amp;amp; Change&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;another form of reflection - done ideally daily, they asses their progress (initially I like to review their burn-down on their way out at the end of class with them and help them reflect on and verbalize what skills they are using to make progress &amp;amp; contemplate if its possible to build even more on those strengths and to reflect on whats hinder them (&amp;amp; see if they can replace that activity with something more helpful).  Over time I like to encourage the kid to just update me their progress and reflections on their way out of class.&lt;/li&gt;
+&lt;li&gt;students need to get regular feedback on each phase of their work (ideally at least weekly) &amp;amp; at some point each group&amp;rsquo;s project must have at least on change inspired by feedback from another group or individual outside their group - and credit that person / group. Even if &amp;amp; in-fact ideally - they take the idea and adapt it to their needs needs and goals.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hugo Academic Content Commands</title>
+      <link>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</link>
+      <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</guid>
+      <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/firstname_lastname
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add person&amp;rsquo;s image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/authors/firstname_lastname/avatar.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-blog&#34;&gt;Create a Blog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind post post/blog_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;images within the article&lt;/strong&gt; - add images to the article folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp image.jpg content/post/blog_title/article_image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and add it to the content using: &lt;code&gt;![kanban](example.jpg)&lt;/code&gt; within the article&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/post/blog_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-a-publication-reference&#34;&gt;Add a Publication Reference&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind publication publication/publication_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/publication/publication_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a pdf&lt;/strong&gt; (with the same name as the folder) and it will be automatically available&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.pdf content/publication/publication_title/publication_title.pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;Create a Project&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind project project/project_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/project/project_name/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-talk&#34;&gt;Create a Talk&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind talk talk/my-talk-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Talk Slides&lt;/strong&gt; are a bit more complicated see:
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34;&gt;https://sourcethemes.com/academic/docs/managing-content/#create-slides&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;course-documentation&#34;&gt;Course (Documentation)&lt;/h2&gt;
+&lt;p&gt;This is tricky (copy and rename an existing &lt;code&gt;course&lt;/code&gt; and adapt it)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;courses&lt;/code&gt; can be renamed and can have multiple folders (courses) within it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; the &lt;code&gt;algebra_1&lt;/code&gt; folder cannot have any sub-folders. Within an actual course all materials must be within a FLAT hierarchy.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hugo Website using Github</title>
+      <link>https://btihen.github.io/post_tech/hugo_academic_website_steps/</link>
+      <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/hugo_academic_website_steps/</guid>
+      <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-1-create-a-public-username_website-repo&#34;&gt;step 1: create a &lt;strong&gt;public&lt;/strong&gt; &lt;code&gt;username_website&lt;/code&gt; repo&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ll assume your github account is &lt;code&gt;username&lt;/code&gt; I think this repo needs to be publicly readable (not 100% sure)&lt;/p&gt;
+&lt;h3 id=&#34;step-2-clone-the-academic-hugo-locally&#34;&gt;step 2: clone the academic hugo locally&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/sourcethemes/academic-kickstart.git username_website
+cd academic_website
+git submodule update --init --recursive  # without this the site won&#39;t start correctly
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure you have many files within: &lt;strong&gt;&lt;code&gt;themes/academic&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-3-update-gitignore--public-folder&#34;&gt;step 3: Update .gitignore &amp;amp; public folder&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;update &lt;code&gt;.gitignore&lt;/code&gt; remove the line with &lt;code&gt;public&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;be sure there is no &lt;code&gt;public&lt;/code&gt; folder (yet), if there is remove it and all its contents.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;step-4-point-this-repo-to-your-username_website-repo&#34;&gt;step 4: point this repo to your &lt;code&gt;username_website&lt;/code&gt; repo&lt;/h3&gt;
+&lt;p&gt;I have found the easiest way to overwrite the source &lt;code&gt;origin&lt;/code&gt; repo is to do this by hand.&lt;/p&gt;
+&lt;p&gt;Currently your &lt;code&gt;.git/config&lt;/code&gt; file will currently look like (notice the url referencing: &lt;code&gt;git://github.com/sourcethemes/academic-kickstart.git&lt;/code&gt; - this is what we need to update):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &amp;quot;origin&amp;quot;]
+	url = git://github.com/sourcethemes/academic-kickstart.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &amp;quot;master&amp;quot;]
+	remote = origin
+	merge = refs/heads/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;change the origin url by hand or by using sed:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sed -i.bak -e &#39;s/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/&#39; .git/config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when your &lt;code&gt;.git/config&lt;/code&gt; file is correct it will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &amp;quot;origin&amp;quot;]
+	url = git@github.com:username/username_website.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &amp;quot;master&amp;quot;]
+	remote = origin
+	merge = refs/heads/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now you can push this local repo to your github repo using:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git push -u origin --all
+# git init
+# git add .
+# git commit -m &amp;quot;Initial commit&amp;quot;
+# git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5-configure-website-basics&#34;&gt;step 5: configure website basics&lt;/h3&gt;
+&lt;h4 id=&#34;5a-set-your-site-name&#34;&gt;5A: Set your site name:&lt;/h4&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/config.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;find the &lt;code&gt;title&lt;/code&gt; attribute and set it to &lt;code&gt;username&lt;/code&gt; (or whatever is appropriate)&lt;/p&gt;
+&lt;h4 id=&#34;5b-pick-a-themes&#34;&gt;5B: Pick a themes&lt;/h4&gt;
+&lt;p&gt;from &lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34;&gt;https://sourcethemes.com/academic/themes/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/config.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;find the &lt;code&gt;theme&lt;/code&gt; attribute and set it to your favorite theme color (or leave it as is)&lt;/p&gt;
+&lt;h4 id=&#34;5c-site-logo--favicon&#34;&gt;5C: site logo &amp;amp; favicon&lt;/h4&gt;
+&lt;p&gt;Put your image files into assets/images:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;logo.png&lt;/code&gt; (the logo on your webpage) file and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;icon.png&lt;/code&gt; (the favicon - icon in the webtab)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can go to &lt;code&gt;https://www.namecheap.com/logo-maker&lt;/code&gt; and make a logo&lt;/p&gt;
+&lt;h4 id=&#34;5d-menu-items&#34;&gt;5D: menu items&lt;/h4&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/menus.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;remove any items you won&amp;rsquo;t use.  In my case this file now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[[main]]
+  name = &amp;quot;Posts&amp;quot;
+  url = &amp;quot;#posts&amp;quot;
+  weight = 20
+
+[[main]]
+  name = &amp;quot;About&amp;quot;
+  url = &amp;quot;#about&amp;quot;
+  weight = 50
+
+[[main]]
+  name = &amp;quot;Contact&amp;quot;
+  url = &amp;quot;#contact&amp;quot;
+  weight = 60
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These will also be the sections on the home page that will be enabled and configured.&lt;/p&gt;
+&lt;p&gt;The larger the weight the further to the &lt;strong&gt;right&lt;/strong&gt; the item will be shown.&lt;/p&gt;
+&lt;h3 id=&#34;step-6-configure-site-parameters&#34;&gt;step 6: configure site parameters&lt;/h3&gt;
+&lt;p&gt;You may want to read through all the params - but the ones listed here are enough to get started.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;site_type&lt;/strong&gt; &amp;ndash; in the file: &lt;code&gt;config/_default/params.toml&lt;/code&gt;: be sure to configure the &lt;code&gt;site_type&lt;/code&gt; variable&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;configure &amp;lsquo;contact details&amp;rsquo;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;if you choose not to add an email, then be sure to set the variable &lt;code&gt;email_form=0&lt;/code&gt; on the &lt;code&gt;content/home/contact.md&lt;/code&gt; file!&lt;/li&gt;
+&lt;li&gt;if you choose not to enter an address and coordinates the in the &lt;code&gt;[map]&lt;/code&gt; section set the &lt;code&gt;engine=0&lt;/code&gt; to avoid problems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;configure social details&lt;/strong&gt; &amp;ndash; optional&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regional Settings&lt;/strong&gt; &amp;ndash; NOTE: The date display settings seems to have a bug &amp;ndash; so I don&amp;rsquo;t recommend adjusting that.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-7-configure-your-homepage&#34;&gt;step 7: configure your homepage&lt;/h3&gt;
+&lt;p&gt;At this point I suggest starting &lt;code&gt;hugo server&lt;/code&gt; so you can watch your edits.&lt;/p&gt;
+&lt;p&gt;Now go into the folder &lt;code&gt;content/home&lt;/code&gt; and we will adjust or disable the files in this folder.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;disable with: &lt;code&gt;active=false&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;enable with: &lt;code&gt;active=true&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;oder with: &lt;code&gt;weight=20&lt;/code&gt; the bigger the number the further down on the page is show (I suggest you use the same weights used in the menu)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;contact.md&lt;/code&gt;&lt;/strong&gt; - review and see if changes are desired.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;accomplishments.md&lt;/code&gt;&lt;/strong&gt; - (and all other home page sections you decide not to display) change &lt;code&gt;active=true&lt;/code&gt; to &lt;strong&gt;&lt;code&gt;active=false&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;7a-about-page&#34;&gt;7A: &lt;code&gt;about&lt;/code&gt; page&lt;/h4&gt;
+&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.  So in this case:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/author_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;change the title to whatever you like: biography, about, etc&amp;hellip;&lt;/li&gt;
+&lt;li&gt;change the variable &lt;code&gt;author&lt;/code&gt; to match the name you used to generate you profile above, ie:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;author = &amp;quot;author_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the file so the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/author_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;7b-people-or-team-page&#34;&gt;7B: &lt;code&gt;people&lt;/code&gt; (or Team) page&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;disable &lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mark the &lt;code&gt;active&lt;/code&gt; variable as &lt;code&gt;false&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;active=false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;enable &lt;code&gt;content/home/people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set &lt;code&gt;active=true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;create sub-group names:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Researchers&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or alternatively, use an empty string to create a team without sub-teams:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Create the people (authors)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/person_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add one (or more) &lt;code&gt;user_group&lt;/code&gt; to the person&amp;rsquo;s profile using the &lt;code&gt;user_groups&lt;/code&gt; variable:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you used an empty string in &lt;code&gt;people.md&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit this file so that the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/person_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-8-test-publish-to-usernamegithubio&#34;&gt;step 8: Test publish to &lt;code&gt;username.github.io&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)&lt;/p&gt;
+&lt;h4 id=&#34;8a-public-folder-non-existent&#34;&gt;8A: public folder (non-existent)&lt;/h4&gt;
+&lt;p&gt;The first time you do setup for publishing it is important this folder doesn&amp;rsquo;t exist yet and that &lt;code&gt;public&lt;/code&gt; isn&amp;rsquo;t listed in the .gitignore` file&lt;/p&gt;
+&lt;h4 id=&#34;8b-git-snapshot&#34;&gt;8B: git snapshot&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;(DO NOT YET GENERATE your website)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create your git snapshot (very important at this point since the next steps are tricky)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;First draft of homepage&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;8c-make-second-github-repo-usernamegithubio&#34;&gt;8C: make second github repo &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Now make a second &lt;strong&gt;public&lt;/strong&gt; repo (CLICK THE BOX TO INCLUDE A &lt;strong&gt;README&lt;/strong&gt; and/or a &lt;strong&gt;LISENCE&lt;/strong&gt; file!) on github called &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt;, this MUST be exactly: &lt;code&gt;username.github.io&lt;/code&gt; for this to work!&lt;/p&gt;
+&lt;p&gt;Double check your repo is not empty, but has a &lt;strong&gt;README&lt;/strong&gt; and/or a &lt;strong&gt;LISENCE&lt;/strong&gt; file.&lt;/p&gt;
+&lt;p&gt;NOW go to github repo &lt;strong&gt;settings&lt;/strong&gt; and click on &lt;strong&gt;manage access&lt;/strong&gt; and be sure you have permission to at administer (or at least write to this repo) &amp;ndash; probably not so click the &lt;strong&gt;&lt;code&gt;invite teams or people&lt;/code&gt;&lt;/strong&gt; button and add yourself as an admin (an other as needed).&lt;/p&gt;
+&lt;h4 id=&#34;8d-clone-usernamegithubio-to-public-within-your-hugo-project&#34;&gt;8D: clone &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt; to public (within your Hugo project)&lt;/h4&gt;
+&lt;p&gt;now go back into your website code (root folder) and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/username/username.github.io.git public
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you see: &lt;code&gt;warning: You appear to have cloned an empty repository.&lt;/code&gt; &amp;ndash; go back to the repo and create a README file!&lt;/p&gt;
+&lt;h4 id=&#34;8e-check-your-permissions&#34;&gt;8E: check your permissions&lt;/h4&gt;
+&lt;p&gt;enter you public folder and create an &lt;code&gt;index.html&lt;/code&gt; file and put in very simple html code: &lt;code&gt;&amp;lt;h1&amp;gt;Hello username.github.io&amp;lt;/h1&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+touch index.html
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now check this in and push it to github.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;test webpage&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this point you should see a bunch of message and toward the end you should see a line with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;To github.com:username/username.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If instead you get the error:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
+fatal: unable to access &#39;https://github.com/peakchallenges/peakchallenges.github.io.git/&#39;: The requested URL returned error: 403
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;go back and check your site permissions.&lt;/p&gt;
+&lt;p&gt;If site permissions aren&amp;rsquo;t a problem do the following:&lt;/p&gt;
+&lt;p&gt;re-create your website repo &lt;code&gt;username.github.io.git&lt;/code&gt; outside the webcode project.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:username/username.github.io.git
+cd username.github.io
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io - v1&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+git add index.html
+git commit -m &amp;quot;update readme and test permissions&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming this works then move this repo into the hugo repo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf username_website/public
+mv username.github.io username_website/public
+cd username_website/public
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io - v2&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+git commit -am &amp;quot;update readme and test permissions within hugo project&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;8f-check-the-website&#34;&gt;8F: check the website&lt;/h4&gt;
+&lt;p&gt;Wait a few minutes and go to the website &lt;code&gt;https://username.github.io&lt;/code&gt; and be sure you see your newly published html page.&lt;/p&gt;
+&lt;h3 id=&#34;step-9-configure-public-as-a-submodule&#34;&gt;step 9: configure &lt;code&gt;public&lt;/code&gt; as a &lt;strong&gt;submodule&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now add the username.github.io repo as a submodule to your website code repo using.  This allows nested projects without confusing git.&lt;/p&gt;
+&lt;p&gt;First be sure you are in the hugo root and not the public folder and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+git submodule add -b master https://github.com/username/username.github.io.git public`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now in &lt;code&gt;.git/modules&lt;/code&gt; you might see a folder called &lt;code&gt;public&lt;/code&gt; (with a bunch of stuff in it) if not simply edit your &lt;code&gt;.git/config&lt;/code&gt; so that after:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;themes/academic&amp;quot;]
+  path = themes/academic
+  url = https://github.com/gcushen/hugo-academic.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you see:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;public&amp;quot;]
+  path = public
+  url = https://github.com/username/username.github.io.git
+  branch = master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can add it by hand or with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;&amp;quot;EOF&amp;quot; &amp;gt;&amp;gt; git/config
+[submodule &amp;quot;public&amp;quot;]
+  path = public
+  url = https://github.com/username/username.github.io.git
+  branch = master
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-10-publish-your-new-hugo-webpage&#34;&gt;step 10: publish your new Hugo webpage:&lt;/h3&gt;
+&lt;p&gt;Now to publish the Hugo site you prepared do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo -d public
+cd public
+git add .
+git commit -m &amp;quot;first webpage content&amp;quot;
+git push
+# toward the end you should see: `To github.com:username/username.github.io.git`
+cd ..
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Follow this proceedure every time you update your site.&lt;/p&gt;
+&lt;p&gt;NOTE: BE SURE NOT TO delete the folder &lt;code&gt;public/.git/&lt;/code&gt; or you will need to reconfigure your public submodule.&lt;/p&gt;
+&lt;p&gt;now go back to &lt;code&gt;https://username.github.io&lt;/code&gt; and you should see your hugo site!&lt;/p&gt;
+&lt;p&gt;(This might take a few minutes &amp;ndash; up to a half-hour &amp;ndash; to publish)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Docker Intro using MailCatcher</title>
+      <link>https://btihen.github.io/post_tech/docker_intro_with_mail_catcher/</link>
+      <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/docker_intro_with_mail_catcher/</guid>
+      <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
+&lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
+&lt;h3 id=&#34;setup&#34;&gt;&lt;strong&gt;SETUP&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;First we need to get the repo (or at least the docker file)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# get the mailcatcher repo
+git clone git@github.com:sj26/mailcatcher.git
+
+# go into mailcather repo
+cd mailcatcher
+
+# configure to use the newest `released` gem version of mailcatcher
+sed -i.bu1 &#39;s/FROM ruby:2.5/FROM ruby:2.6/&#39; Dockerfile
+sed -i.bu2 &#39;s/ARG VERSION=0.6.5/ARG VERSION=0.7.1/&#39; Dockerfile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Dockerfile should now look like (which is actually all that is actually needed):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM ruby:2.6
+MAINTAINER Samuel Cochran &amp;lt;sj26@sj26.com&amp;gt;
+
+ARG VERSION=0.7.1
+
+RUN gem install mailcatcher -v $VERSION
+
+EXPOSE 1025 1080
+
+ENTRYPOINT [&amp;quot;mailcatcher&amp;quot;, &amp;quot;--foreground&amp;quot;]
+CMD [&amp;quot;--ip&amp;quot;, &amp;quot;0.0.0.0&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-image&#34;&gt;&lt;strong&gt;BUILD IMAGE&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now you can download the docker image and install the gems into it with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# -t adds repository:tag info -- the &#39;.&#39; at the end is important:
+docker build -t btihen/ruby/mailcatcher:ruby_2.6 .
+# ...
+# should end with something like
+# Successfully built 21e0de2bdd68
+
+# now tag it as the **lasted** image with:
+docker build -t btihen/ruby/mailcatcher:latest .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now you can see your list of docker images (you should see the starting image/container we just created):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker images
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher    latest              21e0de2bdd68        8 minutes ago       870MB
+btihen/ruby/mailcatcher    ruby_2.6            21e0de2bdd68        8 minutes ago       870MB
+ruby                       2.6                 a98425292e84        2 weeks ago         843MB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-container&#34;&gt;&lt;strong&gt;BUILD CONTAINER&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now start the docker image using the build image id (&lt;code&gt;-d&lt;/code&gt; allows it to run in the backgroud, &lt;code&gt;-p 1025:1025 -p 1080:1080&lt;/code&gt; opens a connection on ports 1025 &amp;amp; 1080 from localhost to the docker image):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# build a container so we can test our image
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
+
+# or if you like ids better
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher 21e0de2bdd68
+
+# if you forgot the image-id you can list the images with:
+docker images
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;testing-http--smtp&#34;&gt;&lt;strong&gt;TESTING (http &amp;amp; smtp)&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;now you should be able to go to &lt;code&gt;http://localhost:1080&lt;/code&gt; and see the mailcatcher webpage.&lt;/p&gt;
+&lt;p&gt;now lets test the smtp side from the cli using these instructions: &lt;code&gt;https://www.shellhacks.com/send-email-smtp-server-command-line/&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# connect to the mail server
+$ telnet localhost 1025
+# or
+$ telnet 127.0.0.1 1025
+220 smtp.domain.ext ESMTP Sendmail ?version-number?; ?date+time+gmtoffset?
+
+# declare yourself (IP or DNS)
+&amp;gt; HELO local.domain.name
+250 smtp.domain.ext Hello local.domain.name [xxx.xxx.xxx.xxx], pleased to meet you
+
+# declare who the email is from:
+&amp;gt; MAIL FROM: test@local.domain.name
+250 2.1.0 sender@adress.ext... Sender ok
+
+# declare who should get the email:
+&amp;gt; RCPT TO: recipient@adress.ext
+250 2.1.5 recipient@adress.ext... Recipient ok
+
+# setup the DATA transmission:
+ &amp;gt; DATA
+354 Enter mail, end with &amp;quot;.&amp;quot; on a line by itself
+
+# type a subject two returns and a message ending with &#39;.&#39; (on its own line):
+SUBJECT: Test message
+
+Hello,
+this is a TEST message,
+please don&#39;t reply.
+Thank you.
+.
+
+# end the connection
+&amp;gt; QUIT
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now check the mail has arrived in mailcatcher at &lt;code&gt;localhost:1080&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming you see the email sent - you can be sure your image &amp;amp; container is setup properly.&lt;/p&gt;
+&lt;h3 id=&#34;stopping-exited-container&#34;&gt;&lt;strong&gt;STOPPING (exited) CONTAINER&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;When we are done with mailcatcher we can stop the docker process:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker ps -a
+docker kill mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;starting-built-but-exited-containers&#34;&gt;&lt;strong&gt;STARTING BUILT (but exited) CONTAINERS&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;To restart mailcatcher at a later date simply type:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker start mailcatcher&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sharing-images-once-they-work&#34;&gt;&lt;strong&gt;SHARING IMAGES (once they work)&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# login to the Azure Container Repository
+docker login btihen -u username -p xxxxxxxxxxx
+
+# upload the new image
+docker push btihen/ruby/mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;retrieving-shared-image&#34;&gt;&lt;strong&gt;RETRIEVING SHARED IMAGE&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;az acr login --name username
+az acr repository list --name username --output table
+
+# getting the image
+docker pull btihen/ruby/image_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;containerize the image&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# these are the default local ports - adjust to your needs
+docker run -d -p 1025:1025 -p 1080:1080 --name mailcatcher btihen/ruby/mailcatcher:latest
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;start the container&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker start mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;listing-repo-images&#34;&gt;&lt;strong&gt;LISTING Repo IMAGES&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;One-time install&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# if needed install the azure cli
+brew update &amp;amp;&amp;amp; brew install azure-cli
+
+# the following may also be needed:
+brew update &amp;amp;&amp;amp; brew install python3 &amp;amp;&amp;amp; brew upgrade python3
+brew link --overwrite python3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Retrieve the image list&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# login with the azure-cli
+az acr login --name username
+
+# list the images
+az acr repository list --name username --output table
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;removing-containers&#34;&gt;&lt;strong&gt;REMOVING CONTAINERS&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;when we no longer need mailcatcher we can remove it with (&lt;code&gt;-a&lt;/code&gt; lists running and stopped containers):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker ps -a
+docker rm mailcatcher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;REMOVING IMAGES&lt;/strong&gt;
+To fully clean up and remove (images &amp;ndash; after the containers are removed):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ docker images
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+btihen/ruby/mailcatcher  ruby_2.5            21e0de2bdd68        25 minutes ago      870MB
+ruby                     2.5                 a98425292e84        2 weeks ago         843MB
+
+$ docker image rm 21e0de2bdd68
+
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ruby                2.5                 a98425292e84        2 weeks ago         843MB
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
+      <link>https://btihen.github.io/post_tech/phoenix_1_5_live_view_basics/</link>
+      <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/phoenix_1_5_live_view_basics/</guid>
+      <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;which is very cool.  I wanted to learn more and found this Phoenix 1.4 tutorial:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=2bipVjOcvdI&#34;&gt;https://www.youtube.com/watch?v=2bipVjOcvdI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&#34;&gt;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and decided to translate that into Phoenix 1.5. This is what follows.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Since I am just learning the Phoenix Framework and will need to refer to this for my self to remember how to do basic things &amp;ndash; I&amp;rsquo;ve documented every little detail.&lt;/p&gt;
+&lt;h3 id=&#34;step-0---setup-environment&#34;&gt;Step 0 - setup environment&lt;/h3&gt;
+&lt;p&gt;Setup environment &amp;amp; newest version of elixir:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;exenv install 1.10.3
+exenv global
+exenv local 1.10.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Install the 1.5.1 phx_new generator:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mix archive.install hex phx_new 1.5.1&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-1-create-a-phoenix-project-with-liveview&#34;&gt;Step 1: Create a Phoenix Project with LiveView&lt;/h3&gt;
+&lt;p&gt;Create the project (notice the &lt;code&gt;--live&lt;/code&gt; - that enables LiveView, &lt;code&gt;--no-ecto&lt;/code&gt; - keeps the project smaller since we won&amp;rsquo;t be persisting any data):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mix phx.new counter --no-ecto --live&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;enter project and create init commit:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd counter
+git init &amp;amp;&amp;amp; git add -A &amp;amp;&amp;amp; git commit -m &amp;quot;init&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-2---simple-counter-page-using-liveview&#34;&gt;Step 2 - simple counter page using LiveView&lt;/h3&gt;
+&lt;p&gt;Make a counter_live folder &amp;amp; an index.ex file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir lib/counter_web/live/counter_live
+touch lib/counter_web/live/counter_live/index.ex
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add the following contents:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;32
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;33
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;34
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;35
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;36
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;37
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;38
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;39
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;40
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;41
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;42
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;43
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;44
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;45
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;46
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;47
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;48
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;49
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
+  def mount(_params, _session, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
+  end
+
+  def render(assigns) do
+    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  end
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;&lt;/span&gt;
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;&lt;/span&gt;
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;&lt;/span&gt;
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
+    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Now update the routers (so we can get to the new webpage &amp;ndash; now our app should work:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; do
+    pipe_through &lt;span style=&#34;color:#e6db74&#34;&gt;:browser&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;# live &amp;#34;/&amp;#34;, PageLive, :index        # remove this line&lt;/span&gt;
+    live &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterLive.Index&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# add this line&lt;/span&gt;
+  end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Start pheonix:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Go to:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;localhost:4000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You should now see the website and the counter should function&lt;/p&gt;
+&lt;p&gt;Assuming all is good, I&amp;rsquo;ll take a git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;counter with live update&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-3---running-tests&#34;&gt;Step 3 - Running tests&lt;/h3&gt;
+&lt;p&gt;In order to run the tests we type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We see that PageLive test fails.  This is because we replaced this behavior with &lt;code&gt;CounterLive&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To fix this we will create a &lt;strong&gt;CounterLive&lt;/strong&gt; test and delete &lt;strong&gt;PageLive&lt;/strong&gt; test.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm test/counter_web/live/page_live_text.exs
+touch test/counter_web/live/counter_live_text.exs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is the code for our new test: it basically just checks to be sure our Title is on the page:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# test/counter_web/live/counter_live_text.exs&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
+
+  import &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
+
+  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, page_live, disconnected_html} &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; live(conn, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;)
+    assert disconnected_html &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
+    assert render(page_live) &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Now we can test again: &lt;code&gt;mix test&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now that works, lets take another git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;counter with live update&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-4----liveview-templates&#34;&gt;Step 4 &amp;ndash; LiveView Templates&lt;/h3&gt;
+&lt;p&gt;Create a template file (helpful for complex html pages, but simple to create):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;touch lib/counter_web/live/counter_live/index.html.leex&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now just copy the html (from the render method into this file):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-linenos=table,linenostart=1&#34; data-lang=&#34;linenos=table,linenostart=1&#34;&gt;# lib/counter_web/live/counter_live/index.html.leex
+&amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;
+  &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&amp;lt;/p&amp;gt;
+
+&amp;lt;div&amp;gt;
+  &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+  &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+  &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div&amp;gt;
+   &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;p&amp;gt;
+  &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now point &lt;code&gt;lib/counter_web/live/counter_live/index.ex&lt;/code&gt; to this file by replacing render with an apply command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
+  defp apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) do
+    socket
+  end
+  &lt;span style=&#34;color:#75715e&#34;&gt;# remove this funtion&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# def render(assigns) do&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#  ~L&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   ...&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#   &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; &lt;code&gt;apply_action&lt;/code&gt; understands the &lt;strong&gt;rest&lt;/strong&gt; verbs such as &lt;code&gt;:new&lt;/code&gt;, &lt;code&gt;:show&lt;/code&gt; etc.&lt;/p&gt;
+&lt;p&gt;Now try the app again and it should still work!&lt;/p&gt;
+&lt;p&gt;Assuming it still works, I&amp;rsquo;ll take another git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;counter using a template&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5---reusable-components--isolation&#34;&gt;Step 5 - Reusable Components (&amp;amp; isolation)&lt;/h3&gt;
+&lt;p&gt;This allows complex components to be &lt;strong&gt;reused&lt;/strong&gt; within multiple templates and &lt;strong&gt;isolation&lt;/strong&gt; to keep one&amp;rsquo;s mental scope minimal.&lt;/p&gt;
+&lt;p&gt;Create a file for the component:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;touch lib/counter_web/live/counter_live/counter_component.ex&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Move the dynamic html and it&amp;rsquo;s associated functions into this file, it&amp;rsquo;s important to import the live_components into this file using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;use CounterWeb, :live_component&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In order to encapsulate the events into the component we will also move the event handlers into the component file.&lt;/p&gt;
+&lt;p&gt;So this file will now look like:
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
+
+  def render(assigns) do
+    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  end
+
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+  end
+
+  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Notice the button tags are slightly more complex&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;button phx-click=&amp;quot;dec&amp;quot; phx-target=&amp;quot;&amp;lt;%= @myself %&amp;gt;&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;the &lt;strong&gt;@myself&lt;/strong&gt; basically informs the event that the handler is within the component.&lt;/p&gt;
+&lt;p&gt;Now update the live template to point at the component using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Also note we need to pass the @val value into the component using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;id: 0, val: @val&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;its a little wierd, but we need to pass an &lt;strong&gt;id&lt;/strong&gt; even if there is no ecto backed record.&lt;/p&gt;
+&lt;p&gt;Now the template file looks like a normal template file again (focused on formating):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
+defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
+  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
+  def mount(_params, _session, socket) do
+    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
+  end
+
+  def render(assigns) do
+    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+  end
+
+end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Lets check that this still works.&lt;/p&gt;
+&lt;p&gt;Assuming it still works, I&amp;rsquo;ll make one last git snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;live pages using isolated components - like JS does&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Kanban Usage</title>
+      <link>https://btihen.github.io/post_edu/kanban_usage/</link>
+      <pubDate>Sun, 03 May 2020 19:25:09 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/kanban_usage/</guid>
+      <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Kanban is a visual way to track your tasks and your progress.  Many people find this helpful way to to show yourself, your parents and teachers what work needs to be done.  Ideally, this is done on a large screen, sheet of paper, or whiteboard - so that it is obvious and easily seen as a reminder.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example.jpg&#34; alt=&#34;kanban&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;status-tracking&#34;&gt;Status Tracking&lt;/h2&gt;
+&lt;p&gt;The simplest &lt;code&gt;statuses&lt;/code&gt; would be: &lt;strong&gt;To-Do, Doing, Done&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- &lt;see example image&gt; --&gt;
+&lt;p&gt;Some teacher often require a draft &lt;code&gt;Review&lt;/code&gt; before final submissions, engineers use a similar column &lt;code&gt;Review&lt;/code&gt; or &lt;code&gt;Demo&lt;/code&gt;.  Generally, this is a good idea to check your work with peers, parents or your teacher before handing in your work &amp;ndash; so we suggest a &lt;code&gt;Review&lt;/code&gt; column before done. So now the statuses would be:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To-Do, Doing, Review, Done&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- &lt;see example image&gt; --&gt;
+&lt;h2 id=&#34;swim-lanes-tracking-multiple-classes--projects&#34;&gt;Swim-lanes (tracking multiple classes / projects)&lt;/h2&gt;
+&lt;p&gt;Ideally when using this technique you keep the number of simultaneous tasks &lt;strong&gt;(WIP)&lt;/strong&gt; to a minimum&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The number of simultaneous tasks is called &lt;code&gt;work-in-progress&lt;/code&gt; or abbreviated as &lt;code&gt;WIP&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Education, unfortunately, expects a lot of simultaneous tasks within a variety of classes.  To address this we can use &lt;code&gt;swim-lanes&lt;/code&gt; to track our priorities with a jumble of independent projects (classes).  For example: we might have swim-lanes for: English, Mathematics, Science, &amp;hellip;&lt;/p&gt;
+&lt;p&gt;Ideally, we will try only allow &lt;strong&gt;ONE task&lt;/strong&gt; in your &lt;code&gt;doing&lt;/code&gt; and &lt;code&gt;review&lt;/code&gt; boxes for each swim-lane / class.  &lt;em&gt;(This is called a WIP Limit of 1).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example_w_swimlane.jpg&#34; alt=&#34;kanban_w_swimlanes&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tasks&#34;&gt;Tasks&lt;/h2&gt;
+&lt;p&gt;Tasks Cards should have critical reminder information on them. Refrain from putting extra information on the card, the card should be clean and simple to read - it is a reminder of work to do NOT a full description of the assignment.&lt;/p&gt;
+&lt;p&gt;Here is the critical information I include on a personal Kanban card.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Title&lt;/strong&gt; - Big bold text (upper left corner)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description&lt;/strong&gt; - a very short reminder of what to do - ideally in 4 to 5 words&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Class&lt;/strong&gt; - in case of confusion, I write the class / swim-lane (lower left corner)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Due Date&lt;/strong&gt; - Big bold Text (lower right corner)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Start Date&lt;/strong&gt; - use this to schedule small tasks of a large project - which can be used to slowly make progress on a large task (I call this smallifying).  This is a very important skill to ensure continued progress on large projects in a timely way.  I put this just above the &lt;code&gt;Due Date&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;see example image of a variety of tasks on a post-it with assignment below include a large task smallified&gt;
+&lt;p&gt;Here is an example of a Kanban in use with tasks:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example_w_tasks.jpg&#34; alt=&#34;kanban_w_tasks&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+&lt;p&gt;I like to use A3 paper and small post-it notes to add tasks.  Here is our recommended blank Kanban - where you can write in your classes.  Put your most important classes (in the IB these would be your &lt;strong&gt;High Level&lt;/strong&gt; courses) at the top. Use a timebox on long tasks that need to move forward, but are too big to do in one work session &amp;ndash; this is especially important when you have multiple tasks that need to be accomplished on a give day.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Timebox&lt;/strong&gt; - is a time limit that you won&amp;rsquo;t exceed for a given tasks in order to keep all tasks on schedule.  We suggest 25 to 35 minute timeboxes with small 5 minute breaks between tasks.  Every 4 timeboxes take a longer 15 minute break. This is called the pomodoro technique for full details.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/VFW3Ld7JO0w&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To best use a Kanban board, you should follow the following ritual:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Prioritize your work&lt;/strong&gt; &amp;ndash; when you sit down to work, spend the first 5 minutes reviewing the Kanban board:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;First assess what in the &lt;em&gt;priority&lt;/em&gt; classes needs to be done in order meet assignment deadlines &lt;em&gt;(for long tasks set a &lt;strong&gt;timebox&lt;/strong&gt; so you make progress but can keep all your other tasks moving too)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Second assess what needs to be started in &lt;em&gt;priority&lt;/em&gt; classes to stay on track with larger projects. If you already have a task in that classes &lt;code&gt;doing&lt;/code&gt; box then schedule that task to be done ASAP so that you can start the next task.  &lt;em&gt;This is important&lt;/em&gt; a common Kanban saying is:_ **START FINISHING TASKS, stop starting unfinished tasks!**&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do your work&lt;/strong&gt; &amp;ndash; respect your priorities and your timeboxes!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;UPDATE YOUR KANBAN&lt;/strong&gt; - End five to ten minutes before your time is up (set an alarm if needed) and &lt;strong&gt;update&lt;/strong&gt; your tasks to their new status boxes.  If you couldn&amp;rsquo;t meet your goals for a task put a smaller colorful post-it on it - as an ALERT.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Address the needs of problem tasks&lt;/strong&gt; &amp;ndash; for all tasks with an ALERT: write emails to get help, or make notes on research needed to do make progress on problem tasks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;REFLECT&lt;/strong&gt; &amp;ndash; Assess what is going well and consider if doing more that will help you be more successful and assess what is hindering you and what you can do differently to get you work done with less stress.  You reflections should result in actions (experiments for a week or so) to help you move more effectively toward your goals.  If your experiment doesn&amp;rsquo;t help, they after the test period try a new experiment.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt;
+&lt;strong&gt;Dead person&lt;/strong&gt; activities are actions that even a dead person can successfully do.  For example, waiting for someone else to help, not checking twitter in homework time, etc.
+&lt;strong&gt;Live person&lt;/strong&gt; activities are action that only live people can successfully accomplish. For example, ask a peer for help, research on the Internet for ideas, go to a help session, replace random twitter checks with Pomodoro Technique (and allow twitter in the 5 minute breaks), etc.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;h5 id=&#34;kanban&#34;&gt;Kanban&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.personalkanban.com/&#34;&gt;https://www.personalkanban.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://moduscooperandi.com/books-and-classes&#34;&gt;https://moduscooperandi.com/books-and-classes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;pomodoro&#34;&gt;Pomodoro&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://francescocirillo.com/pages/pomodoro-technique&#34;&gt;https://francescocirillo.com/pages/pomodoro-technique&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=VFW3Ld7JO0w&#34;&gt;https://www.youtube.com/watch?v=VFW3Ld7JO0w&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;helpful-books&#34;&gt;Helpful Books&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Kanban - Task Management&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Real-World Kanban: Do Less, Accomplish More with Lean Thinking, by Mattias Skarin.&lt;/li&gt;
+&lt;li&gt;Kanban in Action, by Marcus Hammarberg and Joakim Sundén.&lt;/li&gt;
+&lt;li&gt;Kanban: Successful Evolutionary Change for Your Technology Business, by David J. Anderson.&lt;/li&gt;
+&lt;li&gt;Personal Kanban: Mapping Work - Navigating Life, by Tonianne DeMaria Barry and Jim Benson.&lt;/li&gt;
+&lt;li&gt;Kanban and Scrum: Making the Most of Both, by Mattias Skarin and Henrik Kniberg.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Pomodoro - Time Management&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pomodoro Technique Illustrated, by Staffan Noteberg.&lt;/li&gt;
+&lt;li&gt;The Pomodoro Technique: Work smarter, not harder, by Francesco Cirillo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Effective Reflections, Experiments &amp;amp; Problem Solving&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The 5 Elements of Effective Thinking, by Edward B. Burger and Michael Starbird.&lt;/li&gt;
+&lt;li&gt;the shibumi strategy: a powerful way to create MEANINGFUL CHANGE, by Matthew E. May.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Effective Goal Setting &amp;amp; Changes - with small easy steps&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Little Bets: How Breakthrough Ideas Emerge from Small Discoveries, by Peter Sims.&lt;/li&gt;
+&lt;li&gt;One Small Step Can Change Your Life: The Kaizen Way Paperback, by Robert Maurer Ph.D.&lt;/li&gt;
+&lt;li&gt;The Spirit of Kaizen: Creating Lasting Excellence One Small Step at a Time: Creating Lasting Excellence One Small Step at a Time, by Robert Maurer Ph.D.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Demos and Feedback in the Classroom</title>
+      <link>https://btihen.github.io/publication/demos_and_collaborative_feedback_in_classroom_tieonline/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/demos_and_collaborative_feedback_in_classroom_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Build Confidence: Exploration and Student Choice</title>
+      <link>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieonline/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pull vs Push: Student Centric</title>
+      <link>https://btihen.github.io/publication/pull_vs_push_tieonline/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/pull_vs_push_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Importance of Challenge: Engaged, Deep Learning</title>
+      <link>https://btihen.github.io/publication/importance_of_challenge_tieonline/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/importance_of_challenge_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Roots of Agile for Education</title>
+      <link>https://btihen.github.io/publication/roots_of_agile_for_education_tieonline/</link>
+      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/roots_of_agile_for_education_tieonline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Patient Explanations Lead to Good Things</title>
+      <link>https://btihen.github.io/publication/patient_explanations_spotlight_article/</link>
+      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/patient_explanations_spotlight_article/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Getting Agile at School</title>
+      <link>https://btihen.github.io/publication/getting_agile_at_school_chapter/</link>
+      <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
+      <guid>https://btihen.github.io/publication/getting_agile_at_school_chapter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Designed to Float your Boat</title>
+      <link>https://btihen.github.io/publication/designed_to_float_your_boat_article/</link>
+      <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/designed_to_float_your_boat_article/</guid>
+      <description>&lt;iframe allowfullscreen allow=&#34;fullscreen&#34; style=&#34;border:none;width:100%;height:326px;&#34; src=&#34;https://issuu.com/ecischools/docs/globalinsights6&#34;&gt;&lt;/iframe&gt;
+&lt;p&gt;Student boat (before 3-D printing)
+&lt;img src=&#34;student_katamaran_boat.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Student boat (with code)
+&lt;img src=&#34;student_boat_with_code.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Student boat (with code)
+&lt;img src=&#34;blank_burndown_chart.png&#34; alt=&#34;Blank Burndown Chart&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Student Retrospective Guide
+&lt;img src=&#34;boat_retrospectives.png&#34; alt=&#34;Student Retrospective Guide&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introducing EDgility</title>
+      <link>https://btihen.github.io/publication/introducing_edgility_laser_report_2017/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/introducing_edgility_laser_report_2017/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LETS ClimateCase</title>
+      <link>https://btihen.github.io/publication/lets_climate_case_laser_report_2015/</link>
+      <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
+      <guid>https://btihen.github.io/publication/lets_climate_case_laser_report_2015/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;climate_case_profile.jpeg&#34; alt=&#34;Climate Case Profile&#34;&gt;
+&lt;img src=&#34;climate_case_electronics.jpeg&#34; alt=&#34;Climate Case Electronics&#34;&gt;
+&lt;img src=&#34;climate_case_internal.jpeg&#34; alt=&#34;Climate Case Grow Space&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
