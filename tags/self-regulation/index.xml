@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Self-Regulation | btihen</title>
+    <title>self-regulation | btihen</title>
     <link>https://btihen.github.io/tags/self-regulation/</link>
       <atom:link href="https://btihen.github.io/tags/self-regulation/index.xml" rel="self" type="application/rss+xml" />
-    <description>Self-Regulation</description>
+    <description>self-regulation</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Wed, 16 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
-      <title>Self-Regulation</title>
+      <title>self-regulation</title>
       <link>https://btihen.github.io/tags/self-regulation/</link>
     </image>
     
     <item>
       <title>Patient Explanations Lead to Good Things</title>
-      <link>https://btihen.github.io/publication/patient_explanations_spotlight_article/</link>
+      <link>https://btihen.github.io/publication/las_spotlight_patient_explanations/</link>
       <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/patient_explanations_spotlight_article/</guid>
+      <guid>https://btihen.github.io/publication/las_spotlight_patient_explanations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Getting Agile at School</title>
-      <link>https://btihen.github.io/publication/getting_agile_at_school_chapter/</link>
+      <link>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</link>
       <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
-      <guid>https://btihen.github.io/publication/getting_agile_at_school_chapter/</guid>
+      <guid>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</guid>
       <description></description>
     </item>
     

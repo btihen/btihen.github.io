@@ -92,12 +92,12 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/exploration/</loc>
+    <loc>https://btihen.github.io/post_edu/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/post_edu/</loc>
+    <loc>https://btihen.github.io/tags/exploration/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
@@ -167,17 +167,17 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/post_tech/</loc>
-    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/relationships/</loc>
     <lastmod>2020-07-10T09:43:51+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/render-foriegn-views/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_tech/</loc>
     <lastmod>2020-07-10T09:43:51+02:00</lastmod>
   </url>
   
@@ -517,7 +517,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/demos_and_collaborative_feedback_in_classroom_tieonline/</loc>
+    <loc>https://btihen.github.io/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -542,7 +542,17 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/uplift_and_explore_build_confidence_tieonline/</loc>
+    <loc>https://btihen.github.io/categories/self-regulation/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/student-agency/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/tieonline_uplift_and_explore_build_confidence/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -562,12 +572,12 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/non-judgemental/</loc>
+    <loc>https://btihen.github.io/tags/natural-consquences/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/authors/paul-magunson/</loc>
+    <loc>https://btihen.github.io/tags/non-judgemental/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -577,32 +587,17 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/pull_vs_push_tieonline/</loc>
+    <loc>https://btihen.github.io/publication/tieonline_pull_vs_push/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/deep-learning/</loc>
-    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/egagement/</loc>
-    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/publication/importance_of_challenge_tieonline/</loc>
+    <loc>https://btihen.github.io/publication/tieonline_importance_of_challenge/</loc>
     <lastmod>2019-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/meaningful-context/</loc>
-    <lastmod>2019-12-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/multiple-levels/</loc>
     <lastmod>2019-12-31T00:00:00+00:00</lastmod>
   </url>
   
@@ -622,7 +617,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/roots_of_agile_for_education_tieonline/</loc>
+    <loc>https://btihen.github.io/publication/tieonline_roots_of_agile_for_education/</loc>
     <lastmod>2019-12-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -632,22 +627,17 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/agie/</loc>
+    <loc>https://btihen.github.io/publication/las_spotlight_patient_explanations/</loc>
     <lastmod>2019-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/patient_explanations_spotlight_article/</loc>
+    <loc>https://btihen.github.io/authors/pmagnuson/</loc>
     <lastmod>2019-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/self-regulation/</loc>
-    <lastmod>2019-10-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/student-coice/</loc>
     <lastmod>2019-10-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -672,7 +662,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/getting_agile_at_school_chapter/</loc>
+    <loc>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</loc>
     <lastmod>2019-04-16T18:04:29+02:00</lastmod>
   </url>
   
@@ -702,8 +692,43 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/designed_to_float_your_boat_article/</loc>
+    <loc>https://btihen.github.io/publication/ecis_designed_to_float_your_boat_article/</loc>
     <lastmod>2018-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/biology/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/ecology/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/electronics/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/publication/las_spotlight_robot_gardener/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/robotics/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/sensors/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/stem/</loc>
+    <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url>
   
   <url>
@@ -712,22 +737,17 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/agility/</loc>
+    <loc>https://btihen.github.io/tags/experiments/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/introducing_edgility_laser_report_2017/</loc>
+    <loc>https://btihen.github.io/publication/las_laser_introducing_edgility_report_2017/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/reflection/</loc>
-    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/small-experiments/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -738,6 +758,11 @@
   
   <url>
     <loc>https://btihen.github.io/coverage/agile_in_education_interview_scrum_alliance/</loc>
+    <lastmod>2017-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/agility/</loc>
     <lastmod>2017-01-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -792,7 +817,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/3-d-printing/</loc>
+    <loc>https://btihen.github.io/tags/3d-printing/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -822,11 +847,6 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/ecology/</loc>
-    <lastmod>2015-05-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/engineering/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url>
@@ -837,17 +857,12 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/publication/lets_climate_case_laser_report_2015/</loc>
+    <loc>https://btihen.github.io/publication/las_laser_lets_climate_case_laser_report_2015/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/plant-science/</loc>
-    <lastmod>2015-05-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/robotics/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url>
   
