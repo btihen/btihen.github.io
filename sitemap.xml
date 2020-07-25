@@ -58,31 +58,141 @@
   
   <url>
     <loc>https://btihen.github.io/authors/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/belongs_to/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/authors/btihen/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/categories/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/classroom/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/edgile/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/education/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/exploration/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_edu/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/practice/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/self-motivation/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_edu/edgility_btihen_smallify/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/student-choice/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/uplift/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/value/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/categories/code/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/elixir/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/nested-preloading/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/nested-resources/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/phoenix/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_tech/phoenix_1_5_blog_w_comments/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_tech/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/relationships/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/render-foriegn-views/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/templates/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/user-error-handling/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/belongs_to/</loc>
     <lastmod>2020-07-06T13:06:29+02:00</lastmod>
   </url>
   
@@ -92,17 +202,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/categories/elixir/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/has_many/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/phoenix/</loc>
     <lastmod>2020-07-06T13:06:29+02:00</lastmod>
   </url>
   
@@ -112,17 +212,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/post_tech/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/preloading/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/relationships/</loc>
     <lastmod>2020-07-06T13:06:29+02:00</lastmod>
   </url>
   
@@ -132,68 +222,58 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/templates/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/classroom/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/deliberate-practice/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/education/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/explore/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/joy/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/natural-assessment/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/post_edu/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/post_edu/student_rework_self_assigned/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <loc>https://btihen.github.io/post_edu/edgility_btihen_rework/</loc>
+    <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/self-assess/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/self-correct/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.github.io/tags/self-reflect/</loc>
-    <lastmod>2020-06-11T15:01:22+02:00</lastmod>
+    <lastmod>2020-06-16T15:01:22+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/adventure/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/engagement/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/post_edu/edgility_btihen_exploration/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/trust/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url>
   
   <url>
@@ -237,51 +317,6 @@
   </url>
   
   <url>
-    <loc>https://btihen.github.io/tags/adventure/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/agile/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/engagement/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/exploration/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/post_edu/learning_loop_exploration/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/self-regulation/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/categories/student-agency/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/student-choice/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/trust/</loc>
-    <lastmod>2020-06-03T16:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.github.io/tags/agile/</loc>
     <lastmod>2020-05-24T15:16:45+02:00</lastmod>
   </url>
@@ -308,11 +343,6 @@
   
   <url>
     <loc>https://btihen.github.io/tags/retrospective/</loc>
-    <lastmod>2020-05-24T15:16:45+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.github.io/tags/uplift/</loc>
     <lastmod>2020-05-24T15:16:45+02:00</lastmod>
   </url>
   
@@ -404,6 +434,11 @@
   <url>
     <loc>https://btihen.github.io/tags/pubsub/</loc>
     <lastmod>2020-05-10T17:01:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/categories/agile/</loc>
+    <lastmod>2020-05-03T19:25:09+02:00</lastmod>
   </url>
   
   <url>
@@ -518,6 +553,11 @@
   
   <url>
     <loc>https://btihen.github.io/tags/confidence/</loc>
+    <lastmod>2020-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.github.io/tags/natural-assessment/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url>
   
