@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>joy | btihen</title>
+    <link>https://btihen.github.io/tag/joy/</link>
+      <atom:link href="https://btihen.github.io/tag/joy/index.xml" rel="self" type="application/rss+xml" />
+    <description>joy</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 28 Jun 2020 15:01:22 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>joy</title>
+      <link>https://btihen.github.io/tag/joy/</link>
+    </image>
+    
+    <item>
+      <title>Rework through Deliberate Practice</title>
+      <link>https://btihen.github.io/post_edu/edgility_btihen_rework/</link>
+      <pubDate>Sun, 28 Jun 2020 15:01:22 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/edgility_btihen_rework/</guid>
+      <description>&lt;p&gt;Good learning projects (quite possibly all interesting projects), must have the right amount of complexity and built-in imperfections due to design trade-offs and compromises. This ensures that projects aren’t google-able AND are challenging enough to encourage real learning. I like to think that “challenging enough” ensures that students experience a sense of the “hero’s journey” while working on their projects and then when they are successful they will have a sense of pride in what they learned and accomplished.&lt;/p&gt;
+&lt;p&gt;This level of complexity has two side effects that are common in the real world, but uncommon in education:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;how to arrive at the best solution is unknown and uncertain (by even the teacher) and will require exploration - quite possibly there is more than one workable solution; and&lt;/li&gt;
+&lt;li&gt;the process of exploring to find a workable solution will involve what is commonly called the dreaded deadend or, in my field of tech, going down the rabbit hole. Unfortunately, this is often seen as a problem - not knowing and not understanding is, after all, what schools set out to correct. Allowing students to head in the wrong direction, especially since many people value efficiency (for example, discovering the fastest way to learn), can seem wrong-headed, but schools in theory should value worthwhile learning as their top priority, not speed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ideally, as students work, they self-assess, self-reflect, and self-correct their own work. It is, unfortunately, very common that we as teachers correct students and we as teachers tell them not only what to rework, and how to do it. This may be efficient at getting certain results - for example, completed projects. However, I question if that is valuable learning. When we judge student work, students learn to work toward the approval found in a grade, which alters learning. Additionally, when we tell students what to do, they don’t learn to self-regulate and self-motivate their own learning processes.&lt;/p&gt;
+&lt;p&gt;On the other hand, when students can engage in &lt;strong&gt;deliberate practice&lt;/strong&gt; (where they self-assess, self-reflect, self-correct, and choose to &lt;strong&gt;redo&lt;/strong&gt; until they themselves are satisfied), then students not only learn the classroom curriculum, but also lifeworthy skills, including: problem solving skills, balancing competing design needs, grit (stick-to-it-ive-ness), self-directed learning, and the joy of learning and discovery. In this way, students are much more likely to become life-long learners.&lt;/p&gt;
+&lt;p&gt;To ensure that students learn the process of &lt;strong&gt;deliberate practice&lt;/strong&gt;, it is important to create a classroom environment where it is straightforward for students to be able to self-assess. I have found the best way to do this is to use &lt;strong&gt;&amp;lsquo;natural&amp;rsquo; assessments&lt;/strong&gt;. At least in the world of code, engineering, and physics, this is pretty straightforward. Make rubrics in which the students can test themselves, e.g. in a class making boats, the rubric will ask if it floats with a payload, say a large coin. For areas where natural assessment isn’t as easy, I teach the kids how to get (and give) each other helpful feedback (described in a later article). In this way, students are helping each other, learning from each other, and in the end self-assessing what to do with the feedback. They are no longer as reliant on the teacher.&lt;/p&gt;
+&lt;p&gt;The beauty of letting students learn this way, when there is safety to explore &lt;i&gt;&lt;b&gt;(&amp;amp; make mistakes)&lt;/b&gt;&lt;/i&gt;, is that the students often enjoy the learning, gain self-confidence, and possibly learn the &lt;strong&gt;JOY&lt;/strong&gt; of learning. If this joy of learning becomes commonplace in education, we are very likely to have many more joyful, lifelong learners and innovators.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploration in the Classroom</title>
+      <link>https://btihen.github.io/post_edu/edgility_btihen_exploration/</link>
+      <pubDate>Mon, 01 Jun 2020 16:57:16 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/edgility_btihen_exploration/</guid>
+      <description>&lt;p&gt;Fun and a sense of adventure can be crucial to classroom engagement and learning. Cultivating a sense of adventure is similar to encouraging an atmosphere of playfulness and joy of learning. This can be quite straightforward when students are allowed to create their own goals and their own context for the goals within the curriculum. Of course, any good adventure can’t be too easy. It’s the teacher’s job to make sure a project has no obvious, googleable answer.&lt;/p&gt;
+&lt;p&gt;We might worry that making the project hard and beyond what the students know how to do could be unfair or even unjust. This might be true. When students are used to the mindset of getting things right the first time, it is difficult for them to take an idea and ‘play’ with it until something works. This adjustment takes some time, but once they get the hang of it, students enjoy exploring and they learn quickly.&lt;/p&gt;
+&lt;p&gt;Personally, I most enjoy  observing how students learn resilience through ‘playing’ with ideas and trying different options until they find a solution. In fact, in today’s world it may be more important to learn resilience, persistence, and finding the next small workable step in order to progress toward a goal.&lt;/p&gt;
+&lt;p&gt;Of course creating an environment where exploration can thrive requires not doing a few things, too - such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Not judging or criticizing mistakes or rework&lt;/li&gt;
+&lt;li&gt;Not judging the work or its qualities, instead let the kids cultivate their own pride and ownership (the minimum quality tests need clear, objective and observable)&lt;/li&gt;
+&lt;li&gt;Not celebrating the answers, but celebrating the exploratory and learning aspects.&lt;/li&gt;
+&lt;li&gt;Not requiring that every student have the same depth of knowledge in each part of the project. It&amp;rsquo;s important to define baseline knowledge they all need to have - but after that they need to be free to explore more deeply what the student finds interesting.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To encourage exploration we have found that the following the guidance for a growth mindset is very helpful:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Praise the grit and perseverance of arriving at a workable solution;&lt;/li&gt;
+&lt;li&gt;Cultivate the mindset of finding the next workable thing to try, even when there is no clear path to the goal; and&lt;/li&gt;
+&lt;li&gt;Encourage / expect (maybe even require) rework and changes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On a practical note, it is important to create projects that are complex and have some built-in conflict that requires balancing and tradeoffs. This is important for several reasons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Without trade-offs, a problem isn’t realistic and can be too easily googled.  The problem must be challenging enough or it isn’t engaging (but it needs to be workable).&lt;/li&gt;
+&lt;li&gt;Having to resolve a conflict or resolve tradeoffs and still arrive at one&amp;rsquo;s goals requires students to really go into depth and learn that aspect extra well.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; In the world of engineering, it is important to have a solid generalist understanding of the field (like the basic required information tested at school), but that is rarely enough for most teams. It is important to be a specialist in at least one area of interest &amp;ndash; these are called ‘T’ shaped engineers - engineers that have gone deep into two areas are even more valuable and are called ‘π’ shaped engineers. I’m advocating for creating projects (and classroom environments) in school that cultivate the same generalist / specialist mindset that is often expected in graduate school and professional lives. Art curriculums have long taught the core skills and ideas and then expected students to explore and expand upon their interests. Imagine how engaging education could be when all aspects of schools encouraged choice and exploration.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Teaching this way can be uncomfortable for teachers who may traditionally have felt that they need to operate as the expert who knows everything. To model the idea, however, that you don’t have to know everything, it is actually helpful not to know everything. In fact, you cannot give students a quick answer, which cuts off their chance to think through the problem, and instead you explore with the students and model how to learn and resolve difficult problems. The teacher must simply understand the basics and vocabulary of the field to help students interpret what they find.  Of course the teacher must also be comfortable modeling exploring the unknown with the kids.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

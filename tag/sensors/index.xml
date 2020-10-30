@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sensors | btihen</title>
+    <link>https://btihen.github.io/tag/sensors/</link>
+      <atom:link href="https://btihen.github.io/tag/sensors/index.xml" rel="self" type="application/rss+xml" />
+    <description>sensors</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 25 May 2017 14:10:13 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>sensors</title>
+      <link>https://btihen.github.io/tag/sensors/</link>
+    </image>
+    
+    <item>
+      <title>Robot Gardener</title>
+      <link>https://btihen.github.io/publication/las_spotlight_robot_gardener/</link>
+      <pubDate>Thu, 25 May 2017 14:10:13 +0200</pubDate>
+      <guid>https://btihen.github.io/publication/las_spotlight_robot_gardener/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

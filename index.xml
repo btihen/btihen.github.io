@@ -5,7 +5,7 @@
     <link>https://btihen.github.io/</link>
       <atom:link href="https://btihen.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>btihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 22 Aug 2020 14:05:18 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 03 Oct 2020 01:16:28 +0200</lastBuildDate>
     <image>
       <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>btihen</title>
@@ -125,6 +125,356 @@
     </item>
     
     <item>
+      <title>Reflection: The Key to Adaptability</title>
+      <link>https://btihen.github.io/post_edu/edgility_btihen_reflection/</link>
+      <pubDate>Sat, 03 Oct 2020 01:16:28 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/edgility_btihen_reflection/</guid>
+      <description>&lt;p&gt;Adaptability is the key or maybe even the definition of agility, as discussed in Paul’s article 
+&lt;a href=&#34;https://btihen.github.io/blog/edgility_pmagnuson_adaptability&#34;&gt;Adaptability article&lt;/a&gt;. In this article I’ll discuss how I try to instill adaptability as a classroom process for student learning. These practices are borrowed from tech companies and business consultants, but I am confident they can be applied in many contexts, including education, when properly adapted.&lt;/p&gt;
+&lt;p&gt;When I first taught, I only led reflections at the end of a learning unit or project and I encouraged the students to think deeply and go into detail. However, I realized that students have little practice with reflecting on their learning process, making a deep retrospective impractical. Additionally, I encourage an exploratory approach in class, where the student goal purposely doesn’t align with easy-to-google solutions, so students need to learn and adapt as they go. It turns out students generally have little practice adapting as they go, perhaps because the learning path is too easy, or too clean. Thus even project work doesn’t usually involve deep thinking, thoughtful decisions, and compromises to accomplish their goals.&lt;/p&gt;
+&lt;p&gt;My solution was to introduce mini-reflections at the end of each class and then ask what, if anything, students would do differently in the next class. I ask one or two questions, usually from this list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What&amp;rsquo;s your goal?&lt;/li&gt;
+&lt;li&gt;What&amp;rsquo;s your goal next class?&lt;/li&gt;
+&lt;li&gt;What/who is allowing you to progress?&lt;/li&gt;
+&lt;li&gt;What/who could help you progress with the next goal?&lt;/li&gt;
+&lt;li&gt;What’s slowing you down?&lt;/li&gt;
+&lt;li&gt;What obstacles are blocking your progress?&lt;/li&gt;
+&lt;li&gt;What can you adjust, change or do more of to enjoy progress?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These mini-retrospectives last about a minute or so and happen on the way out of the class. Teachers will recognize the format as “exit tickets” or “pro-formas.” Because I taught engineering topics and students work in small groups of three to four, the process only takes about vie minutes and is integrated into the cleanup process. (Students are very good about getting started and being engaged - but cleanup seems to be easier to forget somehow. Those who are quicker to catch on do their mini-retrospective first). When the students have to return materials and clear their bench, I look at their work (their lab book and project) as they describe it and we jointly update their burn-down chart (an Agile progress tracking-tool &amp;amp; future blog-post) &lt;strong&gt;Importantly, I always ask what went well and how they can maintain and enjoy their progress.&lt;/strong&gt; If needed, I might also ask what they test to get unstuck, to catch up, etc.  Finally, I ask what they have in mind for the next class.&lt;/p&gt;
+&lt;p&gt;These are very quick and neutral discussions that give the students practice reflecting and being asked how they will adjust in a very low-stakes environment. This seems to be exactly the practice many students need. It also turns out that many students enjoy showing off their work at the end of each class. &lt;strong&gt;These are not corrective or judgmental teacher lead meetings, but rather quick coaching and check-ins - with the goal of guiding students to self-reflect and self-regulate. This approach can be uplifting and cultivate student confidence and appreciation for learning.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There’s research that shows positive interactions lead to positive outcomes - perhaps unsurprisingly - and plenty of reasons to build a sense of uplift into the teaching and learning environment. Uplift is also a practice of EDgility.&lt;/p&gt;
+&lt;p&gt;Once every week or so I meet with each student group during class and do a five-minute reflection (still short, but more in-depth than the one-minute check-ins) and we review more questions.  This more in-depth reflection also seems to be important and is where students really start to cultivate confidence in their self-regulation.&lt;/p&gt;
+&lt;p&gt;These many small reflections encourage adaptability. With time students get good at reflection and self-regulation. At this point the students are ready to guide their reflections and self-regulation.&lt;/p&gt;
+&lt;p&gt;Once students have gotten to the point where they are self-reflecting and self-correcting, the students are well on their way with an Agile-Mindset and as self-regulated learners! In my mind, this is a very life-worthy skill.&lt;/p&gt;
+&lt;p&gt;Note: Be prepared to be flexible and work with each group differently to meet their needs, different students and groups take longer or shorter to self-reflect and self-regulate. Creating a safe environment where exploration, success and progress are called out and celebrated - is critical, the students have plenty of other classes where correction and short-comings as seen by others (usually the teacher) is called out.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install and Configure Rails</title>
+      <link>https://btihen.github.io/post_rails/robust_rails_01_install_configure/</link>
+      <pubDate>Thu, 10 Sep 2020 20:46:07 +0200</pubDate>
+      <guid>https://btihen.github.io/post_rails/robust_rails_01_install_configure/</guid>
+      <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
+&lt;p&gt;To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).&lt;/p&gt;
+&lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
+&lt;p&gt;Take from:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;create-the-project&#34;&gt;create the project:&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# -T - skips tests - I like using rspec
+# -d postgresql - I like using postgresql best for the db
+# Spring &amp;amp; listen speed testing - but can get out of sync and make problems
+
+rails new calendar -T -d postgresql --webpack=stimulus # --skip-spring --skip-listen
+
+cd calendar
+# gem install bundler:2.1.4
+# rails app:update:bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;update-the-readme-and-initialize-git&#34;&gt;update the README and initialize Git&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;intial commit&amp;quot;
+git remote add origin git@gitlab.com:btihen/calendar.git
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-extra-gems-for-this-project&#34;&gt;Add extra Gems for this project&lt;/h2&gt;
+&lt;p&gt;add rspec, devise, factory_bot and stimulus_reflex&lt;/p&gt;
+&lt;p&gt;Execute the following command (or add to the Gemfile)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt; Gemfile
+# Project Gems
+##############
+
+# FRONT END
+###########
+gem &amp;quot;stimulus_reflex&amp;quot;, &amp;quot;~&amp;gt; 3.3&amp;quot;
+
+# BACK END
+##########
+gem &#39;devise&#39;
+
+# DEV / TESTS
+#############
+group :development, :test do
+  gem &#39;awesome_print&#39;        # formats pry (&amp;amp; irb outputs into readable formats)
+
+  gem &#39;pry-rails&#39;
+  gem &#39;pry-byebug&#39;           # Adds byebug&#39;s step debugging and stack navigation
+  # gem &#39;pry-debugger&#39;       # adds step, continue, etc (alternative to pry-byebug)
+  gem &#39;pry-stack_explorer&#39;   # easy stack traces when debugging
+  # more pry gems if needed at: https://spin.atomicobject.com/2012/08/06/live-and-let-pry/
+
+  gem &#39;factory_bot_rails&#39;
+  gem &#39;faker&#39;
+
+  # gem &#39;rspec-rails&#39;
+  gem &#39;capybara&#39;
+  gem &#39;rspec-rails&#39;, &#39;~&amp;gt; 4.0.0&#39;
+
+  # lets spring work with rspec
+  gem &#39;spring-commands-rspec&#39;
+end
+
+group :test do
+  # easier tests (inside rspec)
+  gem &#39;shoulda-matchers&#39;
+
+  # cucumber can test emails (rspec too?)
+  # gem &#39;email_spec&#39;
+
+  # code coverage
+  gem &#39;simplecov&#39;
+  gem &#39;simplecov-console&#39;
+end
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-uncomment-a-few-gems-in-the-original-gemfile&#34;&gt;Now uncomment a few Gems in the Original Gemfile&lt;/h2&gt;
+&lt;p&gt;Uncomment the following to ensure ActionText and Stimulus Refelx (work properly).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;gem &#39;image_processing&#39;, &#39;~&amp;gt; 1.2&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;is needed by Active Storage (ActionText needs Active Storage)&lt;/p&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;gem &#39;redis&#39;, &#39;~&amp;gt; 4.0&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;is needed by Stimulus Reflex (which uses Action Channels) to manage WebSockets&lt;/p&gt;
+&lt;h2 id=&#34;install-and-configure-base-gems&#34;&gt;Install and configure base gems&lt;/h2&gt;
+&lt;p&gt;now run:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bundle install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;to install all the new gems and create a &lt;code&gt;Gemfile.lock&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;javascipt-packages-to-support-new-gems&#34;&gt;JavaScipt packages to support new Gems.&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;yarn add cable_ready stimulus_reflex&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;now-installconfigure-stimulus-reflex&#34;&gt;Now Install/Configure Stimulus Reflex:&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails stimulus_reflex:install
+# bin/rails dev:cache
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-activestorage-and-actiontext&#34;&gt;Install ActiveStorage and ActionText&lt;/h2&gt;
+&lt;p&gt;run the following commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# bundle exec rails webpacker:install
+# bundle exec rails webpacker:install:stimulus
+bundle exec rails active_storage:install
+bundle exec rails action_text:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;No configuration is needed for development (but is needed for production environments)&lt;/p&gt;
+&lt;h2 id=&#34;rspec&#34;&gt;RSPEC&lt;/h2&gt;
+&lt;h3 id=&#34;install-with&#34;&gt;Install with:&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;bin/rails g rspec:install&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;configure&#34;&gt;Configure:&lt;/h2&gt;
+&lt;h3 id=&#34;create-needed-folders-for-our-config&#34;&gt;Create needed folders for our config&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mkdir spec/features
+
+# a place to put test helper code
+mkdir spec/support
+mkdir spec/support/features
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;rspec-config-file-specrails_helperrb&#34;&gt;Rspec Config file &lt;code&gt;spec/rails_helper.rb&lt;/code&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;To enable integration tests with rspec add: &lt;code&gt;require &#39;capybara/rspec&#39;&lt;/code&gt; below &lt;code&gt;require &#39;rspec/rails&#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;To load Test helper code add: &lt;code&gt;Dir[Rails.root.join(&amp;quot;spec/support/**/*.rb&amp;quot;)].each { |file| require file }&lt;/code&gt; below &lt;code&gt;require &#39;capybara/rspec&#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;just after the ActiveRecord config and before RSpec.configure block add:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Add the FactoryBot config in the section with:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;RSpec.configure do |config|
+  # ...
+
+  # support for Factory Bot
+  config.include FactoryBot::Syntax::Methods
+
+  # setup devise login helpers in Rspec
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # allows us for force session logouts (im feature tests)
+  config.include Warden::Test::Helpers
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;finally at the end of the file add support for shoulda matchers with:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOW &lt;code&gt;spec/rails_helper.rb&lt;/code&gt; should look like (its long, sometimes the full context is clearer):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# This file is copied to spec/ when you run &#39;rails generate rspec:install&#39;
+require &#39;spec_helper&#39;
+ENV[&#39;RAILS_ENV&#39;] ||= &#39;test&#39;
+require File.expand_path(&#39;../config/environment&#39;, __dir__)
+# Prevent database truncation if the environment is production
+abort(&amp;quot;The Rails environment is running in production mode!&amp;quot;) if Rails.env.production?
+require &#39;rspec/rails&#39;
+# Add additional requires below this line. Rails is not loaded until this point!
+
+# enables integration/feature tests using rspec
+require &#39;capybara/rspec&#39;
+
+# loads custom helper test code
+Dir[Rails.root.join(&amp;quot;spec/support/**/*.rb&amp;quot;)].each { |file| require file }
+# or you could use:
+# Dir[Rails.root.join(&#39;spec&#39;, &#39;support&#39;, &#39;**&#39;, &#39;*.rb&#39;)].sort.each { |f| require f }
+
+# Checks for pending migrations and applies them before tests are run.
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError =&amp;gt; e
+  puts e.to_s.strip
+  exit 1
+end
+
+# configure capybara integration tests
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome
+
+RSpec.configure do |config|
+  # Remove this line if you&#39;re not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = &amp;quot;#{::Rails.root}/spec/fixtures&amp;quot;
+
+  # If you&#39;re not using ActiveRecord, or you&#39;d prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
+
+  # You can uncomment this line to turn off ActiveRecord support entirely.
+  # config.use_active_record = false
+
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explicitly tag your specs with their type, e.g.:
+  #
+  #     RSpec.describe UsersController, type: :controller do
+  #       # ...
+  #     end
+  #
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/docs
+  config.infer_spec_type_from_file_location!
+
+  # Filter lines from Rails gems in backtraces.
+  config.filter_rails_from_backtrace!
+  # arbitrary gems may also be filtered via:
+  # config.filter_gems_from_backtrace(&amp;quot;gem name&amp;quot;)
+
+  # support for Factory Bot
+  config.include FactoryBot::Syntax::Methods
+
+  # setup devise login helpers in Rspec (login helpers)
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # allows us for force session logouts (im feature tests)
+  config.include Warden::Test::Helpers
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;create--test-a-landing-page&#34;&gt;Create / Test a landing page&lt;/h1&gt;
+&lt;p&gt;A simple config test before we setup devise (authentication).&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Generate a page&lt;/strong&gt; &amp;ndash; I don&amp;rsquo;t (generally) use helpers nor contoller or view specs - so I&amp;rsquo;ll create the landing page using the following generator:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Update Routes&lt;/strong&gt; &lt;code&gt;config/routes.rb&lt;/code&gt; with:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;  get &#39;landing/index&#39;
+  root to: &amp;quot;landing#index&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Add Hidden Test Content&lt;/strong&gt; to simplify testing add:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Request test:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# spec/requests/landing_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Landings&amp;quot;, type: :request do
+
+  describe &amp;quot;GET /index&amp;quot; do
+    it &amp;quot;returns http success&amp;quot; do
+      get &amp;quot;/landing/index&amp;quot;
+      expect(response).to have_http_status(:success)
+
+      expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Feature Test (to be sure they are working too)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# spec/features/landing_page_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Landing Page Works without a login&#39;, type: :feature do
+  scenario &#39;Visit landing Page&#39; do
+    visit root_path
+
+    page_tag = find(&#39;p#landing_index&#39;, text: &#39;Landing Index&#39;, visible: false)
+    expect(page_tag).to be_truthy
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Create DB and Test&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails db:create
+bin/rails db:migrate
+bundle exec rspec
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Assuming test run and are green - we can commit a functioning setup:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;rspec configured and working&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you plan to user database_cleaner &amp;ndash; then also see this article to finish your config:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&#34;&gt;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;a basic login feature test might look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Login&#39;, type: :feature do
+  let(:user)  { FactoryBot.create :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;user logs in successfully&#39; do
+    scenario &#39;and is redirected to user home page&#39; do
+      user_log_in(user)
+      expect(current_path).to eql(auth_user_root_path)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Value: Motivation and Knowledge with a Context</title>
       <link>https://btihen.github.io/post_edu/edgility_btihen_value/</link>
       <pubDate>Sat, 22 Aug 2020 14:05:18 +0200</pubDate>
@@ -167,7 +517,7 @@
 &lt;li&gt;etc. (now the students have enough basics to keep learning and progressing).&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;As Bill Rankin said in several keynote addresses, you learn to cook by cooking. In fact, you learn almost anything by doing it. You have to jump in and start, or “get cooking.”&lt;/p&gt;
-&lt;p&gt;Of course, a student who chooses to build a rescue boat will have a different set of small steps, but common to both boats is learning to work incrementally and building on the next workable small step toward the goal. This is a powerful learning technique that builds confidence in students&amp;rsquo; ability to learn and be successful.&lt;/p&gt;
+&lt;p&gt;Of course, a student who chooses to build a rescue boat will have a different set of small steps, but common to both boats is learning to work incrementally and building on the next workable small step toward the goal. This is a powerful learning technique that builds confidence in students&#39; ability to learn and be successful.&lt;/p&gt;
 &lt;p&gt;Once the students get the hang of this process of moving from the big picture, identifying a few critical aspects, and smallifiying their project into small workable steps, they have effectively learned how to learn and self-correct as they move toward a large complex goal. This meta-aspect of the learning process and its deliberate practice may in the long run be a lifeworthy skill that goes far beyond the specific content of a single class. Engineering classes such as the Boat Design class example here work well. So, too, do classes in art and other areas.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Caution:&lt;/strong&gt; Smallification happens in &lt;strong&gt;small&lt;/strong&gt; chunks (one or two steps at a time maximum). In the tech world we call this planning at the last responsible moment, but fundamentally, it is about figuring out the next workable thing when the students have enough information to see that next step. This prevents the feeling that the big goal is just too overwhelming. Students who have never worked this way will need some smallifying guidance. For example, in the Boat Design class, I gave students a few steps to get started and I give the details of the final assessment. (I like a public demonstration and company pitch.)  As a teacher you may want to step through a project to be more confident in the timing, practice the smallifying, etc, but be careful not to give away more than needed and avoid at all costs big and detailed plans! The fun and exploration is a central feature of a motivating and educational experience for the students.&lt;/p&gt;
 &lt;p&gt;Fundamentally, creating a learning environment where having the big picture and exploring the details along the way can create an uplifting educational journey.&lt;/p&gt;
@@ -1654,16 +2004,16 @@ touch lib/counter_web/live/counter_live/index.ex
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
-  def mount(_params, _session, socket) do
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def render(assigns) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
@@ -1683,25 +2033,25 @@ defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;&lt;/span&gt;
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;&lt;/span&gt;
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;&lt;/span&gt;
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
     &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Now update the routers (so we can get to the new webpage &amp;ndash; now our app should work:
@@ -1715,12 +2065,12 @@ end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; do
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     pipe_through &lt;span style=&#34;color:#e6db74&#34;&gt;:browser&lt;/span&gt;
 
     &lt;span style=&#34;color:#75715e&#34;&gt;# live &amp;#34;/&amp;#34;, PageLive, :index        # remove this line&lt;/span&gt;
     live &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterLive.Index&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# add this line&lt;/span&gt;
-  end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Start pheonix:&lt;/p&gt;
@@ -1760,18 +2110,18 @@ touch test/counter_web/live/counter_live_text.exs
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# test/counter_web/live/counter_live_text.exs&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
 
-  import &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
 
-  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} do
+  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, page_live, disconnected_html} &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; live(conn, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;)
     assert disconnected_html &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
     assert render(page_live) &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Now we can test again: &lt;code&gt;mix test&lt;/code&gt;&lt;/p&gt;
@@ -1817,9 +2167,9 @@ git commit -m &amp;quot;counter with live update&amp;quot;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
-  defp apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;defp&lt;/span&gt; apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     socket
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
   &lt;span style=&#34;color:#75715e&#34;&gt;# remove this funtion&lt;/span&gt;
   &lt;span style=&#34;color:#75715e&#34;&gt;# def render(assigns) do&lt;/span&gt;
   &lt;span style=&#34;color:#75715e&#34;&gt;#  ~L&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
@@ -1878,10 +2228,10 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
 
-  def render(assigns) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
@@ -1892,22 +2242,22 @@ defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Count
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Notice the button tags are slightly more complex&lt;/p&gt;
@@ -1950,16 +2300,16 @@ end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
-  def mount(_params, _session, socket) do
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def render(assigns) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
@@ -1972,9 +2322,9 @@ defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Lets check that this still works.&lt;/p&gt;

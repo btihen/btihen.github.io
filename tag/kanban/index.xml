@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kanban | btihen</title>
+    <link>https://btihen.github.io/tag/kanban/</link>
+      <atom:link href="https://btihen.github.io/tag/kanban/index.xml" rel="self" type="application/rss+xml" />
+    <description>Kanban</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 03 May 2020 19:25:09 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>Kanban</title>
+      <link>https://btihen.github.io/tag/kanban/</link>
+    </image>
+    
+    <item>
+      <title>Kanban Usage</title>
+      <link>https://btihen.github.io/post_edu/kanban_usage/</link>
+      <pubDate>Sun, 03 May 2020 19:25:09 +0200</pubDate>
+      <guid>https://btihen.github.io/post_edu/kanban_usage/</guid>
+      <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Kanban is a visual way to track your tasks and your progress.  Many people find this helpful way to to show yourself, your parents and teachers what work needs to be done.  Ideally, this is done on a large screen, sheet of paper, or whiteboard - so that it is obvious and easily seen as a reminder.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example.jpg&#34; alt=&#34;kanban&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;status-tracking&#34;&gt;Status Tracking&lt;/h2&gt;
+&lt;p&gt;The simplest &lt;code&gt;statuses&lt;/code&gt; would be: &lt;strong&gt;To-Do, Doing, Done&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- &lt;see example image&gt; --&gt;
+&lt;p&gt;Some teacher often require a draft &lt;code&gt;Review&lt;/code&gt; before final submissions, engineers use a similar column &lt;code&gt;Review&lt;/code&gt; or &lt;code&gt;Demo&lt;/code&gt;.  Generally, this is a good idea to check your work with peers, parents or your teacher before handing in your work &amp;ndash; so we suggest a &lt;code&gt;Review&lt;/code&gt; column before done. So now the statuses would be:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To-Do, Doing, Review, Done&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- &lt;see example image&gt; --&gt;
+&lt;h2 id=&#34;swim-lanes-tracking-multiple-classes--projects&#34;&gt;Swim-lanes (tracking multiple classes / projects)&lt;/h2&gt;
+&lt;p&gt;Ideally when using this technique you keep the number of simultaneous tasks &lt;strong&gt;(WIP)&lt;/strong&gt; to a minimum&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The number of simultaneous tasks is called &lt;code&gt;work-in-progress&lt;/code&gt; or abbreviated as &lt;code&gt;WIP&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Education, unfortunately, expects a lot of simultaneous tasks within a variety of classes.  To address this we can use &lt;code&gt;swim-lanes&lt;/code&gt; to track our priorities with a jumble of independent projects (classes).  For example: we might have swim-lanes for: English, Mathematics, Science, &amp;hellip;&lt;/p&gt;
+&lt;p&gt;Ideally, we will try only allow &lt;strong&gt;ONE task&lt;/strong&gt; in your &lt;code&gt;doing&lt;/code&gt; and &lt;code&gt;review&lt;/code&gt; boxes for each swim-lane / class.  &lt;em&gt;(This is called a WIP Limit of 1).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example_w_swimlane.jpg&#34; alt=&#34;kanban_w_swimlanes&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tasks&#34;&gt;Tasks&lt;/h2&gt;
+&lt;p&gt;Tasks Cards should have critical reminder information on them. Refrain from putting extra information on the card, the card should be clean and simple to read - it is a reminder of work to do NOT a full description of the assignment.&lt;/p&gt;
+&lt;p&gt;Here is the critical information I include on a personal Kanban card.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Title&lt;/strong&gt; - Big bold text (upper left corner)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description&lt;/strong&gt; - a very short reminder of what to do - ideally in 4 to 5 words&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Class&lt;/strong&gt; - in case of confusion, I write the class / swim-lane (lower left corner)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Due Date&lt;/strong&gt; - Big bold Text (lower right corner)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Start Date&lt;/strong&gt; - use this to schedule small tasks of a large project - which can be used to slowly make progress on a large task (I call this smallifying).  This is a very important skill to ensure continued progress on large projects in a timely way.  I put this just above the &lt;code&gt;Due Date&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;see example image of a variety of tasks on a post-it with assignment below include a large task smallified&gt;
+&lt;p&gt;Here is an example of a Kanban in use with tasks:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example_w_tasks.jpg&#34; alt=&#34;kanban_w_tasks&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+&lt;p&gt;I like to use A3 paper and small post-it notes to add tasks.  Here is our recommended blank Kanban - where you can write in your classes.  Put your most important classes (in the IB these would be your &lt;strong&gt;High Level&lt;/strong&gt; courses) at the top. Use a timebox on long tasks that need to move forward, but are too big to do in one work session &amp;ndash; this is especially important when you have multiple tasks that need to be accomplished on a give day.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Timebox&lt;/strong&gt; - is a time limit that you won&amp;rsquo;t exceed for a given tasks in order to keep all tasks on schedule.  We suggest 25 to 35 minute timeboxes with small 5 minute breaks between tasks.  Every 4 timeboxes take a longer 15 minute break. This is called the pomodoro technique for full details.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/VFW3Ld7JO0w&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To best use a Kanban board, you should follow the following ritual:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Prioritize your work&lt;/strong&gt; &amp;ndash; when you sit down to work, spend the first 5 minutes reviewing the Kanban board:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;First assess what in the &lt;em&gt;priority&lt;/em&gt; classes needs to be done in order meet assignment deadlines &lt;em&gt;(for long tasks set a &lt;strong&gt;timebox&lt;/strong&gt; so you make progress but can keep all your other tasks moving too)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Second assess what needs to be started in &lt;em&gt;priority&lt;/em&gt; classes to stay on track with larger projects. If you already have a task in that classes &lt;code&gt;doing&lt;/code&gt; box then schedule that task to be done ASAP so that you can start the next task.  &lt;em&gt;This is important&lt;/em&gt; a common Kanban saying is:_ **START FINISHING TASKS, stop starting unfinished tasks!**&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do your work&lt;/strong&gt; &amp;ndash; respect your priorities and your timeboxes!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;UPDATE YOUR KANBAN&lt;/strong&gt; - End five to ten minutes before your time is up (set an alarm if needed) and &lt;strong&gt;update&lt;/strong&gt; your tasks to their new status boxes.  If you couldn&amp;rsquo;t meet your goals for a task put a smaller colorful post-it on it - as an ALERT.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Address the needs of problem tasks&lt;/strong&gt; &amp;ndash; for all tasks with an ALERT: write emails to get help, or make notes on research needed to do make progress on problem tasks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;REFLECT&lt;/strong&gt; &amp;ndash; Assess what is going well and consider if doing more that will help you be more successful and assess what is hindering you and what you can do differently to get you work done with less stress.  You reflections should result in actions (experiments for a week or so) to help you move more effectively toward your goals.  If your experiment doesn&amp;rsquo;t help, they after the test period try a new experiment.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt;
+&lt;strong&gt;Dead person&lt;/strong&gt; activities are actions that even a dead person can successfully do.  For example, waiting for someone else to help, not checking twitter in homework time, etc.
+&lt;strong&gt;Live person&lt;/strong&gt; activities are action that only live people can successfully accomplish. For example, ask a peer for help, research on the Internet for ideas, go to a help session, replace random twitter checks with Pomodoro Technique (and allow twitter in the 5 minute breaks), etc.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;h5 id=&#34;kanban&#34;&gt;Kanban&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.personalkanban.com/&#34;&gt;https://www.personalkanban.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://moduscooperandi.com/books-and-classes&#34;&gt;https://moduscooperandi.com/books-and-classes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;pomodoro&#34;&gt;Pomodoro&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://francescocirillo.com/pages/pomodoro-technique&#34;&gt;https://francescocirillo.com/pages/pomodoro-technique&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=VFW3Ld7JO0w&#34;&gt;https://www.youtube.com/watch?v=VFW3Ld7JO0w&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;helpful-books&#34;&gt;Helpful Books&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Kanban - Task Management&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Real-World Kanban: Do Less, Accomplish More with Lean Thinking, by Mattias Skarin.&lt;/li&gt;
+&lt;li&gt;Kanban in Action, by Marcus Hammarberg and Joakim Sundén.&lt;/li&gt;
+&lt;li&gt;Kanban: Successful Evolutionary Change for Your Technology Business, by David J. Anderson.&lt;/li&gt;
+&lt;li&gt;Personal Kanban: Mapping Work - Navigating Life, by Tonianne DeMaria Barry and Jim Benson.&lt;/li&gt;
+&lt;li&gt;Kanban and Scrum: Making the Most of Both, by Mattias Skarin and Henrik Kniberg.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Pomodoro - Time Management&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pomodoro Technique Illustrated, by Staffan Noteberg.&lt;/li&gt;
+&lt;li&gt;The Pomodoro Technique: Work smarter, not harder, by Francesco Cirillo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Effective Reflections, Experiments &amp;amp; Problem Solving&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The 5 Elements of Effective Thinking, by Edward B. Burger and Michael Starbird.&lt;/li&gt;
+&lt;li&gt;the shibumi strategy: a powerful way to create MEANINGFUL CHANGE, by Matthew E. May.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Effective Goal Setting &amp;amp; Changes - with small easy steps&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Little Bets: How Breakthrough Ideas Emerge from Small Discoveries, by Peter Sims.&lt;/li&gt;
+&lt;li&gt;One Small Step Can Change Your Life: The Kaizen Way Paperback, by Robert Maurer Ph.D.&lt;/li&gt;
+&lt;li&gt;The Spirit of Kaizen: Creating Lasting Excellence One Small Step at a Time: Creating Lasting Excellence One Small Step at a Time, by Robert Maurer Ph.D.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

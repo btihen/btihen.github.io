@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>submodules | btihen</title>
+    <link>https://btihen.github.io/tag/submodules/</link>
+      <atom:link href="https://btihen.github.io/tag/submodules/index.xml" rel="self" type="application/rss+xml" />
+    <description>submodules</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 16 May 2020 10:39:21 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>submodules</title>
+      <link>https://btihen.github.io/tag/submodules/</link>
+    </image>
+    
+    <item>
+      <title>Hugo Website using Github</title>
+      <link>https://btihen.github.io/post_tech/hugo_academic_website_steps/</link>
+      <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/hugo_academic_website_steps/</guid>
+      <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-1-create-a-public-username_website-repo&#34;&gt;step 1: create a &lt;strong&gt;public&lt;/strong&gt; &lt;code&gt;username_website&lt;/code&gt; repo&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ll assume your github account is &lt;code&gt;username&lt;/code&gt; I think this repo needs to be publicly readable (not 100% sure)&lt;/p&gt;
+&lt;h3 id=&#34;step-2-clone-the-academic-hugo-locally&#34;&gt;step 2: clone the academic hugo locally&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/sourcethemes/academic-kickstart.git username_website
+cd academic_website
+git submodule update --init --recursive  # without this the site won&#39;t start correctly
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure you have many files within: &lt;strong&gt;&lt;code&gt;themes/academic&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-3-update-gitignore--public-folder&#34;&gt;step 3: Update .gitignore &amp;amp; public folder&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;update &lt;code&gt;.gitignore&lt;/code&gt; remove the line with &lt;code&gt;public&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;be sure there is no &lt;code&gt;public&lt;/code&gt; folder (yet), if there is remove it and all its contents.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;step-4-point-this-repo-to-your-username_website-repo&#34;&gt;step 4: point this repo to your &lt;code&gt;username_website&lt;/code&gt; repo&lt;/h3&gt;
+&lt;p&gt;I have found the easiest way to overwrite the source &lt;code&gt;origin&lt;/code&gt; repo is to do this by hand.&lt;/p&gt;
+&lt;p&gt;Currently your &lt;code&gt;.git/config&lt;/code&gt; file will currently look like (notice the url referencing: &lt;code&gt;git://github.com/sourcethemes/academic-kickstart.git&lt;/code&gt; - this is what we need to update):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &amp;quot;origin&amp;quot;]
+	url = git://github.com/sourcethemes/academic-kickstart.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &amp;quot;master&amp;quot;]
+	remote = origin
+	merge = refs/heads/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;change the origin url by hand or by using sed:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sed -i.bak -e &#39;s/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/&#39; .git/config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when your &lt;code&gt;.git/config&lt;/code&gt; file is correct it will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &amp;quot;origin&amp;quot;]
+	url = git@github.com:username/username_website.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &amp;quot;master&amp;quot;]
+	remote = origin
+	merge = refs/heads/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now you can push this local repo to your github repo using:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git push -u origin --all
+# git init
+# git add .
+# git commit -m &amp;quot;Initial commit&amp;quot;
+# git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5-configure-website-basics&#34;&gt;step 5: configure website basics&lt;/h3&gt;
+&lt;h4 id=&#34;5a-set-your-site-name&#34;&gt;5A: Set your site name:&lt;/h4&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/config.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;find the &lt;code&gt;title&lt;/code&gt; attribute and set it to &lt;code&gt;username&lt;/code&gt; (or whatever is appropriate)&lt;/p&gt;
+&lt;h4 id=&#34;5b-pick-a-themes&#34;&gt;5B: Pick a themes&lt;/h4&gt;
+&lt;p&gt;from &lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34;&gt;https://sourcethemes.com/academic/themes/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/config.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;find the &lt;code&gt;theme&lt;/code&gt; attribute and set it to your favorite theme color (or leave it as is)&lt;/p&gt;
+&lt;h4 id=&#34;5c-site-logo--favicon&#34;&gt;5C: site logo &amp;amp; favicon&lt;/h4&gt;
+&lt;p&gt;Put your image files into assets/images:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;logo.png&lt;/code&gt; (the logo on your webpage) file and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;icon.png&lt;/code&gt; (the favicon - icon in the webtab)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can go to &lt;code&gt;https://www.namecheap.com/logo-maker&lt;/code&gt; and make a logo&lt;/p&gt;
+&lt;h4 id=&#34;5d-menu-items&#34;&gt;5D: menu items&lt;/h4&gt;
+&lt;p&gt;in &lt;code&gt;config/_default/menus.toml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;remove any items you won&amp;rsquo;t use.  In my case this file now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[[main]]
+  name = &amp;quot;Posts&amp;quot;
+  url = &amp;quot;#posts&amp;quot;
+  weight = 20
+
+[[main]]
+  name = &amp;quot;About&amp;quot;
+  url = &amp;quot;#about&amp;quot;
+  weight = 50
+
+[[main]]
+  name = &amp;quot;Contact&amp;quot;
+  url = &amp;quot;#contact&amp;quot;
+  weight = 60
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These will also be the sections on the home page that will be enabled and configured.&lt;/p&gt;
+&lt;p&gt;The larger the weight the further to the &lt;strong&gt;right&lt;/strong&gt; the item will be shown.&lt;/p&gt;
+&lt;h3 id=&#34;step-6-configure-site-parameters&#34;&gt;step 6: configure site parameters&lt;/h3&gt;
+&lt;p&gt;You may want to read through all the params - but the ones listed here are enough to get started.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;site_type&lt;/strong&gt; &amp;ndash; in the file: &lt;code&gt;config/_default/params.toml&lt;/code&gt;: be sure to configure the &lt;code&gt;site_type&lt;/code&gt; variable&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;configure &amp;lsquo;contact details&amp;rsquo;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;if you choose not to add an email, then be sure to set the variable &lt;code&gt;email_form=0&lt;/code&gt; on the &lt;code&gt;content/home/contact.md&lt;/code&gt; file!&lt;/li&gt;
+&lt;li&gt;if you choose not to enter an address and coordinates the in the &lt;code&gt;[map]&lt;/code&gt; section set the &lt;code&gt;engine=0&lt;/code&gt; to avoid problems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;configure social details&lt;/strong&gt; &amp;ndash; optional&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regional Settings&lt;/strong&gt; &amp;ndash; NOTE: The date display settings seems to have a bug &amp;ndash; so I don&amp;rsquo;t recommend adjusting that.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-7-configure-your-homepage&#34;&gt;step 7: configure your homepage&lt;/h3&gt;
+&lt;p&gt;At this point I suggest starting &lt;code&gt;hugo server&lt;/code&gt; so you can watch your edits.&lt;/p&gt;
+&lt;p&gt;Now go into the folder &lt;code&gt;content/home&lt;/code&gt; and we will adjust or disable the files in this folder.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;disable with: &lt;code&gt;active=false&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;enable with: &lt;code&gt;active=true&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;oder with: &lt;code&gt;weight=20&lt;/code&gt; the bigger the number the further down on the page is show (I suggest you use the same weights used in the menu)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;contact.md&lt;/code&gt;&lt;/strong&gt; - review and see if changes are desired.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;accomplishments.md&lt;/code&gt;&lt;/strong&gt; - (and all other home page sections you decide not to display) change &lt;code&gt;active=true&lt;/code&gt; to &lt;strong&gt;&lt;code&gt;active=false&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;7a-about-page&#34;&gt;7A: &lt;code&gt;about&lt;/code&gt; page&lt;/h4&gt;
+&lt;p&gt;I prefer to use the &lt;code&gt;about&lt;/code&gt; page when it is a person&amp;rsquo;s site and the &lt;code&gt;people&lt;/code&gt; page when the site is about a group effort.  So in this case:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/author_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;change the title to whatever you like: biography, about, etc&amp;hellip;&lt;/li&gt;
+&lt;li&gt;change the variable &lt;code&gt;author&lt;/code&gt; to match the name you used to generate you profile above, ie:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;author = &amp;quot;author_name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the file so the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/author_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/author_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;7b-people-or-team-page&#34;&gt;7B: &lt;code&gt;people&lt;/code&gt; (or Team) page&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;disable &lt;code&gt;content/home/about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mark the &lt;code&gt;active&lt;/code&gt; variable as &lt;code&gt;false&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;active=false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;enable &lt;code&gt;content/home/people.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set &lt;code&gt;active=true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;create sub-group names:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;Educators&amp;quot;, &amp;quot;Researchers&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or alternatively, use an empty string to create a team without sub-teams:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[content]
+  user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Create the people (authors)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/person_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/_index.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add one (or more) &lt;code&gt;user_group&lt;/code&gt; to the person&amp;rsquo;s profile using the &lt;code&gt;user_groups&lt;/code&gt; variable:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;Educators&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you used an empty string in &lt;code&gt;people.md&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user_groups = [&amp;quot;&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit this file so that the information is accurate&lt;/li&gt;
+&lt;li&gt;below the &lt;code&gt;---&lt;/code&gt; toward the end of the file, add your own free text to the about page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;content/authors/person_name/avatar.jpeg&lt;/code&gt;&lt;/strong&gt; (png, jpg, etc also work)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add an attractive image to the folder &lt;code&gt;content/authors/person_name/&lt;/code&gt; and name it: &lt;strong&gt;&lt;code&gt;avatar.jpg&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-8-test-publish-to-usernamegithubio&#34;&gt;step 8: Test publish to &lt;code&gt;username.github.io&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;When you site is good enough to publish then its time to follow the following steps (these MUST be done in order to prevent problems!)&lt;/p&gt;
+&lt;h4 id=&#34;8a-public-folder-non-existent&#34;&gt;8A: public folder (non-existent)&lt;/h4&gt;
+&lt;p&gt;The first time you do setup for publishing it is important this folder doesn&amp;rsquo;t exist yet and that &lt;code&gt;public&lt;/code&gt; isn&amp;rsquo;t listed in the .gitignore` file&lt;/p&gt;
+&lt;h4 id=&#34;8b-git-snapshot&#34;&gt;8B: git snapshot&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;(DO NOT YET GENERATE your website)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create your git snapshot (very important at this point since the next steps are tricky)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;First draft of homepage&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;8c-make-second-github-repo-usernamegithubio&#34;&gt;8C: make second github repo &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Now make a second &lt;strong&gt;public&lt;/strong&gt; repo (CLICK THE BOX TO INCLUDE A &lt;strong&gt;README&lt;/strong&gt; and/or a &lt;strong&gt;LISENCE&lt;/strong&gt; file!) on github called &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt;, this MUST be exactly: &lt;code&gt;username.github.io&lt;/code&gt; for this to work!&lt;/p&gt;
+&lt;p&gt;Double check your repo is not empty, but has a &lt;strong&gt;README&lt;/strong&gt; and/or a &lt;strong&gt;LISENCE&lt;/strong&gt; file.&lt;/p&gt;
+&lt;p&gt;NOW go to github repo &lt;strong&gt;settings&lt;/strong&gt; and click on &lt;strong&gt;manage access&lt;/strong&gt; and be sure you have permission to at administer (or at least write to this repo) &amp;ndash; probably not so click the &lt;strong&gt;&lt;code&gt;invite teams or people&lt;/code&gt;&lt;/strong&gt; button and add yourself as an admin (an other as needed).&lt;/p&gt;
+&lt;h4 id=&#34;8d-clone-usernamegithubio-to-public-within-your-hugo-project&#34;&gt;8D: clone &lt;strong&gt;&lt;code&gt;username.github.io&lt;/code&gt;&lt;/strong&gt; to public (within your Hugo project)&lt;/h4&gt;
+&lt;p&gt;now go back into your website code (root folder) and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/username/username.github.io.git public
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if you see: &lt;code&gt;warning: You appear to have cloned an empty repository.&lt;/code&gt; &amp;ndash; go back to the repo and create a README file!&lt;/p&gt;
+&lt;h4 id=&#34;8e-check-your-permissions&#34;&gt;8E: check your permissions&lt;/h4&gt;
+&lt;p&gt;enter you public folder and create an &lt;code&gt;index.html&lt;/code&gt; file and put in very simple html code: &lt;code&gt;&amp;lt;h1&amp;gt;Hello username.github.io&amp;lt;/h1&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+touch index.html
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now check this in and push it to github.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;test webpage&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this point you should see a bunch of message and toward the end you should see a line with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;To github.com:username/username.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If instead you get the error:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
+fatal: unable to access &#39;https://github.com/peakchallenges/peakchallenges.github.io.git/&#39;: The requested URL returned error: 403
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;go back and check your site permissions.&lt;/p&gt;
+&lt;p&gt;If site permissions aren&amp;rsquo;t a problem do the following:&lt;/p&gt;
+&lt;p&gt;re-create your website repo &lt;code&gt;username.github.io.git&lt;/code&gt; outside the webcode project.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:username/username.github.io.git
+cd username.github.io
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io - v1&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+git add index.html
+git commit -m &amp;quot;update readme and test permissions&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming this works then move this repo into the hugo repo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf username_website/public
+mv username.github.io username_website/public
+cd username_website/public
+echo &#39;&amp;lt;h1&amp;gt;Hello username.github.io - v2&amp;lt;/h1&amp;gt;&#39; &amp;gt;&amp;gt; index.html
+git commit -am &amp;quot;update readme and test permissions within hugo project&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;8f-check-the-website&#34;&gt;8F: check the website&lt;/h4&gt;
+&lt;p&gt;Wait a few minutes and go to the website &lt;code&gt;https://username.github.io&lt;/code&gt; and be sure you see your newly published html page.&lt;/p&gt;
+&lt;h3 id=&#34;step-9-configure-public-as-a-submodule&#34;&gt;step 9: configure &lt;code&gt;public&lt;/code&gt; as a &lt;strong&gt;submodule&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Now add the username.github.io repo as a submodule to your website code repo using.  This allows nested projects without confusing git.&lt;/p&gt;
+&lt;p&gt;First be sure you are in the hugo root and not the public folder and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public
+git submodule add -b master https://github.com/username/username.github.io.git public`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now in &lt;code&gt;.git/modules&lt;/code&gt; you might see a folder called &lt;code&gt;public&lt;/code&gt; (with a bunch of stuff in it) if not simply edit your &lt;code&gt;.git/config&lt;/code&gt; so that after:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;themes/academic&amp;quot;]
+  path = themes/academic
+  url = https://github.com/gcushen/hugo-academic.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you see:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;public&amp;quot;]
+  path = public
+  url = https://github.com/username/username.github.io.git
+  branch = master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can add it by hand or with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;&amp;quot;EOF&amp;quot; &amp;gt;&amp;gt; git/config
+[submodule &amp;quot;public&amp;quot;]
+  path = public
+  url = https://github.com/username/username.github.io.git
+  branch = master
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-10-publish-your-new-hugo-webpage&#34;&gt;step 10: publish your new Hugo webpage:&lt;/h3&gt;
+&lt;p&gt;Now to publish the Hugo site you prepared do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo -d public
+cd public
+git add .
+git commit -m &amp;quot;first webpage content&amp;quot;
+git push
+# toward the end you should see: `To github.com:username/username.github.io.git`
+cd ..
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Follow this proceedure every time you update your site.&lt;/p&gt;
+&lt;p&gt;NOTE: BE SURE NOT TO delete the folder &lt;code&gt;public/.git/&lt;/code&gt; or you will need to reconfigure your public submodule.&lt;/p&gt;
+&lt;p&gt;now go back to &lt;code&gt;https://username.github.io&lt;/code&gt; and you should see your hugo site!&lt;/p&gt;
+&lt;p&gt;(This might take a few minutes &amp;ndash; up to a half-hour &amp;ndash; to publish)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

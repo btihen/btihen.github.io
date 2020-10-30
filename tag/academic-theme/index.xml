@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Academic Theme | btihen</title>
+    <link>https://btihen.github.io/tag/academic-theme/</link>
+      <atom:link href="https://btihen.github.io/tag/academic-theme/index.xml" rel="self" type="application/rss+xml" />
+    <description>Academic Theme</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 23 May 2020 10:39:21 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>Academic Theme</title>
+      <link>https://btihen.github.io/tag/academic-theme/</link>
+    </image>
+    
+    <item>
+      <title>Hugo Academic Content Commands</title>
+      <link>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</link>
+      <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
+      <guid>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</guid>
+      <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind authors authors/firstname_lastname
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add person&amp;rsquo;s image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/authors/firstname_lastname/avatar.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-blog&#34;&gt;Create a Blog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind post post/blog_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;images within the article&lt;/strong&gt; - add images to the article folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp image.jpg content/post/blog_title/article_image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and add it to the content using: &lt;code&gt;![kanban](example.jpg)&lt;/code&gt; within the article&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/post/blog_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-a-publication-reference&#34;&gt;Add a Publication Reference&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind publication publication/publication_title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/publication/publication_title/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a pdf&lt;/strong&gt; (with the same name as the folder) and it will be automatically available&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.pdf content/publication/publication_title/publication_title.pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;Create a Project&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind project project/project_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;add a display image&lt;/strong&gt; (png or jpg)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp picture.jpg content/project/project_name/featured.jpg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-talk&#34;&gt;Create a Talk&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;hugo new --kind talk talk/my-talk-name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Talk Slides&lt;/strong&gt; are a bit more complicated see:
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34;&gt;https://sourcethemes.com/academic/docs/managing-content/#create-slides&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;course-documentation&#34;&gt;Course (Documentation)&lt;/h2&gt;
+&lt;p&gt;This is tricky (copy and rename an existing &lt;code&gt;course&lt;/code&gt; and adapt it)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;courses&lt;/code&gt; can be renamed and can have multiple folders (courses) within it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; the &lt;code&gt;algebra_1&lt;/code&gt; folder cannot have any sub-folders. Within an actual course all materials must be within a FLAT hierarchy.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
