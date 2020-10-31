@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code | btihen</title>
-    <link>https://btihen.github.io/categories/code/</link>
-      <atom:link href="https://btihen.github.io/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/code/</link>
+      <atom:link href="https://btihen.me/categories/code/index.xml" rel="self" type="application/rss+xml" />
     <description>Code</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 10 Jul 2020 09:43:51 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Code</title>
-      <link>https://btihen.github.io/categories/code/</link>
+      <link>https://btihen.me/categories/code/</link>
     </image>
     
     <item>
       <title>Phoenix 1.5 Blog with Comments</title>
-      <link>https://btihen.github.io/post_tech/phoenix_1_5_blog_w_comments/</link>
+      <link>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</link>
       <pubDate>Fri, 10 Jul 2020 09:43:51 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/phoenix_1_5_blog_w_comments/</guid>
+      <guid>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article builds on the existing article: &lt;a href=&#34;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&#34;&gt;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&lt;/a&gt; and adds nested relationships and has_many_through.&lt;/p&gt;
 &lt;h2 id=&#34;now-lets-create-comments-a-has-many-through-for-users&#34;&gt;now lets create comments (a has many through for users)&lt;/h2&gt;
@@ -388,9 +388,9 @@ git commit -m &amp;quot;handle comment creation errors&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/</link>
+      <link>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/phoenix_1_5_blog_intro/</guid>
+      <guid>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;
@@ -681,9 +681,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_tech/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_tech/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
@@ -731,9 +731,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Website using Github</title>
-      <link>https://btihen.github.io/post_tech/hugo_academic_website_steps/</link>
+      <link>https://btihen.me/post_tech/hugo_academic_website_steps/</link>
       <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/hugo_academic_website_steps/</guid>
+      <guid>https://btihen.me/post_tech/hugo_academic_website_steps/</guid>
       <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;brew install hugo
 &lt;/code&gt;&lt;/pre&gt;
@@ -1021,9 +1021,9 @@ cd ..
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>https://btihen.github.io/post_tech/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
@@ -1188,9 +1188,9 @@ ruby                2.5                 a98425292e84        2 weeks ago         
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>https://btihen.github.io/post_tech/phoenix_1_5_live_view_basics/</link>
+      <link>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/phoenix_1_5_live_view_basics/</guid>
+      <guid>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
@@ -1277,16 +1277,16 @@ touch lib/counter_web/live/counter_live/index.ex
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
-  def mount(_params, _session, socket) do
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def render(assigns) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
@@ -1306,25 +1306,25 @@ defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;&lt;/span&gt;
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;&lt;/span&gt;
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;&lt;/span&gt;
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
     &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Now update the routers (so we can get to the new webpage &amp;ndash; now our app should work:
@@ -1338,12 +1338,12 @@ end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; do
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     pipe_through &lt;span style=&#34;color:#e6db74&#34;&gt;:browser&lt;/span&gt;
 
     &lt;span style=&#34;color:#75715e&#34;&gt;# live &amp;#34;/&amp;#34;, PageLive, :index        # remove this line&lt;/span&gt;
     live &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterLive.Index&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# add this line&lt;/span&gt;
-  end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Start pheonix:&lt;/p&gt;
@@ -1383,18 +1383,18 @@ touch test/counter_web/live/counter_live_text.exs
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# test/counter_web/live/counter_live_text.exs&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
 
-  import &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
 
-  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} do
+  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, page_live, disconnected_html} &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; live(conn, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;)
     assert disconnected_html &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
     assert render(page_live) &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Now we can test again: &lt;code&gt;mix test&lt;/code&gt;&lt;/p&gt;
@@ -1440,9 +1440,9 @@ git commit -m &amp;quot;counter with live update&amp;quot;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
-  defp apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;defp&lt;/span&gt; apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     socket
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
   &lt;span style=&#34;color:#75715e&#34;&gt;# remove this funtion&lt;/span&gt;
   &lt;span style=&#34;color:#75715e&#34;&gt;# def render(assigns) do&lt;/span&gt;
   &lt;span style=&#34;color:#75715e&#34;&gt;#  ~L&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
@@ -1501,10 +1501,10 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
 
-  def render(assigns) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
@@ -1515,22 +1515,22 @@ defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Count
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Notice the button tags are slightly more complex&lt;/p&gt;
@@ -1573,16 +1573,16 @@ end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
 &lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
-defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; do
-  use &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
 
   &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; true
-  def mount(_params, _session, socket) do
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-  def render(assigns) do
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
@@ -1595,9 +1595,9 @@ defmodule &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  end
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
 
-end&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Lets check that this still works.&lt;/p&gt;

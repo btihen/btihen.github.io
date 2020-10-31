@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ecology | btihen</title>
-    <link>https://btihen.github.io/tags/ecology/</link>
-      <atom:link href="https://btihen.github.io/tags/ecology/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/ecology/</link>
+      <atom:link href="https://btihen.me/tags/ecology/index.xml" rel="self" type="application/rss+xml" />
     <description>Ecology</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 25 May 2017 14:10:13 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Ecology</title>
-      <link>https://btihen.github.io/tags/ecology/</link>
+      <link>https://btihen.me/tags/ecology/</link>
     </image>
     
     <item>
       <title>Robot Gardener</title>
-      <link>https://btihen.github.io/publication/las_spotlight_robot_gardener/</link>
+      <link>https://btihen.me/publication/las_spotlight_robot_gardener/</link>
       <pubDate>Thu, 25 May 2017 14:10:13 +0200</pubDate>
-      <guid>https://btihen.github.io/publication/las_spotlight_robot_gardener/</guid>
+      <guid>https://btihen.me/publication/las_spotlight_robot_gardener/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Climate Sensor Poles</title>
-      <link>https://btihen.github.io/coverage/climate_poles_john_harlin_lets_report/</link>
+      <link>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</link>
       <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/coverage/climate_poles_john_harlin_lets_report/</guid>
+      <guid>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</guid>
       <description></description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Agile | btihen</title>
-    <link>https://btihen.github.io/categories/agile/</link>
-      <atom:link href="https://btihen.github.io/categories/agile/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/agile/</link>
+      <atom:link href="https://btihen.me/categories/agile/index.xml" rel="self" type="application/rss+xml" />
     <description>Agile</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 03 May 2020 19:25:09 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Agile</title>
-      <link>https://btihen.github.io/categories/agile/</link>
+      <link>https://btihen.me/categories/agile/</link>
     </image>
     
     <item>
       <title>Kanban Usage</title>
-      <link>https://btihen.github.io/post_edu/kanban_usage/</link>
+      <link>https://btihen.me/post_edu/kanban_usage/</link>
       <pubDate>Sun, 03 May 2020 19:25:09 +0200</pubDate>
-      <guid>https://btihen.github.io/post_edu/kanban_usage/</guid>
+      <guid>https://btihen.me/post_edu/kanban_usage/</guid>
       <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
 &lt;p&gt;Kanban is a visual way to track your tasks and your progress.  Many people find this helpful way to to show yourself, your parents and teachers what work needs to be done.  Ideally, this is done on a large screen, sheet of paper, or whiteboard - so that it is obvious and easily seen as a reminder.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;example.jpg&#34; alt=&#34;kanban&#34;&gt;&lt;/p&gt;
@@ -125,65 +125,65 @@
     
     <item>
       <title>Demos and Feedback in the Classroom</title>
-      <link>https://btihen.github.io/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
+      <link>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
+      <guid>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Build Confidence: Exploration and Student Choice</title>
-      <link>https://btihen.github.io/publication/tieonline_uplift_and_explore_build_confidence/</link>
+      <link>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</link>
       <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/tieonline_uplift_and_explore_build_confidence/</guid>
+      <guid>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pull vs Push: Student Centric</title>
-      <link>https://btihen.github.io/publication/tieonline_pull_vs_push/</link>
+      <link>https://btihen.me/publication/tieonline_pull_vs_push/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/tieonline_pull_vs_push/</guid>
+      <guid>https://btihen.me/publication/tieonline_pull_vs_push/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>https://btihen.github.io/publication/tieonline_importance_of_challenge/</link>
+      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/tieonline_importance_of_challenge/</guid>
+      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Roots of Agile for Education</title>
-      <link>https://btihen.github.io/publication/tieonline_roots_of_agile_for_education/</link>
+      <link>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</link>
       <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/tieonline_roots_of_agile_for_education/</guid>
+      <guid>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Patient Explanations Lead to Good Things</title>
-      <link>https://btihen.github.io/publication/las_spotlight_patient_explanations/</link>
+      <link>https://btihen.me/publication/las_spotlight_patient_explanations/</link>
       <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/las_spotlight_patient_explanations/</guid>
+      <guid>https://btihen.me/publication/las_spotlight_patient_explanations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Getting Agile at School</title>
-      <link>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</link>
+      <link>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</link>
       <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
-      <guid>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</guid>
+      <guid>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Designed to Float your Boat</title>
-      <link>https://btihen.github.io/publication/ecis_designed_to_float_your_boat_article/</link>
+      <link>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</link>
       <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/ecis_designed_to_float_your_boat_article/</guid>
+      <guid>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</guid>
       <description>&lt;iframe allowfullscreen allow=&#34;fullscreen&#34; style=&#34;border:none;width:100%;height:326px;&#34; src=&#34;https://issuu.com/ecischools/docs/globalinsights6&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;Student boat (before 3-D printing)
 &lt;img src=&#34;student_katamaran_boat.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;
@@ -198,17 +198,17 @@
     
     <item>
       <title>Introducing EDgility</title>
-      <link>https://btihen.github.io/publication/las_laser_introducing_edgility_report_2017/</link>
+      <link>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/las_laser_introducing_edgility_report_2017/</guid>
+      <guid>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LETS ClimateCase</title>
-      <link>https://btihen.github.io/publication/las_laser_lets_climate_case_laser_report_2015/</link>
+      <link>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</link>
       <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/las_laser_lets_climate_case_laser_report_2015/</guid>
+      <guid>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;climate_case_profile.jpeg&#34; alt=&#34;Climate Case Profile&#34;&gt;
 &lt;img src=&#34;climate_case_electronics.jpeg&#34; alt=&#34;Climate Case Electronics&#34;&gt;
 &lt;img src=&#34;climate_case_internal.jpeg&#34; alt=&#34;Climate Case Grow Space&#34;&gt;&lt;/p&gt;

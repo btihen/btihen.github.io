@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>commands | btihen</title>
-    <link>https://btihen.github.io/tags/commands/</link>
-      <atom:link href="https://btihen.github.io/tags/commands/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/commands/</link>
+      <atom:link href="https://btihen.me/tags/commands/index.xml" rel="self" type="application/rss+xml" />
     <description>commands</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 23 May 2020 10:39:21 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>commands</title>
-      <link>https://btihen.github.io/tags/commands/</link>
+      <link>https://btihen.me/tags/commands/</link>
     </image>
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_tech/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_tech/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;

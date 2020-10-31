@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kanban | btihen</title>
-    <link>https://btihen.github.io/tags/kanban/</link>
-      <atom:link href="https://btihen.github.io/tags/kanban/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/kanban/</link>
+      <atom:link href="https://btihen.me/tags/kanban/index.xml" rel="self" type="application/rss+xml" />
     <description>Kanban</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 03 May 2020 19:25:09 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Kanban</title>
-      <link>https://btihen.github.io/tags/kanban/</link>
+      <link>https://btihen.me/tags/kanban/</link>
     </image>
     
     <item>
       <title>Kanban Usage</title>
-      <link>https://btihen.github.io/post_edu/kanban_usage/</link>
+      <link>https://btihen.me/post_edu/kanban_usage/</link>
       <pubDate>Sun, 03 May 2020 19:25:09 +0200</pubDate>
-      <guid>https://btihen.github.io/post_edu/kanban_usage/</guid>
+      <guid>https://btihen.me/post_edu/kanban_usage/</guid>
       <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
 &lt;p&gt;Kanban is a visual way to track your tasks and your progress.  Many people find this helpful way to to show yourself, your parents and teachers what work needs to be done.  Ideally, this is done on a large screen, sheet of paper, or whiteboard - so that it is obvious and easily seen as a reminder.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;example.jpg&#34; alt=&#34;kanban&#34;&gt;&lt;/p&gt;

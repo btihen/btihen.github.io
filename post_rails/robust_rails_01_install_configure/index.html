@@ -1,0 +1,1472 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Intro To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3). I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_rails/robust_rails_01_install_configure/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://btihen.me/post_rails/robust_rails_01_install_configure/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_rails/robust_rails_01_install_configure/">
+  <meta property="og:title" content="Install and Configure Rails | btihen">
+  <meta property="og:description" content="Intro To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3). I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features)."><meta property="og:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
+  <meta property="twitter:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-09-10T20:46:07&#43;02:00">
+    
+    <meta property="article:modified_time" content="2020-09-10T20:46:07&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Install and Configure Rails | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/"><span></span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#tech"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#coverage"><span>Coverage</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Bio</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#experience"><span>Experiences</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Install and Configure Rails</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Thu, Sep 10, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/rails/">Rails</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="intro">Intro</h1>
+<p>To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).</p>
+<h1 id="rails-setup">Rails Setup</h1>
+<p>Take from:</p>
+<ul>
+<li><a href="https://gist.github.com/alxndr/7569551">https://gist.github.com/alxndr/7569551</a></li>
+<li><a href="https://www.codewithjason.com/rails-integration-tests-rspec-capybara/">https://www.codewithjason.com/rails-integration-tests-rspec-capybara/</a></li>
+<li><a href="https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68">https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68</a></li>
+</ul>
+<h2 id="create-the-project">create the project:</h2>
+<pre><code># -T - skips tests - I like using rspec
+# -d postgresql - I like using postgresql best for the db
+# Spring &amp; listen speed testing - but can get out of sync and make problems
+
+rails new calendar -T -d postgresql --webpack=stimulus # --skip-spring --skip-listen
+
+cd calendar
+# gem install bundler:2.1.4
+# rails app:update:bin
+</code></pre>
+<h2 id="update-the-readme-and-initialize-git">update the README and initialize Git</h2>
+<pre><code>git add .
+git commit -m &quot;intial commit&quot;
+git remote add origin git@gitlab.com:btihen/calendar.git
+git push -u origin master
+</code></pre>
+<h2 id="add-extra-gems-for-this-project">Add extra Gems for this project</h2>
+<p>add rspec, devise, factory_bot and stimulus_reflex</p>
+<p>Execute the following command (or add to the Gemfile)</p>
+<pre><code>cat &lt;&lt;EOF &gt;&gt; Gemfile
+# Project Gems
+##############
+
+# FRONT END
+###########
+gem &quot;stimulus_reflex&quot;, &quot;~&gt; 3.3&quot;
+
+# BACK END
+##########
+gem 'devise'
+
+# DEV / TESTS
+#############
+group :development, :test do
+  gem 'awesome_print'        # formats pry (&amp; irb outputs into readable formats)
+
+  gem 'pry-rails'
+  gem 'pry-byebug'           # Adds byebug's step debugging and stack navigation
+  # gem 'pry-debugger'       # adds step, continue, etc (alternative to pry-byebug)
+  gem 'pry-stack_explorer'   # easy stack traces when debugging
+  # more pry gems if needed at: https://spin.atomicobject.com/2012/08/06/live-and-let-pry/
+
+  gem 'factory_bot_rails'
+  gem 'faker'
+
+  # gem 'rspec-rails'
+  gem 'capybara'
+  gem 'rspec-rails', '~&gt; 4.0.0'
+
+  # lets spring work with rspec
+  gem 'spring-commands-rspec'
+end
+
+group :test do
+  # easier tests (inside rspec)
+  gem 'shoulda-matchers'
+
+  # cucumber can test emails (rspec too?)
+  # gem 'email_spec'
+
+  # code coverage
+  gem 'simplecov'
+  gem 'simplecov-console'
+end
+EOF
+</code></pre>
+<h2 id="now-uncomment-a-few-gems-in-the-original-gemfile">Now uncomment a few Gems in the Original Gemfile</h2>
+<p>Uncomment the following to ensure ActionText and Stimulus Refelx (work properly).</p>
+<p><code>gem 'image_processing', '~&gt; 1.2'</code></p>
+<p>is needed by Active Storage (ActionText needs Active Storage)</p>
+<p>and</p>
+<p><code>gem 'redis', '~&gt; 4.0'</code></p>
+<p>is needed by Stimulus Reflex (which uses Action Channels) to manage WebSockets</p>
+<h2 id="install-and-configure-base-gems">Install and configure base gems</h2>
+<p>now run:</p>
+<p><code>bundle install</code></p>
+<p>to install all the new gems and create a <code>Gemfile.lock</code></p>
+<h2 id="javascipt-packages-to-support-new-gems">JavaScipt packages to support new Gems.</h2>
+<p><code>yarn add cable_ready stimulus_reflex</code></p>
+<h2 id="now-installconfigure-stimulus-reflex">Now Install/Configure Stimulus Reflex:</h2>
+<pre><code>bin/rails stimulus_reflex:install
+# bin/rails dev:cache
+</code></pre>
+<h2 id="install-activestorage-and-actiontext">Install ActiveStorage and ActionText</h2>
+<p>run the following commands:</p>
+<pre><code># bundle exec rails webpacker:install
+# bundle exec rails webpacker:install:stimulus
+bundle exec rails active_storage:install
+bundle exec rails action_text:install
+</code></pre>
+<p>No configuration is needed for development (but is needed for production environments)</p>
+<h2 id="rspec">RSPEC</h2>
+<h3 id="install-with">Install with:</h3>
+<p><code>bin/rails g rspec:install</code></p>
+<h2 id="configure">Configure:</h2>
+<h3 id="create-needed-folders-for-our-config">Create needed folders for our config</h3>
+<pre><code>mkdir spec/features
+
+# a place to put test helper code
+mkdir spec/support
+mkdir spec/support/features
+</code></pre>
+<h3 id="rspec-config-file-specrails_helperrb">Rspec Config file <code>spec/rails_helper.rb</code></h3>
+<ol>
+<li>To enable integration tests with rspec add: <code>require 'capybara/rspec'</code> below <code>require 'rspec/rails'</code></li>
+<li>To load Test helper code add: <code>Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each { |file| require file }</code> below <code>require 'capybara/rspec'</code></li>
+<li>just after the ActiveRecord config and before RSpec.configure block add:</li>
+</ol>
+<pre><code>Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome
+</code></pre>
+<ol start="4">
+<li>Add the FactoryBot config in the section with:</li>
+</ol>
+<pre><code>RSpec.configure do |config|
+  # ...
+
+  # support for Factory Bot
+  config.include FactoryBot::Syntax::Methods
+
+  # setup devise login helpers in Rspec
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # allows us for force session logouts (im feature tests)
+  config.include Warden::Test::Helpers
+end
+</code></pre>
+<ol start="5">
+<li>finally at the end of the file add support for shoulda matchers with:</li>
+</ol>
+<pre><code>Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+</code></pre>
+<p>NOW <code>spec/rails_helper.rb</code> should look like (its long, sometimes the full context is clearer):</p>
+<pre><code># This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'spec_helper'
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
+# Prevent database truncation if the environment is production
+abort(&quot;The Rails environment is running in production mode!&quot;) if Rails.env.production?
+require 'rspec/rails'
+# Add additional requires below this line. Rails is not loaded until this point!
+
+# enables integration/feature tests using rspec
+require 'capybara/rspec'
+
+# loads custom helper test code
+Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each { |file| require file }
+# or you could use:
+# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
+# Checks for pending migrations and applies them before tests are run.
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError =&gt; e
+  puts e.to_s.strip
+  exit 1
+end
+
+# configure capybara integration tests
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome
+
+RSpec.configure do |config|
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = &quot;#{::Rails.root}/spec/fixtures&quot;
+
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
+
+  # You can uncomment this line to turn off ActiveRecord support entirely.
+  # config.use_active_record = false
+
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explicitly tag your specs with their type, e.g.:
+  #
+  #     RSpec.describe UsersController, type: :controller do
+  #       # ...
+  #     end
+  #
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/docs
+  config.infer_spec_type_from_file_location!
+
+  # Filter lines from Rails gems in backtraces.
+  config.filter_rails_from_backtrace!
+  # arbitrary gems may also be filtered via:
+  # config.filter_gems_from_backtrace(&quot;gem name&quot;)
+
+  # support for Factory Bot
+  config.include FactoryBot::Syntax::Methods
+
+  # setup devise login helpers in Rspec (login helpers)
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # allows us for force session logouts (im feature tests)
+  config.include Warden::Test::Helpers
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+</code></pre>
+<h1 id="create--test-a-landing-page">Create / Test a landing page</h1>
+<p>A simple config test before we setup devise (authentication).</p>
+<ol>
+<li><strong>Generate a page</strong> &ndash; I don&rsquo;t (generally) use helpers nor contoller or view specs - so I&rsquo;ll create the landing page using the following generator:</li>
+</ol>
+<pre><code>rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
+</code></pre>
+<ol start="2">
+<li><strong>Update Routes</strong> <code>config/routes.rb</code> with:</li>
+</ol>
+<pre><code>  get 'landing/index'
+  root to: &quot;landing#index&quot;
+</code></pre>
+<ol start="3">
+<li><strong>Add Hidden Test Content</strong> to simplify testing add:</li>
+</ol>
+<pre><code>&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;
+</code></pre>
+<ol start="4">
+<li>Request test:</li>
+</ol>
+<pre><code># spec/requests/landing_request_spec.rb
+require 'rails_helper'
+
+RSpec.describe &quot;Landings&quot;, type: :request do
+
+  describe &quot;GET /index&quot; do
+    it &quot;returns http success&quot; do
+      get &quot;/landing/index&quot;
+      expect(response).to have_http_status(:success)
+
+      expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
+    end
+  end
+end
+</code></pre>
+<ol start="5">
+<li>Feature Test (to be sure they are working too)</li>
+</ol>
+<pre><code># spec/features/landing_page_spec.rb
+require 'rails_helper'
+
+RSpec.describe 'Landing Page Works without a login', type: :feature do
+  scenario 'Visit landing Page' do
+    visit root_path
+
+    page_tag = find('p#landing_index', text: 'Landing Index', visible: false)
+    expect(page_tag).to be_truthy
+  end
+end
+</code></pre>
+<ol start="6">
+<li>Create DB and Test</li>
+</ol>
+<pre><code>bin/rails db:create
+bin/rails db:migrate
+bundle exec rspec
+</code></pre>
+<ol start="7">
+<li>Assuming test run and are green - we can commit a functioning setup:</li>
+</ol>
+<pre><code>git add .
+git commit -m &quot;rspec configured and working&quot;
+git push
+</code></pre>
+<p>If you plan to user database_cleaner &ndash; then also see this article to finish your config:</p>
+<p><a href="https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9">https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9</a></p>
+<p>a basic login feature test might look like:</p>
+<pre><code>require 'rails_helper'
+
+RSpec.describe 'Users Login', type: :feature do
+  let(:user)  { FactoryBot.create :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe 'user logs in successfully' do
+    scenario 'and is redirected to user home page' do
+      user_log_in(user)
+      expect(current_path).to eql(auth_user_root_path)
+    end
+  end
+end
+</code></pre>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">rails</a>
+  
+  <a class="badge badge-light" href="/tags/configure/">configure</a>
+  
+  <a class="badge badge-light" href="/tags/install/">install</a>
+  
+  <a class="badge badge-light" href="/tags/durable/">durable</a>
+  
+  <a class="badge badge-light" href="/tags/testing/">testing</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_rails/robust_rails_01_install_configure/&amp;text=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_rails/robust_rails_01_install_configure/&amp;t=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Install%20and%20Configure%20Rails&amp;body=https://btihen.me/post_rails/robust_rails_01_install_configure/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_rails/robust_rails_01_install_configure/&amp;title=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Install%20and%20Configure%20Rails%20https://btihen.me/post_rails/robust_rails_01_install_configure/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_rails/robust_rails_01_install_configure/&amp;title=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data and Educator</h6>
+        <p class="card-text">Developer, Educator and very currious.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2020
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

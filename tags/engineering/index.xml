@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Engineering | btihen</title>
-    <link>https://btihen.github.io/tags/engineering/</link>
-      <atom:link href="https://btihen.github.io/tags/engineering/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/engineering/</link>
+      <atom:link href="https://btihen.me/tags/engineering/index.xml" rel="self" type="application/rss+xml" />
     <description>Engineering</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 14 May 2015 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Engineering</title>
-      <link>https://btihen.github.io/tags/engineering/</link>
+      <link>https://btihen.me/tags/engineering/</link>
     </image>
     
     <item>
       <title>Climate Sensor Poles</title>
-      <link>https://btihen.github.io/coverage/climate_poles_john_harlin_lets_report/</link>
+      <link>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</link>
       <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/coverage/climate_poles_john_harlin_lets_report/</guid>
+      <guid>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</guid>
       <description></description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo | btihen</title>
-    <link>https://btihen.github.io/tags/hugo/</link>
-      <atom:link href="https://btihen.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/hugo/</link>
+      <atom:link href="https://btihen.me/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <description>Hugo</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 23 May 2020 10:39:21 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Hugo</title>
-      <link>https://btihen.github.io/tags/hugo/</link>
+      <link>https://btihen.me/tags/hugo/</link>
     </image>
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_tech/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_tech/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
@@ -64,9 +64,9 @@
     
     <item>
       <title>Hugo Website using Github</title>
-      <link>https://btihen.github.io/post_tech/hugo_academic_website_steps/</link>
+      <link>https://btihen.me/post_tech/hugo_academic_website_steps/</link>
       <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.github.io/post_tech/hugo_academic_website_steps/</guid>
+      <guid>https://btihen.me/post_tech/hugo_academic_website_steps/</guid>
       <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;brew install hugo
 &lt;/code&gt;&lt;/pre&gt;

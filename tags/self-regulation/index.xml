@@ -2,29 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>self-regulation | btihen</title>
-    <link>https://btihen.github.io/tags/self-regulation/</link>
-      <atom:link href="https://btihen.github.io/tags/self-regulation/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/self-regulation/</link>
+      <atom:link href="https://btihen.me/tags/self-regulation/index.xml" rel="self" type="application/rss+xml" />
     <description>self-regulation</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Wed, 16 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sat, 03 Oct 2020 01:16:28 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.github.io/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>self-regulation</title>
-      <link>https://btihen.github.io/tags/self-regulation/</link>
+      <link>https://btihen.me/tags/self-regulation/</link>
     </image>
     
     <item>
+      <title>Reflection: The Key to Adaptability</title>
+      <link>https://btihen.me/post_edu/edgility_btihen_reflection/</link>
+      <pubDate>Sat, 03 Oct 2020 01:16:28 +0200</pubDate>
+      <guid>https://btihen.me/post_edu/edgility_btihen_reflection/</guid>
+      <description>&lt;p&gt;Adaptability is the key or maybe even the definition of agility, as discussed in Paul’s article 
+&lt;a href=&#34;https://btihen.me/blog/edgility_pmagnuson_adaptability&#34;&gt;Adaptability article&lt;/a&gt;. In this article I’ll discuss how I try to instill adaptability as a classroom process for student learning. These practices are borrowed from tech companies and business consultants, but I am confident they can be applied in many contexts, including education, when properly adapted.&lt;/p&gt;
+&lt;p&gt;When I first taught, I only led reflections at the end of a learning unit or project and I encouraged the students to think deeply and go into detail. However, I realized that students have little practice with reflecting on their learning process, making a deep retrospective impractical. Additionally, I encourage an exploratory approach in class, where the student goal purposely doesn’t align with easy-to-google solutions, so students need to learn and adapt as they go. It turns out students generally have little practice adapting as they go, perhaps because the learning path is too easy, or too clean. Thus even project work doesn’t usually involve deep thinking, thoughtful decisions, and compromises to accomplish their goals.&lt;/p&gt;
+&lt;p&gt;My solution was to introduce mini-reflections at the end of each class and then ask what, if anything, students would do differently in the next class. I ask one or two questions, usually from this list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What&amp;rsquo;s your goal?&lt;/li&gt;
+&lt;li&gt;What&amp;rsquo;s your goal next class?&lt;/li&gt;
+&lt;li&gt;What/who is allowing you to progress?&lt;/li&gt;
+&lt;li&gt;What/who could help you progress with the next goal?&lt;/li&gt;
+&lt;li&gt;What’s slowing you down?&lt;/li&gt;
+&lt;li&gt;What obstacles are blocking your progress?&lt;/li&gt;
+&lt;li&gt;What can you adjust, change or do more of to enjoy progress?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These mini-retrospectives last about a minute or so and happen on the way out of the class. Teachers will recognize the format as “exit tickets” or “pro-formas.” Because I taught engineering topics and students work in small groups of three to four, the process only takes about vie minutes and is integrated into the cleanup process. (Students are very good about getting started and being engaged - but cleanup seems to be easier to forget somehow. Those who are quicker to catch on do their mini-retrospective first). When the students have to return materials and clear their bench, I look at their work (their lab book and project) as they describe it and we jointly update their burn-down chart (an Agile progress tracking-tool &amp;amp; future blog-post) &lt;strong&gt;Importantly, I always ask what went well and how they can maintain and enjoy their progress.&lt;/strong&gt; If needed, I might also ask what they test to get unstuck, to catch up, etc.  Finally, I ask what they have in mind for the next class.&lt;/p&gt;
+&lt;p&gt;These are very quick and neutral discussions that give the students practice reflecting and being asked how they will adjust in a very low-stakes environment. This seems to be exactly the practice many students need. It also turns out that many students enjoy showing off their work at the end of each class. &lt;strong&gt;These are not corrective or judgmental teacher lead meetings, but rather quick coaching and check-ins - with the goal of guiding students to self-reflect and self-regulate. This approach can be uplifting and cultivate student confidence and appreciation for learning.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There’s research that shows positive interactions lead to positive outcomes - perhaps unsurprisingly - and plenty of reasons to build a sense of uplift into the teaching and learning environment. Uplift is also a practice of EDgility.&lt;/p&gt;
+&lt;p&gt;Once every week or so I meet with each student group during class and do a five-minute reflection (still short, but more in-depth than the one-minute check-ins) and we review more questions.  This more in-depth reflection also seems to be important and is where students really start to cultivate confidence in their self-regulation.&lt;/p&gt;
+&lt;p&gt;These many small reflections encourage adaptability. With time students get good at reflection and self-regulation. At this point the students are ready to guide their reflections and self-regulation.&lt;/p&gt;
+&lt;p&gt;Once students have gotten to the point where they are self-reflecting and self-correcting, the students are well on their way with an Agile-Mindset and as self-regulated learners! In my mind, this is a very life-worthy skill.&lt;/p&gt;
+&lt;p&gt;Note: Be prepared to be flexible and work with each group differently to meet their needs, different students and groups take longer or shorter to self-reflect and self-regulate. Creating a safe environment where exploration, success and progress are called out and celebrated - is critical, the students have plenty of other classes where correction and short-comings as seen by others (usually the teacher) is called out.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Patient Explanations Lead to Good Things</title>
-      <link>https://btihen.github.io/publication/las_spotlight_patient_explanations/</link>
+      <link>https://btihen.me/publication/las_spotlight_patient_explanations/</link>
       <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.github.io/publication/las_spotlight_patient_explanations/</guid>
+      <guid>https://btihen.me/publication/las_spotlight_patient_explanations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Getting Agile at School</title>
-      <link>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</link>
+      <link>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</link>
       <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
-      <guid>https://btihen.github.io/publication/springer_getting_agile_at_school_chapter/</guid>
+      <guid>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</guid>
       <description></description>
     </item>
     
