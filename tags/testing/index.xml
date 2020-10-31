@@ -14,9 +14,9 @@
     
     <item>
       <title>Install and Configure Rails</title>
-      <link>https://btihen.me/post_rails/robust_rails_01_install_configure/</link>
+      <link>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</link>
       <pubDate>Thu, 10 Sep 2020 20:46:07 +0200</pubDate>
-      <guid>https://btihen.me/post_rails/robust_rails_01_install_configure/</guid>
+      <guid>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
 &lt;p&gt;To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).&lt;/p&gt;
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
@@ -336,9 +336,9 @@ end
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;

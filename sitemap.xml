@@ -152,7 +152,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_rails/robust_rails_01_install_configure/</loc>
+    <loc>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</loc>
     <lastmod>2020-09-10T20:46:07+02:00</lastmod>
   </url>
   
@@ -167,7 +167,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_rails/</loc>
+    <loc>https://btihen.me/post_ruby_rails/</loc>
     <lastmod>2020-09-10T20:46:07+02:00</lastmod>
   </url>
   
@@ -207,6 +207,11 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/post_ruby_rails/robust_rails_01_intro/</loc>
+    <lastmod>2020-07-30T20:49:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/tags/exploration/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
@@ -219,6 +224,16 @@
   <url>
     <loc>https://btihen.me/tags/student-choice/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/post_ruby_rails/robust_rails_02_config/</loc>
+    <lastmod>2020-07-10T20:46:07+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/post_ruby_rails/robust_rails_03_devise_single_user_with_roles/</loc>
+    <lastmod>2020-07-10T20:45:51+02:00</lastmod>
   </url>
   
   <url>
@@ -247,7 +262,12 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</loc>
+    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/post_elixir_phoenix/</loc>
     <lastmod>2020-07-10T09:43:51+02:00</lastmod>
   </url>
   
@@ -258,11 +278,6 @@
   
   <url>
     <loc>https://btihen.me/tags/render-foriegn-views/</loc>
-    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.me/post_tech/</loc>
     <lastmod>2020-07-10T09:43:51+02:00</lastmod>
   </url>
   
@@ -292,7 +307,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</loc>
     <lastmod>2020-07-06T13:06:29+02:00</lastmod>
   </url>
   
@@ -377,7 +392,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/github_website_with_custom_domain/</loc>
+    <loc>https://btihen.me/post_web_tech/github_website_with_custom_domain/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url>
   
@@ -388,6 +403,11 @@
   
   <url>
     <loc>https://btihen.me/tags/ssl/</loc>
+    <lastmod>2020-05-31T13:22:48+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/post_web_tech/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url>
   
@@ -447,7 +467,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/hugo_academic_cheatsheet/</loc>
+    <loc>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</loc>
     <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
@@ -457,7 +477,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/hugo_academic_website_steps/</loc>
+    <loc>https://btihen.me/post_web_tech/hugo_academic_website_steps/</loc>
     <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url>
   
@@ -472,7 +492,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</loc>
+    <loc>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</loc>
     <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url>
   
@@ -502,7 +522,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</loc>
+    <loc>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</loc>
     <lastmod>2020-05-10T17:01:53+02:00</lastmod>
   </url>
   
@@ -562,7 +582,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/coverage/</loc>
+    <loc>https://btihen.me/in_news/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url>
   
@@ -582,7 +602,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/coverage/tim_logan_ecis_agility_webinar_linkedin/</loc>
+    <loc>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url>
   
@@ -812,7 +832,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/coverage/agile_in_education_interview_scrum_alliance/</loc>
+    <loc>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</loc>
     <lastmod>2017-01-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -827,7 +847,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/coverage/agile_in_education_at_las_interview_agile_amped/</loc>
+    <loc>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</loc>
     <lastmod>2016-12-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -842,7 +862,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/coverage/agile_classrooms_article_agile_classrooms/</loc>
+    <loc>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -892,7 +912,7 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</loc>
+    <loc>https://btihen.me/in_news/climate_poles_john_harlin_lets_report/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -928,10 +948,6 @@
   
   <url>
     <loc>https://btihen.me/contact/</loc>
-  </url>
-  
-  <url>
-    <loc>https://btihen.me/post_phoenix/</loc>
   </url>
   
   <url>

@@ -154,9 +154,9 @@
     
     <item>
       <title>Install and Configure Rails</title>
-      <link>https://btihen.me/post_rails/robust_rails_01_install_configure/</link>
+      <link>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</link>
       <pubDate>Thu, 10 Sep 2020 20:46:07 +0200</pubDate>
-      <guid>https://btihen.me/post_rails/robust_rails_01_install_configure/</guid>
+      <guid>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
 &lt;p&gt;To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).&lt;/p&gt;
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
@@ -494,6 +494,16 @@ end
     </item>
     
     <item>
+      <title>Durable_rails_intro</title>
+      <link>https://btihen.me/post_ruby_rails/robust_rails_01_intro/</link>
+      <pubDate>Thu, 30 Jul 2020 20:49:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/robust_rails_01_intro/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ll build a rails app that uses a structure I have found that helps make Rails Apps be durable and maintainable over time.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;ll build an app that lets groups set-up coaching to support values and practices - say the agile values and practices.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Smallify to Learn Effectively</title>
       <link>https://btihen.me/post_edu/edgility_btihen_smallify/</link>
       <pubDate>Fri, 24 Jul 2020 14:05:38 +0200</pubDate>
@@ -525,10 +535,1189 @@ end
     </item>
     
     <item>
+      <title>Durable_rails_config</title>
+      <link>https://btihen.me/post_ruby_rails/robust_rails_02_config/</link>
+      <pubDate>Fri, 10 Jul 2020 20:46:07 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/robust_rails_02_config/</guid>
+      <description>&lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
+&lt;p&gt;Take from:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;create the project:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# -T - skips tests - I like using rspec
+# -d postgresql - I like using postgresql best for the db
+# Spring &amp;amp; listen speed testing - but can get out of sync and make problems
+rails new challenges -T -d postgresql --skip-spring --skip-listen
+
+Excerpt From: David Bryant Copeland. “Sustainable Web Development with Ruby on Rails.” Apple Books. 
+cd challenges
+gem install bundler:2.1.4
+rails app:update:bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the readme with purpose, setup and running tests&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;intial commit&amp;quot;
+git remote add origin git@gitlab.com:peakchallenges/challenges.git
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;add rspec, devise &amp;amp; factory_bot to Gemfile&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt; Gemfile
+# Container4 Gems
+#################
+
+# BACK END
+##########
+gem &#39;devise&#39;
+
+# DEV / TESTS
+#############
+group :development, :test do
+  gem &#39;awesome_print&#39;        # formats pry (&amp;amp; irb outputs into readable formats)
+
+  gem &#39;pry-rails&#39;
+  gem &#39;pry-byebug&#39;           # Adds byebug&#39;s step debugging and stack navigation
+  # gem &#39;pry-debugger&#39;       # adds step, continue, etc (alternative to pry-byebug)
+  gem &#39;pry-stack_explorer&#39;   # easy stack traces when debugging
+  # more pry gems if needed at: https://spin.atomicobject.com/2012/08/06/live-and-let-pry/
+
+  gem &#39;factory_bot_rails&#39;
+  gem &#39;faker&#39;
+
+  # gem &#39;rspec-rails&#39;
+  gem &#39;capybara&#39;
+  gem &#39;rspec-rails&#39;, &#39;~&amp;gt; 4.0.0&#39;
+
+  # lets spring work with rspec - uncomment if using spring
+  # gem &#39;spring-commands-rspec&#39;
+end
+
+group :test do
+  # easier tests (inside rspec)
+  gem &#39;shoulda-matchers&#39;
+
+  # cucumber can test emails (rspec too?)
+  # gem &#39;email_spec&#39;
+
+  # code coverage
+  gem &#39;simplecov&#39;
+  gem &#39;simplecov-console&#39;
+end
+EOF
+
+# update gems with
+bundle install
+
+# install rspec with:
+bin/rails g rspec:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;configure-rspec&#34;&gt;CONFIGURE RSPEC&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# create a spec features folder
+mkdir spec/features
+# create a place to put commonly used tests code
+mkdir spec/support
+mkdir spec/support/features
+
+# at the top of `spec/rails_helper.rb below `require &#39;rspec/rails&#39;` add:
+# to enable integration tests with rspec &amp;amp; capybara
+require &#39;capybara/rspec&#39;
+# include custom support files
+Dir[Rails.root.join(&amp;quot;spec/support/**/*.rb&amp;quot;)].each { |file| require file }
+
+
+# just after the ActiveRecord config and before RSpec.configure block add:
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome
+
+
+# add FactoryBot config to Rspec in `spec/rails_helper.rb`
+RSpec.configure do |config|
+  # ...
+
+  # support for Factory Bot
+  config.include FactoryBot::Syntax::Methods
+
+  # setup devise login helpers in Rspec
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Warden::Test::Helpers
+end
+
+# support for shoulda matches
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the rspec_helper.rb file now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# This file is copied to spec/ when you run &#39;rails generate rspec:install&#39;
+require &#39;spec_helper&#39;
+
+ENV[&#39;RAILS_ENV&#39;] ||= &#39;test&#39;
+require File.expand_path(&#39;../config/environment&#39;, __dir__)
+# Prevent database truncation if the environment is production
+abort(&amp;quot;The Rails environment is running in production mode!&amp;quot;) if Rails.env.production?
+require &#39;rspec/rails&#39;
+
+# to enable integration tests with rspec
+require &#39;capybara/rspec&#39;
+
+# include custom support files
+Dir[Rails.root.join(&amp;quot;spec/support/**/*.rb&amp;quot;)].each { |file| require file }
+
+# Add additional requires below this line. Rails is not loaded until this point!
+
+# Requires supporting ruby files with custom matchers and macros, etc, in
+# spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
+# run as spec files by default. This means that files in spec/support that end
+# in _spec.rb will both be required and run as specs, causing the specs to be
+# run twice. It is recommended that you do not name files matching this glob to
+# end with _spec.rb. You can configure this pattern with the --pattern
+# option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
+#
+# The following line is provided for convenience purposes. It has the downside
+# of increasing the boot-up time by auto-requiring all files in the support
+# directory. Alternatively, in the individual `*_spec.rb` files, manually
+# require only the support files necessary.
+#
+# Dir[Rails.root.join(&#39;spec&#39;, &#39;support&#39;, &#39;**&#39;, &#39;*.rb&#39;)].sort.each { |f| require f }
+
+# Checks for pending migrations and applies them before tests are run.
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError =&amp;gt; e
+  puts e.to_s.strip
+  exit 1
+end
+
+# configure capybara integration tests
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome
+
+RSpec.configure do |config|
+  # Remove this line if you&#39;re not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = &amp;quot;#{::Rails.root}/spec/fixtures&amp;quot;
+
+  # If you&#39;re not using ActiveRecord, or you&#39;d prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
+
+  # You can uncomment this line to turn off ActiveRecord support entirely.
+  # config.use_active_record = false
+
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explicitly tag your specs with their type, e.g.:
+  #
+  #     RSpec.describe UsersController, type: :controller do
+  #       # ...
+  #     end
+  #
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/docs
+  config.infer_spec_type_from_file_location!
+
+  # Filter lines from Rails gems in backtraces.
+  config.filter_rails_from_backtrace!
+  # arbitrary gems may also be filtered via:
+  # config.filter_gems_from_backtrace(&amp;quot;gem name&amp;quot;)
+
+  # support for Factory Bot
+  config.include FactoryBot::Syntax::Methods
+
+  # setup devise login helpers in Rspec (login helpers)
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  # allows us for force session logouts (im feature tests)
+  config.include Warden::Test::Helpers
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you plan to user database_cleaner &amp;ndash; then also see this article to finishy yoru config:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&#34;&gt;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;a basic login feature test might look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Login&#39;, type: :feature do
+  let(:user)  { FactoryBot.create :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;user logs in successfully&#39; do
+    scenario &#39;and is redirected to user home page&#39; do
+      user_log_in(user)
+      expect(current_path).to eql(auth_user_root_path)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;configure-for-actiontext-and-activestorage&#34;&gt;Configure for ActionText and ActiveStorage&lt;/h2&gt;
+&lt;p&gt;uncomment the following gem for Active Storage variant&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gem &#39;image_processing&#39;, &#39;~&amp;gt; 1.2&#39;
+# of course
+bundle install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now install the components:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails webpacker:install
+bundle exec rails webpacker:install:stimulus
+bundle exec rails active_storage:install
+bundle exec rails action_text:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;lets-create-a-landing-page---before-we-install-and-configure-devise&#34;&gt;Lets create a landing page - before we install and configure devise:&lt;/h3&gt;
+&lt;p&gt;Since I don&amp;rsquo;t use helpers (generally) nor contoller or view spec - I use thie following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now check or add this the root page to: &lt;code&gt;config/routes.rb&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  # get &#39;landing/index&#39;
+  root to: &amp;quot;landing#index&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets add a hidden paragraph as content to the top of the landing page so we can easily test for it.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets create the following feature test (to test the feature setup):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/features/landing_page_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Landing Page Works without a login&#39;, type: :feature do
+  scenario &#39;Visit landing Page&#39; do
+    visit root_path
+    
+    page_tag = find(&#39;p#landing_index&#39;, text: &#39;Landing Index&#39;, visible: false)
+    expect(page_tag).to be_truthy
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;create a request test to be sure it works as we wish (we dont need a feature test when we arent navigating)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;RSpec.describe &amp;quot;Landings&amp;quot;, type: :request do
+
+  describe &amp;quot;GET /index&amp;quot; do
+    it &amp;quot;&#39;/landing&#39; returns http success&amp;quot; do
+      get &amp;quot;/landing&amp;quot;
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    end
+    it &amp;quot;&#39;landing_path&#39; returns http success&amp;quot; do
+      get landing_path
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    end
+    it &amp;quot;&#39;/&#39; returns http success&amp;quot; do
+      get &amp;quot;/&amp;quot;
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    end
+    it &amp;quot;&#39;root_path&#39; returns http success&amp;quot; do
+      get root_path
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    end
+    # it &amp;quot;&#39;/landing/index&#39; returns http success&amp;quot; do
+    #   get &amp;quot;/landing/index&amp;quot;
+    #   expect(response).to have_http_status(:success)
+    #   expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    # end
+    # it &amp;quot;&#39;landing_index_path&#39; returns http success&amp;quot; do
+    #   get landing_index_path
+    #   expect(response).to have_http_status(:success)
+    #   expect(response.body).to include(&amp;quot;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;&amp;quot;)
+    # end
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assumign all it green - lets commit:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;rspec configured and working&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails Devise User with Roles</title>
+      <link>https://btihen.me/post_ruby_rails/robust_rails_03_devise_single_user_with_roles/</link>
+      <pubDate>Fri, 10 Jul 2020 20:45:51 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/robust_rails_03_devise_single_user_with_roles/</guid>
+      <description>&lt;h2 id=&#34;configure-devise-for-multiple-types-of-accounts&#34;&gt;Configure devise (for multiple types of accounts)&lt;/h2&gt;
+&lt;p&gt;install the devise engine:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails generate devise:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now follow the basic setup config &amp;ndash; add to &lt;code&gt;config/environments/development.rb&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;add notifications to the layout for devise in &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; just above &lt;code&gt;&amp;lt;%= yeild %&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&amp;quot;alert&amp;quot;&amp;gt;&amp;lt;%= alert %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now create one or more models for devise:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g devise:views
+rails generate devise user
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the routes to put the login in separate routes in &lt;code&gt;config/routes.rb&lt;/code&gt; - make the routes look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  devise_for :users,  path: &#39;users&#39;  # http://localhost:3000/users/sign_in
+  devise_for :admins, path: &#39;admins&#39; # http://localhost:3000/admins/sign_in
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;turn on scoped views (since login forms can be different) in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.scoped_views = true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the scoped views: (instead of: rails g devise:views) do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g devise:views users/devise
+rails g devise:views admins/devise
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we should open these migrations and uncomment any added fields we use - I generally like to use most of the fields:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# frozen_string_literal: true
+
+class DeviseCreateAdmins &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    create_table :admins do |t|
+      ## Database authenticatable
+      t.string :email,              null: false, default: &amp;quot;&amp;quot;
+      t.string :encrypted_password, null: false, default: &amp;quot;&amp;quot;
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+
+      ## Trackable
+      t.integer  :sign_in_count, default: 0, null: false
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.inet     :current_sign_in_ip
+      t.inet     :last_sign_in_ip
+
+      ## Confirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Lockable
+      t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+      t.string   :unlock_token # Only if unlock strategy is :email or :both
+      t.datetime :locked_at
+
+      t.timestamps null: false
+    end
+
+    add_index :admins, :email,                unique: true
+    add_index :admins, :reset_password_token, unique: true
+    add_index :admins, :confirmation_token,   unique: true
+    add_index :admins, :unlock_token,         unique: true
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and adjust the &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;admin&lt;/code&gt; models too and turn on the features we want or need. We will go into detail later, for now I will just add trackable to the models:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class User &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :trackable,
+         :recoverable, :rememberable, :validatable
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and of course migrate too.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create custome controllers for each sessions - this also allows the users to have different fields and features:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails generate devise:controllers users/devise
+rails generate devise:controllers admins/devise
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;configure the routes to point to these new controllers:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  # http://localhost:3000/users/sign_in
+  devise_for :users,  path: &#39;users&#39;,
+                      controllers: {
+                        sessions:      &#39;users/devise/sessions&#39;,
+                        passwords:     &#39;users/devise/passwords&#39;,
+                        registrations: &#39;users/devise/registrations&#39;
+                      }
+  # http://localhost:3000/admins/sign_in
+  devise_for :admins, path: &#39;admins&#39;,
+                      controllers: {
+                        sessions:      &#39;admins/devise/sessions&#39;,
+                        passwords:     &#39;admins/devise/passwords&#39;,
+                        registrations: &#39;admins/devise/registrations&#39;
+                      }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now the routes should look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ bin/rails routes
+                     Prefix Verb   URI Pattern                        Controller#Action
+           new_user_session GET    /users/sign_in(.:format)           users/sessions#new
+               user_session POST   /users/sign_in(.:format)           users/sessions#create
+       destroy_user_session DELETE /users/sign_out(.:format)          users/sessions#destroy
+          new_user_password GET    /users/password/new(.:format)      users/passwords#new
+         edit_user_password GET    /users/password/edit(.:format)     users/passwords#edit
+              user_password PATCH  /users/password(.:format)          users/passwords#update
+                            PUT    /users/password(.:format)          users/passwords#update
+                            POST   /users/password(.:format)          users/passwords#create
+   cancel_user_registration GET    /users/cancel(.:format)            user/registrations#cancel
+      new_user_registration GET    /users/sign_up(.:format)           user/registrations#new
+     edit_user_registration GET    /users/edit(.:format)              user/registrations#edit
+          user_registration PATCH  /users(.:format)                   user/registrations#update
+                            PUT    /users(.:format)                   user/registrations#update
+                            DELETE /users(.:format)                   user/registrations#destroy
+                            POST   /users(.:format)                   user/registrations#create
+          new_admin_session GET    /admins/sign_in(.:format)          admin/sessions#new
+              admin_session POST   /admins/sign_in(.:format)          admin/sessions#create
+      destroy_admin_session DELETE /admins/sign_out(.:format)         admin/sessions#destroy
+         new_admin_password GET    /admins/password/new(.:format)     admin/passwords#new
+        edit_admin_password GET    /admins/password/edit(.:format)    admin/passwords#edit
+             admin_password PATCH  /admins/password(.:format)         admin/passwords#update
+                            PUT    /admins/password(.:format)         admin/passwords#update
+                            POST   /admins/password(.:format)         admin/passwords#create
+  cancel_admin_registration GET    /admins/cancel(.:format)           admin/registrations#cancel
+     new_admin_registration GET    /admins/sign_up(.:format)          admin/registrations#new
+    edit_admin_registration GET    /admins/edit(.:format)             admin/registrations#edit
+         admin_registration PATCH  /admins(.:format)                  admin/registrations#update
+                            PUT    /admins(.:format)                  admin/registrations#update
+                            DELETE /admins(.:format)                  admin/registrations#destroy
+                            POST   /admins(.:format)                  admin/registrations#create
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets make logged in home pages (for the user and admin)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
+rails g controller admins/home index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets update our routes to ponit to these pages if the user is logged in add the following belos the deivse_for commands&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Rails.application.routes.draw do
+  # http://localhost:3000/admins/sign_in
+  devise_for :admins, path: &#39;admins&#39;,
+                      controllers: {
+                        sessions:      &#39;admins/devise/sessions&#39;,
+                        passwords:     &#39;admins/devise/passwords&#39;,
+                        registrations: &#39;admins/devise/registrations&#39;
+                      }
+  # http://localhost:3000/umdzes/sign_in
+  devise_for :umdzes, path: &#39;umdzes&#39;,
+                      controllers: {
+                        sessions:      &#39;umdzes/devise/sessions&#39;,
+                        passwords:     &#39;umdzes/devise/passwords&#39;,
+                        registrations: &#39;umdzes/devise/registrations&#39;
+                      }
+  # http://localhost:3000/patrons/sign_in
+  devise_for :patrons,  path: &#39;patrons&#39;,
+                      controllers: {
+                        sessions:      &#39;patrons/devise/sessions&#39;,
+                        passwords:     &#39;patrons/devise/passwords&#39;,
+                        registrations: &#39;patrons/devise/registrations&#39;
+                      }
+
+  authenticated :patron do
+    root &#39;patrons/home#index&#39;,     as: :auth_patron_root
+  end
+  authenticated :umdze do
+    root &#39;umdzes/home#index&#39;,      as: :auth_umdze_root
+  end
+  authenticated :admin do
+    root &#39;admins/home#index&#39;, as: :auth_admin_root
+  end
+
+
+  namespace :admins do
+    get &#39;home/index&#39;
+    # resource  :home_page,        only: [:index]
+  end
+  get &#39;/admins&#39;, to: &#39;admins/home#index&#39;, as: :admins
+
+  namespace :umdzes do
+    get &#39;home/index&#39;
+    # resource  :home_page,        only: [:index]
+  end
+  get &#39;/umdzes&#39;, to: &#39;umdzes/home#index&#39;, as: :umdzes
+
+  namespace :patrons do
+    get &#39;home/index&#39;
+    # resource  :home_page,        only: [:index]
+  end
+  get &#39;/patrons&#39;, to: &#39;patrons/home#index&#39;, as: :patrons
+
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  get &#39;landing/index&#39;
+  root to: &amp;quot;landing#index&amp;quot;
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-lets-make-applicationcontrollers-for-each-namespace--enforce-authentication&#34;&gt;now lets make ApplicationControllers for each namespace &amp;amp; enforce authentication&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;touch app/controllers/admins/application_controller.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/admins/application_controller.rb
+class Admins::ApplicationController &amp;lt; ApplicationController
+  before_action :authenticate_admin!
+
+  private
+
+  def this_user
+    current_admin
+  end
+end
+EOF
+
+touch app/controllers/umdzes/application_controller.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/umdzes/application_controller.rb
+class Umdzes::ApplicationController &amp;lt; ApplicationController
+  before_action :authenticate_umdze!, unless: :allowed_access
+
+  private
+
+  def allowed_access
+    current_admin
+  end
+
+  def this_user
+    current_umdze || current_admin
+  end
+end
+EOF
+
+touch app/controllers/patrons/application_controller.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/patrons/application_controller.rb
+class Patrons::ApplicationController &amp;lt; ApplicationController
+  before_action :authenticate_patron!, unless: :allowed_access
+
+  private
+  def allowed_access
+    current_umdze || current_admin
+  end
+
+  def this_user
+    current_patron || current_umdze || current_admin
+  end
+end
+EOF
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;now-we-will-inhert-from-these-new-controllers-and-enforce-limits&#34;&gt;now we will inhert from these new controllers and enforce limits&lt;/h1&gt;
+&lt;p&gt;now lets require these pages to have authenticated the correct user type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/admins/home_controller.rb
+class Admins::HomeController &amp;lt; Admins::ApplicationController
+  def index
+  end
+end
+
+# app/controllers/umdzes/home_controller.rb
+class Umdzes::HomeController &amp;lt; Umdzes::ApplicationController
+  def index
+  end
+end
+
+# app/controllers/patrons/home_controller.rb
+class Patrons::HomeController &amp;lt; Patrons::ApplicationController
+  def index
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-prevent-student-and-admin-accounts-from-cross-visits-during-testing-or-whatever&#34;&gt;Now prevent student and admin accounts from cross visits (during testing, or whatever)&lt;/h2&gt;
+&lt;p&gt;create this new file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;touch app/controllers/concerns/accessible.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/concerns/accessible.rb
+module Accessible
+  extend ActiveSupport::Concern
+  included do
+    before_action :check_user
+  end
+
+  protected
+  def check_user
+    if current_admin
+      flash.clear
+      # The authenticated admin root path can be defined in your routes.rb in: devise_scope :admin do...
+      redirect_to(auth_admin_root_path) and return
+    elsif current_umdze
+      flash.clear
+      # The authenticated admin root path can be defined in your routes.rb in: devise_scope :admin do...
+      redirect_to(auth_umdze_root_path) and return
+    elsif current_patron
+      flash.clear
+      # The authenticated user root path can be defined in your routes.rb in: devise_scope :user do...
+      redirect_to(auth_partron_root_path) and return
+    end
+  end
+end
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;use-this-accessible-concern&#34;&gt;use this accessible concern&lt;/h2&gt;
+&lt;p&gt;Now add &lt;code&gt;include Accessible&lt;/code&gt; in the appropriate controllers:&lt;/p&gt;
+&lt;p&gt;Note:
+You must skip_before_action for the destroy action in each SessionsController to prevent the redirect to happen before the sign out occurs.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# eg. ../controllers/admins/sessions_controller.rb
+class Admins::SessionsController &amp;lt; Devise::SessionsController
+ include Accessible
+ skip_before_action :check_user, only: :destroy
+ # ...
+end
+
+# eg. ../controllers/admins/registrations_controller.rb
+You must also skip_before_action for the edit, update, destroy, and cancel actions in each RegistrationsController to allow current users to edit and cancel their own accounts. Otherwise they will be redirected before they can reach these pages.
+
+class Admins::RegistrationsController &amp;lt; Devise::RegistrationsController
+ include Accessible
+ skip_before_action :check_user, except: [:new, :create]
+ # ...
+end
+
+# eg. ../controllers/umdzes/sessions_controller.rb
+class Umdzes::SessionsController &amp;lt; Devise::SessionsController
+
+ include Accessible
+ skip_before_action :check_user, only: :destroy
+ # ...
+end
+
+# eg. ../controllers/umdzes/registrations_controller.rb
+class Umdzes::RegistrationsController &amp;lt; Devise::RegistrationsController
+
+ include Accessible
+ skip_before_action :check_user, except: [:new, :create]
+ # ...
+end
+
+# eg. ../controllers/patrons/sessions_controller.rb
+class Patrons::SessionsController &amp;lt; Devise::SessionsController
+
+ include Accessible
+ skip_before_action :check_user, only: :destroy
+ # ...
+end
+
+# eg. ../controllers/patrons/registrations_controller.rb
+class Patrons::RegistrationsController &amp;lt; Devise::RegistrationsController
+
+ include Accessible
+ skip_before_action :check_user, except: [:new, :create]
+ # ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-lets-give-the-patron-account-a-usernames&#34;&gt;now lets give the patron account a usernames&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails generate migration add_username_to_patrons username:string:uniq
+rails generate migration add_umdzes_name_to_umdzes fullname:string
+rails generate migration add_admins_name_to_admins fullname:string
+
+# now update the new migration to look like:
+class AddUsernamToPatrons &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    # username is key not email - in fact we don&#39;t want an email
+    rename_column :patrons, :email, :username
+  end
+end
+
+class AddFullnameToUmdzes &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    add_column :umdzes, :umdzes_name, :string, null: false
+  end
+end
+
+class AddFullnameToAdmins &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    add_column :admins, :admins_name, :string, null: false
+  end
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;update-the-models&#34;&gt;update the models&lt;/h2&gt;
+&lt;p&gt;now we need to go to the models and make the following updates:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/models/admin.rb
+class Admin &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise  :database_authenticatable, :trackable, # :registerable,
+          :rememberable, :validatable #, :recoverable
+
+  validates :email, uniqueness: true
+  validates :admins_name, presence: true
+end
+
+# app/models/umdze.rb
+class Umdze &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise  :database_authenticatable, :trackable, # :registerable,
+          :rememberable, :validatable #, :recoverable
+
+  validates :email, uniqueness: true
+  validates :umdzes_name, presence: true
+end
+
+
+# app/models/patrons.rb
+class Patron &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise  :database_authenticatable, :trackable, # :registerable,
+          :rememberable, :validatable, # :recoverable
+          :authentication_keys =&amp;gt; [:username]
+
+  validates :username, uniqueness: true
+  # make the email field optional
+  # validates :email, uniqueness: true
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
+  # use this instead of email_changed? for Rails = 5.1.x
+  def will_save_change_to_email?
+    false
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we can safely migrate &lt;code&gt;bundle exec rails db:migrate&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;lets-test-our-logins&#34;&gt;lets test our logins&lt;/h2&gt;
+&lt;p&gt;lets create some common feature test code:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&#34;&gt;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&lt;/a&gt;
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/support/features/session_helpers.rb
+module Features
+  module SessionHelpers
+    # def patron_sign_up(username:, password:)
+    #   visit new_patron_registration_path
+    #   expect(page).to have_button(&#39;Sign up&#39;)
+    #   fill_in &#39;Username&#39;, with: username
+    #   fill_in &#39;Password&#39;, with: password
+    #   click_button &#39;Sign up&#39;
+    # end
+    def patron_log_in(patron = nil)
+      patron = FactoryBot.create :patron if patron.nil?
+      visit new_patron_session_path
+      expect(page).to have_button(&#39;Log in&#39;)
+      fill_in &#39;Username&#39;, with: patron.username
+      fill_in &#39;Password&#39;, with: patron.password
+      click_on &#39;Log in&#39;
+    end
+
+    # def umdze_sign_up(email:, password:)
+    #   visit new_umdze_registration_path
+    #   expect(page).to have_button(&#39;Sign up&#39;)
+    #   fill_in &#39;Email&#39;, with: email
+    #   fill_in &#39;Password&#39;, with: password
+    #   click_button &#39;Sign up&#39;
+    # end
+    def umdze_log_in(umdze = nil)
+      umdze = FactoryBot.create :umdze if umdze.nil?
+      visit new_admin_session_path
+      expect(page).to have_button(&#39;Log in&#39;)
+      fill_in &#39;Email&#39;, with: admin.email
+      fill_in &#39;Password&#39;, with: admin.password
+      click_on &#39;Log in&#39;
+    end
+
+    # def admin_sign_up(email:, password:)
+    #   visit new_admin_registration_path
+    #   expect(page).to have_button(&#39;Sign up&#39;)
+    #   fill_in &#39;Email&#39;, with: email
+    #   fill_in &#39;Password&#39;, with: password
+    #   click_button &#39;Sign up&#39;
+    # end
+    def admin_log_in(admin = nil)
+      admin = FactoryBot.create :admin if admin.nil?
+      visit new_admin_session_path
+      expect(page).to have_button(&#39;Log in&#39;)
+      fill_in &#39;Email&#39;, with: admin.email
+      fill_in &#39;Password&#39;, with: admin.password
+      click_on &#39;Log in&#39;
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We are not allowing registrations, so that code is commented out.  However, we see we must configure our factories for this code to work.&lt;/p&gt;
+&lt;p&gt;Lets tell rspec how to access this code in feature tests:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/support/features.rb
+RSpec.configure do |config|
+  config.include Features::SessionHelpers, type: :feature
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;lets-create-test-for-our-devise-model-factories&#34;&gt;Lets create test for our devise model factories:&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# spec/models/patron_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe User, type: :model do
+  describe &amp;quot;factory functions&amp;quot; do
+    it &amp;quot;generates a valid user&amp;quot; do
+      model = FactoryBot.build :user
+      expect(model.valid?).to be true
+    end
+    it &amp;quot;saves a valid user&amp;quot; do
+      model = FactoryBot.build :user
+      expect(model.save).to be_truthy
+    end
+  end
+
+  describe &amp;quot;DB settings&amp;quot; do
+    it { have_db_index(:email) }
+    it { is_expected.to have_db_column(:encrypted_password) }
+  end
+end
+
+# spec/models/admin_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe Admin, type: :model do
+  describe &amp;quot;factory functions&amp;quot; do
+    it &amp;quot;generates a valid admin&amp;quot; do
+      model = FactoryBot.build :admin
+      expect(model.valid?).to be true
+    end
+    it &amp;quot;saves a valid admin&amp;quot; do
+      model = FactoryBot.build :admin
+      expect(model.save).to be_truthy
+    end
+  end
+
+  describe &amp;quot;DB settings&amp;quot; do
+    it { have_db_index(:email) }
+    it { is_expected.to have_db_column(:encrypted_password) }
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure these fail - run:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to configure the factories so all is working:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/factories/patrons.rb
+FactoryBot.define do
+  factory :user do
+    sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
+    password              { &#39;LetM3-InNow&#39; }
+    password_confirmation { &#39;LetM3-InNow&#39; }
+    # enable this if using confirmable
+    # confirmed_at { Date.today }
+  end
+end
+
+# spec/factories/umdzes.rb
+FactoryBot.define do
+  factory :umdze do
+    sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
+    password              { &#39;LetM3-InNow!&#39; }
+    password_confirmation { &#39;LetM3-InNow!&#39; }
+    umdzes_name           { &amp;quot;#{Faker::Name.first_name} #{Faker::Name.last_name}&amp;quot; }
+    # enable this if using confirmable
+    # confirmed_at          { Date.today }
+  end
+end
+
+# spec/factories/admins.rb
+FactoryBot.define do
+  factory :admin do
+    sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
+    password              { &#39;LetM3-InNow!&#39; }
+    password_confirmation { &#39;LetM3-InNow!&#39; }
+    admins_name           { &amp;quot;#{Faker::Name.first_name} #{Faker::Name.last_name}&amp;quot; }
+    # enable this if using confirmable
+    # confirmed_at          { Date.today }
+  end
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure these pass now - run:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we are ready to test devise and our restricted access to the users home page:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.madetech.com/blog/feature-testing-with-rspec&#34;&gt;https://www.madetech.com/blog/feature-testing-with-rspec&lt;/a&gt;
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;
+&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&lt;/a&gt;
+&lt;a href=&#34;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&#34;&gt;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&lt;/a&gt;
+&lt;a href=&#34;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&#34;&gt;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/features/users/user_signup_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Home Page&#39;, type: :feature do
+  # note user is NOT created in DB!
+  let(:user)  { FactoryBot.build :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;user is not signed-up&#39; do
+    scenario &#39;user signs-up on registration page&#39; do
+      user_sign_up(email: user.email, password: user.password)
+      expect(current_path).to eql(users_home_path)
+    end
+  end
+end
+
+
+# spec/features/users/user_login_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Login&#39;, type: :feature do
+  let(:user)  { FactoryBot.create :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;user logs in successfully&#39; do
+    scenario &#39;and is redirected to user home page&#39; do
+      user_log_in(user)
+      expect(current_path).to eql(auth_user_root_path)
+    end
+  end
+end
+
+
+# spec/features/users_home_page_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Home Page&#39;, type: :feature do
+  let(:user)    { FactoryBot.create :user }
+  after :each do
+    # force a logout (clear warden info) after each test
+    Warden.test_reset!
+  end
+  describe &#39;user is not authenticated&#39; do
+    scenario &#39;user is redirected to user login before access to user home&#39; do
+      visit users_home_path
+      expect(current_path).to eql(new_user_session_path)
+    end
+  end
+  describe &#39;user is already authenticated&#39; do
+    before    { user_log_in(user) }
+    scenario &#39;user gets direct access to the user homepage&#39; do
+      visit users_home_path
+      expect(page).to have_current_path(users_home_path)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and test to be sure admin can log in too:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/features/admins/admin_login_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Login&#39;, type: :feature do
+  after :each do
+    Warden.test_reset!
+  end
+  scenario &#39;logs in successfully and is redirected to user home page&#39; do
+    admin_log_in
+    expect(current_path).to eql(auth_admin_root_path)
+  end
+end
+
+
+# spec/features/admins/admin_signup_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Admin Signup&#39;, type: :feature do
+  # IMPORTANT is NOT created in DB!
+  let(:admin)  { FactoryBot.build :admin }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;admin is not signed-up&#39; do
+    scenario &#39;admin registers&#39; do
+      admin_sign_up(email: admin.email, password: admin.password)
+      expect(page).to have_current_path(admins_home_path)
+    end
+  end
+end
+
+
+# spec/features/admins/admins_home_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Admins Home&#39;, type: :feature do
+  let(:admin)  { FactoryBot.create :admin }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;un-authenticated&#39; do
+    scenario &#39;attempts to access admins home page is redirected to user login&#39; do
+      visit admins_home_path
+      expect(current_path).to eql(new_admin_session_path)
+    end
+  end
+  describe &#39;already authenticated&#39; do
+    before    { admin_log_in(admin) }
+    scenario &#39;gets access to the user homepage&#39; do
+      visit admins_home_path
+      expect(current_path).to eql(admins_home_path)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;before we wrap up - we need to fix our request specs - now that we added login restrictions:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/requests/users/home_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Patron::Homes&amp;quot;, type: :request do
+
+  let(:patron)   { FactoryBot.create :patron }
+
+  describe &amp;quot;GET /index&amp;quot; do
+    context &amp;quot;NOT logged in&amp;quot; do
+      after do
+        sign_out patron
+      end
+      it &amp;quot;home as &#39;/patrons&#39; page is NOT accessible&amp;quot; do
+        get &amp;quot;/patrons&amp;quot;
+        expect(response).to have_http_status(:redirect)
+        # to login
+      end
+      it &amp;quot;home as &#39;patron_home_path&#39; page is NOT accessible&amp;quot; do
+        get patrons_home_path
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;auth_patron_root_path&#39; page is NOT accessible&amp;quot; do
+        get auth_patron_root_path
+        expect(response).to have_http_status(:success)
+        # here we need page match for different root routes
+      end
+    end
+
+    context &amp;quot;logged in&amp;quot; do
+      before do
+        sign_in patron
+      end
+      after do
+        sign_out patron
+      end
+      it &amp;quot;home as &#39;/patrons&#39; page is accessible&amp;quot; do
+        get &amp;quot;/patrons&amp;quot;
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;patrons_home_path&#39; page is accessible&amp;quot; do
+        get patrons_home_path
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;auth_patron_root_path&#39; page is accessible&amp;quot; do
+        get auth_patron_root_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+end
+
+# spec/requests/umdze/home_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Umdze::Homes&amp;quot;, type: :request do
+  let(:umdze)   { FactoryBot.create :umdze }
+
+  describe &amp;quot;GET /index&amp;quot; do
+    context &amp;quot;NOT logged in&amp;quot; do
+      after do
+        sign_out umdze
+      end
+      it &amp;quot;home as &#39;/umdzes&#39; page is NOT accessible&amp;quot; do
+        get &amp;quot;/umdzes&amp;quot;
+        expect(response).to have_http_status(:redirect)
+        # to login
+      end
+      it &amp;quot;home as &#39;umdzes_home_path&#39; page is NOT accessible&amp;quot; do
+        get umdzes_home_path
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;auth_umdze_root_path&#39; page is NOT accessible&amp;quot; do
+        get auth_umdze_root_path
+        expect(response).to have_http_status(:success)
+        # here we need page match for different root routes
+      end
+    end
+
+    context &amp;quot;logged in&amp;quot; do
+      before do
+        sign_in umdze
+      end
+      after do
+        sign_out umdze
+      end
+      it &amp;quot;home as &#39;/umdzes&#39; page is accessible&amp;quot; do
+        get &amp;quot;/umdzes&amp;quot;
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;umdzes_home_path&#39; page is accessible&amp;quot; do
+        get umdzes_home_path
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;auth_umdze_root_path&#39; page is accessible&amp;quot; do
+        get auth_umdze_root_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+end
+
+# spec/requests/admins/dashboard_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Admins::Dashboards&amp;quot;, type: :request do
+
+  let(:admin)   { FactoryBot.create :admin }
+
+  describe &amp;quot;GET /index&amp;quot; do
+    context &amp;quot;NOT logged in&amp;quot; do
+      it &amp;quot;home as &#39;/admins&#39; page is NOT accessible&amp;quot; do
+        get &amp;quot;/admins&amp;quot;
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;admins_home_path&#39; page is NOT accessible&amp;quot; do
+        get admins_home_path
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;auth_admin_root_path&#39; page is NOT accessible&amp;quot; do
+        get auth_admin_root_path
+        expect(response).to have_http_status(:success)
+        # here we need page match for different root routes
+      end
+    end
+
+    context &amp;quot;logged in&amp;quot; do
+      before do
+        sign_in admin
+      end
+      after do
+        sign_out admin
+      end
+      it &amp;quot;home as &#39;/admins&#39; page is accessible&amp;quot; do
+        get &amp;quot;/admins&amp;quot;
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;admins_home_path&#39; page is accessible&amp;quot; do
+        get admins_home_path
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;auth_admin_root_path&#39; page is accessible&amp;quot; do
+        get auth_admin_root_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;run the tests and be sure all is green - if so, now is a good time to make a commit!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;rspec and devise configured and tests green&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Phoenix 1.5 Blog with Comments</title>
-      <link>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</link>
       <pubDate>Fri, 10 Jul 2020 09:43:51 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article builds on the existing article: &lt;a href=&#34;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&#34;&gt;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&lt;/a&gt; and adds nested relationships and has_many_through.&lt;/p&gt;
 &lt;h2 id=&#34;now-lets-create-comments-a-has-many-through-for-users&#34;&gt;now lets create comments (a has many through for users)&lt;/h2&gt;
@@ -900,9 +2089,9 @@ git commit -m &amp;quot;handle comment creation errors&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;
@@ -1244,9 +2433,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Github Website with a Custom Domain &amp; SSL</title>
-      <link>https://btihen.me/post_tech/github_website_with_custom_domain/</link>
+      <link>https://btihen.me/post_web_tech/github_website_with_custom_domain/</link>
       <pubDate>Sun, 31 May 2020 13:22:48 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/github_website_with_custom_domain/</guid>
+      <guid>https://btihen.me/post_web_tech/github_website_with_custom_domain/</guid>
       <description>&lt;h3 id=&#34;step-0-buy-a-domain-name&#34;&gt;step 0: buy a domain name&lt;/h3&gt;
 &lt;p&gt;For these instructions use the (Namecheap)[https://www.namecheap.com/] service to buy your Domain.&lt;/p&gt;
 &lt;h3 id=&#34;step-1-point-your-domain-name-at-usernamegithubio-optional&#34;&gt;step 1: point your domain name at: username.github.io (optional)&lt;/h3&gt;
@@ -1408,9 +2597,9 @@ If a state or other external final exam like an AP test is part of the course &a
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.me/post_tech/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
@@ -1458,9 +2647,9 @@ If a state or other external final exam like an AP test is part of the course &a
     
     <item>
       <title>Hugo Website using Github</title>
-      <link>https://btihen.me/post_tech/hugo_academic_website_steps/</link>
+      <link>https://btihen.me/post_web_tech/hugo_academic_website_steps/</link>
       <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/hugo_academic_website_steps/</guid>
+      <guid>https://btihen.me/post_web_tech/hugo_academic_website_steps/</guid>
       <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;brew install hugo
 &lt;/code&gt;&lt;/pre&gt;
@@ -1748,9 +2937,9 @@ cd ..
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
@@ -1915,9 +3104,9 @@ ruby                2.5                 a98425292e84        2 weeks ago         
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</link>
+      <link>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</guid>
+      <guid>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
@@ -2448,9 +3637,9 @@ git commit -m &amp;quot;live pages using isolated components - like JS does&amp;
     
     <item>
       <title>Webinar Agility by Tim Logan</title>
-      <link>https://btihen.me/coverage/tim_logan_ecis_agility_webinar_linkedin/</link>
+      <link>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/coverage/tim_logan_ecis_agility_webinar_linkedin/</guid>
+      <guid>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
       <description>&lt;p&gt;Tim Logan posted an interesting educational agility video of his ECIS Webinar and used materials developed my Paul Magnuson &amp;amp; me.  He posted his slide deck on Trello.&lt;/p&gt;
 &lt;p&gt;Tim Logan&amp;rsquo;s video Intro into his Educational Agility webinar for ECIS.
 
@@ -2596,9 +3785,9 @@ for any purpose, even commercially.&lt;/li&gt;
     
     <item>
       <title>Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School</title>
-      <link>https://btihen.me/coverage/agile_in_education_interview_scrum_alliance/</link>
+      <link>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</link>
       <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/coverage/agile_in_education_interview_scrum_alliance/</guid>
+      <guid>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</guid>
       <description>&lt;p&gt;A discussion with Scrum Alliance on the importance of bringing Agile into Educaion and a few important implementation points.&lt;/p&gt;
 
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
@@ -2610,9 +3799,9 @@ for any purpose, even commercially.&lt;/li&gt;
     
     <item>
       <title>Agile in Education at Leysin American School</title>
-      <link>https://btihen.me/coverage/agile_in_education_at_las_interview_agile_amped/</link>
+      <link>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</link>
       <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/coverage/agile_in_education_at_las_interview_agile_amped/</guid>
+      <guid>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</guid>
       <description>&lt;p&gt;How would our education system be different using agile principles and values?&lt;/p&gt;
 &lt;p&gt;In this InDepth edition, our conversation focuses around the American School in Leysin, Switzerland, and their experiments over the past 3 yrs in Agile in Education. My guests are Paul Magnuson ( Director of Curriculum &amp;amp; Director of the Middle School) and Bill Tihen ( Director of IT, Teacher, and runs the Makers Space )
 Empowering students, making learning visible, and creating life long learners are goals for Paul and Bill as they lead this movement at Leysin.&lt;/p&gt;
@@ -2622,9 +3811,9 @@ Empowering students, making learning visible, and creating life long learners ar
     
     <item>
       <title>Agile Classrooms in the Alps</title>
-      <link>https://btihen.me/coverage/agile_classrooms_article_agile_classrooms/</link>
+      <link>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</link>
       <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/coverage/agile_classrooms_article_agile_classrooms/</guid>
+      <guid>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</guid>
       <description>&lt;p&gt;To help incorporate Agile into their school, they [Paul Magnuson and Bill Tihen] brought in John Miller, a Certified Scrum Coach and Chief Empowerment Officer of Agile Classrooms, for two days of training. The Scrum Alliance has been a big supporter of John’s commitment to using Scrum to transform the world of education ever since he unveiled the first classroom to use Scrum at the Atlanta Scrum Gathering in 2010. When the Scrum Alliance, the largest Agile organization in the world, heard of Paul and Bill’s desire to implement Scrum for their students, they stepped up to sponsor the event. The Swiss Group of International Schools also co-sponsored the workshop.&lt;/p&gt;
 &lt;p&gt;The Agile Classrooms Workshop&lt;/p&gt;
 </description>
@@ -2632,9 +3821,9 @@ Empowering students, making learning visible, and creating life long learners ar
     
     <item>
       <title>Climate Sensor Poles</title>
-      <link>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</link>
+      <link>https://btihen.me/in_news/climate_poles_john_harlin_lets_report/</link>
       <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/coverage/climate_poles_john_harlin_lets_report/</guid>
+      <guid>https://btihen.me/in_news/climate_poles_john_harlin_lets_report/</guid>
       <description></description>
     </item>
     

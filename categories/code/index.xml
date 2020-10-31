@@ -14,9 +14,9 @@
     
     <item>
       <title>Phoenix 1.5 Blog with Comments</title>
-      <link>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</link>
       <pubDate>Fri, 10 Jul 2020 09:43:51 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/phoenix_1_5_blog_w_comments/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article builds on the existing article: &lt;a href=&#34;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&#34;&gt;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&lt;/a&gt; and adds nested relationships and has_many_through.&lt;/p&gt;
 &lt;h2 id=&#34;now-lets-create-comments-a-has-many-through-for-users&#34;&gt;now lets create comments (a has many through for users)&lt;/h2&gt;
@@ -388,9 +388,9 @@ git commit -m &amp;quot;handle comment creation errors&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/phoenix_1_5_blog_intro/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;
@@ -681,9 +681,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.me/post_tech/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
@@ -731,9 +731,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Website using Github</title>
-      <link>https://btihen.me/post_tech/hugo_academic_website_steps/</link>
+      <link>https://btihen.me/post_web_tech/hugo_academic_website_steps/</link>
       <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/hugo_academic_website_steps/</guid>
+      <guid>https://btihen.me/post_web_tech/hugo_academic_website_steps/</guid>
       <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;brew install hugo
 &lt;/code&gt;&lt;/pre&gt;
@@ -1021,9 +1021,9 @@ cd ..
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
@@ -1188,9 +1188,9 @@ ruby                2.5                 a98425292e84        2 weeks ago         
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</link>
+      <link>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/phoenix_1_5_live_view_basics/</guid>
+      <guid>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;

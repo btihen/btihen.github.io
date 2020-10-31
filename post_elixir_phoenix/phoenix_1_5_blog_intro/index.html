@@ -1,0 +1,1424 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="This article covers how to create a new app with contexts, relationships, preloading, etc.  The basics for most dynamic websites (excluding authentication). Comming later.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/">
+  <meta property="og:title" content="Phoenix 1.5 Blog Intro | btihen">
+  <meta property="og:description" content="This article covers how to create a new app with contexts, relationships, preloading, etc.  The basics for most dynamic websites (excluding authentication). Comming later."><meta property="og:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
+  <meta property="twitter:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-07-04T13:06:29&#43;02:00">
+    
+    <meta property="article:modified_time" content="2020-07-06T13:06:29&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Phoenix 1.5 Blog Intro | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_web_tech"><span>Web</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/"><span></span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Pubs</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#in_news"><span>News</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Phoenix 1.5 Blog Intro</h1>
+
+  
+  <p class="page-subtitle">Learn Basic Relationships in Phoneix</p>
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Mon, Jul 6, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a>, <a href="/categories/phoenix/">Phoenix</a>, <a href="/categories/elixir/">Elixir</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="purpose">Purpose</h2>
+<p>This article creates a basic web application backed by a database and creates a few relationships.  I&rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.</p>
+<h2 id="topics-covered">Topics Covered</h2>
+<ul>
+<li>create a project</li>
+<li>create a resource</li>
+<li>dropdown list of a collection</li>
+<li>pre-load/display sub-reources</li>
+<li>create a has_many relationship</li>
+<li>create a belongs_to relationship</li>
+<li>delete has_many sub-resources when top resource is deleted</li>
+</ul>
+<h2 id="getting-started---create-an-app">Getting Started - create an app</h2>
+<p>find the most recent phoenix version:
+<a href="https://github.com/phoenixframework/phoenix/releases">https://github.com/phoenixframework/phoenix/releases</a></p>
+<pre><code>mix archive.install hex phx_new 1.5.3
+mix phx.new feenix_intro
+cd feenix_intro
+mix ecto.create
+</code></pre>
+<p>test with: <code>mix phx.server</code> and go to <code>http://localhost:4000</code></p>
+<p>Ideally you see a the Phoenix Start Page.</p>
+<p>Let&rsquo;s create a git snapshot</p>
+<pre><code>git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;init&quot;
+</code></pre>
+<h2 id="create-contexts">Create Contexts</h2>
+<p><strong>Context helps us create areas of code isolation and creates an API for other contexts to use</strong></p>
+<p>In our case we will need a Blogs and Accounts (better would have been Authors) context</p>
+<p>Blogs will have the posts and comments and Accounts will have the user and login credentials and user relationships (why not)?  To see the full documentation on Contexts see: <a href="https://hexdocs.pm/phoenix/contexts.html">https://hexdocs.pm/phoenix/contexts.html</a></p>
+<p>We will generate two resources and Contexts (and add more later) - lets start with users who will post their blogs (users will be within the Accounts context and posts will be within the Blogs context):</p>
+<pre><code>mix phx.gen.html Accounts User users name:string email:string username:string:unique
+mix phx.gen.html Blogs Post posts title:string body:text user_id:references:users
+</code></pre>
+<p>Notice we can generate unique fields with <code>:unique</code></p>
+<p>And we can generate relationships (foriegn keys) with <code>references</code></p>
+<p>Now that we have generated our code - we need to make a few updates:</p>
+<p>First: we need to update our routes in the scope area to look like:</p>
+<pre><code># lib/ideas_web/router.ex
+  scope &quot;/&quot;, FeenixIntroWeb do
+    pipe_through :browser
+
+    get &quot;/&quot;, PageController, :index
+    resources &quot;/users&quot;, UserController
+    resources &quot;/posts&quot;, PostController
+  end
+</code></pre>
+<p>NOTE: the API&rsquo;s for our Contexts <code>Accounts</code> and <code>Blogs</code> is in <code>lib/feenix_intro/accounts.ex</code> and <code>lib/feenix_intro/blogs/post.ex</code> respectively - as we add more info into these contexts these files will get long!  <strong>Ideally you will always interact with the Context API and not the Repo directly this will help create much more managable code.</strong></p>
+<h2 id="define-the-has_many-relationship">Define the has_many relationship</h2>
+<p>Before we migrate we need to define the relationships:</p>
+<p>so we update the users with a has_many relationship to posts</p>
+<pre><code># lib/feenix_intro/accounts/user.ex
+defmodule FeenixIntro.Accounts.User do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias FeenixIntro.Blogs.Post
+
+  @required_fields [:name, :email, :username]
+
+  schema &quot;users&quot; do
+    has_many(:posts, Post)
+
+    field :name, :string
+    field :email, :string
+    field :username, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(user, attrs) do
+    user
+    |&gt; cast(attrs, @required_fields)
+    |&gt; validate_required(@required_fields)
+    |&gt; unique_constraint(:username)
+  end
+end
+</code></pre>
+<p>If you skip the alias, then <code>has_many</code> needs to be written as: <code>has_many(:posts, FeenixIntro.Blogs.Post)</code></p>
+<h2 id="define-the-belongs_to-relationship">Define the belongs_to relationship</h2>
+<p><strong>IMPORTANT:</strong> replace the <code>field :user_id, :id</code> with <code>belongs_to(:user, User)</code> &ndash; you CAN&rsquo;T have both!</p>
+<pre><code># lib/feenix_intro/blogs/post.ex
+defmodule FeenixIntro.Blogs.Post do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias FeenixIntro.Blogs.Post
+  alias FeenixIntro.Accounts.User
+
+  @required_fields [:user_id, :title, :body]
+
+  schema &quot;posts&quot; do
+    belongs_to(:user, User)
+
+    # field :user_id, :id
+    field :body, :string
+    field :title, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(post, attrs) do
+    post
+    |&gt; cast(attrs, @required_fields)
+    |&gt; validate_required(@required_fields)
+  end
+end
+</code></pre>
+<p>NOTE: <code>@required_fields [:user_id, :title, :body]</code> isn&rsquo;t required, but as things change defining a constant that can be reused can be convient.</p>
+<h2 id="auto-delete-sub-resources">Auto delete sub-resources</h2>
+<p>To be sure we don&rsquo;t have unreferenced blogs if a user gets deleted we need to change our Blog migration to:</p>
+<pre><code># priv/repo/migrations/20200704152318_create_posts.exs
+defmodule FeenixIntro.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :title, :string
+      add :body, :text
+      # remove the default
+      # add :user_id, references(:users, on_delete: :nothing)
+      # add the following to auto delete posts if user is deleted!
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+
+      timestamps()
+    end
+
+    create index(:posts, [:user_id])
+  end
+end
+</code></pre>
+<p>Now it should be safe to migrate using:</p>
+<pre><code>mix ecto.migrate
+</code></pre>
+<h2 id="seed-data">Seed Data</h2>
+<p>Let&rsquo;s create seed data so that one we know how to do that and two have some data to test before we get all our views and forms working:</p>
+<pre><code># priv/repo/seeds.exs
+
+# Script for populating the database. You can run it as:
+#
+#     mix run priv/repo/seeds.exs
+#
+# We recommend using the bang functions (`insert!`, `update!`
+# and so on) as they will fail if something goes wrong.
+
+alias FeenixIntro.Repo
+alias FeenixIntro.Blogs.Post
+alias FeenixIntro.Accounts.User
+
+# reset the datastore
+Repo.delete_all(User) # this should also delete all Posts
+
+# insert people
+me = Repo.insert!(%User{ name: &quot;Bill&quot;, email: &quot;bill@example.com&quot;, username: &quot;bill&quot; })
+dog = Repo.insert!(%User{ name: &quot;Nyima&quot;, email: &quot;nyima@example.com&quot;, username: &quot;nyima&quot; })
+Repo.insert!(%Post{ user_id: me.id, title: &quot;Elixir&quot;, body: &quot;Very cool ideas&quot; })
+Repo.insert!(%Post{ user_id: me.id, title: &quot;Phoenix&quot;, body: &quot;live is fascinating&quot; })
+Repo.insert!(%Post{ user_id: dog.id, title: &quot;Walk&quot;, body: &quot;oh cool&quot; })
+Repo.insert!(%Post{ user_id: dog.id, title: &quot;Dinner&quot;, body: &quot;YES!&quot; })
+</code></pre>
+<p>now as the comments state run:</p>
+<pre><code>mix run priv/repo/seeds.exs
+</code></pre>
+<h2 id="testing">Testing</h2>
+<p>run:</p>
+<pre><code>mix phx.server
+# or if you prefer:
+# iex -S mix phx.server
+</code></pre>
+<p><strong>Test USERS:</strong></p>
+<p>Go to: <code>http://localhost:4000/users</code></p>
+<p>when we list users and create users - all is well</p>
+<p><strong>TEST POSTS</strong></p>
+<p>Go to: <code>http://localhost:4000/posts</code></p>
+<p>when we do the same withe posts - we get an error creating new posts and we don&rsquo;t see the author in index and show</p>
+<ul>
+<li>we can&rsquo;t create a post since we required the user_id and there is not field for that</li>
+<li>we can&rsquo;t list the author&rsquo;s name (just the author&rsquo;s ID) until we preload the author along with the post</li>
+</ul>
+<h2 id="fix-post-creation-with-a-dropdown-list-of-resources">Fix Post creation with a dropdown list of resources</h2>
+<p>Normally, this would be done with session info to autoselect the authenticated author, but that is for another day.  In this case, we will demonstrate how to load and pass a collection and use that to populate a dropdown entry.</p>
+<p>In the controller we must load users and add the user_id to the post form:
+whe we look in the Accounts API we see: <code>list_users()</code></p>
+<pre><code># lib/feenix_intro_web/controllers/post_controller.ex
+  # ...
+  # add the accounts context alias
+  alias FeenixIntro.Accounts
+  # ...
+  def new(conn, _params) do
+    changeset = Blogs.change_post(%Post{})
+    # replace:
+    # render(conn, &quot;new.html&quot;, changeset: changeset)
+    # with:
+    # collection of users for post form
+    users = Accounts.list_users()
+    # include the collection of users to the new form
+    render(conn, &quot;new.html&quot;, changeset: changeset, users: users)
+  end
+  # ...
+  def edit(conn, %{&quot;id&quot; =&gt; id}) do
+    post = Blogs.get_post!(id)
+    changeset = Blogs.change_post(post)
+    # replace:
+    render(conn, &quot;edit.html&quot;, post: post, changeset: changeset)
+    # with:
+    users = Accounts.list_users()
+    render(conn, &quot;edit.html&quot;, post: post, changeset: changeset, users: users)
+  end
+# ...
+</code></pre>
+<p>Now we need to adapt the form to give us a choice of users:</p>
+<pre><code># lib/feenix_intro_web/templates/post/form.html.eex
+&lt;%= form_for @changeset, @action, fn f -&gt; %&gt;
+  &lt;%= if @changeset.action do %&gt;
+    &lt;div class=&quot;alert alert-danger&quot;&gt;
+      &lt;p&gt;Oops, something went wrong! Please check the errors below.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+
+  &lt;%= label f, &quot;Author&quot; %&gt;
+  &lt;%= select f, :user_id, Enum.map(@users, &amp;{&amp;1.name, &amp;1.id}) %&gt;
+  &lt;%= error_tag f, :user %&gt;
+  # ...
+</code></pre>
+<p>Assuming you can create posts now, lets make another git snapshot:</p>
+<pre><code>git add .
+git commit -m &quot;users and posts resources can be created&quot;
+</code></pre>
+<h2 id="display-the-author-of-post-with-preloads">Display the Author of Post (with Preloads)</h2>
+<p>lets display the Blog author - that&rsquo;s often interesting to others.
+We can do this with preloading in our Blog context:</p>
+<pre><code># lib/feenix_intro/blogs.ex
+  # change this line:
+  # def list_posts, do: Repo.all(Post)
+  def list_posts do
+    Post
+    |&gt; Repo.all()
+    |&gt; Repo.preload(:user)
+  end
+</code></pre>
+<p>and also our get_post</p>
+<pre><code># lib/feenix_intro/blogs.ex
+  # change:
+  # def get_post!(id), do: Repo.get!(Post, id)
+  # into:
+  def get_post!(id) do
+    Post
+    |&gt; Repo.get!(id)
+    |&gt; Repo.preload(:user)
+  end
+</code></pre>
+<p>now we can update our index and show page to display the author&rsquo;s name at the top of the page:</p>
+<pre><code># lib/feenix_intro_web/templates/post/show.html.eex
+&lt;h1&gt;Show Post&lt;/h1&gt;
+
+&lt;ul&gt;
+
+  &lt;li&gt;
+    &lt;strong&gt;Author:&lt;/strong&gt;
+    &lt;%= @post.user.name %&gt;
+  &lt;/li&gt;
+</code></pre>
+<p>and in the index too:</p>
+<pre><code># lib/feenix_intro_web/templates/post/index.html.eex
+# ...
+&lt;%= for post &lt;- @posts do %&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;%= post.user.name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= post.title %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= post.body %&gt;&lt;/td&gt;
+# ...
+</code></pre>
+<p>Assuming authors and preload works properly, we can make another git snapshot:</p>
+<pre><code>git add .
+git commit -m &quot;authors names are displayed now with preloading&quot;
+</code></pre>
+<h2 id="source-code">Source code</h2>
+<p><a href="https://github.com/btihen/PhoenixIntro">https://github.com/btihen/PhoenixIntro</a></p>
+<h2 id="helpful-resources-used">Helpful Resources used:</h2>
+<ul>
+<li><a href="https://elixircasts.io/phoenix-contexts">https://elixircasts.io/phoenix-contexts</a></li>
+<li><a href="https://github.com/conradwt/zero-to-graphql-using-phoenix">https://github.com/conradwt/zero-to-graphql-using-phoenix</a></li>
+<li><a href="https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e">https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e</a></li>
+<li><a href="https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n">https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n</a></li>
+<li><a href="https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549">https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/relationships/">Relationships</a>
+  
+  <a class="badge badge-light" href="/tags/templates/">Templates</a>
+  
+  <a class="badge badge-light" href="/tags/preloading/">Preloading</a>
+  
+  <a class="badge badge-light" href="/tags/has_many/">has_many</a>
+  
+  <a class="badge badge-light" href="/tags/belongs_to/">belongs_to</a>
+  
+  <a class="badge badge-light" href="/tags/dependent-delete/">dependent delete</a>
+  
+  <a class="badge badge-light" href="/tags/selection-in-form/">selection in form</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/&amp;text=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/&amp;t=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Phoenix%201.5%20Blog%20Intro&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/&amp;title=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20Blog%20Intro%20https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/&amp;title=Phoenix%201.5%20Blog%20Intro" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data and Educator</h6>
+        <p class="card-text">Developer, Educator and very currious.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2020
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

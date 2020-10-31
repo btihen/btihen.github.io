@@ -14,9 +14,9 @@
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>https://btihen.me/post_tech/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
