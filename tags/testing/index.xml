@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/testing/</link>
       <atom:link href="https://btihen.me/tags/testing/index.xml" rel="self" type="application/rss+xml" />
     <description>testing</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 10 Sep 2020 20:46:07 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 10 Sep 2020 01:46:07 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>testing</title>
@@ -15,25 +15,28 @@
     <item>
       <title>Install and Configure Rails</title>
       <link>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</link>
-      <pubDate>Thu, 10 Sep 2020 20:46:07 +0200</pubDate>
+      <pubDate>Thu, 10 Sep 2020 01:46:07 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
-&lt;p&gt;To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).&lt;/p&gt;
+&lt;p&gt;To document is mostly for me &amp;ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too.  I will build a little calendar app I use with friends (it&amp;rsquo;s focused on being mobile friendly and easy to use &amp;ndash; not a full featured calendar).&lt;/p&gt;
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
-&lt;p&gt;Take from:&lt;/p&gt;
+&lt;p&gt;Taken from:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;create-the-project&#34;&gt;create the project:&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# -T - skips tests - I like using rspec
-# -d postgresql - I like using postgresql best for the db
-# Spring &amp;amp; listen speed testing - but can get out of sync and make problems
+&lt;pre&gt;&lt;code&gt;# -T - skips tests;              I like rspec
+# -d postgresql;                 I like postgresql best for the db
+# --skip-spring --skip-listen;   Spring caches and doesn&#39;t notice all changes (even after rails restart)
+#                                I have lost several hours not realizing Spring wasn&#39;t seeing my changes
 
-rails new calendar -T -d postgresql --webpack=stimulus # --skip-spring --skip-listen
+rails new calendar -T -d postgresql --webpack=stimulus --skip-spring --skip-listen
 
 cd calendar
+
+# in some cases you may have serveral bundlers or need to create binstubs
 # gem install bundler:2.1.4
 # rails app:update:bin
 &lt;/code&gt;&lt;/pre&gt;

@@ -5,12 +5,55 @@
     <link>https://btihen.me/tags/exploration/</link>
       <atom:link href="https://btihen.me/tags/exploration/index.xml" rel="self" type="application/rss+xml" />
     <description>exploration</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 24 Jul 2020 14:05:38 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 01 Nov 2020 01:57:16 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>exploration</title>
       <link>https://btihen.me/tags/exploration/</link>
     </image>
+    
+    <item>
+      <title>Web Images</title>
+      <link>https://btihen.me/post_web_tech/web_images/</link>
+      <pubDate>Sun, 01 Nov 2020 01:57:16 +0200</pubDate>
+      <guid>https://btihen.me/post_web_tech/web_images/</guid>
+      <description>&lt;h2 id=&#34;images-and-icons&#34;&gt;Images and Icons&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;m often looking for a way to make websites more interesting here are a few resources I use:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://undraw.co/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Undraw&lt;/a&gt; &amp;ndash; free to use drawings in SVG&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://unsplash.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Unsplash&lt;/a&gt; - photos free to use for everyone&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thenounproject.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Noun Project&lt;/a&gt; - Icons and photos for all to use&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;svg-text-logos&#34;&gt;SVG Text Logos&lt;/h2&gt;
+&lt;p&gt;Sometimes I find it hard to come up with a good logo, but not a shortname.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Wide larger Logo&lt;/strong&gt; &lt;em&gt;(for Desktop views)&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;svg viewBox=&amp;quot;0 0 240 45&amp;quot; xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot;&amp;gt;
+  &amp;lt;style&amp;gt;
+    .heavy { font: bold 30px sans-serif; fill: blue;}
+    .small { font: italic 25px sans-serif; fill: green; }
+  &amp;lt;/style&amp;gt;
+  &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;35&amp;quot; class=&amp;quot;heavy&amp;quot; fill=&amp;quot;blue&amp;quot;&amp;gt;ED&amp;lt;/text&amp;gt;
+  &amp;lt;text x=&amp;quot;41&amp;quot; y=&amp;quot;35&amp;quot; class=&amp;quot;small&amp;quot; fill=&amp;quot;green&amp;quot;&amp;gt;gility&amp;lt;/text&amp;gt;
+&amp;lt;/svg&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Small stacked logo&lt;/strong&gt; &lt;em&gt;(for mobile views)&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;svg viewBox=&amp;quot;0 0 45 45&amp;quot; xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot;&amp;gt;
+  &amp;lt;style&amp;gt;
+    .heavy { font: bold 28px sans-serif; fill: blue;}
+    .small { font: italic 18px sans-serif; fill: green; }
+  &amp;lt;/style&amp;gt;
+  &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;22&amp;quot; class=&amp;quot;heavy&amp;quot; fill=&amp;quot;blue&amp;quot;&amp;gt;ED&amp;lt;/text&amp;gt;
+  &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;40&amp;quot; class=&amp;quot;small&amp;quot; fill=&amp;quot;green&amp;quot;&amp;gt;gility&amp;lt;/text&amp;gt;
+&amp;lt;/svg&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Smallify to Learn Effectively</title>

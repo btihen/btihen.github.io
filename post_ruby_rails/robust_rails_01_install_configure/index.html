@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="Intro To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3). I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).">
+  <meta name="description" content="Intro To document is mostly for me &ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too. I will build a little calendar app I use with friends (it&rsquo;s focused on being mobile friendly and easy to use &ndash; not a full featured calendar).">
 
   
   <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/">
@@ -236,13 +236,13 @@
   <meta property="og:site_name" content="btihen">
   <meta property="og:url" content="https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/">
   <meta property="og:title" content="Install and Configure Rails | btihen">
-  <meta property="og:description" content="Intro To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3). I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features)."><meta property="og:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
+  <meta property="og:description" content="Intro To document is mostly for me &ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too. I will build a little calendar app I use with friends (it&rsquo;s focused on being mobile friendly and easy to use &ndash; not a full featured calendar)."><meta property="og:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png">
   <meta property="twitter:image" content="https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-09-10T20:46:07&#43;02:00">
+      <meta property="article:published_time" content="2020-09-10T01:46:07&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-09-10T20:46:07&#43;02:00">
+    <meta property="article:modified_time" content="2020-10-31T01:46:07&#43;02:00">
   
 
   
@@ -644,8 +644,10 @@
     
     
       
+          Last updated on
+      
     
-    Thu, Sep 10, 2020
+    Sat, Oct 31, 2020
   </span>
   
 
@@ -690,22 +692,25 @@
 
     <div class="article-style">
       <h1 id="intro">Intro</h1>
-<p>To document (for me) and others who are interested - my current favorite way to build Rails apps (as of Rails 6.0.3).  I will build a little calendar app I use with friends (meant to be relatively mobile friendly and using StimulusReflex and other nice Rails features).</p>
+<p>To document is mostly for me &ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too.  I will build a little calendar app I use with friends (it&rsquo;s focused on being mobile friendly and easy to use &ndash; not a full featured calendar).</p>
 <h1 id="rails-setup">Rails Setup</h1>
-<p>Take from:</p>
+<p>Taken from:</p>
 <ul>
 <li><a href="https://gist.github.com/alxndr/7569551">https://gist.github.com/alxndr/7569551</a></li>
 <li><a href="https://www.codewithjason.com/rails-integration-tests-rspec-capybara/">https://www.codewithjason.com/rails-integration-tests-rspec-capybara/</a></li>
 <li><a href="https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68">https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68</a></li>
 </ul>
 <h2 id="create-the-project">create the project:</h2>
-<pre><code># -T - skips tests - I like using rspec
-# -d postgresql - I like using postgresql best for the db
-# Spring &amp; listen speed testing - but can get out of sync and make problems
+<pre><code># -T - skips tests;              I like rspec
+# -d postgresql;                 I like postgresql best for the db
+# --skip-spring --skip-listen;   Spring caches and doesn't notice all changes (even after rails restart)
+#                                I have lost several hours not realizing Spring wasn't seeing my changes
 
-rails new calendar -T -d postgresql --webpack=stimulus # --skip-spring --skip-listen
+rails new calendar -T -d postgresql --webpack=stimulus --skip-spring --skip-listen
 
 cd calendar
+
+# in some cases you may have serveral bundlers or need to create binstubs
 # gem install bundler:2.1.4
 # rails app:update:bin
 </code></pre>

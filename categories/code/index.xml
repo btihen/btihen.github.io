@@ -1188,9 +1188,9 @@ ruby                2.5                 a98425292e84        2 weeks ago         
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_web_tech/phoenix_1_5_live_view_basics/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
