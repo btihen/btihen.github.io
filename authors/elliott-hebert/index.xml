@@ -5,12 +5,23 @@
     <link>https://btihen.me/authors/elliott-hebert/</link>
       <atom:link href="https://btihen.me/authors/elliott-hebert/index.xml" rel="self" type="application/rss+xml" />
     <description>Elliott Hebert</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 03 May 2020 19:25:09 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Elliott Hebert</title>
       <link>https://btihen.me/authors/elliott-hebert/</link>
     </image>
+    
+    <item>
+      <title>Peak Challenges</title>
+      <link>https://btihen.me/projects/peakchallenges/</link>
+      <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/peakchallenges/</guid>
+      <description>&lt;p&gt;PeakChallenges: Engaged Learning for a Changing World&lt;/p&gt;
+&lt;p&gt;We are inspired by learning and working in our changing world.&lt;/p&gt;
+&lt;p&gt;Agile is is an excellent foundation for working with changes. As educators, our goal has been to merge the Agile Learning Loop with excellent classroom practices.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Kanban Usage</title>

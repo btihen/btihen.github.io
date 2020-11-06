@@ -5,12 +5,42 @@
     <link>https://btihen.me/categories/agile/</link>
       <atom:link href="https://btihen.me/categories/agile/index.xml" rel="self" type="application/rss+xml" />
     <description>Agile</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 03 May 2020 19:25:09 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Agile</title>
       <link>https://btihen.me/categories/agile/</link>
     </image>
+    
+    <item>
+      <title>EDgility</title>
+      <link>https://btihen.me/projects/edgility/</link>
+      <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/edgility/</guid>
+      <description>&lt;p&gt;EDgility focuses on Education Agility.  Inspired by agiles ability to create engaged and enthusiastic learning enviornments in technology companies.  We started with our top educational principles and we quietly integrated agile practices into our classrooms.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Peak Challenges</title>
+      <link>https://btihen.me/projects/peakchallenges/</link>
+      <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/peakchallenges/</guid>
+      <description>&lt;p&gt;PeakChallenges: Engaged Learning for a Changing World&lt;/p&gt;
+&lt;p&gt;We are inspired by learning and working in our changing world.&lt;/p&gt;
+&lt;p&gt;Agile is is an excellent foundation for working with changes. As educators, our goal has been to merge the Agile Learning Loop with excellent classroom practices.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ARC for Schools</title>
+      <link>https://btihen.me/projects/arcforschools/</link>
+      <pubDate>Sun, 18 Oct 2020 10:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/arcforschools/</guid>
+      <description>&lt;p&gt;Find schools, organizations, blogs, podcasts, and publications below.
+ARC consortium members contribute by documenting applications of the agile mindset in education.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Kanban Usage</title>

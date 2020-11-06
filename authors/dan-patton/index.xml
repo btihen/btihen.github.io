@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dan Patton | btihen</title>
+    <link>https://btihen.me/authors/dan-patton/</link>
+      <atom:link href="https://btihen.me/authors/dan-patton/index.xml" rel="self" type="application/rss+xml" />
+    <description>Dan Patton</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>Dan Patton</title>
+      <link>https://btihen.me/authors/dan-patton/</link>
+    </image>
+    
+    <item>
+      <title>EDgility</title>
+      <link>https://btihen.me/projects/edgility/</link>
+      <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/edgility/</guid>
+      <description>&lt;p&gt;EDgility focuses on Education Agility.  Inspired by agiles ability to create engaged and enthusiastic learning enviornments in technology companies.  We started with our top educational principles and we quietly integrated agile practices into our classrooms.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

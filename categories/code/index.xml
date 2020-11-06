@@ -681,9 +681,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_web_tech/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-a-user&#34;&gt;Create a User&lt;/h2&gt;
@@ -731,9 +731,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Website using Github</title>
-      <link>https://btihen.me/post_web_tech/hugo_academic_website_steps/</link>
+      <link>https://btihen.me/post_tech_notes/hugo_academic_website_steps/</link>
       <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_web_tech/hugo_academic_website_steps/</guid>
+      <guid>https://btihen.me/post_tech_notes/hugo_academic_website_steps/</guid>
       <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;brew install hugo
 &lt;/code&gt;&lt;/pre&gt;
@@ -1021,9 +1021,9 @@ cd ..
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>https://btihen.me/post_web_tech/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;

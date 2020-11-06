@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plugin | btihen</title>
+    <link>https://btihen.me/tags/plugin/</link>
+      <atom:link href="https://btihen.me/tags/plugin/index.xml" rel="self" type="application/rss+xml" />
+    <description>Plugin</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 03 Nov 2020 01:19:09 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <title>Plugin</title>
+      <link>https://btihen.me/tags/plugin/</link>
+    </image>
+    
+    <item>
+      <title>Docker Intro using MailCatcher</title>
+      <link>https://btihen.me/post_tech_notes/codium_plugins/</link>
+      <pubDate>Tue, 03 Nov 2020 01:19:09 +0200</pubDate>
+      <guid>https://btihen.me/post_tech_notes/codium_plugins/</guid>
+      <description>&lt;h3 id=&#34;like-codium-but-need-a-ms-code-plugin&#34;&gt;&lt;strong&gt;Like Codium but need a MS Code Plugin?&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&#34;&gt;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vim /Applications/VSCodium.app/Contents/Resources/app/product.json&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This can be fixed by adding following to product.json:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;extensionsGallery&amp;quot;: {
+    &amp;quot;serviceUrl&amp;quot;: &amp;quot;https://marketplace.visualstudio.com/_apis/public/gallery&amp;quot;,
+    &amp;quot;cacheUrl&amp;quot;: &amp;quot;https://vscode.blob.core.windows.net/gallery/index&amp;quot;,
+    &amp;quot;itemUrl&amp;quot;: &amp;quot;https://marketplace.visualstudio.com/items&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
