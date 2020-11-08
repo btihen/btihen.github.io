@@ -5,12 +5,21 @@
     <link>https://btihen.me/tags/rails/</link>
       <atom:link href="https://btihen.me/tags/rails/index.xml" rel="self" type="application/rss+xml" />
     <description>rails</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Thu, 10 Sep 2020 01:46:07 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>rails</title>
       <link>https://btihen.me/tags/rails/</link>
     </image>
+    
+    <item>
+      <title>Shared Schedule</title>
+      <link>https://btihen.me/projects/mobile_calendar/</link>
+      <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/mobile_calendar/</guid>
+      <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Install and Configure Rails</title>

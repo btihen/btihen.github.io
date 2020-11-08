@@ -5,12 +5,21 @@
     <link>https://btihen.me/categories/code/</link>
       <atom:link href="https://btihen.me/categories/code/index.xml" rel="self" type="application/rss+xml" />
     <description>Code</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 10 Jul 2020 09:43:51 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
       <title>Code</title>
       <link>https://btihen.me/categories/code/</link>
     </image>
+    
+    <item>
+      <title>Shared Schedule</title>
+      <link>https://btihen.me/projects/mobile_calendar/</link>
+      <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
+      <guid>https://btihen.me/projects/mobile_calendar/</guid>
+      <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Phoenix 1.5 Blog with Comments</title>

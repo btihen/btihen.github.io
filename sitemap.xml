@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/projects/mobile_calendar/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/projects/arcforschools/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url>
@@ -97,7 +102,17 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/tags/calendar/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/categories/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/categories/code/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url>
   
@@ -122,6 +137,11 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/tags/mobile/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/authors/nicola-cosgrove/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url>
@@ -138,6 +158,21 @@
   
   <url>
     <loc>https://btihen.me/projects/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/tags/rails/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/tags/ruby/</loc>
+    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/categories/sharing/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url>
   
@@ -327,11 +362,6 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/tags/rails/</loc>
-    <lastmod>2020-10-31T01:46:07+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://btihen.me/post_ruby_rails/</loc>
     <lastmod>2020-10-31T01:46:07+02:00</lastmod>
   </url>
@@ -384,11 +414,6 @@
   <url>
     <loc>https://btihen.me/post_ruby_rails/robust_rails_03_devise_single_user_with_roles/</loc>
     <lastmod>2020-07-10T20:45:51+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.me/categories/code/</loc>
-    <lastmod>2020-07-10T09:43:51+02:00</lastmod>
   </url>
   
   <url>
