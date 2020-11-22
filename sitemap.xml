@@ -88,17 +88,17 @@
   
   <url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/authors/btihen/</loc>
-    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/</loc>
-    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
@@ -108,7 +108,7 @@
   
   <url>
     <loc>https://btihen.me/categories/</loc>
-    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
@@ -178,7 +178,7 @@
   
   <url>
     <loc>https://btihen.me/tags/</loc>
-    <lastmod>2020-11-06T01:34:47+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
@@ -188,46 +188,46 @@
   
   <url>
     <loc>https://btihen.me/categories/code-editor/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/tags/codium/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/post_tech_notes/codium_plugins/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/tags/editor/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/tags/plugin/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/post_tech_notes/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://btihen.me/tags/tooling/</loc>
-    <lastmod>2020-11-03T01:19:09+02:00</lastmod>
+    <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.me/tags/adventure/</loc>
+    <loc>https://btihen.me/categories/design/</loc>
     <lastmod>2020-11-01T01:57:16+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.me/categories/classroom/</loc>
+    <loc>https://btihen.me/tags/design/</loc>
     <lastmod>2020-11-01T01:57:16+02:00</lastmod>
   </url>
   
@@ -237,37 +237,22 @@
   </url>
   
   <url>
-    <loc>https://btihen.me/categories/edgile/</loc>
+    <loc>https://btihen.me/tags/icons/</loc>
     <lastmod>2020-11-01T01:57:16+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.me/tags/engagement/</loc>
+    <loc>https://btihen.me/tags/images/</loc>
     <lastmod>2020-11-01T01:57:16+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.me/tags/exploration/</loc>
+    <loc>https://btihen.me/categories/opensource/</loc>
     <lastmod>2020-11-01T01:57:16+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://btihen.me/tags/joy/</loc>
-    <lastmod>2020-11-01T01:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.me/categories/practice/</loc>
-    <lastmod>2020-11-01T01:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.me/tags/student-choice/</loc>
-    <lastmod>2020-11-01T01:57:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://btihen.me/tags/trust/</loc>
+    <loc>https://btihen.me/tags/pictures/</loc>
     <lastmod>2020-11-01T01:57:16+02:00</lastmod>
   </url>
   
@@ -307,7 +292,22 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/categories/classroom/</loc>
+    <lastmod>2020-10-03T01:16:28+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/categories/edgile/</loc>
+    <lastmod>2020-10-03T01:16:28+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/post_edu/</loc>
+    <lastmod>2020-10-03T01:16:28+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/categories/practice/</loc>
     <lastmod>2020-10-03T01:16:28+02:00</lastmod>
   </url>
   
@@ -402,7 +402,17 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/tags/exploration/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/post_edu/edgility_btihen_smallify/</loc>
+    <lastmod>2020-07-24T14:05:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/tags/student-choice/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url>
   
@@ -507,6 +517,11 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/tags/joy/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/post_edu/edgility_btihen_rework/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url>
@@ -527,7 +542,22 @@
   </url>
   
   <url>
+    <loc>https://btihen.me/tags/adventure/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/tags/engagement/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://btihen.me/post_edu/edgility_btihen_exploration/</loc>
+    <lastmod>2020-06-16T16:57:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://btihen.me/tags/trust/</loc>
     <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url>
   

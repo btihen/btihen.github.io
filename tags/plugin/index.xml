@@ -7,7 +7,7 @@
     <description>Plugin</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Tue, 03 Nov 2020 01:19:09 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_300x300_fit_lanczos_2.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Plugin</title>
       <link>https://btihen.me/tags/plugin/</link>
     </image>
@@ -17,8 +17,10 @@
       <link>https://btihen.me/post_tech_notes/codium_plugins/</link>
       <pubDate>Tue, 03 Nov 2020 01:19:09 +0200</pubDate>
       <guid>https://btihen.me/post_tech_notes/codium_plugins/</guid>
-      <description>&lt;h3 id=&#34;like-codium-but-need-a-ms-code-plugin&#34;&gt;&lt;strong&gt;Like Codium but need a MS Code Plugin?&lt;/strong&gt;&lt;/h3&gt;
+      <description>&lt;p&gt;Need to point Codium to MS extions?  Do the following:&lt;/p&gt;
+&lt;h3 id=&#34;like-codium-but-need-a-ms-code-plugin&#34;&gt;&lt;strong&gt;Like Codium but need a MS Code Plugin?&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&#34;&gt;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;open:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;vim /Applications/VSCodium.app/Contents/Resources/app/product.json&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;This can be fixed by adding following to product.json:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;extensionsGallery&amp;quot;: {
