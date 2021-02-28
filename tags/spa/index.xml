@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SPA | btihen</title>
+    <link>https://btihen.me/tags/spa/</link>
+      <atom:link href="https://btihen.me/tags/spa/index.xml" rel="self" type="application/rss+xml" />
+    <description>SPA</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 25 Feb 2021 18:57:00 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>SPA</title>
+      <link>https://btihen.me/tags/spa/</link>
+    </image>
+    
+    <item>
+      <title>Tweets - A Standard Rails Single Page App</title>
+      <link>https://btihen.me/post_ruby_rails/rails_tweet_standard_rails/</link>
+      <pubDate>Thu, 25 Feb 2021 18:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_tweet_standard_rails/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire (in the next article)&lt;/p&gt;
+&lt;p&gt;(Hotwire)[https://hotwire.dev/] allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using (Turbo)[https://turbo.hotwire.dev/] - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;
+&lt;p&gt;This code can be found at: &lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
+&lt;h3 id=&#34;create-the-project&#34;&gt;Create the project&lt;/h3&gt;
+&lt;p&gt;We&amp;rsquo;ll skip Turbolinks since Turbo replaces Turbolinks and also installs Stimulus&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
+cd tweets
+git add .
+git commit -m &amp;quot;initial commit after creation&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I generally take a lot of git snapshots (and then squash them - so its easy to go back to a known good point if things don&amp;rsquo;t work out).&lt;/p&gt;
+&lt;h3 id=&#34;create-a-traditional-rails-tweet-clone&#34;&gt;Create a Traditional Rails Tweet Clone&lt;/h3&gt;
+&lt;h4 id=&#34;tweet-model&#34;&gt;Tweet Model&lt;/h4&gt;
+&lt;p&gt;We&amp;rsquo;ll scaffold the model to get all the parts we need&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails g scaffold tweet body:text likes:integer retweets:integer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We&amp;rsquo;ll update the migration to prevent blanks - make the migration file look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# db/migrate/yyyymmddHHMMSS_create_tweets.rb
+class CreateTweets &amp;lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :tweets do |t|
+      t.text :body, null: false
+      t.integer :likes, null: false, default: 0
+      t.integer :retweets, null: false, default: 0
+
+      t.timestamps
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we should be able to successfully create and migrate out database&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails db:create
+bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Given the Database restrictions we&amp;rsquo;ll add validations to the model. So now it should look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/models/tweet.rb
+class Tweet &amp;lt; ApplicationRecord
+  validates :body, presence: true
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets also point the root route at our tweets resource - so now it should look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# config/routes.rb
+Rails.application.routes.draw do
+  resources :tweets
+  root to: &amp;quot;tweets#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets start up rails and be sure everything works so far:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;go to &lt;code&gt;http://localhost:3000&lt;/code&gt; and make and edit and delete some tweets.&lt;/p&gt;
+&lt;p&gt;Assuming it works lets commit these changes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;lets-make-this-useable-more-like-a-single-page-app&#34;&gt;Let&amp;rsquo;s make this useable (more like a single page app)&lt;/h4&gt;
+&lt;p&gt;Lets start by fixing the following problems:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;the create form allows us to choose and edit likes and retweets&lt;/li&gt;
+&lt;li&gt;tweets are listed in the opposite order in oldest to newest&lt;/li&gt;
+&lt;li&gt;to create a new tweet we need to go to a separate new page&lt;/li&gt;
+&lt;li&gt;creating and editing new tweets brings us to a show page (away from our index)&lt;/li&gt;
+&lt;li&gt;message, likes, retweets, etc are all listed in one long table row (we&amp;rsquo;ll fix with some bootstrap css)&lt;/li&gt;
+&lt;li&gt;likes and retweets are not usable&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;As mentioned users shouldn&amp;rsquo;t choose their likes and retweets:
+&lt;img src=&#34;tweet_form_1st.png&#34; alt=&#34;tweet_form_1st&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Now lets remove likes and retweets from our form:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/_form.html.erb
+&amp;lt;%= form_with(model: tweet) do |form| %&amp;gt;
+  &amp;lt;% if tweet.errors.any? %&amp;gt;
+    &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
+      &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(tweet.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this tweet from being saved:&amp;lt;/h2&amp;gt;
+
+      &amp;lt;ul&amp;gt;
+        &amp;lt;% tweet.errors.each do |error| %&amp;gt;
+          &amp;lt;li&amp;gt;&amp;lt;%= error.full_message %&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;% end %&amp;gt;
+      &amp;lt;/ul&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;% end %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :body %&amp;gt;
+    &amp;lt;%= form.text_area :body %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
+    &amp;lt;%= form.submit %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now the form should look like:
+&lt;img src=&#34;tweet_form_2nd.png&#34; alt=&#34;tweet_form_2nd&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If you made several tweets you&amp;rsquo;ll notice that the tweets are in oldest to newest.
+&lt;img src=&#34;tweet_index_1st_oldest.png&#34; alt=&#34;tweet_index_1st&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;ll fix that with the index controller sort order:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+class TweetsController &amp;lt; ApplicationController
+  before_action :set_tweet, only: %i[ show edit update destroy ]
+
+  def index
+    @tweets = Tweet.all.order(created_at: :desc)
+  end
+  ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;tweet_index_2nd_newest.png&#34; alt=&#34;tweet_index_2nd&#34;&gt;&lt;/p&gt;
+&lt;p&gt;now tweets should be newest to oldest&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s put our create tweet at the top of our index page&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+
+&amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
+
+&amp;lt;h4&amp;gt;New Tweet&amp;lt;/h4&amp;gt;
+&amp;lt;%= render &amp;quot;tweets/form&amp;quot;, tweet: @tweet %&amp;gt;
+
+&amp;lt;h4&amp;gt;Tweet Feed&amp;lt;/h4&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now when we check out index page again &amp;ndash; oops, we get an error:
+&lt;img src=&#34;tweet_index_3rd_error.png&#34; alt=&#34;tweet_index_3rd_error&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;errors&lt;/code&gt; is null because the new instance isn&amp;rsquo;t available we need to add a new tweet to our index page from the controller:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+class TweetsController &amp;lt; ApplicationController
+  before_action :set_tweet, only: %i[ show edit update destroy ]
+
+  def index
+    # put newest tweets at the top of the page
+    @tweets = Tweet.all.order(created_at: :desc)
+    @tweet = Tweet.new
+  end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when we view index we should be able to create a tweet on the index page:
+&lt;img src=&#34;tweet_index_4th_top.png&#34; alt=&#34;tweet_index_4th&#34;&gt;&lt;/p&gt;
+&lt;p&gt;However, after creation we still go to show page and need to navigate back to the index page - lets fix that in the create controller.  We will change the line:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;format.html { redirect_to @tweet, notice: &amp;quot;Tweet was successfully created.&amp;quot; }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;with:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We will have the same problem with update &amp;ndash; so let&amp;rsquo;s fix them both.  Now the controller should look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+  def create
+    @tweet = Tweet.new(tweet_params)
+
+    respond_to do |format|
+      if @tweet.save
+        format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @tweet.update(tweet_params)
+        format.html { redirect_to tweet_url, notice: &amp;quot;Tweet was successfully updated.&amp;quot; }
+        format.json { render :show, status: :ok, location: @tweet }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now after we create a new tweet we should &amp;lsquo;stay&amp;rsquo; (it actually reloads - which could be slow if we had many tweets on the page - we will fix this with hotwire) on the index page and see:
+&lt;img src=&#34;tweet_index_5th_after_create.png&#34; alt=&#34;tweet_index_5th&#34;&gt;&lt;/p&gt;
+&lt;p&gt;OK we are almost there, but we still have rows of tables and not a nice tweet feed look.&lt;/p&gt;
+&lt;p&gt;Lets add Bootstrap CSS for some modest beauty (you can copy this file or use the below link to get the newest Bootstrap CSS)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/layout/application.html.erb
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;Tweets&amp;lt;/title&amp;gt;
+  &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width,initial-scale=1&amp;quot;&amp;gt;
+  &amp;lt;%= csrf_meta_tags %&amp;gt;
+  &amp;lt;%= csp_meta_tag %&amp;gt;
+
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot;
+        href=&amp;quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css&amp;quot;
+        integrity=&amp;quot;sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l&amp;quot;
+        crossorigin=&amp;quot;anonymous&amp;quot;&amp;gt;
+  &amp;lt;%= stylesheet_link_tag &#39;application&#39;, media: &#39;all&#39; %&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;body&amp;gt;
+  &amp;lt;%= yield %&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you can get the newest bootstrap link from: &lt;a href=&#34;https://getbootstrap.com/docs/&#34;&gt;https://getbootstrap.com/docs/&lt;/a&gt; or &lt;a href=&#34;https://www.bootstrapcdn.com/&#34;&gt;https://www.bootstrapcdn.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now lets make a partial reformat our feed with bootstrap:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;&amp;lt;%= tweet.body %&amp;gt;&amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;mt-2&amp;quot;&amp;gt;
+    &amp;lt;%= &amp;quot;Like (#{tweet.likes})&amp;quot; %&amp;gt;
+
+    &amp;lt;%= &amp;quot;Retweet (#{tweet.retweets})&amp;quot; %&amp;gt;
+
+    &amp;lt;%= link_to &#39;Edit&#39;, edit_tweet_path(tweet),
+              class: &amp;quot;btn btn-sm btn-success&amp;quot; %&amp;gt;
+
+    &amp;lt;%= link_to &#39;Destroy&#39;, tweet_path(tweet), method: :delete,
+              data: { confirm: &#39;Are you sure?&#39; },
+              class: &amp;quot;btn btn-sm btn-danger&amp;quot; %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets integrate the tweet partial into the index page:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+
+&amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
+
+&amp;lt;h4&amp;gt;New Tweet&amp;lt;/h4&amp;gt;
+&amp;lt;%= render &amp;quot;tweets/form&amp;quot;, tweet: @tweet %&amp;gt;
+
+&amp;lt;h4&amp;gt;Tweet Feed&amp;lt;/h4&amp;gt;
+&amp;lt;%= render @tweets %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now have an app that basically works from the index pages (not yet Edit, but without Hotwire, that&amp;rsquo;s difficult &amp;ndash; see the next article)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;tweet_index_6th_formatted.png&#34; alt=&#34;tweet_index_6th&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take another git snapshot of &amp;lsquo;index&amp;rsquo; reloading app.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;tweet app mostly from the index page&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;activate-likes-and-retweets&#34;&gt;Activate likes and retweets&lt;/h4&gt;
+&lt;p&gt;To finish this simple app lets activate Likes and Retweets - we will do this with new controllers since this is an independent action from our tweet itself.  We will use the &lt;code&gt;create&lt;/code&gt; since we are &lt;code&gt;creating&lt;/code&gt; a like or a retweet.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s build the like controller - we will redirect back to the index where we want to stay:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/likes_controller.rb
+class LikesController &amp;lt; ApplicationController
+  before_action :set_tweet
+
+  def create
+    @tweet.increment! :likes
+    redirect_to tweets_url
+  end
+
+  private
+
+  def set_tweet
+    @tweet = Tweet.find(params[:tweet_id])
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now the retweet controller:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/retweets_controller.rb
+class RetweetsController &amp;lt; ApplicationController
+  before_action :set_tweet
+
+  def create
+    @tweet.increment! :retweets
+    redirect_to tweets_url
+  end
+
+  private
+
+  def set_tweet
+    @tweet = Tweet.find(params[:tweet_id])
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These controllers are dependent on the tweet so they are subroutes of a tweet - so lets update our routes to be:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# config/routes.rb
+Rails.application.routes.draw do
+  resources :tweets do
+    resource :like, only: [:create]
+    resource :retweet, only: [:create]
+  end
+  root to: &amp;quot;tweets#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets add the connection to controller in our front-end with buttons.  Note we need to use the &lt;code&gt;method: :post&lt;/code&gt; for our like and retweet &lt;code&gt;create&lt;/code&gt; because these are normally &lt;code&gt;posted&lt;/code&gt; by the &lt;code&gt;edit&lt;/code&gt; form.  In this case we want to bypass a form and just update.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;&amp;lt;%= tweet.body %&amp;gt;&amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;mt-2&amp;quot;&amp;gt;
+    &amp;lt;%= link_to &amp;quot;Like (#{tweet.likes})&amp;quot;,
+                tweet_like_path(tweet),
+                method: :post,
+                class: &amp;quot;btn btn-sm btn-outline-success&amp;quot; %&amp;gt;
+
+    &amp;lt;%= link_to &amp;quot;Retweet (#{tweet.retweets})&amp;quot;,
+                tweet_retweet_path(tweet),
+                method: :post,
+                class: &amp;quot;btn btn-sm btn-outline-info&amp;quot; %&amp;gt;
+
+    &amp;lt;%= link_to &#39;Edit&#39;, edit_tweet_path(tweet),
+                class: &amp;quot;btn btn-sm btn-outline-primary&amp;quot; %&amp;gt;
+
+    &amp;lt;%= link_to &#39;Destroy&#39;, tweet_path(tweet), method: :delete,
+                data: { confirm: &#39;Are you sure?&#39; },
+                class: &amp;quot;btn btn-sm btn-outline-danger&amp;quot; %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Test that everything works as expected!  Assuming it works - we will take another snapshot.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on index page&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;tweet_index_7th_likes_retweets.png&#34; alt=&#34;tweet_index_7th&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
