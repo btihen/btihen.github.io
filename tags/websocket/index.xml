@@ -285,8 +285,8 @@ Completed 200 OK in 31ms (Views: 26.6ms | ActiveRecord: 1.6ms | Allocations: 791
 &lt;pre&gt;&lt;code&gt;git add .
 git commit -m &amp;quot;broadcast deleted tweets via hotwire&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;hotwire-can-handle-forms-too&#34;&gt;Hotwire can handle Forms too!&lt;/h3&gt;
-&lt;p&gt;Turbo unlike Turbo-Links works with Forms as well as links.&lt;/p&gt;
+&lt;h3 id=&#34;edit--updates-to-all-clients&#34;&gt;Edit / Updates to all clients!&lt;/h3&gt;
+&lt;p&gt;Turbo unlike Turbo-Links works with Forms as well as links.  This allows us to edit our posts.&lt;/p&gt;
 &lt;h4 id=&#34;start-with-the-create-form&#34;&gt;Start with the Create Form&lt;/h4&gt;
 &lt;p&gt;Lets start by testing the create form as is with validation errors - if we enter a blank message we should get an error.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_6th_no_frame_validations.png&#34; alt=&#34;tweet_index_6th_no_frame_validations&#34;&gt;&lt;/p&gt;
@@ -568,8 +568,22 @@ def update
 git commit -m &amp;quot;turbo frame now allows in-place edit and cancel edit without reloading&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;likes-and-retweet&#34;&gt;Likes and Retweet&lt;/h3&gt;
-&lt;h3 id=&#34;links-that-render-outside-of-current-frame&#34;&gt;Links that render outside of current Frame&lt;/h3&gt;
+&lt;p&gt;I was able to get these special routes / actions to update just the calling browser, but unable to get these to broadcast to all open connections.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;I am particularly fond of the GoRails videos.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://hotwire.dev/&#34;&gt;https://hotwire.dev/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://turbo.hotwire.dev/&#34;&gt;https://turbo.hotwire.dev/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hotwired/hotwire-rails&#34;&gt;https://github.com/hotwired/hotwire-rails&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=NtTfYfWAzw0&#34;&gt;https://www.youtube.com/watch?v=NtTfYfWAzw0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=77GvSdc2Pf8&#34;&gt;https://www.youtube.com/watch?v=77GvSdc2Pf8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=NtTfYfWAzw0&#34;&gt;https://www.youtube.com/watch?v=NtTfYfWAzw0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MRv4XGu6QkY&#34;&gt;https://www.youtube.com/watch?v=MRv4XGu6QkY&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gorails.com/episodes/hotwire-rails?autoplay=1&#34;&gt;https://gorails.com/episodes/hotwire-rails?autoplay=1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/&#34;&gt;https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/&#34;&gt;https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87&#34;&gt;https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

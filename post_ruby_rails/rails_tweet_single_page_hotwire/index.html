@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-02-28T18:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-04T18:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-03-07T18:57:00&#43;02:00">
   
 
   
@@ -668,7 +668,7 @@
           Last updated on
       
     
-    Thu, Mar 4, 2021
+    Sun, Mar 7, 2021
   </span>
   
 
@@ -983,8 +983,8 @@ Completed 200 OK in 31ms (Views: 26.6ms | ActiveRecord: 1.6ms | Allocations: 791
 <pre><code>git add .
 git commit -m &quot;broadcast deleted tweets via hotwire&quot;
 </code></pre>
-<h3 id="hotwire-can-handle-forms-too">Hotwire can handle Forms too!</h3>
-<p>Turbo unlike Turbo-Links works with Forms as well as links.</p>
+<h3 id="edit--updates-to-all-clients">Edit / Updates to all clients!</h3>
+<p>Turbo unlike Turbo-Links works with Forms as well as links.  This allows us to edit our posts.</p>
 <h4 id="start-with-the-create-form">Start with the Create Form</h4>
 <p>Lets start by testing the create form as is with validation errors - if we enter a blank message we should get an error.</p>
 <p><img src="tweet_index_6th_no_frame_validations.png" alt="tweet_index_6th_no_frame_validations"></p>
@@ -1266,8 +1266,22 @@ def update
 git commit -m &quot;turbo frame now allows in-place edit and cancel edit without reloading&quot;
 </code></pre>
 <h3 id="likes-and-retweet">Likes and Retweet</h3>
-<h3 id="links-that-render-outside-of-current-frame">Links that render outside of current Frame</h3>
+<p>I was able to get these special routes / actions to update just the calling browser, but unable to get these to broadcast to all open connections.</p>
 <h2 id="resources">Resources</h2>
+<p>I am particularly fond of the GoRails videos.</p>
+<ul>
+<li><a href="https://hotwire.dev/">https://hotwire.dev/</a></li>
+<li><a href="https://turbo.hotwire.dev/">https://turbo.hotwire.dev/</a></li>
+<li><a href="https://github.com/hotwired/hotwire-rails">https://github.com/hotwired/hotwire-rails</a></li>
+<li><a href="https://www.youtube.com/watch?v=NtTfYfWAzw0">https://www.youtube.com/watch?v=NtTfYfWAzw0</a></li>
+<li><a href="https://www.youtube.com/watch?v=77GvSdc2Pf8">https://www.youtube.com/watch?v=77GvSdc2Pf8</a></li>
+<li><a href="https://www.youtube.com/watch?v=NtTfYfWAzw0">https://www.youtube.com/watch?v=NtTfYfWAzw0</a></li>
+<li><a href="https://www.youtube.com/watch?v=MRv4XGu6QkY">https://www.youtube.com/watch?v=MRv4XGu6QkY</a></li>
+<li><a href="https://gorails.com/episodes/hotwire-rails?autoplay=1">https://gorails.com/episodes/hotwire-rails?autoplay=1</a></li>
+<li><a href="https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/">https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/</a></li>
+<li><a href="https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/">https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/</a></li>
+<li><a href="https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87">https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87</a></li>
+</ul>
 
     </div>
 
