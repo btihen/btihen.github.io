@@ -13,16 +13,18 @@
     </image>
     
     <item>
-      <title>Tweets - A Rails based Single Page App using Hotwire</title>
-      <link>https://btihen.me/post_ruby_rails/rails_tweet_single_page_hotwire/</link>
+      <title>Rails 6.1 - Hotwire (Realtime SPA)</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/</link>
       <pubDate>Sun, 28 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_tweet_single_page_hotwire/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;In this article we convert a seemingly &amp;lsquo;single-page&amp;rsquo; web app that reloads with every request see previous article 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_tweet_single_page_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt; and convert it into a proper &amp;lsquo;single-page&amp;rsquo; app that only refreshes the aspects that change.  This makes web-pages with lots of data and complexity FAST and feel like native apps.  This is done with Hotwire (using web-sockets).&lt;/p&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt; allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
+&lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt;  is planned to be integrated into Rails 7.x and is already included in the soon to be published book: 
+&lt;a href=&#34;https://pragprog.com/titles/nrclient/modern-front-end-development-for-rails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Modern Front-End Development for Rails: Hotwire, Stimulus, Turbo, and React &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Hotwire allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;
+&lt;p&gt;In this article we convert a seemingly &amp;lsquo;single-page&amp;rsquo; web app that reloads with every request see previous article 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt; and convert it into a proper &amp;lsquo;single-page&amp;rsquo; app that only refreshes the aspects that change.  This makes web-pages with lots of data and complexity FAST and feel like native apps.  This is done with Hotwire (using web-sockets).&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;We will be starting with a basic Tweet Simulator it looks something like:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_1st_starting_point.png&#34; alt=&#34;tweet_index_1st&#34;&gt;&lt;/p&gt;
@@ -589,12 +591,12 @@ git commit -m &amp;quot;turbo frame now allows in-place edit and cancel edit wit
     
     <item>
       <title>Tweets - A Single Page Rails App (using reloads)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_tweet_single_page_reloads/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/</link>
       <pubDate>Thu, 25 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_tweet_single_page_reloads/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_tweet_single_page_hotwire/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_hotwire_tweet_single_page/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt; allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;

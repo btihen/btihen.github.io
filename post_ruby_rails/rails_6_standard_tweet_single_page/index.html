@@ -27,12 +27,10 @@
   
     
   
-  <meta name="description" content="Rails Setup Take from:
- https://gist.github.com/alxndr/7569551 https://www.codewithjason.com/rails-integration-tests-rspec-capybara/ https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68  create the project:
-# -T - skips tests - I like using rspec # -d postgresql - I like using postgresql best for the db # Spring &amp; listen speed testing - but can get out of sync and make problems rails new challenges -T -d postgresql --skip-spring --skip-listen Excerpt From: David Bryant Copeland.">
+  <meta name="description" content="A simple Rails App that works off one page (a prep-project to build a Rails SPA with Hotwire)">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/robust_rails_02_config/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/">
 
   
 
@@ -220,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/post_ruby_rails/robust_rails_02_config/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/">
 
   
   
@@ -238,17 +236,15 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/post_ruby_rails/robust_rails_02_config/">
-  <meta property="og:title" content="Durable_rails_config | btihen">
-  <meta property="og:description" content="Rails Setup Take from:
- https://gist.github.com/alxndr/7569551 https://www.codewithjason.com/rails-integration-tests-rspec-capybara/ https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68  create the project:
-# -T - skips tests - I like using rspec # -d postgresql - I like using postgresql best for the db # Spring &amp; listen speed testing - but can get out of sync and make problems rails new challenges -T -d postgresql --skip-spring --skip-listen Excerpt From: David Bryant Copeland."><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
-  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/">
+  <meta property="og:title" content="Tweets - A Single Page Rails App (using reloads) | btihen">
+  <meta property="og:description" content="A simple Rails App that works off one page (a prep-project to build a Rails SPA with Hotwire)"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-07-10T20:46:07&#43;02:00">
+      <meta property="article:published_time" content="2021-02-25T18:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-07-10T20:46:07&#43;02:00">
+    <meta property="article:modified_time" content="2021-03-07T18:57:00&#43;02:00">
   
 
   
@@ -267,7 +263,7 @@
 
 
 
-  <title>Durable_rails_config | btihen</title>
+  <title>Tweets - A Single Page Rails App (using reloads) | btihen</title>
 
 </head>
 
@@ -625,18 +621,28 @@
 
 
 
-  
+
+
+
+
+
+
+
 
   
-  
-  
-<div class="article-container pt-3">
-  <h1>Durable_rails_config</h1>
-
-  
-
   
     
+  
+
+
+<div class="article-container pt-3">
+  <h1>Tweets - A Single Page Rails App (using reloads)</h1>
+
+  
+  <p class="page-subtitle">A simple Rails App that uses one page</p>
+  
+
+  
 
 
 <div class="article-metadata">
@@ -659,8 +665,10 @@
     
     
       
+          Last updated on
+      
     
-    Fri, Jul 10, 2020
+    Sun, Mar 7, 2021
   </span>
   
 
@@ -677,22 +685,29 @@
 
 </div>
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 631px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_6_standard_tweet_single_page/featured_hu1cd0b02e52f4cf0ad66a070bf4c1f181_74432_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
 </div>
 
 
@@ -700,318 +715,320 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h1 id="rails-setup">Rails Setup</h1>
-<p>Take from:</p>
-<ul>
-<li><a href="https://gist.github.com/alxndr/7569551">https://gist.github.com/alxndr/7569551</a></li>
-<li><a href="https://www.codewithjason.com/rails-integration-tests-rspec-capybara/">https://www.codewithjason.com/rails-integration-tests-rspec-capybara/</a></li>
-<li><a href="https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68">https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68</a></li>
-</ul>
-<p>create the project:</p>
-<pre><code># -T - skips tests - I like using rspec
-# -d postgresql - I like using postgresql best for the db
-# Spring &amp; listen speed testing - but can get out of sync and make problems
-rails new challenges -T -d postgresql --skip-spring --skip-listen
-
-Excerpt From: David Bryant Copeland. “Sustainable Web Development with Ruby on Rails.” Apple Books. 
-cd challenges
-gem install bundler:2.1.4
-rails app:update:bin
+      <h2 id="overview">Overview</h2>
+<p>This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 
+<a href="/post_ruby_rails/rails_6_hotwire_tweet_single_page/">Tweets - A Rails based Single Page App using Hotwire</a></p>
+<p>
+<a href="https://hotwire.dev/" target="_blank" rel="noopener">Hotwire</a> allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
+<a href="https://turbo.hotwire.dev/" target="_blank" rel="noopener">Turbo</a> - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.</p>
+<p>This code can be found at: <a href="https://github.com/btihen/tweet_simulator_rails">https://github.com/btihen/tweet_simulator_rails</a></p>
+<h2 id="basic-setup">Basic Setup</h2>
+<h3 id="create-the-project">Create the project</h3>
+<p>We&rsquo;ll skip Turbolinks since Turbo replaces Turbolinks and also installs Stimulus</p>
+<pre><code>rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
+cd tweets
+git add .
+git commit -m &quot;initial commit after creation&quot;
 </code></pre>
-<p>update the readme with purpose, setup and running tests</p>
+<p>I generally take a lot of git snapshots (and then squash them - so its easy to go back to a known good point if things don&rsquo;t work out).</p>
+<h3 id="create-a-traditional-rails-tweet-clone">Create a Traditional Rails Tweet Clone</h3>
+<h4 id="tweet-model">Tweet Model</h4>
+<p>We&rsquo;ll scaffold the model to get all the parts we need</p>
+<pre><code>bin/rails g scaffold tweet body:text likes:integer retweets:integer
+</code></pre>
+<p>We&rsquo;ll update the migration to prevent blanks - make the migration file look like:</p>
+<pre><code># db/migrate/yyyymmddHHMMSS_create_tweets.rb
+class CreateTweets &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :tweets do |t|
+      t.text :body, null: false
+      t.integer :likes, null: false, default: 0
+      t.integer :retweets, null: false, default: 0
+
+      t.timestamps
+    end
+  end
+end
+</code></pre>
+<p>Now we should be able to successfully create and migrate out database</p>
+<pre><code>bin/rails db:create
+bin/rails db:migrate
+</code></pre>
+<p>Given the Database restrictions we&rsquo;ll add validations to the model. So now it should look like:</p>
+<pre><code># app/models/tweet.rb
+class Tweet &lt; ApplicationRecord
+  validates :body, presence: true
+end
+</code></pre>
+<p>Lets also point the root route at our tweets resource - so now it should look like:</p>
+<pre><code># config/routes.rb
+Rails.application.routes.draw do
+  resources :tweets
+  root to: &quot;tweets#index&quot;
+end
+</code></pre>
+<p>Lets start up rails and be sure everything works so far:</p>
+<pre><code>bin/rails s
+</code></pre>
+<p>go to <code>http://localhost:3000</code> and make and edit and delete some tweets.</p>
+<p>Assuming it works lets commit these changes.</p>
 <pre><code>git add .
-git commit -m &quot;intial commit&quot;
-git remote add origin git@gitlab.com:peakchallenges/challenges.git
-git push -u origin master
+git commit -m &quot;created tweet scaffold, validations and routes&quot;
 </code></pre>
-<p>add rspec, devise &amp; factory_bot to Gemfile</p>
-<pre><code>cat &lt;&lt;EOF &gt;&gt; Gemfile
-# Container4 Gems
-#################
+<h4 id="lets-make-this-useable-more-like-a-single-page-app">Let&rsquo;s make this useable (more like a single page app)</h4>
+<p>Lets start by fixing the following problems:</p>
+<ol>
+<li>the create form allows us to choose and edit likes and retweets</li>
+<li>tweets are listed in the opposite order in oldest to newest</li>
+<li>to create a new tweet we need to go to a separate new page</li>
+<li>creating and editing new tweets brings us to a show page (away from our index)</li>
+<li>message, likes, retweets, etc are all listed in one long table row (we&rsquo;ll fix with some bootstrap css)</li>
+<li>likes and retweets are not usable</li>
+</ol>
+<p>As mentioned users shouldn&rsquo;t choose their likes and retweets:
+<img src="tweet_form_1st.png" alt="tweet_form_1st"></p>
+<p>Now lets remove likes and retweets from our form:</p>
+<pre><code># app/views/tweets/_form.html.erb
+&lt;%= form_with(model: tweet) do |form| %&gt;
+  &lt;% if tweet.errors.any? %&gt;
+    &lt;div id=&quot;error_explanation&quot;&gt;
+      &lt;h2&gt;&lt;%= pluralize(tweet.errors.count, &quot;error&quot;) %&gt; prohibited this tweet from being saved:&lt;/h2&gt;
 
-# BACK END
-##########
-gem 'devise'
+      &lt;ul&gt;
+        &lt;% tweet.errors.each do |error| %&gt;
+          &lt;li&gt;&lt;%= error.full_message %&gt;&lt;/li&gt;
+        &lt;% end %&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
 
-# DEV / TESTS
-#############
-group :development, :test do
-  gem 'awesome_print'        # formats pry (&amp; irb outputs into readable formats)
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= form.label :body %&gt;
+    &lt;%= form.text_area :body %&gt;
+  &lt;/div&gt;
 
-  gem 'pry-rails'
-  gem 'pry-byebug'           # Adds byebug's step debugging and stack navigation
-  # gem 'pry-debugger'       # adds step, continue, etc (alternative to pry-byebug)
-  gem 'pry-stack_explorer'   # easy stack traces when debugging
-  # more pry gems if needed at: https://spin.atomicobject.com/2012/08/06/live-and-let-pry/
-
-  gem 'factory_bot_rails'
-  gem 'faker'
-
-  # gem 'rspec-rails'
-  gem 'capybara'
-  gem 'rspec-rails', '~&gt; 4.0.0'
-
-  # lets spring work with rspec - uncomment if using spring
-  # gem 'spring-commands-rspec'
-end
-
-group :test do
-  # easier tests (inside rspec)
-  gem 'shoulda-matchers'
-
-  # cucumber can test emails (rspec too?)
-  # gem 'email_spec'
-
-  # code coverage
-  gem 'simplecov'
-  gem 'simplecov-console'
-end
-EOF
-
-# update gems with
-bundle install
-
-# install rspec with:
-bin/rails g rspec:install
+  &lt;div class=&quot;actions&quot;&gt;
+    &lt;%= form.submit %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
 </code></pre>
-<h2 id="configure-rspec">CONFIGURE RSPEC</h2>
-<pre><code># create a spec features folder
-mkdir spec/features
-# create a place to put commonly used tests code
-mkdir spec/support
-mkdir spec/support/features
+<p>Now the form should look like:
+<img src="tweet_form_2nd.png" alt="tweet_form_2nd"></p>
+<p>If you made several tweets you&rsquo;ll notice that the tweets are in oldest to newest.
+<img src="tweet_index_1st_oldest.png" alt="tweet_index_1st"></p>
+<p>We&rsquo;ll fix that with the index controller sort order:</p>
+<pre><code># app/controllers/tweets_controller.rb
+class TweetsController &lt; ApplicationController
+  before_action :set_tweet, only: %i[ show edit update destroy ]
 
-# at the top of `spec/rails_helper.rb below `require 'rspec/rails'` add:
-# to enable integration tests with rspec &amp; capybara
-require 'capybara/rspec'
-# include custom support files
-Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each { |file| require file }
-
-
-# just after the ActiveRecord config and before RSpec.configure block add:
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-Capybara.javascript_driver = :selenium_chrome
-
-
-# add FactoryBot config to Rspec in `spec/rails_helper.rb`
-RSpec.configure do |config|
-  # ...
-
-  # support for Factory Bot
-  config.include FactoryBot::Syntax::Methods
-
-  # setup devise login helpers in Rspec
-  config.include Devise::Test::IntegrationHelpers, type: :request
-  config.include Warden::Test::Helpers
-end
-
-# support for shoulda matches
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
+  def index
+    @tweets = Tweet.all.order(created_at: :desc)
   end
-end
-
-EOF
-</code></pre>
-<p>the rspec_helper.rb file now looks like:</p>
-<pre><code># This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
-
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
-# Prevent database truncation if the environment is production
-abort(&quot;The Rails environment is running in production mode!&quot;) if Rails.env.production?
-require 'rspec/rails'
-
-# to enable integration tests with rspec
-require 'capybara/rspec'
-
-# include custom support files
-Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each { |file| require file }
-
-# Add additional requires below this line. Rails is not loaded until this point!
-
-# Requires supporting ruby files with custom matchers and macros, etc, in
-# spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
-# run as spec files by default. This means that files in spec/support that end
-# in _spec.rb will both be required and run as specs, causing the specs to be
-# run twice. It is recommended that you do not name files matching this glob to
-# end with _spec.rb. You can configure this pattern with the --pattern
-# option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-#
-# The following line is provided for convenience purposes. It has the downside
-# of increasing the boot-up time by auto-requiring all files in the support
-# directory. Alternatively, in the individual `*_spec.rb` files, manually
-# require only the support files necessary.
-#
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-
-# Checks for pending migrations and applies them before tests are run.
-# If you are not using ActiveRecord, you can remove these lines.
-begin
-  ActiveRecord::Migration.maintain_test_schema!
-rescue ActiveRecord::PendingMigrationError =&gt; e
-  puts e.to_s.strip
-  exit 1
-end
-
-# configure capybara integration tests
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-Capybara.javascript_driver = :selenium_chrome
-
-RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = &quot;#{::Rails.root}/spec/fixtures&quot;
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
-
-  # You can uncomment this line to turn off ActiveRecord support entirely.
-  # config.use_active_record = false
-
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, type: :controller do
-  #       # ...
-  #     end
-  #
-  # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
-  config.infer_spec_type_from_file_location!
-
-  # Filter lines from Rails gems in backtraces.
-  config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace(&quot;gem name&quot;)
-
-  # support for Factory Bot
-  config.include FactoryBot::Syntax::Methods
-
-  # setup devise login helpers in Rspec (login helpers)
-  config.include Devise::Test::IntegrationHelpers, type: :request
-  # allows us for force session logouts (im feature tests)
-  config.include Warden::Test::Helpers
-end
-
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-  end
+  ...
 end
 </code></pre>
-<p>If you plan to user database_cleaner &ndash; then also see this article to finishy yoru config:</p>
-<p><a href="https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9">https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9</a></p>
-<p>a basic login feature test might look like:</p>
-<pre><code>require 'rails_helper'
+<p><img src="tweet_index_2nd_newest.png" alt="tweet_index_2nd"></p>
+<p>now tweets should be newest to oldest</p>
+<p>Let&rsquo;s put our create tweet at the top of our index page</p>
+<pre><code># app/views/tweets/index.html.erb
+&lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
 
-RSpec.describe 'Users Login', type: :feature do
-  let(:user)  { FactoryBot.create :user }
-  after :each do
-    Warden.test_reset!
+&lt;h1&gt;Tweets&lt;/h1&gt;
+
+&lt;h4&gt;New Tweet&lt;/h4&gt;
+&lt;%= render &quot;tweets/form&quot;, tweet: @tweet %&gt;
+
+&lt;h4&gt;Tweet Feed&lt;/h4&gt;
+</code></pre>
+<p>now when we check out index page again &ndash; oops, we get an error:
+<img src="tweet_index_3rd_error.png" alt="tweet_index_3rd_error"></p>
+<p><code>errors</code> is null because the new instance isn&rsquo;t available we need to add a new tweet to our index page from the controller:</p>
+<pre><code># app/controllers/tweets_controller.rb
+class TweetsController &lt; ApplicationController
+  before_action :set_tweet, only: %i[ show edit update destroy ]
+
+  def index
+    # put newest tweets at the top of the page
+    @tweets = Tweet.all.order(created_at: :desc)
+    @tweet = Tweet.new
   end
-  describe 'user logs in successfully' do
-    scenario 'and is redirected to user home page' do
-      user_log_in(user)
-      expect(current_path).to eql(auth_user_root_path)
+
+</code></pre>
+<p>Now when we view index we should be able to create a tweet on the index page:
+<img src="tweet_index_4th_top.png" alt="tweet_index_4th"></p>
+<p>However, after creation we still go to show page and need to navigate back to the index page - lets fix that in the create controller.  We will change the line:</p>
+<p><code>format.html { redirect_to @tweet, notice: &quot;Tweet was successfully created.&quot; }</code></p>
+<p>with:</p>
+<p><code>format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }</code></p>
+<p>We will have the same problem with update &ndash; so let&rsquo;s fix them both.  Now the controller should look like:</p>
+<pre><code># app/controllers/tweets_controller.rb
+  def create
+    @tweet = Tweet.new(tweet_params)
+
+    respond_to do |format|
+      if @tweet.save
+        format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
     end
   end
-end
-</code></pre>
-<h2 id="configure-for-actiontext-and-activestorage">Configure for ActionText and ActiveStorage</h2>
-<p>uncomment the following gem for Active Storage variant</p>
-<pre><code>gem 'image_processing', '~&gt; 1.2'
-# of course
-bundle install
-</code></pre>
-<p>now install the components:</p>
-<pre><code>bundle exec rails webpacker:install
-bundle exec rails webpacker:install:stimulus
-bundle exec rails active_storage:install
-bundle exec rails action_text:install
-</code></pre>
-<h3 id="lets-create-a-landing-page---before-we-install-and-configure-devise">Lets create a landing page - before we install and configure devise:</h3>
-<p>Since I don&rsquo;t use helpers (generally) nor contoller or view spec - I use thie following:</p>
-<pre><code>rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
-</code></pre>
-<p>now check or add this the root page to: <code>config/routes.rb</code>:</p>
-<pre><code>  
-  get '/landing', to: 'landing#index', as: :landing
-  # get 'landing/index'
-  root to: &quot;landing#index&quot;
-</code></pre>
-<p>lets add a hidden paragraph as content to the top of the landing page so we can easily test for it.</p>
-<pre><code>&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;
-</code></pre>
-<p>lets create the following feature test (to test the feature setup):</p>
-<pre><code># spec/features/landing_page_spec.rb
-require 'rails_helper'
 
-RSpec.describe 'Landing Page Works without a login', type: :feature do
-  scenario 'Visit landing Page' do
-    visit root_path
-    
-    page_tag = find('p#landing_index', text: 'Landing Index', visible: false)
-    expect(page_tag).to be_truthy
+  def update
+    respond_to do |format|
+      if @tweet.update(tweet_params)
+        format.html { redirect_to tweet_url, notice: &quot;Tweet was successfully updated.&quot; }
+        format.json { render :show, status: :ok, location: @tweet }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
   end
-end
 </code></pre>
-<p>create a request test to be sure it works as we wish (we dont need a feature test when we arent navigating)</p>
-<pre><code>RSpec.describe &quot;Landings&quot;, type: :request do
+<p>now after we create a new tweet we should &lsquo;stay&rsquo; (it actually reloads - which could be slow if we had many tweets on the page - we will fix this with hotwire) on the index page and see:
+<img src="tweet_index_5th_after_create.png" alt="tweet_index_5th"></p>
+<p>OK we are almost there, but we still have rows of tables and not a nice tweet feed look.</p>
+<p>Lets add Bootstrap CSS for some modest beauty (you can copy this file or use the below link to get the newest Bootstrap CSS)</p>
+<pre><code># app/views/layout/application.html.erb
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
 
-  describe &quot;GET /index&quot; do
-    it &quot;'/landing' returns http success&quot; do
-      get &quot;/landing&quot;
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
-    end
-    it &quot;'landing_path' returns http success&quot; do
-      get landing_path
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
-    end
-    it &quot;'/' returns http success&quot; do
-      get &quot;/&quot;
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
-    end
-    it &quot;'root_path' returns http success&quot; do
-      get root_path
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
-    end
-    # it &quot;'/landing/index' returns http success&quot; do
-    #   get &quot;/landing/index&quot;
-    #   expect(response).to have_http_status(:success)
-    #   expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
-    # end
-    # it &quot;'landing_index_path' returns http success&quot; do
-    #   get landing_index_path
-    #   expect(response).to have_http_status(:success)
-    #   expect(response.body).to include(&quot;&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;&quot;)
-    # end
-  end
+&lt;head&gt;
+  &lt;title&gt;Tweets&lt;/title&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+  &lt;%= csrf_meta_tags %&gt;
+  &lt;%= csp_meta_tag %&gt;
 
-end
+  &lt;link rel=&quot;stylesheet&quot;
+        href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css&quot;
+        integrity=&quot;sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l&quot;
+        crossorigin=&quot;anonymous&quot;&gt;
+  &lt;%= stylesheet_link_tag 'application', media: 'all' %&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;%= yield %&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
 </code></pre>
-<p>Assumign all it green - lets commit:</p>
+<p>you can get the newest bootstrap link from: <a href="https://getbootstrap.com/docs/">https://getbootstrap.com/docs/</a> or <a href="https://www.bootstrapcdn.com/">https://www.bootstrapcdn.com/</a></p>
+<p>Now lets make a partial reformat our feed with bootstrap:</p>
+<pre><code># app/views/tweets/_tweet.html.erb
+&lt;div class=&quot;card card-body&quot;&gt;
+  &lt;div&gt;&lt;%= tweet.body %&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;mt-2&quot;&gt;
+    &lt;%= &quot;Like (#{tweet.likes})&quot; %&gt;
+
+    &lt;%= &quot;Retweet (#{tweet.retweets})&quot; %&gt;
+
+    &lt;%= link_to 'Edit', edit_tweet_path(tweet),
+              class: &quot;btn btn-sm btn-success&quot; %&gt;
+
+    &lt;%= link_to 'Destroy', tweet_path(tweet), method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: &quot;btn btn-sm btn-danger&quot; %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Now lets integrate the tweet partial into the index page:</p>
+<pre><code># app/views/tweets/index.html.erb
+&lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
+
+&lt;h1&gt;Tweets&lt;/h1&gt;
+
+&lt;h4&gt;New Tweet&lt;/h4&gt;
+&lt;%= render &quot;tweets/form&quot;, tweet: @tweet %&gt;
+
+&lt;h4&gt;Tweet Feed&lt;/h4&gt;
+&lt;%= render @tweets %&gt;
+</code></pre>
+<p>We now have an app that basically works from the index pages (not yet Edit, but without Hotwire, that&rsquo;s difficult &ndash; see the next article)</p>
+<p><img src="tweet_index_6th_formatted.png" alt="tweet_index_6th"></p>
+<p>Let&rsquo;s take another git snapshot of &lsquo;index&rsquo; reloading app.</p>
 <pre><code>git add .
-git commit -m &quot;rspec configured and working&quot;
-git push
+git commit -m &quot;tweet app mostly from the index page&quot;
 </code></pre>
+<h4 id="activate-likes-and-retweets">Activate likes and retweets</h4>
+<p>To finish this simple app lets activate Likes and Retweets - we will do this with new controllers since this is an independent action from our tweet itself.  We will use the <code>create</code> since we are <code>creating</code> a like or a retweet.</p>
+<p>Let&rsquo;s build the like controller - we will redirect back to the index where we want to stay:</p>
+<pre><code># app/controllers/likes_controller.rb
+class LikesController &lt; ApplicationController
+  before_action :set_tweet
+
+  def create
+    @tweet.increment! :likes
+    redirect_to tweets_url
+  end
+
+  private
+
+  def set_tweet
+    @tweet = Tweet.find(params[:tweet_id])
+  end
+end
+</code></pre>
+<p>And now the retweet controller:</p>
+<pre><code># app/controllers/retweets_controller.rb
+class RetweetsController &lt; ApplicationController
+  before_action :set_tweet
+
+  def create
+    @tweet.increment! :retweets
+    redirect_to tweets_url
+  end
+
+  private
+
+  def set_tweet
+    @tweet = Tweet.find(params[:tweet_id])
+  end
+end
+</code></pre>
+<p>These controllers are dependent on the tweet so they are subroutes of a tweet - so lets update our routes to be:</p>
+<pre><code># config/routes.rb
+Rails.application.routes.draw do
+  resources :tweets do
+    resource :like, only: [:create]
+    resource :retweet, only: [:create]
+  end
+  root to: &quot;tweets#index&quot;
+end
+</code></pre>
+<p>Now lets add the connection to controller in our front-end with buttons.  Note we need to use the <code>method: :post</code> for our like and retweet <code>create</code> because these are normally <code>posted</code> by the <code>edit</code> form.  In this case we want to bypass a form and just update.</p>
+<pre><code># app/views/tweets/_tweet.html.erb
+&lt;div class=&quot;card card-body&quot;&gt;
+  &lt;div&gt;&lt;%= tweet.body %&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;mt-2&quot;&gt;
+    &lt;%= link_to &quot;Like (#{tweet.likes})&quot;,
+                tweet_like_path(tweet),
+                method: :post,
+                class: &quot;btn btn-sm btn-outline-success&quot; %&gt;
+
+    &lt;%= link_to &quot;Retweet (#{tweet.retweets})&quot;,
+                tweet_retweet_path(tweet),
+                method: :post,
+                class: &quot;btn btn-sm btn-outline-info&quot; %&gt;
+
+    &lt;%= link_to 'Edit', edit_tweet_path(tweet),
+                class: &quot;btn btn-sm btn-outline-primary&quot; %&gt;
+
+    &lt;%= link_to 'Destroy', tweet_path(tweet), method: :delete,
+                data: { confirm: 'Are you sure?' },
+                class: &quot;btn btn-sm btn-outline-danger&quot; %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Test that everything works as expected!  Assuming it works - we will take another snapshot.</p>
+<pre><code>git add .
+git commit -m &quot;likes and retweets enabled and also 'stay' on index page&quot;
+</code></pre>
+<p><img src="tweet_index_7th_likes_retweets.png" alt="tweet_index_7th"></p>
 
     </div>
 
@@ -1021,6 +1038,20 @@ git push
 
 
 
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/rails-6/">rails 6</a>
+  
+  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  
+  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  
+  <a class="badge badge-light" href="/tags/html/">HTML</a>
+  
+</div>
 
 
 
@@ -1035,7 +1066,7 @@ git push
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/robust_rails_02_config/&amp;text=Durable_rails_config" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/&amp;text=Tweets%20-%20A%20Single%20Page%20Rails%20App%20%28using%20reloads%29" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1048,7 +1079,7 @@ git push
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/robust_rails_02_config/&amp;t=Durable_rails_config" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/&amp;t=Tweets%20-%20A%20Single%20Page%20Rails%20App%20%28using%20reloads%29" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1061,7 +1092,7 @@ git push
       
       
       <li>
-        <a href="mailto:?subject=Durable_rails_config&amp;body=https://btihen.me/post_ruby_rails/robust_rails_02_config/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Tweets%20-%20A%20Single%20Page%20Rails%20App%20%28using%20reloads%29&amp;body=https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1074,7 +1105,7 @@ git push
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/robust_rails_02_config/&amp;title=Durable_rails_config" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/&amp;title=Tweets%20-%20A%20Single%20Page%20Rails%20App%20%28using%20reloads%29" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1087,7 +1118,7 @@ git push
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Durable_rails_config%20https://btihen.me/post_ruby_rails/robust_rails_02_config/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Tweets%20-%20A%20Single%20Page%20Rails%20App%20%28using%20reloads%29%20https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1100,7 +1131,7 @@ git push
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/robust_rails_02_config/&amp;title=Durable_rails_config" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/&amp;title=Tweets%20-%20A%20Single%20Page%20Rails%20App%20%28using%20reloads%29" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

@@ -30,7 +30,7 @@
   <meta name="description" content="Intro To document is mostly for me &ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too. I will build a little calendar app I use with friends (it&rsquo;s focused on being mobile friendly and easy to use &ndash; not a full featured calendar).">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_install_n_configure/">
 
   
 
@@ -218,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_install_n_configure/">
 
   
   
@@ -236,7 +236,7 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_install_n_configure/">
   <meta property="og:title" content="Install and Configure Rails | btihen">
   <meta property="og:description" content="Intro To document is mostly for me &ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too. I will build a little calendar app I use with friends (it&rsquo;s focused on being mobile friendly and easy to use &ndash; not a full featured calendar)."><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
   <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2020-09-10T01:46:07&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-10-31T01:46:07&#43;02:00">
+    <meta property="article:modified_time" content="2021-03-21T01:46:07&#43;02:00">
   
 
   
@@ -658,7 +658,7 @@
           Last updated on
       
     
-    Sat, Oct 31, 2020
+    Sun, Mar 21, 2021
   </span>
   
 
@@ -717,7 +717,7 @@
 # --skip-spring --skip-listen;   Spring caches and doesn't notice all changes (even after rails restart)
 #                                I have lost several hours not realizing Spring wasn't seeing my changes
 
-rails new calendar -T -d postgresql --webpack=stimulus --skip-spring --skip-listen
+rails new calendar -T -d postgresql --webpack=stimulus --skip-turbolinks --skip-spring
 
 cd calendar
 
@@ -727,7 +727,7 @@ cd calendar
 </code></pre>
 <h2 id="update-the-readme-and-initialize-git">update the README and initialize Git</h2>
 <pre><code>git add .
-git commit -m &quot;intial commit&quot;
+git commit -m &quot;initial commit&quot;
 git remote add origin git@gitlab.com:btihen/calendar.git
 git push -u origin master
 </code></pre>
@@ -740,7 +740,8 @@ git push -u origin master
 
 # FRONT END
 ###########
-gem &quot;stimulus_reflex&quot;, &quot;~&gt; 3.3&quot;
+gem &quot;hotwire-rails&quot;                # probably not needed as of Rails 7.x
+# gem &quot;stimulus_reflex&quot;, &quot;~&gt; 3.3&quot;  # probably superseeded by hotwire-rails
 
 # BACK END
 ##########
@@ -792,24 +793,17 @@ EOF
 <p>now run:</p>
 <p><code>bundle install</code></p>
 <p>to install all the new gems and create a <code>Gemfile.lock</code></p>
-<h2 id="javascipt-packages-to-support-new-gems">JavaScipt packages to support new Gems.</h2>
-<p><code>yarn add cable_ready stimulus_reflex</code></p>
-<h2 id="now-installconfigure-stimulus-reflex">Now Install/Configure Stimulus Reflex:</h2>
-<pre><code>bin/rails stimulus_reflex:install
-# bin/rails dev:cache
-</code></pre>
 <h2 id="install-activestorage-and-actiontext">Install ActiveStorage and ActionText</h2>
 <p>run the following commands:</p>
 <pre><code># bundle exec rails webpacker:install
 # bundle exec rails webpacker:install:stimulus
 bundle exec rails active_storage:install
 bundle exec rails action_text:install
+bin/rails hotwire:install
+bin/rails g devise:install
+bin/rails g rspec:install
 </code></pre>
-<p>No configuration is needed for development (but is needed for production environments)</p>
-<h2 id="rspec">RSPEC</h2>
-<h3 id="install-with">Install with:</h3>
-<p><code>bin/rails g rspec:install</code></p>
-<h2 id="configure">Configure:</h2>
+<h2 id="rspec-config-files">Rspec: Config Files</h2>
 <h3 id="create-needed-folders-for-our-config">Create needed folders for our config</h3>
 <pre><code>mkdir spec/features
 
@@ -987,22 +981,184 @@ RSpec.describe 'Landing Page Works without a login', type: :feature do
   end
 end
 </code></pre>
-<ol start="6">
-<li>Create DB and Test</li>
-</ol>
-<pre><code>bin/rails db:create
-bin/rails db:migrate
+<p>Test and commit</p>
+<pre><code>rake db:migrate
 bundle exec rspec
-</code></pre>
-<ol start="7">
-<li>Assuming test run and are green - we can commit a functioning setup:</li>
-</ol>
-<pre><code>git add .
-git commit -m &quot;rspec configured and working&quot;
+git add .
+git commit -m &quot;rspec: unit and feature tests configured and landing page works&quot;
 git push
 </code></pre>
-<p>If you plan to user database_cleaner &ndash; then also see this article to finish your config:</p>
-<p><a href="https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9">https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9</a></p>
+<h3 id="config-hotwire">Config Hotwire</h3>
+<p>Ensure the  In the end the <code>app/views/layouts/application.html.erb</code> looks like:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;title&gt;Tweets&lt;/title&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+  &lt;%= csrf_meta_tags %&gt;
+  &lt;%= csp_meta_tag %&gt;
+
+  &lt;!-- Bootstrap 4 if interested
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css&quot; integrity=&quot;sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l&quot; crossorigin=&quot;anonymous&quot;&gt;
+  --&gt;
+  &lt;%= stylesheet_link_tag 'application', media: 'all' %&gt;
+  &lt;%= javascript_pack_tag 'application' %&gt;
+  &lt;%= yield :head %&gt;
+  &lt;%= turbo_include_tags %&gt;
+  &lt;%# stimulus_include_tags %&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p class=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
+  &lt;p class=&quot;alert&quot;&gt;&lt;%= alert %&gt;&lt;/p&gt;
+  &lt;%= yield %&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<h3 id="devise--user-config">Devise / User Config</h3>
+<p>Configure dev email for devise:</p>
+<pre><code># config/environments/development.rb:
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+</code></pre>
+<p>Create the user and migration</p>
+<pre><code>rails g devise user
+# if you will make a custom login (probably needed to look nice)
+# rails g devise:views
+</code></pre>
+<p>Adjust the migration:</p>
+<pre><code>class DeviseCreateUsers &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      ## Database authenticatable
+      t.string :email,              null: false, default: &quot;&quot;
+      t.string :encrypted_password, null: false, default: &quot;&quot;
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+
+      ## Trackable
+      t.integer  :sign_in_count, default: 0, null: false
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.string   :current_sign_in_ip
+      t.string   :last_sign_in_ip
+
+      ## Confirmable
+      # t.string   :confirmation_token
+      # t.datetime :confirmed_at
+      # t.datetime :confirmation_sent_at
+      # t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Lockable
+      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+      # t.string   :unlock_token # Only if unlock strategy is :email or :both
+      # t.datetime :locked_at
+
+      t.timestamps null: false
+    end
+
+    add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+    # add_index :users, :confirmation_token,   unique: true
+    # add_index :users, :unlock_token,         unique: true
+  end
+end
+</code></pre>
+<p>Route file should now look like:</p>
+<pre><code>Rails.application.routes.draw do
+  devise_for :users
+  get 'landing/index'
+  root to: &quot;landing#index&quot;
+end
+</code></pre>
+<p>We will update the user model with password complexity validation:</p>
+<pre><code>class User &lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  validate :password_complexity
+
+  def password_complexity
+    # Regexp extracted from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    return if password.blank? || password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{10,70}$/
+
+    errors.add :password, 'Complexity requirement not met. Length should be 10-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character'
+  end
+end
+</code></pre>
+<p>Create the user Factory (which also uses Faker):</p>
+<pre><code># spec/factories/users.rb
+FactoryBot.define do
+  factory :user do
+    email       { Faker::Internet.safe_email }  # probably need to add index for uniqueness
+    password    { Faker::Internet.password(min_length: 10, max_length: 50, mix_case: true, special_characters: true) }
+  end
+  trait :invalid do
+    email       { Faker::Internet.username }
+    password    { &quot;hoi&quot; }
+  end
+end
+</code></pre>
+<p>Create the user spec (uses FactoryBot &amp; Shoulda):</p>
+<pre><code># spec/models/user_spec.rb
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
+  describe &quot;Factory with&quot; do
+
+    context &quot;default parameters&quot; do
+      it &quot;creates a valid model&quot; do
+        user = FactoryBot.build :user
+        expect(user.valid?).to be_truthy
+      end
+    end
+
+    context &quot;invalid parameters&quot; do
+      it &quot;fails model validation&quot; do
+        user = FactoryBot.build :user, :invalid
+        expect(user.valid?).to be_falsey
+      end
+    end
+  end
+
+  context &quot;ActiveRecord / DB Tests&quot; do
+    it { should have_db_column(:email) }
+    it { should have_db_index(:email).unique }
+  end
+
+  context &quot;ActiveModel / Validations&quot; do
+    it &quot;detects a bad email&quot; do
+      user = FactoryBot.build :user, email: &quot;bill&quot;
+      expect(user.valid?).to be_falsey
+      expect(user.errors.messages[:email]).to match_array [&quot;is invalid&quot;]
+    end
+    it &quot;detects a non-compliant password&quot; do
+      user = FactoryBot.build :user, password: &quot;hoi&quot;
+      expect(user.valid?).to be_falsey
+      expect(user.errors.messages[:password]).to match_array [&quot;is too short (minimum is 6 characters)&quot;,
+                                                              &quot;Complexity requirement not met. Length should be 10-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character&quot;]
+    end
+  end
+
+end
+</code></pre>
+<h3 id="test-setup-and-commit-when-green">Test setup and commit when green:</h3>
+<pre><code>rake db:migrate
+bundle exec rspec
+git add .
+git commit -m &quot;devise configured, FactoryBot, Faker and Shoulda working&quot;
+git push
+</code></pre>
+<h2 id="create-user-landing--profile-page-autoredirect">create user landing / profile page (autoredirect)</h2>
+<h2 id="test-restricted-logins">Test restricted logins</h2>
 <p>a basic login feature test might look like:</p>
 <pre><code>require 'rails_helper'
 
@@ -1019,6 +1175,163 @@ RSpec.describe 'Users Login', type: :feature do
   end
 end
 </code></pre>
+<h2 id="install-fonts--icons">Install Fonts / Icons</h2>
+<h3 id="fontawesome-good-with-bulma">Fontawesome (Good with Bulma)</h3>
+<p><a href="https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d">https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d</a></p>
+<pre><code>yarn add @fortawesome/fontawesome-free
+</code></pre>
+<p>update application.scss</p>
+<pre><code>$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/brands';
+@import '@fortawesome/fontawesome-free/scss/v4-shims';
+</code></pre>
+<p>update application.js</p>
+<pre><code>import &quot;@fortawesome/fontawesome-free/js/all&quot;;
+</code></pre>
+<p>or via cdn: vhttps://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
+add to <code>application.html.erb</code> ()</p>
+<pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot;
+      href=&quot;https://pro.fontawesome.com/releases/v5.10.0/css/all.css&quot;
+      integrity=&quot;sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p&quot;
+      crossorigin=&quot;anonymous&quot;/&gt;
+</code></pre>
+<h2 id="install-bulma-a-css-framework-if-desired">Install BULMA: a CSS Framework (if desired)</h2>
+<p>Bulma is a relatively new CSS framework. It feels like a light, streamlined alternative to Bootstrap. Bulma doesn’t include any JavaScript at all. This means some stuff just won’t work out of the box. For example, the burger menu won’t toggle without a little JavaScript help. We’ll get to that later.</p>
+<pre><code>yarn add bulma
+</code></pre>
+<p>Open app/javascript/packs/application.js and add the following to the top:</p>
+<pre><code>import '../styles'
+</code></pre>
+<p>Create app/javascript/styles.scss:</p>
+<pre><code>@import '~bulma/bulma';
+</code></pre>
+<p>customize bulma by adding to the top of <code>styles.scss</code> file: <a href="https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint">https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint</a></p>
+<pre><code>@import &quot;~bulma/sass/utilities/initial-variables.sass&quot;;
+$navbar-breakpoint: $tablet;
+@import &quot;~bulma/bulma.sass&quot;;
+@import '~bulma/bulma';
+</code></pre>
+<p>choices are: $desktop (default 960px), $tablet (769px), $widescreen (1152px), $fullhd (1344px)
+variable defaults: <a href="https://bulma.io/documentation/customize/variables/">https://bulma.io/documentation/customize/variables/</a>
+variables that can be set: <a href="https://bulma-customizer.bstash.io">https://bulma-customizer.bstash.io</a></p>
+<h3 id="a-sample-bulma-navbar">A sample Bulma navbar</h3>
+<p>Open app/views/layouts/application.html.erb and add the following just above the yield line:</p>
+<pre><code>&lt;%= render 'layouts/navbar' %&gt;
+</code></pre>
+<p>Create app/views/layouts/_navbar.html.erb:</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;nav class=&quot;navbar&quot;&gt;
+    &lt;div class=&quot;navbar-brand&quot;&gt;
+      &lt;a class=&quot;navbar-item&quot; href=&quot;#&quot;&gt;
+        &lt;img src=&quot;https://bulma.io/images/bulma-logo.png&quot; width=&quot;112&quot; height=&quot;28&quot;&gt;
+      &lt;/a&gt;
+      &lt;div class=&quot;navbar-burger burger&quot; data-target=&quot;main-nav&quot;&gt;
+        &lt;span&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;main-nav&quot; class=&quot;navbar-menu&quot;&gt;
+      &lt;div class=&quot;navbar-start&quot;&gt;
+        &lt;%= link_to root_url, class: 'navbar-item' do %&gt;
+          &lt;span class=&quot;icon&quot;&gt;
+            &lt;i class=&quot;far fa-gem&quot;&gt;&lt;/i&gt;
+          &lt;/span&gt;
+          &lt;span&gt;Home&lt;/span&gt;
+        &lt;% end %&gt;
+        &lt;%= link_to home_about_url, class: 'navbar-item' do %&gt;
+          &lt;span class=&quot;icon&quot;&gt;
+            &lt;i class=&quot;far fa-star&quot;&gt;&lt;/i&gt;
+          &lt;/span&gt;
+          &lt;span&gt;About&lt;/span&gt;
+        &lt;% end %&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;
+</code></pre>
+<p>This is basically copied from the Bulma examples. It is a basic nav bar with two menu items; Home and About.</p>
+<p>We now have all the pieces in place and can start wiring up our Stimulus controllers.</p>
+<p>Create a Stimulus controller
+To keep this example simple, we’re going to create a single controller which we’ll attach to the body tag in the main layout. This controller will be responsible for rendering the Font Awesome icons (as described in a previous post) as well as handling our Bulma burger menu.</p>
+<p>Create app/javascript/controllers/main_controller.js:</p>
+<pre><code>import fontawesome from '@fortawesome/fontawesome'
+import icons from '@fortawesome/fontawesome-free-regular'
+import { Controller } from 'stimulus'
+export default class extends Controller {
+  initialize() {
+    fontawesome.library.add(icons)
+  }
+  connect() {
+    fontawesome.dom.i2svg()
+
+    // Get all &quot;navbar-burger&quot; elements
+    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length &gt; 0) {
+
+      // Add a click event on each of them
+      $navbarBurgers.forEach(function ($el) {
+        $el.addEventListener('click', function () {
+
+          // Get the target from the &quot;data-target&quot; attribute
+          var target = $el.dataset.target;
+          var $target = document.getElementById(target);
+
+          // Toggle the class on both the &quot;navbar-burger&quot; and the &quot;navbar-menu&quot;
+          $el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+
+        });
+      });
+    }
+  }
+}
+</code></pre>
+<p>This controller imports the icons from Font Awesome when initialize is called. Every time connect is called it renders the icons and then searches for navbar burgers to attach the appropriate click events on.</p>
+<p>Connect the controller
+Now we want to connect the body tag to our controller using an HTML5 data attribute.</p>
+<p>Open <code>app/views/layouts/application.html.erb</code> and add the following attribute to the <code>&lt;body&gt;</code> tag.</p>
+<pre><code>&lt;body data-controller=&quot;main&quot;&gt;
+</code></pre>
+<p>Now it should look like:</p>
+<pre><code># app/views/layouts/application.html.erb
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;title&gt;Tweets&lt;/title&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+  &lt;%= csrf_meta_tags %&gt;
+  &lt;%= csp_meta_tag %&gt;
+
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css&quot; integrity=&quot;sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l&quot; crossorigin=&quot;anonymous&quot;&gt;
+  &lt;%= stylesheet_link_tag 'application', media: 'all' %&gt;
+  &lt;%= javascript_pack_tag 'application' %&gt;
+  &lt;%= yield :head %&gt;
+  &lt;%= turbo_include_tags %&gt;
+  &lt;%# stimulus_include_tags %&gt;
+&lt;/head&gt;
+
+&lt;body data-controller=&quot;main&quot;&gt;
+  &lt;%= render 'layouts/navbar' %&gt;
+  &lt;p class=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
+  &lt;p class=&quot;alert&quot;&gt;&lt;%= alert %&gt;&lt;/p&gt;
+  &lt;%= yield %&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p><a href="https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html">https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html</a></p>
+<h3 id="discourgaged---no-longer-necessary">Discourgaged - no longer necessary:</h3>
+<p>If you plan to user database_cleaner &ndash; then also see this article to finish your config:</p>
+<p><a href="https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9">https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9</a></p>
 
     </div>
 
@@ -1056,7 +1369,7 @@ end
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/&amp;text=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_install_n_configure/&amp;text=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1069,7 +1382,7 @@ end
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/&amp;t=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_install_n_configure/&amp;t=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1082,7 +1395,7 @@ end
       
       
       <li>
-        <a href="mailto:?subject=Install%20and%20Configure%20Rails&amp;body=https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Install%20and%20Configure%20Rails&amp;body=https://btihen.me/post_ruby_rails/rails_6_install_n_configure/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1095,7 +1408,7 @@ end
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/&amp;title=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_install_n_configure/&amp;title=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1108,7 +1421,7 @@ end
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Install%20and%20Configure%20Rails%20https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Install%20and%20Configure%20Rails%20https://btihen.me/post_ruby_rails/rails_6_install_n_configure/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1121,7 +1434,7 @@ end
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/robust_rails_01_install_configure/&amp;title=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_install_n_configure/&amp;title=Install%20and%20Configure%20Rails" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
