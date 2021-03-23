@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>authentication | btihen</title>
+    <link>https://btihen.me/tags/authentication/</link>
+      <atom:link href="https://btihen.me/tags/authentication/index.xml" rel="self" type="application/rss+xml" />
+    <description>authentication</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 10 Jul 2020 20:45:51 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>authentication</title>
+      <link>https://btihen.me/tags/authentication/</link>
+    </image>
+    
+    <item>
+      <title>Rails Devise User Model with Roles</title>
+      <link>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</link>
+      <pubDate>Fri, 10 Jul 2020 20:45:51 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</guid>
+      <description>&lt;h2 id=&#34;configure-devise-for-multiple-types-of-accounts&#34;&gt;Configure devise (for multiple types of accounts)&lt;/h2&gt;
+&lt;p&gt;install the devise engine:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails generate devise:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now follow the basic setup config &amp;ndash; add to &lt;code&gt;config/environments/development.rb&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;add notifications to the layout for devise in &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; just above &lt;code&gt;&amp;lt;%= yeild %&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&amp;quot;alert&amp;quot;&amp;gt;&amp;lt;%= alert %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now create one or more models for devise:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g devise:views
+rails generate devise user
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the routes to put the login in separate routes in &lt;code&gt;config/routes.rb&lt;/code&gt; - make the routes look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  devise_for :users,  path: &#39;users&#39;  # http://localhost:3000/users/sign_in
+  devise_for :admins, path: &#39;admins&#39; # http://localhost:3000/admins/sign_in
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;turn on scoped views (since login forms can be different) in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.scoped_views = true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the scoped views: (instead of: rails g devise:views) do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g devise:views users/devise
+rails g devise:views admins/devise
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we should open these migrations and uncomment any added fields we use - I generally like to use most of the fields:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# frozen_string_literal: true
+
+class DeviseCreateAdmins &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    create_table :admins do |t|
+      ## Database authenticatable
+      t.string :email,              null: false, default: &amp;quot;&amp;quot;
+      t.string :encrypted_password, null: false, default: &amp;quot;&amp;quot;
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+
+      ## Trackable
+      t.integer  :sign_in_count, default: 0, null: false
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.inet     :current_sign_in_ip
+      t.inet     :last_sign_in_ip
+
+      ## Confirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Lockable
+      t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+      t.string   :unlock_token # Only if unlock strategy is :email or :both
+      t.datetime :locked_at
+
+      t.timestamps null: false
+    end
+
+    add_index :admins, :email,                unique: true
+    add_index :admins, :reset_password_token, unique: true
+    add_index :admins, :confirmation_token,   unique: true
+    add_index :admins, :unlock_token,         unique: true
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and adjust the &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;admin&lt;/code&gt; models too and turn on the features we want or need. We will go into detail later, for now I will just add trackable to the models:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class User &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :trackable,
+         :recoverable, :rememberable, :validatable
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and of course migrate too.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create custome controllers for each sessions - this also allows the users to have different fields and features:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails generate devise:controllers users/devise
+rails generate devise:controllers admins/devise
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;configure the routes to point to these new controllers:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  # http://localhost:3000/users/sign_in
+  devise_for :users,  path: &#39;users&#39;,
+                      controllers: {
+                        sessions:      &#39;users/devise/sessions&#39;,
+                        passwords:     &#39;users/devise/passwords&#39;,
+                        registrations: &#39;users/devise/registrations&#39;
+                      }
+  # http://localhost:3000/admins/sign_in
+  devise_for :admins, path: &#39;admins&#39;,
+                      controllers: {
+                        sessions:      &#39;admins/devise/sessions&#39;,
+                        passwords:     &#39;admins/devise/passwords&#39;,
+                        registrations: &#39;admins/devise/registrations&#39;
+                      }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now the routes should look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ bin/rails routes
+                     Prefix Verb   URI Pattern                        Controller#Action
+           new_user_session GET    /users/sign_in(.:format)           users/sessions#new
+               user_session POST   /users/sign_in(.:format)           users/sessions#create
+       destroy_user_session DELETE /users/sign_out(.:format)          users/sessions#destroy
+          new_user_password GET    /users/password/new(.:format)      users/passwords#new
+         edit_user_password GET    /users/password/edit(.:format)     users/passwords#edit
+              user_password PATCH  /users/password(.:format)          users/passwords#update
+                            PUT    /users/password(.:format)          users/passwords#update
+                            POST   /users/password(.:format)          users/passwords#create
+   cancel_user_registration GET    /users/cancel(.:format)            user/registrations#cancel
+      new_user_registration GET    /users/sign_up(.:format)           user/registrations#new
+     edit_user_registration GET    /users/edit(.:format)              user/registrations#edit
+          user_registration PATCH  /users(.:format)                   user/registrations#update
+                            PUT    /users(.:format)                   user/registrations#update
+                            DELETE /users(.:format)                   user/registrations#destroy
+                            POST   /users(.:format)                   user/registrations#create
+          new_admin_session GET    /admins/sign_in(.:format)          admin/sessions#new
+              admin_session POST   /admins/sign_in(.:format)          admin/sessions#create
+      destroy_admin_session DELETE /admins/sign_out(.:format)         admin/sessions#destroy
+         new_admin_password GET    /admins/password/new(.:format)     admin/passwords#new
+        edit_admin_password GET    /admins/password/edit(.:format)    admin/passwords#edit
+             admin_password PATCH  /admins/password(.:format)         admin/passwords#update
+                            PUT    /admins/password(.:format)         admin/passwords#update
+                            POST   /admins/password(.:format)         admin/passwords#create
+  cancel_admin_registration GET    /admins/cancel(.:format)           admin/registrations#cancel
+     new_admin_registration GET    /admins/sign_up(.:format)          admin/registrations#new
+    edit_admin_registration GET    /admins/edit(.:format)             admin/registrations#edit
+         admin_registration PATCH  /admins(.:format)                  admin/registrations#update
+                            PUT    /admins(.:format)                  admin/registrations#update
+                            DELETE /admins(.:format)                  admin/registrations#destroy
+                            POST   /admins(.:format)                  admin/registrations#create
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets make logged in home pages (for the user and admin)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
+rails g controller admins/home index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets update our routes to ponit to these pages if the user is logged in add the following belos the deivse_for commands&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Rails.application.routes.draw do
+  # http://localhost:3000/admins/sign_in
+  devise_for :admins, path: &#39;admins&#39;,
+                      controllers: {
+                        sessions:      &#39;admins/devise/sessions&#39;,
+                        passwords:     &#39;admins/devise/passwords&#39;,
+                        registrations: &#39;admins/devise/registrations&#39;
+                      }
+  # http://localhost:3000/umdzes/sign_in
+  devise_for :umdzes, path: &#39;umdzes&#39;,
+                      controllers: {
+                        sessions:      &#39;umdzes/devise/sessions&#39;,
+                        passwords:     &#39;umdzes/devise/passwords&#39;,
+                        registrations: &#39;umdzes/devise/registrations&#39;
+                      }
+  # http://localhost:3000/patrons/sign_in
+  devise_for :patrons,  path: &#39;patrons&#39;,
+                      controllers: {
+                        sessions:      &#39;patrons/devise/sessions&#39;,
+                        passwords:     &#39;patrons/devise/passwords&#39;,
+                        registrations: &#39;patrons/devise/registrations&#39;
+                      }
+
+  authenticated :patron do
+    root &#39;patrons/home#index&#39;,     as: :auth_patron_root
+  end
+  authenticated :umdze do
+    root &#39;umdzes/home#index&#39;,      as: :auth_umdze_root
+  end
+  authenticated :admin do
+    root &#39;admins/home#index&#39;, as: :auth_admin_root
+  end
+
+
+  namespace :admins do
+    get &#39;home/index&#39;
+    # resource  :home_page,        only: [:index]
+  end
+  get &#39;/admins&#39;, to: &#39;admins/home#index&#39;, as: :admins
+
+  namespace :umdzes do
+    get &#39;home/index&#39;
+    # resource  :home_page,        only: [:index]
+  end
+  get &#39;/umdzes&#39;, to: &#39;umdzes/home#index&#39;, as: :umdzes
+
+  namespace :patrons do
+    get &#39;home/index&#39;
+    # resource  :home_page,        only: [:index]
+  end
+  get &#39;/patrons&#39;, to: &#39;patrons/home#index&#39;, as: :patrons
+
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  get &#39;landing/index&#39;
+  root to: &amp;quot;landing#index&amp;quot;
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-lets-make-applicationcontrollers-for-each-namespace--enforce-authentication&#34;&gt;now lets make ApplicationControllers for each namespace &amp;amp; enforce authentication&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;touch app/controllers/admins/application_controller.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/admins/application_controller.rb
+class Admins::ApplicationController &amp;lt; ApplicationController
+  before_action :authenticate_admin!
+
+  private
+
+  def this_user
+    current_admin
+  end
+end
+EOF
+
+touch app/controllers/umdzes/application_controller.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/umdzes/application_controller.rb
+class Umdzes::ApplicationController &amp;lt; ApplicationController
+  before_action :authenticate_umdze!, unless: :allowed_access
+
+  private
+
+  def allowed_access
+    current_admin
+  end
+
+  def this_user
+    current_umdze || current_admin
+  end
+end
+EOF
+
+touch app/controllers/patrons/application_controller.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/patrons/application_controller.rb
+class Patrons::ApplicationController &amp;lt; ApplicationController
+  before_action :authenticate_patron!, unless: :allowed_access
+
+  private
+  def allowed_access
+    current_umdze || current_admin
+  end
+
+  def this_user
+    current_patron || current_umdze || current_admin
+  end
+end
+EOF
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;now-we-will-inhert-from-these-new-controllers-and-enforce-limits&#34;&gt;now we will inhert from these new controllers and enforce limits&lt;/h1&gt;
+&lt;p&gt;now lets require these pages to have authenticated the correct user type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/admins/home_controller.rb
+class Admins::HomeController &amp;lt; Admins::ApplicationController
+  def index
+  end
+end
+
+# app/controllers/umdzes/home_controller.rb
+class Umdzes::HomeController &amp;lt; Umdzes::ApplicationController
+  def index
+  end
+end
+
+# app/controllers/patrons/home_controller.rb
+class Patrons::HomeController &amp;lt; Patrons::ApplicationController
+  def index
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-prevent-student-and-admin-accounts-from-cross-visits-during-testing-or-whatever&#34;&gt;Now prevent student and admin accounts from cross visits (during testing, or whatever)&lt;/h2&gt;
+&lt;p&gt;create this new file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;touch app/controllers/concerns/accessible.rb
+cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/concerns/accessible.rb
+module Accessible
+  extend ActiveSupport::Concern
+  included do
+    before_action :check_user
+  end
+
+  protected
+  def check_user
+    if current_admin
+      flash.clear
+      # The authenticated admin root path can be defined in your routes.rb in: devise_scope :admin do...
+      redirect_to(auth_admin_root_path) and return
+    elsif current_umdze
+      flash.clear
+      # The authenticated admin root path can be defined in your routes.rb in: devise_scope :admin do...
+      redirect_to(auth_umdze_root_path) and return
+    elsif current_patron
+      flash.clear
+      # The authenticated user root path can be defined in your routes.rb in: devise_scope :user do...
+      redirect_to(auth_partron_root_path) and return
+    end
+  end
+end
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;use-this-accessible-concern&#34;&gt;use this accessible concern&lt;/h2&gt;
+&lt;p&gt;Now add &lt;code&gt;include Accessible&lt;/code&gt; in the appropriate controllers:&lt;/p&gt;
+&lt;p&gt;Note:
+You must skip_before_action for the destroy action in each SessionsController to prevent the redirect to happen before the sign out occurs.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# eg. ../controllers/admins/sessions_controller.rb
+class Admins::SessionsController &amp;lt; Devise::SessionsController
+ include Accessible
+ skip_before_action :check_user, only: :destroy
+ # ...
+end
+
+# eg. ../controllers/admins/registrations_controller.rb
+You must also skip_before_action for the edit, update, destroy, and cancel actions in each RegistrationsController to allow current users to edit and cancel their own accounts. Otherwise they will be redirected before they can reach these pages.
+
+class Admins::RegistrationsController &amp;lt; Devise::RegistrationsController
+ include Accessible
+ skip_before_action :check_user, except: [:new, :create]
+ # ...
+end
+
+# eg. ../controllers/umdzes/sessions_controller.rb
+class Umdzes::SessionsController &amp;lt; Devise::SessionsController
+
+ include Accessible
+ skip_before_action :check_user, only: :destroy
+ # ...
+end
+
+# eg. ../controllers/umdzes/registrations_controller.rb
+class Umdzes::RegistrationsController &amp;lt; Devise::RegistrationsController
+
+ include Accessible
+ skip_before_action :check_user, except: [:new, :create]
+ # ...
+end
+
+# eg. ../controllers/patrons/sessions_controller.rb
+class Patrons::SessionsController &amp;lt; Devise::SessionsController
+
+ include Accessible
+ skip_before_action :check_user, only: :destroy
+ # ...
+end
+
+# eg. ../controllers/patrons/registrations_controller.rb
+class Patrons::RegistrationsController &amp;lt; Devise::RegistrationsController
+
+ include Accessible
+ skip_before_action :check_user, except: [:new, :create]
+ # ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;now-lets-give-the-patron-account-a-usernames&#34;&gt;now lets give the patron account a usernames&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rails generate migration add_username_to_patrons username:string:uniq
+rails generate migration add_umdzes_name_to_umdzes fullname:string
+rails generate migration add_admins_name_to_admins fullname:string
+
+# now update the new migration to look like:
+class AddUsernamToPatrons &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    # username is key not email - in fact we don&#39;t want an email
+    rename_column :patrons, :email, :username
+  end
+end
+
+class AddFullnameToUmdzes &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    add_column :umdzes, :umdzes_name, :string, null: false
+  end
+end
+
+class AddFullnameToAdmins &amp;lt; ActiveRecord::Migration[6.0]
+  def change
+    add_column :admins, :admins_name, :string, null: false
+  end
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;update-the-models&#34;&gt;update the models&lt;/h2&gt;
+&lt;p&gt;now we need to go to the models and make the following updates:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/models/admin.rb
+class Admin &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise  :database_authenticatable, :trackable, # :registerable,
+          :rememberable, :validatable #, :recoverable
+
+  validates :email, uniqueness: true
+  validates :admins_name, presence: true
+end
+
+# app/models/umdze.rb
+class Umdze &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise  :database_authenticatable, :trackable, # :registerable,
+          :rememberable, :validatable #, :recoverable
+
+  validates :email, uniqueness: true
+  validates :umdzes_name, presence: true
+end
+
+
+# app/models/patrons.rb
+class Patron &amp;lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise  :database_authenticatable, :trackable, # :registerable,
+          :rememberable, :validatable, # :recoverable
+          :authentication_keys =&amp;gt; [:username]
+
+  validates :username, uniqueness: true
+  # make the email field optional
+  # validates :email, uniqueness: true
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
+  # use this instead of email_changed? for Rails = 5.1.x
+  def will_save_change_to_email?
+    false
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we can safely migrate &lt;code&gt;bundle exec rails db:migrate&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;lets-test-our-logins&#34;&gt;lets test our logins&lt;/h2&gt;
+&lt;p&gt;lets create some common feature test code:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&#34;&gt;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&lt;/a&gt;
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/support/features/session_helpers.rb
+module Features
+  module SessionHelpers
+    # def patron_sign_up(username:, password:)
+    #   visit new_patron_registration_path
+    #   expect(page).to have_button(&#39;Sign up&#39;)
+    #   fill_in &#39;Username&#39;, with: username
+    #   fill_in &#39;Password&#39;, with: password
+    #   click_button &#39;Sign up&#39;
+    # end
+    def patron_log_in(patron = nil)
+      patron = FactoryBot.create :patron if patron.nil?
+      visit new_patron_session_path
+      expect(page).to have_button(&#39;Log in&#39;)
+      fill_in &#39;Username&#39;, with: patron.username
+      fill_in &#39;Password&#39;, with: patron.password
+      click_on &#39;Log in&#39;
+    end
+
+    # def umdze_sign_up(email:, password:)
+    #   visit new_umdze_registration_path
+    #   expect(page).to have_button(&#39;Sign up&#39;)
+    #   fill_in &#39;Email&#39;, with: email
+    #   fill_in &#39;Password&#39;, with: password
+    #   click_button &#39;Sign up&#39;
+    # end
+    def umdze_log_in(umdze = nil)
+      umdze = FactoryBot.create :umdze if umdze.nil?
+      visit new_admin_session_path
+      expect(page).to have_button(&#39;Log in&#39;)
+      fill_in &#39;Email&#39;, with: admin.email
+      fill_in &#39;Password&#39;, with: admin.password
+      click_on &#39;Log in&#39;
+    end
+
+    # def admin_sign_up(email:, password:)
+    #   visit new_admin_registration_path
+    #   expect(page).to have_button(&#39;Sign up&#39;)
+    #   fill_in &#39;Email&#39;, with: email
+    #   fill_in &#39;Password&#39;, with: password
+    #   click_button &#39;Sign up&#39;
+    # end
+    def admin_log_in(admin = nil)
+      admin = FactoryBot.create :admin if admin.nil?
+      visit new_admin_session_path
+      expect(page).to have_button(&#39;Log in&#39;)
+      fill_in &#39;Email&#39;, with: admin.email
+      fill_in &#39;Password&#39;, with: admin.password
+      click_on &#39;Log in&#39;
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We are not allowing registrations, so that code is commented out.  However, we see we must configure our factories for this code to work.&lt;/p&gt;
+&lt;p&gt;Lets tell rspec how to access this code in feature tests:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/support/features.rb
+RSpec.configure do |config|
+  config.include Features::SessionHelpers, type: :feature
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;lets-create-test-for-our-devise-model-factories&#34;&gt;Lets create test for our devise model factories:&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# spec/models/patron_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe User, type: :model do
+  describe &amp;quot;factory functions&amp;quot; do
+    it &amp;quot;generates a valid user&amp;quot; do
+      model = FactoryBot.build :user
+      expect(model.valid?).to be true
+    end
+    it &amp;quot;saves a valid user&amp;quot; do
+      model = FactoryBot.build :user
+      expect(model.save).to be_truthy
+    end
+  end
+
+  describe &amp;quot;DB settings&amp;quot; do
+    it { have_db_index(:email) }
+    it { is_expected.to have_db_column(:encrypted_password) }
+  end
+end
+
+# spec/models/admin_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe Admin, type: :model do
+  describe &amp;quot;factory functions&amp;quot; do
+    it &amp;quot;generates a valid admin&amp;quot; do
+      model = FactoryBot.build :admin
+      expect(model.valid?).to be true
+    end
+    it &amp;quot;saves a valid admin&amp;quot; do
+      model = FactoryBot.build :admin
+      expect(model.save).to be_truthy
+    end
+  end
+
+  describe &amp;quot;DB settings&amp;quot; do
+    it { have_db_index(:email) }
+    it { is_expected.to have_db_column(:encrypted_password) }
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure these fail - run:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to configure the factories so all is working:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/factories/patrons.rb
+FactoryBot.define do
+  factory :user do
+    sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
+    password              { &#39;LetM3-InNow&#39; }
+    password_confirmation { &#39;LetM3-InNow&#39; }
+    # enable this if using confirmable
+    # confirmed_at { Date.today }
+  end
+end
+
+# spec/factories/umdzes.rb
+FactoryBot.define do
+  factory :umdze do
+    sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
+    password              { &#39;LetM3-InNow!&#39; }
+    password_confirmation { &#39;LetM3-InNow!&#39; }
+    umdzes_name           { &amp;quot;#{Faker::Name.first_name} #{Faker::Name.last_name}&amp;quot; }
+    # enable this if using confirmable
+    # confirmed_at          { Date.today }
+  end
+end
+
+# spec/factories/admins.rb
+FactoryBot.define do
+  factory :admin do
+    sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
+    password              { &#39;LetM3-InNow!&#39; }
+    password_confirmation { &#39;LetM3-InNow!&#39; }
+    admins_name           { &amp;quot;#{Faker::Name.first_name} #{Faker::Name.last_name}&amp;quot; }
+    # enable this if using confirmable
+    # confirmed_at          { Date.today }
+  end
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure these pass now - run:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we are ready to test devise and our restricted access to the users home page:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.madetech.com/blog/feature-testing-with-rspec&#34;&gt;https://www.madetech.com/blog/feature-testing-with-rspec&lt;/a&gt;
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;
+&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&lt;/a&gt;
+&lt;a href=&#34;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&#34;&gt;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&lt;/a&gt;
+&lt;a href=&#34;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&#34;&gt;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/features/users/user_signup_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Home Page&#39;, type: :feature do
+  # note user is NOT created in DB!
+  let(:user)  { FactoryBot.build :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;user is not signed-up&#39; do
+    scenario &#39;user signs-up on registration page&#39; do
+      user_sign_up(email: user.email, password: user.password)
+      expect(current_path).to eql(users_home_path)
+    end
+  end
+end
+
+
+# spec/features/users/user_login_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Login&#39;, type: :feature do
+  let(:user)  { FactoryBot.create :user }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;user logs in successfully&#39; do
+    scenario &#39;and is redirected to user home page&#39; do
+      user_log_in(user)
+      expect(current_path).to eql(auth_user_root_path)
+    end
+  end
+end
+
+
+# spec/features/users_home_page_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Home Page&#39;, type: :feature do
+  let(:user)    { FactoryBot.create :user }
+  after :each do
+    # force a logout (clear warden info) after each test
+    Warden.test_reset!
+  end
+  describe &#39;user is not authenticated&#39; do
+    scenario &#39;user is redirected to user login before access to user home&#39; do
+      visit users_home_path
+      expect(current_path).to eql(new_user_session_path)
+    end
+  end
+  describe &#39;user is already authenticated&#39; do
+    before    { user_log_in(user) }
+    scenario &#39;user gets direct access to the user homepage&#39; do
+      visit users_home_path
+      expect(page).to have_current_path(users_home_path)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and test to be sure admin can log in too:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/features/admins/admin_login_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Users Login&#39;, type: :feature do
+  after :each do
+    Warden.test_reset!
+  end
+  scenario &#39;logs in successfully and is redirected to user home page&#39; do
+    admin_log_in
+    expect(current_path).to eql(auth_admin_root_path)
+  end
+end
+
+
+# spec/features/admins/admin_signup_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Admin Signup&#39;, type: :feature do
+  # IMPORTANT is NOT created in DB!
+  let(:admin)  { FactoryBot.build :admin }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;admin is not signed-up&#39; do
+    scenario &#39;admin registers&#39; do
+      admin_sign_up(email: admin.email, password: admin.password)
+      expect(page).to have_current_path(admins_home_path)
+    end
+  end
+end
+
+
+# spec/features/admins/admins_home_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &#39;Admins Home&#39;, type: :feature do
+  let(:admin)  { FactoryBot.create :admin }
+  after :each do
+    Warden.test_reset!
+  end
+  describe &#39;un-authenticated&#39; do
+    scenario &#39;attempts to access admins home page is redirected to user login&#39; do
+      visit admins_home_path
+      expect(current_path).to eql(new_admin_session_path)
+    end
+  end
+  describe &#39;already authenticated&#39; do
+    before    { admin_log_in(admin) }
+    scenario &#39;gets access to the user homepage&#39; do
+      visit admins_home_path
+      expect(current_path).to eql(admins_home_path)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;before we wrap up - we need to fix our request specs - now that we added login restrictions:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# spec/requests/users/home_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Patron::Homes&amp;quot;, type: :request do
+
+  let(:patron)   { FactoryBot.create :patron }
+
+  describe &amp;quot;GET /index&amp;quot; do
+    context &amp;quot;NOT logged in&amp;quot; do
+      after do
+        sign_out patron
+      end
+      it &amp;quot;home as &#39;/patrons&#39; page is NOT accessible&amp;quot; do
+        get &amp;quot;/patrons&amp;quot;
+        expect(response).to have_http_status(:redirect)
+        # to login
+      end
+      it &amp;quot;home as &#39;patron_home_path&#39; page is NOT accessible&amp;quot; do
+        get patrons_home_path
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;auth_patron_root_path&#39; page is NOT accessible&amp;quot; do
+        get auth_patron_root_path
+        expect(response).to have_http_status(:success)
+        # here we need page match for different root routes
+      end
+    end
+
+    context &amp;quot;logged in&amp;quot; do
+      before do
+        sign_in patron
+      end
+      after do
+        sign_out patron
+      end
+      it &amp;quot;home as &#39;/patrons&#39; page is accessible&amp;quot; do
+        get &amp;quot;/patrons&amp;quot;
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;patrons_home_path&#39; page is accessible&amp;quot; do
+        get patrons_home_path
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;auth_patron_root_path&#39; page is accessible&amp;quot; do
+        get auth_patron_root_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+end
+
+# spec/requests/umdze/home_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Umdze::Homes&amp;quot;, type: :request do
+  let(:umdze)   { FactoryBot.create :umdze }
+
+  describe &amp;quot;GET /index&amp;quot; do
+    context &amp;quot;NOT logged in&amp;quot; do
+      after do
+        sign_out umdze
+      end
+      it &amp;quot;home as &#39;/umdzes&#39; page is NOT accessible&amp;quot; do
+        get &amp;quot;/umdzes&amp;quot;
+        expect(response).to have_http_status(:redirect)
+        # to login
+      end
+      it &amp;quot;home as &#39;umdzes_home_path&#39; page is NOT accessible&amp;quot; do
+        get umdzes_home_path
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;auth_umdze_root_path&#39; page is NOT accessible&amp;quot; do
+        get auth_umdze_root_path
+        expect(response).to have_http_status(:success)
+        # here we need page match for different root routes
+      end
+    end
+
+    context &amp;quot;logged in&amp;quot; do
+      before do
+        sign_in umdze
+      end
+      after do
+        sign_out umdze
+      end
+      it &amp;quot;home as &#39;/umdzes&#39; page is accessible&amp;quot; do
+        get &amp;quot;/umdzes&amp;quot;
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;umdzes_home_path&#39; page is accessible&amp;quot; do
+        get umdzes_home_path
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;auth_umdze_root_path&#39; page is accessible&amp;quot; do
+        get auth_umdze_root_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+end
+
+# spec/requests/admins/dashboard_request_spec.rb
+require &#39;rails_helper&#39;
+
+RSpec.describe &amp;quot;Admins::Dashboards&amp;quot;, type: :request do
+
+  let(:admin)   { FactoryBot.create :admin }
+
+  describe &amp;quot;GET /index&amp;quot; do
+    context &amp;quot;NOT logged in&amp;quot; do
+      it &amp;quot;home as &#39;/admins&#39; page is NOT accessible&amp;quot; do
+        get &amp;quot;/admins&amp;quot;
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;admins_home_path&#39; page is NOT accessible&amp;quot; do
+        get admins_home_path
+        expect(response).to have_http_status(:redirect)
+      end
+      it &amp;quot;home as &#39;auth_admin_root_path&#39; page is NOT accessible&amp;quot; do
+        get auth_admin_root_path
+        expect(response).to have_http_status(:success)
+        # here we need page match for different root routes
+      end
+    end
+
+    context &amp;quot;logged in&amp;quot; do
+      before do
+        sign_in admin
+      end
+      after do
+        sign_out admin
+      end
+      it &amp;quot;home as &#39;/admins&#39; page is accessible&amp;quot; do
+        get &amp;quot;/admins&amp;quot;
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;admins_home_path&#39; page is accessible&amp;quot; do
+        get admins_home_path
+        expect(response).to have_http_status(:success)
+      end
+      it &amp;quot;home as &#39;auth_admin_root_path&#39; page is accessible&amp;quot; do
+        get auth_admin_root_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;run the tests and be sure all is green - if so, now is a good time to make a commit!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;rspec and devise configured and tests green&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

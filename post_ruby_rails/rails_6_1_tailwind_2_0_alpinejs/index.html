@@ -246,7 +246,7 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
     
       <meta property="article:published_time" content="2021-03-21T01:46:07&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-21T01:46:07&#43;02:00">
+    <meta property="article:modified_time" content="2021-03-23T01:46:07&#43;02:00">
   
 
   
@@ -657,8 +657,10 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
     
     
       
+          Last updated on
+      
     
-    Sun, Mar 21, 2021
+    Tue, Mar 23, 2021
   </span>
   
 
@@ -714,18 +716,29 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
 <a href=""></a></p>
 <p>In the end, I feel like its easier / better to use tailwindcss with AlpineJS since that is how it evolved and lots of Internet resources are available for that.</p>
 <h2 id="install-tailwind-css-20">Install Tailwind CSS 2.0</h2>
+<h3 id="upgrade-webpacker">Upgrade Webpacker</h3>
+<p>webpacker-rails 5.x uses postcss7 by default so we will upgrade to webpacker-rails 6 (currently still in pre release)</p>
+<pre><code># Gemfile
+# gem 'webpacker', '~&gt; 5.0'
+gem 'webpacker', '~&gt; 6.0.0.pre'
+</code></pre>
+<p>now</p>
+<pre><code>bundle
+</code></pre>
 <h3 id="tailwind-css-20-install">Tailwind CSS 2.0 Install</h3>
 <p><a href="https://tailwindcss.com/docs">https://tailwindcss.com/docs</a></p>
-<p>Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8)</p>
-<pre><code>yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+<p>Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) &ndash; with or without upgrading webpacker the following should work:</p>
+<pre><code>yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
-# install AlpineJS
-
-yarn add alpinejs
-
-npx tailwindcss init
-# or possibly
-# npx tailwindcss init --full
+# if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
+# yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+</code></pre>
+<p>now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!</p>
+<pre><code>yarn add alpinejs
+yarn add alpine-turbo-drive-adapter
+</code></pre>
+<p>Now create the tailwind config file</p>
+<pre><code>npx tailwindcss init
 </code></pre>
 <p>now config tailwind:</p>
 <pre><code># tailwind.config.js
@@ -773,9 +786,9 @@ cat &lt;&lt;EOF &gt;app/javascript/stylesheets/application.scss
 /* app/javascript/stylesheets/application.scss */
 @import &quot;tailwindcss/base&quot;;
 @import &quot;tailwindcss/components&quot;;
-
-/* Add any custom CSS here */
 @import &quot;tailwindcss/utilities&quot;;
+
+/* Add custom CSS here */
 EOF
 </code></pre>
 <p>import tailwind into <code>application.js</code></p>
@@ -785,8 +798,12 @@ import &quot;@hotwired/turbo-rails&quot;
 import * as ActiveStorage from &quot;@rails/activestorage&quot;
 import &quot;channels&quot;
 
+// import alpinejs and its necessary rails adaptation
+import 'alpine-turbo-drive-adapter'
+require(&quot;alpinejs&quot;)
+
 // import tailwind into javascript
-import &quot;../stylesheets/application&quot;
+import &quot;../stylesheets/application.scss&quot;
 
 Rails.start()
 ActiveStorage.start()

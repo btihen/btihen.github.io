@@ -29,18 +29,29 @@
 &lt;a href=&#34;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In the end, I feel like its easier / better to use tailwindcss with AlpineJS since that is how it evolved and lots of Internet resources are available for that.&lt;/p&gt;
 &lt;h2 id=&#34;install-tailwind-css-20&#34;&gt;Install Tailwind CSS 2.0&lt;/h2&gt;
+&lt;h3 id=&#34;upgrade-webpacker&#34;&gt;Upgrade Webpacker&lt;/h3&gt;
+&lt;p&gt;webpacker-rails 5.x uses postcss7 by default so we will upgrade to webpacker-rails 6 (currently still in pre release)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Gemfile
+# gem &#39;webpacker&#39;, &#39;~&amp;gt; 5.0&#39;
+gem &#39;webpacker&#39;, &#39;~&amp;gt; 6.0.0.pre&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bundle
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;tailwind-css-20-install&#34;&gt;Tailwind CSS 2.0 Install&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://tailwindcss.com/docs&#34;&gt;https://tailwindcss.com/docs&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+&lt;p&gt;Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) &amp;ndash; with or without upgrading webpacker the following should work:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
-# install AlpineJS
-
-yarn add alpinejs
-
-npx tailwindcss init
-# or possibly
-# npx tailwindcss init --full
+# if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
+# yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yarn add alpinejs
+yarn add alpine-turbo-drive-adapter
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now create the tailwind config file&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npx tailwindcss init
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now config tailwind:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# tailwind.config.js
@@ -88,9 +99,9 @@ cat &amp;lt;&amp;lt;EOF &amp;gt;app/javascript/stylesheets/application.scss
 /* app/javascript/stylesheets/application.scss */
 @import &amp;quot;tailwindcss/base&amp;quot;;
 @import &amp;quot;tailwindcss/components&amp;quot;;
-
-/* Add any custom CSS here */
 @import &amp;quot;tailwindcss/utilities&amp;quot;;
+
+/* Add custom CSS here */
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;import tailwind into &lt;code&gt;application.js&lt;/code&gt;&lt;/p&gt;
@@ -100,8 +111,12 @@ import &amp;quot;@hotwired/turbo-rails&amp;quot;
 import * as ActiveStorage from &amp;quot;@rails/activestorage&amp;quot;
 import &amp;quot;channels&amp;quot;
 
+// import alpinejs and its necessary rails adaptation
+import &#39;alpine-turbo-drive-adapter&#39;
+require(&amp;quot;alpinejs&amp;quot;)
+
 // import tailwind into javascript
-import &amp;quot;../stylesheets/application&amp;quot;
+import &amp;quot;../stylesheets/application.scss&amp;quot;
 
 Rails.start()
 ActiveStorage.start()
@@ -1789,10 +1804,10 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
     </item>
     
     <item>
-      <title>Rails Devise User with Roles</title>
-      <link>https://btihen.me/post_ruby_rails/robust_rails_03_devise_single_user_with_roles/</link>
+      <title>Rails Devise User Model with Roles</title>
+      <link>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</link>
       <pubDate>Fri, 10 Jul 2020 20:45:51 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/robust_rails_03_devise_single_user_with_roles/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</guid>
       <description>&lt;h2 id=&#34;configure-devise-for-multiple-types-of-accounts&#34;&gt;Configure devise (for multiple types of accounts)&lt;/h2&gt;
 &lt;p&gt;install the devise engine:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;bin/rails generate devise:install
