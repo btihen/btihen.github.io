@@ -52,7 +52,7 @@ ARC consortium members contribute by documenting applications of the agile minds
     </item>
     
     <item>
-      <title>Rails 6.1 with TailwindCSS 2.0 and AlineJS</title>
+      <title>Rails 6.1 with TailwindCSS 2.0 and AlpineJS</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</link>
       <pubDate>Sun, 21 Mar 2021 01:46:07 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</guid>
@@ -68,15 +68,6 @@ ARC consortium members contribute by documenting applications of the agile minds
 &lt;a href=&#34;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In the end, I feel like its easier / better to use tailwindcss with AlpineJS since that is how it evolved and lots of Internet resources are available for that.&lt;/p&gt;
 &lt;h2 id=&#34;install-tailwind-css-20&#34;&gt;Install Tailwind CSS 2.0&lt;/h2&gt;
-&lt;h3 id=&#34;upgrade-webpacker&#34;&gt;Upgrade Webpacker&lt;/h3&gt;
-&lt;p&gt;webpacker-rails 5.x uses postcss7 by default so we will upgrade to webpacker-rails 6 (currently still in pre release)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Gemfile
-# gem &#39;webpacker&#39;, &#39;~&amp;gt; 5.0&#39;
-gem &#39;webpacker&#39;, &#39;~&amp;gt; 6.0.0.pre&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;now&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;tailwind-css-20-install&#34;&gt;Tailwind CSS 2.0 Install&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://tailwindcss.com/docs&#34;&gt;https://tailwindcss.com/docs&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) &amp;ndash; with or without upgrading webpacker the following should work:&lt;/p&gt;
