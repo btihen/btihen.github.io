@@ -1446,10 +1446,10 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
     </item>
     
     <item>
-      <title>Design Resources</title>
-      <link>https://btihen.me/post_tech_notes/design_resources/</link>
+      <title>Web Design Resources</title>
+      <link>https://btihen.me/post_tech_notes/web_design_resources/</link>
       <pubDate>Sun, 01 Nov 2020 01:57:16 +0200</pubDate>
-      <guid>https://btihen.me/post_tech_notes/design_resources/</guid>
+      <guid>https://btihen.me/post_tech_notes/web_design_resources/</guid>
       <description>&lt;h2 id=&#34;logos&#34;&gt;Logos&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://logomakr.com/&#34;&gt;https://logomakr.com/&lt;/a&gt;&lt;/li&gt;
@@ -1496,6 +1496,10 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
 &lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://ionicons.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;IonIcons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://heroicons.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;HeroIcons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://feathericons.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;FeatherIcons&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://themify.me/themify-icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;themifyIcons&lt;/a&gt; - good variety and brands too&lt;/li&gt;
 &lt;li&gt;
