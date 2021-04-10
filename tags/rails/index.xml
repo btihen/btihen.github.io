@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/rails/</link>
       <atom:link href="https://btihen.me/tags/rails/index.xml" rel="self" type="application/rss+xml" />
     <description>Rails</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 28 Feb 2021 18:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 20 Mar 2021 18:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Rails</title>
@@ -22,10 +22,254 @@
     </item>
     
     <item>
+      <title>Rails 6.1 - Hotwire with Flash Messages</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</link>
+      <pubDate>Sat, 20 Mar 2021 18:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Now that you have the basics of using Hotwire in Rails 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
+&lt;p&gt;Start with the code at the end of: 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;flash-messages-in-partial&#34;&gt;Flash Messages in Partial&lt;/h2&gt;
+&lt;p&gt;Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates &amp;ndash; so let&amp;rsquo;s prepare &lt;code&gt;application.html.erb&lt;/code&gt; so that flash messages use partials.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
+&amp;lt;body&amp;gt;
+  &amp;lt;%= render &amp;quot;shared/notice&amp;quot;, notice: notice %&amp;gt;
+  &amp;lt;%= yield %&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and of course we need a partials for notices now (we will keep it very simple):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/shared/_notice.html.erb
+&amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we will create a turbo template to handle the flash on create:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&amp;lt;%# to send a message to the notice partial %&amp;gt;
+&amp;lt;!--            action   dom_id         partial with dom_id   data to send in the notice --&amp;gt;
+&amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet created.&amp;quot;} %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In order for the controller and turbo_stream to handle this non-standard action we need to update the create method in the controller with the instructions &lt;code&gt;format.turbo_stream&lt;/code&gt; on a successful create:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+def create
+    @tweet = Tweet.new(tweet_params)
+
+    respond_to do |format|
+      if @tweet.save
+        format.turbo_stream  # enables flash message on create - via the create template
+        format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.turbo_stream { # route turbo validation errors
+                      render turbo_stream: turbo_stream.replace(
+                              @tweet, partial: &amp;quot;tweets/form&amp;quot;,
+                              locals: { tweet: @tweet}) }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when we test everything works great, except our form no longer clears. We can fix that by adding a second action to the create template (we will send a Tweet.new - there are other approaches too - covered in 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs&#34;&gt;Hotwire and StimulusJS&lt;/a&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&amp;lt;%# clear form on create - without using JavaScript - by replacing the old Tweet info with Tweet.new %&amp;gt;
+&amp;lt;%= turbo_stream.replace &amp;quot;tweet-form&amp;quot;, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: Tweet.new } %&amp;gt;
+&amp;lt;%# to send a message to the notice partial %&amp;gt;
+&amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet was successfully created.&amp;quot;} %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;refactor&#34;&gt;Refactor&lt;/h2&gt;
+&lt;p&gt;You might have noticed, that we have moved most of our turbo_steam template to the template file, but not the replace for validation errors &amp;ndash; since we already have a &lt;code&gt;replace&lt;/code&gt; command in our template - we will need to leave our specific instructions in the errors as is &amp;ndash; until we clear the form with JS.&lt;/p&gt;
+&lt;p&gt;NOTE: now that we are consolidating our template info it might be tempting to add the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- to prepend on create - disabled to avoid double vision when broadcasting --&amp;gt;
+&amp;lt;%#%   stream_action   dom_id_target, render_partial,       send_local_variables   %&amp;gt;
+&amp;lt;%= turbo_stream.prepend &amp;quot;tweets&amp;quot;, partial: &amp;quot;tweets/tweet&amp;quot;, locals: { tweet: @tweet } %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;but don&amp;rsquo;t add the default happy path instructions to the template when a model already has a broadcast after hook - if you add this instruction the person creating a new tweet will see two!&lt;/p&gt;
+&lt;h2 id=&#34;flash-after-we-update&#34;&gt;Flash after we update&lt;/h2&gt;
+&lt;p&gt;This is now very straight forward we simply add &lt;code&gt;format.turbo_stream&lt;/code&gt; to our save and create an &lt;code&gt;update.turbo_stream.erb&lt;/code&gt; template&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/update.turbo_stream.erb
+&amp;lt;%# to send a message to the notice partial %&amp;gt;
+&amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet was successfully created.&amp;quot;} %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now we can tell the controller to use that:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#  app/controllers/tweets_controller.rb
+  def update
+    respond_to do |format|
+      if @tweet.update(tweet_params)
+        format.turbo_stream
+        format.html { redirect_to @tweet, notice: &amp;quot;Tweet was successfully updated.&amp;quot; }
+        format.json { render :show, status: :ok, location: @tweet }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We don&amp;rsquo;t have to clear the form on update since the &lt;code&gt;edit&lt;/code&gt; template is replaced with the &lt;code&gt;show&lt;/code&gt; template already.  So we are done.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;The repo where you can find this code in the branch:
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 6.1 - Hotwire with Modals</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</link>
+      <pubDate>Sat, 06 Mar 2021 18:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Now that you have the basics of using Hotwire in Rails 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
+&lt;p&gt;Start with the code at the end of: 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;add-jquery-to-bootstrap-setup&#34;&gt;Add jQuery to Bootstrap Setup&lt;/h2&gt;
+&lt;p&gt;First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &amp;lt;body&amp;gt; in the &lt;code&gt;application.html.erb&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
+&amp;lt;body&amp;gt;
+  &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+  &amp;lt;%= yield %&amp;gt;
+  &amp;lt;script src=&amp;quot;https://code.jquery.com/jquery-3.5.1.slim.min.js&amp;quot; integrity=&amp;quot;sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj&amp;quot; crossorigin=&amp;quot;anonymous&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;script src=&amp;quot;https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js&amp;quot; integrity=&amp;quot;sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx&amp;quot; crossorigin=&amp;quot;anonymous&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;add-modal-to-index&#34;&gt;Add Modal to Index&lt;/h2&gt;
+&lt;p&gt;So we will start by replacing the new-form with a button that toggles the modal.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
+&amp;lt;%= turbo_stream_from &amp;quot;tweets&amp;quot; %&amp;gt;
+
+&amp;lt;h2 class=&amp;quot;mt-3 h4 text-muted&amp;quot;&amp;gt;New Tweet&amp;lt;/h2&amp;gt;
+&amp;lt;%= render &amp;quot;tweets/modal_new&amp;quot;, tweet: @tweet %&amp;gt;
+
+&amp;lt;h2 class=&amp;quot;mt-3 h4 text-muted&amp;quot;&amp;gt;Tweet Feed&amp;lt;/h2&amp;gt;
+&amp;lt;%= turbo_frame_tag &amp;quot;tweets&amp;quot; do %&amp;gt;
+  &amp;lt;%= render @tweets %&amp;gt;
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So now lets make a partial that has the modal toggle button and the associated html to enable the modal to function (this code is basically copied from the Bootstrap website):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/_modal_new.html.erb
+&amp;lt;%= link_to &amp;quot;#&amp;quot;, class: &#39;btn btn-sm btn-outline-primary&#39;, data: { toggle: &amp;quot;modal&amp;quot;, target: &amp;quot;#tweetModal&amp;quot; } do %&amp;gt;
+New Tweet
+&amp;lt;% end %&amp;gt;
+
+&amp;lt;div class=&amp;quot;modal fade&amp;quot; id=&amp;quot;tweetModal&amp;quot; tabindex=&amp;quot;-1&amp;quot; aria-labelledby=&amp;quot;exampleModalLabel&amp;quot; aria-hidden=&amp;quot;true&amp;quot;&amp;gt;
+  &amp;lt;div class=&amp;quot;modal-dialog&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;modal-content&amp;quot;&amp;gt;
+      &amp;lt;%= render &amp;quot;tweets/modal_form&amp;quot;, tweet: tweet %&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice we have a partial for the form still - this is because we have to point turbo at a dom_id within a partial (without doing this we can&amp;rsquo;t get validation errors back into this form).  This is a mix of the Bootstrap example code placed within the rails form.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#  app/views/tweets/_modal_form.html.erb
+&amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;modal-header&amp;quot;&amp;gt;
+    &amp;lt;h5 class=&amp;quot;modal-title&amp;quot;&amp;gt;New Tweet&amp;lt;/h5&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;close&amp;quot; data-dismiss=&amp;quot;modal&amp;quot; aria-label=&amp;quot;Close&amp;quot;&amp;gt;
+      &amp;lt;span aria-hidden=&amp;quot;true&amp;quot;&amp;gt;&amp;amp;times;&amp;lt;/span&amp;gt;
+    &amp;lt;/button&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;modal-body&amp;quot;&amp;gt;
+    &amp;lt;% if tweet.errors.any? %&amp;gt;
+    &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
+      &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(tweet.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this tweet from being saved:&amp;lt;/h2&amp;gt;
+
+      &amp;lt;ul&amp;gt;
+        &amp;lt;% tweet.errors.each do |error| %&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;%= error.full_message %&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;% end %&amp;gt;
+      &amp;lt;/ul&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;% end %&amp;gt;
+
+    &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+      &amp;lt;%= form.label :body %&amp;gt;
+      &amp;lt;%= form.text_area :body %&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;modal-footer&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
+      &amp;lt;%= form.submit class: &amp;quot;btn btn-sm btn-outline-success&amp;quot; %&amp;gt;
+      &amp;lt;%= link_to &amp;quot;Cancel&amp;quot;, tweet, class: &amp;quot;btn btn-sm btn-outline-danger&amp;quot; %&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;test&#34;&gt;Test&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Modal Opens&lt;/li&gt;
+&lt;li&gt;Modal Close Works&lt;/li&gt;
+&lt;li&gt;Modal Cancel Works&lt;/li&gt;
+&lt;li&gt;Create valid Tweet &amp;ndash; works and broadcasts&lt;/li&gt;
+&lt;li&gt;Create invalid Tweet &amp;ndash; Errors go to wrong form (must click cancel or reload)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In fact, if you put the regular form back into the index page you will see that the validation errors show up there.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;misplaced_validation_errors_on_create.png&#34; alt=&#34;validation errors in wrong form&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;fix-validation-errors&#34;&gt;Fix validation errors&lt;/h2&gt;
+&lt;p&gt;We fix this like this like a normal form - we change how the controller uses turbo_stream. So instead of pointing to the partial: &amp;ldquo;tweets/form&amp;rdquo; we need to point to &amp;ldquo;tweets/modal_form&amp;rdquo; (the new partial with the form).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+  def create
+    @tweet = Tweet.new(tweet_params)
+    respond_to do |format|
+      if @tweet.save
+        format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.turbo_stream { # route turbo_stream validation errors
+                      render turbo_stream: turbo_stream.replace(
+                              @tweet, partial: &amp;quot;tweets/modal_form&amp;quot;,
+                              locals: { tweet: @tweet}) }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now all our tests should work.&lt;/p&gt;
+&lt;h2 id=&#34;using-turbo-templates&#34;&gt;Using turbo templates&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s refactor - for future flexibility.  We&amp;rsquo;ll create the template.  Since we are using the &lt;code&gt;create&lt;/code&gt; method within the controller - we&amp;rsquo;ll call the file: &lt;code&gt;create.turbo_stream.html.erb&lt;/code&gt; - notice, unsurprisingly it looks what&amp;rsquo;s in the controller.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&amp;lt;!--             action  dom_id           partial with the dom_id        actual data --&amp;gt;
+&amp;lt;%= turbo_stream.replace @tweet, partial: &amp;quot;tweets/modal_form&amp;quot;, locals: { tweet: @tweet } %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can make the controller look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+  def create
+    @tweet = Tweet.new(tweet_params)
+    respond_to do |format|
+      if @tweet.save
+        format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.turbo_stream  # route turbo_stream validation errors
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using the template allows us the flexibilty to make multiple dynamic changes to the page on a create.  This is demonstrated in the post describing using Flash messages with Hotwire.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;The repo where you can find this code in the branch:
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The important commit is:
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Rails 6.1 - Hotwire (Realtime SPA)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/</link>
       <pubDate>Sun, 28 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt;  is planned to be integrated into Rails 7.x and is already included in the soon to be published book: 

@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Developer, Data and Educator">
+  <meta name="description" content="A simple Single Page App using Rails and flash messages with Hotwire">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/tags/realtime/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/">
 
   
 
@@ -213,14 +213,12 @@
   
 
   
-  <link rel="alternate" href="/tags/realtime/index.xml" type="application/rss+xml" title="btihen">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/tags/realtime/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/">
 
   
   
@@ -238,29 +236,34 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/tags/realtime/">
-  <meta property="og:title" content="realtime | btihen">
-  <meta property="og:description" content="Developer, Data and Educator"><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
-  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/">
+  <meta property="og:title" content="Rails 6.1 - Hotwire with Flash Messages | btihen">
+  <meta property="og:description" content="A simple Single Page App using Rails and flash messages with Hotwire"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2021-03-20T18:57:00&#43;02:00">
+    
+      <meta property="article:published_time" content="2021-03-20T18:57:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-03-20T18:57:00&#43;02:00">
   
-
-  
-
-
-
-
-  
-
 
   
 
 
 
+  
 
 
-  <title>realtime | btihen</title>
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 6.1 - Hotwire with Flash Messages | btihen</title>
 
 </head>
 
@@ -603,81 +606,440 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
     
   
-<div class="universal-wrapper pt-3">
-  <h1>realtime</h1>
+
+
+<div class="article-container pt-3">
+  <h1>Rails 6.1 - Hotwire with Flash Messages</h1>
+
+  
+  <p class="page-subtitle">A simple Rails App that works off one page using flash messages</p>
+  
 
   
 
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sat, Mar 20, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_6_1_hotwire_flash_messages/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="overview">Overview</h2>
+<p>Now that you have the basics of using Hotwire in Rails 
+<a href="/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/">Using Hotwire in Rails</a> - its interesting to try using it in other contexts, inparticular <strong>modals</strong> are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.</p>
+<h2 id="basic-setup">Basic Setup</h2>
+<p>Start with the code at the end of: 
+<a href="/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/">Using Hotwire in Rails</a></p>
+<h2 id="flash-messages-in-partial">Flash Messages in Partial</h2>
+<p>Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates &ndash; so let&rsquo;s prepare <code>application.html.erb</code> so that flash messages use partials.</p>
+<pre><code># app/views/layouts/application.html.erb
+&lt;body&gt;
+  &lt;%= render &quot;shared/notice&quot;, notice: notice %&gt;
+  &lt;%= yield %&gt;
+&lt;/body&gt;
+</code></pre>
+<p>and of course we need a partials for notices now (we will keep it very simple):</p>
+<pre><code># app/views/shared/_notice.html.erb
+&lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
+</code></pre>
+<p>now we will create a turbo template to handle the flash on create:</p>
+<pre><code># app/views/tweets/create.turbo_stream.erb
+&lt;%# to send a message to the notice partial %&gt;
+&lt;!--            action   dom_id         partial with dom_id   data to send in the notice --&gt;
+&lt;%= turbo_stream.append &quot;notice&quot;, partial: &quot;shared/notice&quot;, locals: {notice: &quot;Tweet created.&quot;} %&gt;
+</code></pre>
+<p>In order for the controller and turbo_stream to handle this non-standard action we need to update the create method in the controller with the instructions <code>format.turbo_stream</code> on a successful create:</p>
+<pre><code># app/controllers/tweets_controller.rb
+def create
+    @tweet = Tweet.new(tweet_params)
+
+    respond_to do |format|
+      if @tweet.save
+        format.turbo_stream  # enables flash message on create - via the create template
+        format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }
+        format.json { render :show, status: :created, location: @tweet }
+      else
+        format.turbo_stream { # route turbo validation errors
+                      render turbo_stream: turbo_stream.replace(
+                              @tweet, partial: &quot;tweets/form&quot;,
+                              locals: { tweet: @tweet}) }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+</code></pre>
+<p>Now when we test everything works great, except our form no longer clears. We can fix that by adding a second action to the create template (we will send a Tweet.new - there are other approaches too - covered in 
+<a href="/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs">Hotwire and StimulusJS</a>)</p>
+<pre><code># app/views/tweets/create.turbo_stream.erb
+&lt;%# clear form on create - without using JavaScript - by replacing the old Tweet info with Tweet.new %&gt;
+&lt;%= turbo_stream.replace &quot;tweet-form&quot;, partial: &quot;tweets/form&quot;, locals: { tweet: Tweet.new } %&gt;
+&lt;%# to send a message to the notice partial %&gt;
+&lt;%= turbo_stream.append &quot;notice&quot;, partial: &quot;shared/notice&quot;, locals: {notice: &quot;Tweet was successfully created.&quot;} %&gt;
+</code></pre>
+<h2 id="refactor">Refactor</h2>
+<p>You might have noticed, that we have moved most of our turbo_steam template to the template file, but not the replace for validation errors &ndash; since we already have a <code>replace</code> command in our template - we will need to leave our specific instructions in the errors as is &ndash; until we clear the form with JS.</p>
+<p>NOTE: now that we are consolidating our template info it might be tempting to add the following:</p>
+<pre><code>&lt;!-- to prepend on create - disabled to avoid double vision when broadcasting --&gt;
+&lt;%#%   stream_action   dom_id_target, render_partial,       send_local_variables   %&gt;
+&lt;%= turbo_stream.prepend &quot;tweets&quot;, partial: &quot;tweets/tweet&quot;, locals: { tweet: @tweet } %&gt;
+</code></pre>
+<p>but don&rsquo;t add the default happy path instructions to the template when a model already has a broadcast after hook - if you add this instruction the person creating a new tweet will see two!</p>
+<h2 id="flash-after-we-update">Flash after we update</h2>
+<p>This is now very straight forward we simply add <code>format.turbo_stream</code> to our save and create an <code>update.turbo_stream.erb</code> template</p>
+<pre><code># app/views/tweets/update.turbo_stream.erb
+&lt;%# to send a message to the notice partial %&gt;
+&lt;%= turbo_stream.append &quot;notice&quot;, partial: &quot;shared/notice&quot;, locals: {notice: &quot;Tweet was successfully created.&quot;} %&gt;
+</code></pre>
+<p>And now we can tell the controller to use that:</p>
+<pre><code>#  app/controllers/tweets_controller.rb
+  def update
+    respond_to do |format|
+      if @tweet.update(tweet_params)
+        format.turbo_stream
+        format.html { redirect_to @tweet, notice: &quot;Tweet was successfully updated.&quot; }
+        format.json { render :show, status: :ok, location: @tweet }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+</code></pre>
+<p>We don&rsquo;t have to clear the form on update since the <code>edit</code> template is replaced with the <code>show</code> template already.  So we are done.</p>
+<h2 id="resources">Resources</h2>
+<p>The repo where you can find this code in the branch:
+<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages</a></p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  
+  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  
+  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
+  
+  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
+  
+  <a class="badge badge-light" href="/tags/flash-message/">flash message</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_1_hotwire_flash_messages/" >Rails 6.1 - Hotwire with Flash Messages</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          A simple Single Page App using Rails and flash messages with Hotwire
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&amp;text=Rails%206.1%20-%20Hotwire%20with%20Flash%20Messages" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&amp;t=Rails%206.1%20-%20Hotwire%20with%20Flash%20Messages" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_1_hotwire_modal_form/" >Rails 6.1 - Hotwire with Modals</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          A simple Single Page App using Rails and Hotwire - integrated with a modal forms
-        
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%206.1%20-%20Hotwire%20with%20Flash%20Messages&amp;body=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_1_hotwire_single_model/" >Rails 6.1 - Hotwire (Realtime SPA)</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          A simple Single Page App using Rails and Hotwire
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&amp;title=Rails%206.1%20-%20Hotwire%20with%20Flash%20Messages" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
         
-      </div>
-    </div>
-  
-
-  
-
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%206.1%20-%20Hotwire%20with%20Flash%20Messages%20https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&amp;title=Rails%206.1%20-%20Hotwire%20with%20Flash%20Messages" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data and Educator</h6>
+        <p class="card-text">Developer, Educator and very currious.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 
