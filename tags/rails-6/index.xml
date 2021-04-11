@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rails 6 | btihen</title>
+    <title>Rails 6 | btihen</title>
     <link>https://btihen.me/tags/rails-6/</link>
       <atom:link href="https://btihen.me/tags/rails-6/index.xml" rel="self" type="application/rss+xml" />
-    <description>rails 6</description>
+    <description>Rails 6</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 25 Feb 2021 18:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
-      <title>rails 6</title>
+      <title>Rails 6</title>
       <link>https://btihen.me/tags/rails-6/</link>
     </image>
     
     <item>
       <title>Tweets - A Single Page Rails App (using reloads)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
       <pubDate>Thu, 25 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_standard_tweet_single_page/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_hotwire_tweet_single_page/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
