@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/lazy-load-data/</link>
       <atom:link href="https://btihen.me/tags/lazy-load-data/index.xml" rel="self" type="application/rss+xml" />
     <description>lazy load data</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 11 Apr 2021 01:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 28 Mar 2021 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>lazy load data</title>
@@ -13,9 +13,9 @@
     </image>
     
     <item>
-      <title>Rails 6.1 - Hotwire Lazy Loading Data</title>
+      <title>Rails 6.1 - Hotwire with Lazy Loading</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</link>
-      <pubDate>Sun, 11 Apr 2021 01:57:00 +0200</pubDate>
+      <pubDate>Sun, 28 Mar 2021 01:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;As was seen in 

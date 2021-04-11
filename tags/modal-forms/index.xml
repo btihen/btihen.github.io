@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/modal-forms/</link>
       <atom:link href="https://btihen.me/tags/modal-forms/index.xml" rel="self" type="application/rss+xml" />
     <description>modal forms</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 06 Mar 2021 18:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 20 Mar 2021 18:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>modal forms</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Rails 6.1 - Hotwire with Modals</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</link>
-      <pubDate>Sat, 06 Mar 2021 18:57:00 +0200</pubDate>
+      <pubDate>Sat, 20 Mar 2021 18:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Now that you have the basics of using Hotwire in Rails 

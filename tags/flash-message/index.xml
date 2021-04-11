@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/flash-message/</link>
       <atom:link href="https://btihen.me/tags/flash-message/index.xml" rel="self" type="application/rss+xml" />
     <description>flash message</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 05 Apr 2021 18:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 14 Mar 2021 18:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>flash message</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Rails 6.1 - Hotwire with StimulusJS</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</link>
-      <pubDate>Mon, 05 Apr 2021 18:57:00 +0200</pubDate>
+      <pubDate>Sun, 14 Mar 2021 18:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Hotwire only updates dom_ids (usually only within a partial) - so other Frontend needs still need to be met with Javascript.  Rails uses StimulusJS to augment Hotwire.  I 
@@ -62,7 +62,7 @@ export default class extends Controller {
     <item>
       <title>Rails 6.1 - Hotwire with Flash Messages</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</link>
-      <pubDate>Sat, 20 Mar 2021 18:57:00 +0200</pubDate>
+      <pubDate>Sat, 06 Mar 2021 18:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Now that you have the basics of using Hotwire in Rails 
