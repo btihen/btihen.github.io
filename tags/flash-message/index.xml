@@ -5,12 +5,59 @@
     <link>https://btihen.me/tags/flash-message/</link>
       <atom:link href="https://btihen.me/tags/flash-message/index.xml" rel="self" type="application/rss+xml" />
     <description>flash message</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 20 Mar 2021 18:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 05 Apr 2021 18:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>flash message</title>
       <link>https://btihen.me/tags/flash-message/</link>
     </image>
+    
+    <item>
+      <title>Rails 6.1 - Hotwire with StimulusJS</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</link>
+      <pubDate>Mon, 05 Apr 2021 18:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Hotwire only updates dom_ids (usually only within a partial) - so other Frontend needs still need to be met with Javascript.  Rails uses StimulusJS to augment Hotwire.  I 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; we created a new instance of Tweet in the turbo_template and sent that to the form.  (Pretty non-standard) - we can do this even more simply by using JS to clear the form without instantiating a new object.&lt;/p&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
+&lt;p&gt;Start with the code at the end of: 
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;stimulusjs-to-clear-forms&#34;&gt;StimulusJS to clear forms&lt;/h2&gt;
+&lt;p&gt;To enable Flash Messages our create/controller looked like - which seems a little messy - in &lt;code&gt;create&lt;/code&gt; (happy-path) we handle all the updates via the create.turbo_stream.erb template and with validation errors we explicity (in the controller - handle the validation errors)&lt;/p&gt;
+&lt;p&gt;So lets start by disabling the code we no longer need in the template:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&amp;lt;%# turbo_stream.replace &amp;quot;tweet-form&amp;quot;, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: Tweet.new } %&amp;gt;
+&amp;lt;%# to send a message to the notice partial %&amp;gt;
+&amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet was successfully created.&amp;quot;} %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So we are only leaving the turbo_stream.append active.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s test here and be sure the new form doesn&amp;rsquo;t clear after making a new tweet.&lt;/p&gt;
+&lt;h2 id=&#34;add-a-stimulusjs-controller&#34;&gt;Add a StimulusJS controller&lt;/h2&gt;
+&lt;p&gt;We don&amp;rsquo;t need to add / install or configure StimulusJS since Hotwire already handles this.&lt;/p&gt;
+&lt;p&gt;So let&amp;rsquo;s create the JS file to clear the form - its quite simple we will just use:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// app/javascript/controllers/reset_form_controller.js
+import { Controller } from &amp;quot;stimulus&amp;quot;
+
+export default class extends Controller {
+  reset() {
+    this.element.reset()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In order to tie this to the form we need to go into the form and add the &lt;code&gt;data:&lt;/code&gt; info &amp;ndash; so now our form should start with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# app/views/tweets/_form.html.erb
+&amp;lt;%= form_with(model: tweet, id: dom_id(tweet),
+              data: {controller: &amp;quot;reset-form&amp;quot;, action: &amp;quot;turbo:submit-end-&amp;gt;reset-form#reset&amp;quot;}
+            ) do |form| %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&#39;-&amp;gt;&#39;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&#39;#&#39;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Fairly straight-forward, but it helps to be aware of the syntax and the differences between Ruby and Javascript.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;The repo where you can find this code in the branch:
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Rails 6.1 - Hotwire with Flash Messages</title>

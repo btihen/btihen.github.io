@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Developer, Data and Educator">
+  <meta name="description" content="A simple Single Page App using Rails and flash messages with Hotwire">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/tags/rails-6/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/">
 
   
 
@@ -213,14 +213,12 @@
   
 
   
-  <link rel="alternate" href="/tags/rails-6/index.xml" type="application/rss+xml" title="btihen">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/tags/rails-6/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/">
 
   
   
@@ -238,29 +236,34 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/tags/rails-6/">
-  <meta property="og:title" content="rails 6 | btihen">
-  <meta property="og:description" content="Developer, Data and Educator"><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
-  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/">
+  <meta property="og:title" content="Rails 6.1 - Hotwire Lazy Loading Data | btihen">
+  <meta property="og:description" content="A simple Single Page App using Rails and flash messages with Hotwire"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2021-02-25T18:57:00&#43;02:00">
+    
+      <meta property="article:published_time" content="2021-04-11T01:57:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-04-11T01:57:00&#43;02:00">
   
-
-  
-
-
-
-
-  
-
 
   
 
 
 
+  
 
 
-  <title>rails 6 | btihen</title>
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 6.1 - Hotwire Lazy Loading Data | btihen</title>
 
 </head>
 
@@ -603,70 +606,398 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
     
   
-<div class="universal-wrapper pt-3">
-  <h1>rails 6</h1>
+
+
+<div class="article-container pt-3">
+  <h1>Rails 6.1 - Hotwire Lazy Loading Data</h1>
+
+  
+  <p class="page-subtitle">A simple Rails App that works off one page using flash messages</p>
+  
 
   
 
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sun, Apr 11, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="overview">Overview</h2>
+<p>As was seen in 
+<a href="/post_ruby_rails/rails_6_1_hotwire_flash_messages/">Using Hotwire with Flash Messages</a> Hotwire can easily load data - let&rsquo;s do this in a lazy loaded way (after the html is loaded we add data).</p>
+<h2 id="basic-setup">Basic Setup</h2>
+<p>Start with the code at the end of: 
+<a href="/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/">Using Hotwire in Rails</a></p>
+<h2 id="prepare-our-code">Prepare our code</h2>
+<p>Let&rsquo;s remove the extra Tweet.new load in the controller&rsquo;s index method:</p>
+<pre><code># app/controllers/tweets_controller.rb
+  def index
+    @tweets = Tweet.all.order(created_at: :desc)
+    # @tweet = Tweet.new # no longer needed
+  end
+</code></pre>
+<p>now if we try our code we get a null value error (for course).</p>
+<p>So to fix this we need to load the data back in (and restructure our index page a bit).</p>
+<p>Turbo works well if you use the normal templates - so in this case we will use the <code>new</code> template on the home page to call the new form and get its own data:</p>
+<pre><code># app/views/tweets/index.html.erb
+&lt;h1&gt;Tweets&lt;/h1&gt;
+&lt;%= turbo_stream_from &quot;tweets&quot; %&gt;
+
+&lt;h2 class=&quot;mt-3 h4 text-muted&quot;&gt;New Tweet&lt;/h2&gt;
+&lt;div class=&quot;card card-body&quot;&gt;
+  &lt;%= turbo_frame_tag &quot;new-tweet&quot;, src: new_tweet_path, target: &quot;_top&quot; %&gt;
+&lt;/div&gt;
+
+&lt;h2 class=&quot;mt-3 h4 text-muted&quot;&gt;Tweet Feed&lt;/h2&gt;
+&lt;%= turbo_frame_tag &quot;tweets&quot; do %&gt;
+  &lt;%= render @tweets %&gt;
+&lt;% end %&gt;
+</code></pre>
+<p>Notice the new template is using the dom_id &ldquo;new-tweet&rdquo; and not &ldquo;new_tweet&rdquo;. Also note that this tag has a <code>src:</code> - that is where it is getting its data source (&amp; view to use) - in this case the <code>new_tweet_path</code> routes to <code>tweets_controller#new</code> and that calls the <code>veiw</code> template.  The final thing to note is the <code>target</code> - this tells the turbo_tag to look / act outside the contraints of its frame (otherwise we couldn&rsquo;t reach the controller).</p>
+<p>Currently this won&rsquo;t work yet - we need to create a <strong>matching tag</strong> &ndash; including the <code>target</code> in the <code>new</code> template.  So our updated <code>new</code> template now looks like:</p>
+<pre><code> app/views/tweets/new.html.erb
+&lt;h1&gt;New Tweet&lt;/h1&gt;
+
+&lt;%= turbo_frame_tag &quot;new-tweet&quot;, target: &quot;_top&quot; do %&gt;
+  &lt;%= render 'form', tweet: @tweet %&gt;
+&lt;% end %&gt;
+</code></pre>
+<p>Now we should have a new form that uses the standard rails data flow within the index - just like the display and edit of individual tweets also uses show and edit templates too.</p>
+<h2 id="resources">Resources</h2>
+<p>The repo where you can find this code in the branch:
+<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data</a></p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  
+  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  
+  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
+  
+  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
+  
+  <a class="badge badge-light" href="/tags/lazy-load-data/">lazy load data</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_standard_tweet_single_page/" >Tweets - A Single Page Rails App (using reloads)</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          A simple Rails App that works off one page (a prep-project to build a Rails SPA with Hotwire)
-        
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/&amp;text=Rails%206.1%20-%20Hotwire%20Lazy%20Loading%20Data" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/" >Rails 6.1 with TailwindCSS 2.0 and AlpineJS</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          Intro TailwindCSS is a very flexible CSS framework and makes it easy to customize unique web pages and animations.
-Unfortunately, with Rails its a bit tricky to install and configure with Rails Standards.
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/&amp;t=Rails%206.1%20-%20Hotwire%20Lazy%20Loading%20Data" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
         
-      </div>
-    </div>
-  
-
-  
-
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%206.1%20-%20Hotwire%20Lazy%20Loading%20Data&amp;body=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/&amp;title=Rails%206.1%20-%20Hotwire%20Lazy%20Loading%20Data" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%206.1%20-%20Hotwire%20Lazy%20Loading%20Data%20https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/&amp;title=Rails%206.1%20-%20Hotwire%20Lazy%20Loading%20Data" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data and Educator</h6>
+        <p class="card-text">Developer, Educator and very currious.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 

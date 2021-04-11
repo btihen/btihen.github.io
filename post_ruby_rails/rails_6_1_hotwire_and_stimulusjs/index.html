@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Developer, Data and Educator">
+  <meta name="description" content="A simple Single Page App using Rails and flash messages with Hotwire">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/tags/rails-6/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/">
 
   
 
@@ -213,14 +213,12 @@
   
 
   
-  <link rel="alternate" href="/tags/rails-6/index.xml" type="application/rss+xml" title="btihen">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/tags/rails-6/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/">
 
   
   
@@ -238,29 +236,34 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/tags/rails-6/">
-  <meta property="og:title" content="rails 6 | btihen">
-  <meta property="og:description" content="Developer, Data and Educator"><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
-  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/">
+  <meta property="og:title" content="Rails 6.1 - Hotwire with StimulusJS | btihen">
+  <meta property="og:description" content="A simple Single Page App using Rails and flash messages with Hotwire"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2021-02-25T18:57:00&#43;02:00">
+    
+      <meta property="article:published_time" content="2021-04-05T18:57:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-04-05T18:57:00&#43;02:00">
   
-
-  
-
-
-
-
-  
-
 
   
 
 
 
+  
 
 
-  <title>rails 6 | btihen</title>
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 6.1 - Hotwire with StimulusJS | btihen</title>
 
 </head>
 
@@ -603,70 +606,393 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
     
   
-<div class="universal-wrapper pt-3">
-  <h1>rails 6</h1>
+
+
+<div class="article-container pt-3">
+  <h1>Rails 6.1 - Hotwire with StimulusJS</h1>
+
+  
+  <p class="page-subtitle">A simple Rails App that works off one page using flash messages</p>
+  
 
   
 
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mon, Apr 5, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="overview">Overview</h2>
+<p>Hotwire only updates dom_ids (usually only within a partial) - so other Frontend needs still need to be met with Javascript.  Rails uses StimulusJS to augment Hotwire.  I 
+<a href="/post_ruby_rails/rails_6_1_hotwire_flash_messages/">Using Hotwire with Flash Messages</a> we created a new instance of Tweet in the turbo_template and sent that to the form.  (Pretty non-standard) - we can do this even more simply by using JS to clear the form without instantiating a new object.</p>
+<h2 id="basic-setup">Basic Setup</h2>
+<p>Start with the code at the end of: 
+<a href="/post_ruby_rails/rails_6_1_hotwire_flash_messages/">Using Hotwire with Flash Messages</a></p>
+<h2 id="stimulusjs-to-clear-forms">StimulusJS to clear forms</h2>
+<p>To enable Flash Messages our create/controller looked like - which seems a little messy - in <code>create</code> (happy-path) we handle all the updates via the create.turbo_stream.erb template and with validation errors we explicity (in the controller - handle the validation errors)</p>
+<p>So lets start by disabling the code we no longer need in the template:</p>
+<pre><code># app/views/tweets/create.turbo_stream.erb
+&lt;%# turbo_stream.replace &quot;tweet-form&quot;, partial: &quot;tweets/form&quot;, locals: { tweet: Tweet.new } %&gt;
+&lt;%# to send a message to the notice partial %&gt;
+&lt;%= turbo_stream.append &quot;notice&quot;, partial: &quot;shared/notice&quot;, locals: {notice: &quot;Tweet was successfully created.&quot;} %&gt;
+</code></pre>
+<p>So we are only leaving the turbo_stream.append active.</p>
+<p>Let&rsquo;s test here and be sure the new form doesn&rsquo;t clear after making a new tweet.</p>
+<h2 id="add-a-stimulusjs-controller">Add a StimulusJS controller</h2>
+<p>We don&rsquo;t need to add / install or configure StimulusJS since Hotwire already handles this.</p>
+<p>So let&rsquo;s create the JS file to clear the form - its quite simple we will just use:</p>
+<pre><code>// app/javascript/controllers/reset_form_controller.js
+import { Controller } from &quot;stimulus&quot;
+
+export default class extends Controller {
+  reset() {
+    this.element.reset()
+  }
+}
+</code></pre>
+<p>In order to tie this to the form we need to go into the form and add the <code>data:</code> info &ndash; so now our form should start with:</p>
+<pre><code># app/views/tweets/_form.html.erb
+&lt;%= form_with(model: tweet, id: dom_id(tweet),
+              data: {controller: &quot;reset-form&quot;, action: &quot;turbo:submit-end-&gt;reset-form#reset&quot;}
+            ) do |form| %&gt;
+</code></pre>
+<p>This <code>data</code> tag ties the stimulus <strong>controller</strong> <code>reset_form_controller.js</code> with the <code>reset-form</code> setting &ndash; notice the html uses a <code>-</code> when ruby uses <code>_</code>. On the form <strong>action</strong> <code>submit-end</code> then execute ('-&gt;') in the controller <code>reset-form</code> the function ('#') <code>reset</code></p>
+<p>Fairly straight-forward, but it helps to be aware of the syntax and the differences between Ruby and Javascript.</p>
+<h2 id="resources">Resources</h2>
+<p>The repo where you can find this code in the branch:
+<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus</a></p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  
+  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  
+  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
+  
+  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
+  
+  <a class="badge badge-light" href="/tags/flash-message/">flash message</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_standard_tweet_single_page/" >Tweets - A Single Page Rails App (using reloads)</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          A simple Rails App that works off one page (a prep-project to build a Rails SPA with Hotwire)
-        
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/&amp;text=Rails%206.1%20-%20Hotwire%20with%20StimulusJS" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/" >Rails 6.1 with TailwindCSS 2.0 and AlpineJS</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          Intro TailwindCSS is a very flexible CSS framework and makes it easy to customize unique web pages and animations.
-Unfortunately, with Rails its a bit tricky to install and configure with Rails Standards.
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/&amp;t=Rails%206.1%20-%20Hotwire%20with%20StimulusJS" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
         
-      </div>
-    </div>
-  
-
-  
-
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%206.1%20-%20Hotwire%20with%20StimulusJS&amp;body=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/&amp;title=Rails%206.1%20-%20Hotwire%20with%20StimulusJS" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%206.1%20-%20Hotwire%20with%20StimulusJS%20https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/&amp;title=Rails%206.1%20-%20Hotwire%20with%20StimulusJS" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data and Educator</h6>
+        <p class="card-text">Developer, Educator and very currious.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 
