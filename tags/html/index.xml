@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/html/</link>
       <atom:link href="https://btihen.me/tags/html/index.xml" rel="self" type="application/rss+xml" />
     <description>HTML</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 25 Feb 2021 18:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 20 Feb 2021 18:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>HTML</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Tweets - A Single Page Rails App (using reloads)</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
-      <pubDate>Thu, 25 Feb 2021 18:57:00 +0200</pubDate>
+      <pubDate>Sat, 20 Feb 2021 18:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 

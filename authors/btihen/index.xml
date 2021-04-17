@@ -5,7 +5,7 @@
     <link>https://btihen.me/authors/btihen/</link>
       <atom:link href="https://btihen.me/authors/btihen/index.xml" rel="self" type="application/rss+xml" />
     <description>Bill Tihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 28 Mar 2021 01:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 10 Apr 2021 17:01:53 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Bill Tihen</title>
@@ -48,6 +48,216 @@
       <guid>https://btihen.me/projects/arcforschools/</guid>
       <description>&lt;p&gt;Find schools, organizations, blogs, podcasts, and publications below.
 ARC consortium members contribute by documenting applications of the agile mindset in education.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phoenix 1.5 PETAL Stack Setup - w/ asdf</title>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup/</link>
+      <pubDate>Sat, 10 Apr 2021 17:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup/</guid>
+      <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
+&lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;On a Mac I used Homebrew:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew install asdf
+echo -e &#39;\n. $(brew --prefix asdf)/asdf.sh&#39; &amp;gt;&amp;gt; ~/.bash_profile
+echo -e &#39;\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash&#39; &amp;gt;&amp;gt; ~/.bash_profile
+source ~/.bash_profile  # (or open a new terminal)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can install asdf software packages:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;asdf plugin-add erlang
+asdf plugin-add elixir
+asdf plugin-add nodejs
+asdf plugin-add Postgres
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you need to install the desired versions (usually the newest) - currently:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;asdf list all erlang
+asdf install erlang 23.3.1
+
+# note the elixir version otp must match the erlang version!
+asdf list all elixir
+asdf install elixir 1.11.4-otp-23
+
+# asdf install elixir 1.11.4-otp-24
+# if you mismatch elixir with erlang you will get errors like:
+# {&amp;quot;init terminating in do_boot&amp;quot;,{undef,[{elixir,start_cli,[],[]},{init,start_em,1,[]},{init,do_boot,3,[]}]}}
+
+asdf list all nodejs
+asdf install nodejs lts-fermium
+
+asdf list all Postgres
+asdf install Postgres 13.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;get-the-newest-phoenix-hex-package&#34;&gt;Get the newest Phoenix Hex Package&lt;/h2&gt;
+&lt;p&gt;Once you have established you have the requrements - the download the newest version of Phoenix (go to: &lt;a href=&#34;https://hexdocs.pm/phoenix/installation.html#phoenix&#34;&gt;https://hexdocs.pm/phoenix/installation.html#phoenix&lt;/a&gt; to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix archive.install hex phx_new 1.5.8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create--config-a-project&#34;&gt;create / config a project&lt;/h2&gt;
+&lt;p&gt;First we will creat the folder / project location&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir fenix
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will tell it which software to use:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;touch fenix/.tool-versions
+cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;fenix/.tool-versionsx
+erlang 23.3.1
+elixir 1.11.4-otp-23
+Postgres 13.2
+nodejs lts-Fermium
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-new-phoenix-project&#34;&gt;Create a new Phoenix Project&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now you can simply do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.new fenix --live
+mix ecto.creatte
+mix phx.server
+cd fenix
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install--test-alpine-js&#34;&gt;install &amp;amp; test Alpine JS&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
+&lt;a href=&#34;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&#34;&gt;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd assets
+npm install alpinejs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now change &lt;code&gt;app.js&lt;/code&gt; is to require our new setup:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# assets/js/app.js
+// .. after the app.scss import add:
+import Alpine from &amp;quot;alpinejs&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;still in &lt;code&gt;assets/js/app.js&lt;/code&gt; find&lt;code&gt;:&lt;/code&gt;let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {params: {_csrf_token: csrfToken}})`&lt;/p&gt;
+&lt;p&gt;and change to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;let liveSocket =
+    new LiveSocket(&amp;quot;/live&amp;quot;,
+                    Socket,
+                    { params: {_csrf_token: csrfToken},
+                      dom: {
+                        onBeforeElUpdated(from, to){
+                          if(from.__x){ Alpine.clone(from.__x, to) }
+                        }
+                    } }
+                  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;TEST by adding to the end of: &lt;code&gt;lib/fenix_web/live/page_live.html.leex&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;section&amp;gt;
+  &amp;lt;h2&amp;gt;Alpine JS Installed&amp;lt;/h2&amp;gt;
+  &amp;lt;div x-data=&amp;quot;{name:&#39;&#39;}&amp;quot;&amp;gt;
+    &amp;lt;label for=&amp;quot;name&amp;quot;&amp;gt;Name:&amp;lt;/label&amp;gt;
+    &amp;lt;input id=&amp;quot;name&amp;quot; type=&amp;quot;text&amp;quot; x-model=&amp;quot;name&amp;quot; /&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;test with:
+&lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;when typing the name should appear below!&lt;/p&gt;
+&lt;h2 id=&#34;integrating-tailwind-into-phoenix&#34;&gt;Integrating Tailwind into phoenix&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This source gives several options - here we install with &lt;code&gt;postcss-import&lt;/code&gt; (for components from the beginning):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd assets
+npm install tailwindcss postcss autoprefixer postcss-loader@4.2  postcss-import --save-dev
+
+touch postcss.config.js
+cat &amp;lt;&amp;lt;EOF &amp;gt; postcss.config.js
+module.exports = {
+  plugins: {
+    &amp;quot;postcss-import&amp;quot;: {},
+    tailwindcss: {},
+    autoprefixer: {}
+  }
+}
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now open: &lt;code&gt;assets/webpack.config.js&lt;/code&gt; and find:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+	test: /\.[s]?css$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		&#39;css-loader&#39;,
+		&#39;sass-loader&#39;,
+	],
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;change too (add &lt;code&gt;&#39;postcss-loader&#39;&lt;/code&gt; between &lt;code&gt;&#39;css-loader&#39;&lt;/code&gt; &amp;amp; &lt;code&gt;&#39;sass-loader&#39;&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+	test: /\.[s]?css$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		&#39;css-loader&#39;,
+		&#39;postcss-loader&#39;,
+		&#39;sass-loader&#39;,
+	],
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now initialize tailwind config with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npx tailwindcss init
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;this creates the file &lt;code&gt;tailwind.config.js&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;now in &lt;code&gt;assets/package.json&lt;/code&gt; find:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;deploy&amp;quot;: &amp;quot;webpack --mode production&amp;quot;,
+    &amp;quot;watch&amp;quot;: &amp;quot;webpack --mode development --watch&amp;quot;
+  },
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and change this to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;deploy&amp;quot;: &amp;quot;NODE_ENV=production webpack --mode production&amp;quot;,
+    &amp;quot;watch&amp;quot;: &amp;quot;webpack --mode development --watch&amp;quot;
+  },
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;AT THE TOP OF the file &lt;code&gt;assets/css/app.scss&lt;/code&gt; (imports must be before all else) add:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// alpinejs is very helpful for tailwind
+import &#39;alpinejs&#39;
+
+/* Import tailwind - with postcss-import installed */
+@import &amp;quot;tailwindcss/base&amp;quot;;
+@import &amp;quot;tailwindcss/components&amp;quot;;
+@import &amp;quot;tailwindcss/utilities&amp;quot;;
+
+/* custom styles - put after base imports! */
+@import &amp;quot;./custom-styles.css&amp;quot;;
+
+/* import custom components */
+@import &amp;quot;./components/buttons.css&amp;quot;;
+
+/* default phoenix styles - eventually remove */
+@import &amp;quot;./phoenix.css&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be sure to create the &lt;code&gt;assets/css/custom-style.css&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# assuming you are still in the assets directory on the cli
+touch css/custom-style.css
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can create our first sample css component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# assuming you are still in the assets directory on the cli
+mkdir css/components
+touch css/components/buttons.css
+cat &amp;lt;&amp;lt;EOF &amp;gt; css/components/buttons.css
+@layer components {
+  .btn-redish {
+    @apply bg-red-300 hover:bg-red-600 text-blue-800 font-bold py-2 px-4 rounded;
+  }
+  .btn-greenish {
+    @apply bg-green-300 hover:bg-green-600 text-blue-800 font-bold py-2 px-4 rounded;
+  }
+}
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;add a test html from tailwind to the end of: &lt;code&gt;lib/fenix_web/live/page_live.html.leex&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;section class=&amp;quot;grid grid-cols-1 gap-4&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;
+    &amp;lt;h2 class=&amp;quot;text-red-500 text-5xl font-bold text-center&amp;quot;&amp;gt;Tailwind CSS with AlpineJS&amp;lt;/h2&amp;gt;
+    &amp;lt;p class=&amp;quot;mt-5 font-bold text-center&amp;quot;&amp;gt;Red Title with Colored Counter Buttons&amp;lt;/p&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div class=&amp;quot;mt-10 flex justify-center&amp;quot; x-data=&amp;quot;{ count: 0 }&amp;quot;&amp;gt;
+    &amp;lt;button class=&amp;quot;btn-redish&amp;quot; x-on:click=&amp;quot;count--&amp;quot;&amp;gt;Decrement&amp;lt;/button&amp;gt;
+    &amp;lt;code&amp;gt;count: &amp;lt;/code&amp;gt;&amp;lt;code x-text=&amp;quot;count&amp;quot;&amp;gt;&amp;lt;/code&amp;gt;
+    &amp;lt;button class=&amp;quot;btn-greenish&amp;quot; x-on:click=&amp;quot;count++&amp;quot;&amp;gt;Increment&amp;lt;/button&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when we start the server with &lt;code&gt;mix phx.server&lt;/code&gt; we should have a centered / red title and colored buttons on our counter.&lt;/p&gt;
 </description>
     </item>
     
@@ -974,7 +1184,7 @@ git commit -m &amp;quot;turbo frame now allows in-place edit and cancel edit wit
     <item>
       <title>Tweets - A Single Page Rails App (using reloads)</title>
       <link>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
-      <pubDate>Thu, 25 Feb 2021 18:57:00 +0200</pubDate>
+      <pubDate>Sat, 20 Feb 2021 18:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 
@@ -5401,9 +5611,9 @@ Empowering students, making learning visible, and creating life long learners ar
     
     <item>
       <title>Bill Tihen</title>
-      <link>https://btihen.me/authors/btihen/_index-copy/</link>
+      <link>https://btihen.me/authors/btihen/_index_original_bio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/authors/btihen/_index-copy/</guid>
+      <guid>https://btihen.me/authors/btihen/_index_original_bio/</guid>
       <description>&lt;p&gt;Developer, Educator, Meditator and Nature Enthusiast.&lt;/p&gt;
 &lt;p&gt;I hold a Masters in Electrical Engineering (with a focus on Materials Science). I also have a ScrumMaster certification.&lt;/p&gt;
 &lt;p&gt;I have worked as a robotics designer, teacher, systems administrator and software engineer. My technical work has strongly influenced how I teach: Research and Agile practices have helped me develop a keen interest in the joy of exploring or &amp;lsquo;playful experiments.&amp;rsquo; Agile presents the Plan, Do, Reflect, Adjust loop and I have found that  &amp;lsquo;smallifying&amp;rsquo; large tasks is an effective way to make progress with a large overwhelming project. In fact, taking little exploratory &amp;lsquo;bets&amp;rsquo; / experiments to move forward, helps many people feel safe. When I realized these are also excellent learning methodologies, I realized in addition to content, I need to teach these skills too.&lt;/p&gt;
