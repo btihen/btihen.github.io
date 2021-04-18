@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="A simple Single Page App using Rails and Hotwire - integrated with a modal forms">
+  <meta name="description" content="Create a dynamic SPA staying mostly in the Pheonix/Elixir mindset">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/">
 
   
 
@@ -218,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/">
+  <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/">
 
   
   
@@ -236,15 +236,15 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/">
-  <meta property="og:title" content="Rails 6.1 - Hotwire with Modals | btihen">
-  <meta property="og:description" content="A simple Single Page App using Rails and Hotwire - integrated with a modal forms"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/featured.png">
-  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/">
+  <meta property="og:title" content="Phoenix LiveView - Simple Real-Time SPA | btihen">
+  <meta property="og:description" content="Create a dynamic SPA staying mostly in the Pheonix/Elixir mindset"><meta property="og:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/featured.jpg">
+  <meta property="twitter:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/featured.jpg"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2021-03-20T18:57:00&#43;02:00">
+      <meta property="article:published_time" content="2021-04-10T17:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-20T18:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-04-10T17:01:53&#43;02:00">
   
 
   
@@ -263,7 +263,7 @@
 
 
 
-  <title>Rails 6.1 - Hotwire with Modals | btihen</title>
+  <title>Phoenix LiveView - Simple Real-Time SPA | btihen</title>
 
 </head>
 
@@ -636,10 +636,10 @@
 
 
 <div class="article-container pt-3">
-  <h1>Rails 6.1 - Hotwire with Modals</h1>
+  <h1>Phoenix LiveView - Simple Real-Time SPA</h1>
 
   
-  <p class="page-subtitle">A simple Rails App that works off one page - integrating modal forms</p>
+  <p class="page-subtitle">Phoenix, Elixir, Single Page App Demo</p>
   
 
   
@@ -666,7 +666,7 @@
     
       
     
-    Sat, Mar 20, 2021
+    Sat, Apr 10, 2021
   </span>
   
 
@@ -680,6 +680,10 @@
 
   
   
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a></span>
+  
 
 </div>
 
@@ -701,9 +705,9 @@
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 405px;">
   <div style="position: relative">
-    <img src="/post_ruby_rails/rails_6_1_hotwire_modal_form/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/featured_hu226281c8394db9bf231992d9210ffbae_53126_720x0_resize_q90_lanczos.jpg" alt="" class="featured-image">
     
   </div>
 </div>
@@ -713,148 +717,238 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="overview">Overview</h2>
-<p>Now that you have the basics of using Hotwire in Rails 
-<a href="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/">Using Hotwire in Rails</a> - its interesting to try using it in other contexts, inparticular <strong>modals</strong> are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.</p>
-<h2 id="basic-setup">Basic Setup</h2>
-<p>Start with the code at the end of: 
-<a href="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/">Using Hotwire in Rails</a></p>
-<h2 id="add-jquery-to-bootstrap-setup">Add jQuery to Bootstrap Setup</h2>
-<p>First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &lt;body&gt; in the <code>application.html.erb</code> file:</p>
-<pre><code># app/views/layouts/application.html.erb
-&lt;body&gt;
-  &lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
-  &lt;%= yield %&gt;
-  &lt;script src=&quot;https://code.jquery.com/jquery-3.5.1.slim.min.js&quot; integrity=&quot;sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js&quot; integrity=&quot;sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
+      <p>I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.</p>
+<h2 id="create--config-a-project">create / config a project</h2>
+<p>First we will creat the folder / project location</p>
+<pre><code>mkdir tweets
 </code></pre>
-<h2 id="add-modal-to-index">Add Modal to Index</h2>
-<p>So we will start by replacing the new-form with a button that toggles the modal.</p>
-<pre><code># app/views/tweets/index.html.erb
-&lt;h1&gt;Tweets&lt;/h1&gt;
-&lt;%= turbo_stream_from &quot;tweets&quot; %&gt;
-
-&lt;h2 class=&quot;mt-3 h4 text-muted&quot;&gt;New Tweet&lt;/h2&gt;
-&lt;%= render &quot;tweets/modal_new&quot;, tweet: @tweet %&gt;
-
-&lt;h2 class=&quot;mt-3 h4 text-muted&quot;&gt;Tweet Feed&lt;/h2&gt;
-&lt;%= turbo_frame_tag &quot;tweets&quot; do %&gt;
-  &lt;%= render @tweets %&gt;
-&lt;% end %&gt;
+<p>Now we will tell it which software to use:</p>
+<pre><code>touch tweets/.tool-versions
+cat &lt;&lt;EOF &gt;&gt;tweets/.tool-versions
+erlang 23.3.1
+elixir 1.11.4-otp-23
+nodejs lts-Fermium
+Postgres 13.2
+EOF
 </code></pre>
-<p>So now lets make a partial that has the modal toggle button and the associated html to enable the modal to function (this code is basically copied from the Bootstrap website):</p>
-<pre><code># app/views/tweets/_modal_new.html.erb
-&lt;%= link_to &quot;#&quot;, class: 'btn btn-sm btn-outline-primary', data: { toggle: &quot;modal&quot;, target: &quot;#tweetModal&quot; } do %&gt;
-New Tweet
-&lt;% end %&gt;
-
-&lt;div class=&quot;modal fade&quot; id=&quot;tweetModal&quot; tabindex=&quot;-1&quot; aria-labelledby=&quot;exampleModalLabel&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;div class=&quot;modal-dialog&quot;&gt;
-    &lt;div class=&quot;modal-content&quot;&gt;
-      &lt;%= render &quot;tweets/modal_form&quot;, tweet: tweet %&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
+<h2 id="create-a-new-phoenix-project">Create a new Phoenix Project</h2>
+<p><a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></p>
+<p>Now you can simply do:</p>
+<pre><code>mix phx.new tweets --live
 </code></pre>
-<p>Notice we have a partial for the form still - this is because we have to point turbo at a dom_id within a partial (without doing this we can&rsquo;t get validation errors back into this form).  This is a mix of the Bootstrap example code placed within the rails form.</p>
-<pre><code>#  app/views/tweets/_modal_form.html.erb
-&lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;
-
-  &lt;div class=&quot;modal-header&quot;&gt;
-    &lt;h5 class=&quot;modal-title&quot;&gt;New Tweet&lt;/h5&gt;
-    &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-label=&quot;Close&quot;&gt;
-      &lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;modal-body&quot;&gt;
-    &lt;% if tweet.errors.any? %&gt;
-    &lt;div id=&quot;error_explanation&quot;&gt;
-      &lt;h2&gt;&lt;%= pluralize(tweet.errors.count, &quot;error&quot;) %&gt; prohibited this tweet from being saved:&lt;/h2&gt;
-
-      &lt;ul&gt;
-        &lt;% tweet.errors.each do |error| %&gt;
-        &lt;li&gt;&lt;%= error.full_message %&gt;&lt;/li&gt;
-        &lt;% end %&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-    &lt;% end %&gt;
-
-    &lt;div class=&quot;field&quot;&gt;
-      &lt;%= form.label :body %&gt;
-      &lt;%= form.text_area :body %&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;modal-footer&quot;&gt;
-    &lt;div class=&quot;actions&quot;&gt;
-      &lt;%= form.submit class: &quot;btn btn-sm btn-outline-success&quot; %&gt;
-      &lt;%= link_to &quot;Cancel&quot;, tweet, class: &quot;btn btn-sm btn-outline-danger&quot; %&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-&lt;% end %&gt;
+<p>You will now get the message:</p>
+<pre><code>The directory /Users/btihen/Dropbox/devel/marpori/tweets already exists. Are you sure you want to continue? [Yn]
 </code></pre>
-<h3 id="test">Test</h3>
-<ol>
-<li>Modal Opens</li>
-<li>Modal Close Works</li>
-<li>Modal Cancel Works</li>
-<li>Create valid Tweet &ndash; works and broadcasts</li>
-<li>Create invalid Tweet &ndash; Errors go to wrong form (must click cancel or reload)</li>
-</ol>
-<p>In fact, if you put the regular form back into the index page you will see that the validation errors show up there.</p>
-<p><img src="misplaced_validation_errors_on_create.png" alt="validation errors in wrong form"></p>
-<h2 id="fix-validation-errors">Fix validation errors</h2>
-<p>We fix this like this like a normal form - we change how the controller uses turbo_stream. So instead of pointing to the partial: &ldquo;tweets/form&rdquo; we need to point to &ldquo;tweets/modal_form&rdquo; (the new partial with the form).</p>
-<pre><code># app/controllers/tweets_controller.rb
-  def create
-    @tweet = Tweet.new(tweet_params)
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.turbo_stream { # route turbo_stream validation errors
-                      render turbo_stream: turbo_stream.replace(
-                              @tweet, partial: &quot;tweets/modal_form&quot;,
-                              locals: { tweet: @tweet}) }
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+<p>Say <code>Y</code> yes.
+Say <code>Y</code> yes again when you see:</p>
+<pre><code>Fetch and install dependencies? [Yn]
+</code></pre>
+<p>This can take a few minutes - when done, enter the directory and setup.</p>
+<pre><code>cd tweets
+</code></pre>
+<p>Adjust the DB settings as needed in: <code>config/dev.exs</code></p>
+<p>Create the database and lets see if default tests work and we get the start page.</p>
+<pre><code>mix ecto.create
+mix test
+mix phx.server
+</code></pre>
+<p>assuming all is good lets snapshot:</p>
+<pre><code>git init
+git add .
+git commit -m &quot;initial setup commit&quot;
+</code></pre>
+<h2 id="create-our-tweet-model">create our tweet model</h2>
+<p>Create this with the generator (notice we are using <code>mix phx.gen.live</code> not <code>mix phx.gen.html</code>):</p>
+<pre><code>mix phx.gen.live Messages Post posts body:text
+</code></pre>
+<p>Change migration to require data - add <code>null: false</code> to our field so it now looks like:</p>
+<pre><code># priv/repo/migrations/20210418084643_create_posts.exs
+defmodule Tweets.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :body, :text, null: false
+
+      timestamps()
     end
+
+  end
+end
+</code></pre>
+<p>Now lets update the routes as described by the generator - in <code>lib/tweets_web/router.ex</code> so the section that looks like:</p>
+<pre><code>
+  scope &quot;/&quot;, TweetsWeb do
+    pipe_through :browser
+
+    live &quot;/&quot;, PageLive, :index
   end
 </code></pre>
-<p>Now all our tests should work.</p>
-<h2 id="using-turbo-templates">Using turbo templates</h2>
-<p>Let&rsquo;s refactor - for future flexibility.  We&rsquo;ll create the template.  Since we are using the <code>create</code> method within the controller - we&rsquo;ll call the file: <code>create.turbo_stream.html.erb</code> - notice, unsurprisingly it looks what&rsquo;s in the controller.</p>
-<pre><code># app/views/tweets/create.turbo_stream.erb
-&lt;!--             action  dom_id           partial with the dom_id        actual data --&gt;
-&lt;%= turbo_stream.replace @tweet, partial: &quot;tweets/modal_form&quot;, locals: { tweet: @tweet } %&gt;
-</code></pre>
-<p>Now we can make the controller look like:</p>
-<pre><code># app/controllers/tweets_controller.rb
-  def create
-    @tweet = Tweet.new(tweet_params)
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.turbo_stream  # route turbo_stream validation errors
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
-    end
+<p>should be change to:</p>
+<pre><code>  scope &quot;/&quot;, TweetsWeb do
+    pipe_through :browser
+
+    # live &quot;/&quot;, PageLive, :index
+    live &quot;/&quot;, PostLive.Index, :index
+    live &quot;/posts&quot;, PostLive.Index, :index
+    live &quot;/posts/new&quot;, PostLive.Index, :new
+    live &quot;/posts/:id/edit&quot;, PostLive.Index, :edit
+
+    live &quot;/posts/:id&quot;, PostLive.Show, :show
+    live &quot;/posts/:id/show/edit&quot;, PostLive.Show, :edit
   end
 </code></pre>
-<p>Using the template allows us the flexibilty to make multiple dynamic changes to the page on a create.  This is demonstrated in the post describing using Flash messages with Hotwire.</p>
-<h2 id="resources">Resources</h2>
-<p>The repo where you can find this code in the branch:
-<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet</a></p>
-<p>The important commit is:
-<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131">https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131</a></p>
+<p>Now check our field <code>body</code> is required in validations &ndash; in our changeset.  We see <code>validate_required([:body])</code> in the file: <code>lib/tweets/messages/post.ex</code> - so we are all set.</p>
+<pre><code>  def changeset(post, attrs) do
+    post
+    |&gt; cast(attrs, [:body])
+    |&gt; validate_required([:body])
+  end
+</code></pre>
+<p>So it time to migrate &amp; test:</p>
+<pre><code>mix ecto.migrate
+mix test
+</code></pre>
+<p>Hmm - the tests generator and html use different html standards: to make the tests pass test that phoenix returns <code>can&amp;#39;t be blank</code> instead of <code>can&amp;apos;t be blank</code> in <code>test/tweets_web/live/post_live_test.exs</code></p>
+<p>also change: <code>&quot;Welcome to Phoenix!&quot;</code> to <code>&quot;Listing Posts&quot;</code> in <code>test/tweets_web/live/page_live_test.exs</code></p>
+<p>Now lets see how our new SPA works:</p>
+<pre><code>mix phx.server
+</code></pre>
+<p>It works, but we want to list the most recent tweets at the top of the page &ndash; let&rsquo;s investigate &ndash; open <code>lib/tweets_web/live/post_live/index.ex</code> we see in the <code>mount</code> command:</p>
+<pre><code># lib/tweets_web/live/post_live/index.ex
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, :posts, list_posts())}
+  end
+</code></pre>
+<p>It uses <code>list_posts()</code> to get the list - so let&rsquo;s change this function.</p>
+<p>Open: <code>lib/tweets/messages.ex</code> and change:</p>
+<pre><code># lib/tweets/messages.ex
+  def list_posts do
+    Repo.all(Post)
+  end
+</code></pre>
+<p>to</p>
+<pre><code># lib/tweets/messages.ex
+ def list_posts do
+    Post
+      |&gt; order_by(desc: :inserted_at)
+      |&gt; Repo.all
+  end
+</code></pre>
+<p>Cool now our SPA works like we want &ndash; but it isn&rsquo;t real-time between two users / browsers.</p>
+<h2 id="broadcast-changes-with-pubsub">Broadcast changes with Pubsub</h2>
+<p>Phoenix uses Websockets to do <code>real-time</code> communication.  In our &ldquo;context&rdquo; we will create our <code>channel</code> - the pipeline that the socket uses to send information back and forth to various &ldquo;subscribers&rdquo; - viewers of our page.</p>
+<h3 id="setup-the-messages-channel">Setup the &ldquo;Messages&rdquo; Channel</h3>
+<p>We go into: <code>lib/tweets/messages.ex</code> and at the top of the file add the Broadcast Setup:</p>
+<pre><code># lib/tweets/messages.ex
+defmodule Tweets.Messages do
+  @moduledoc &quot;&quot;&quot;
+  The Messages context.
+  &quot;&quot;&quot;
+
+  import Ecto.Query, warn: false
+  alias Tweets.Repo
+  alias Tweets.Messages.Post
+
+  # Setup Broadcasting
+  @topic inspect(__MODULE__)
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(Tweets.PubSub, @topic)
+  end
+
+  def notify_subscribers({:ok, post}, event) do
+    posts = list_posts()
+    Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})
+    {:ok, post}
+  end
+
+  def notify_subscribers({:error, post}, event) do
+    {:error, post}
+  end
+  # Setup Broadcasting
+  ...
+</code></pre>
+<p>Lets quickly review this new code:</p>
+<p><code>@topic inspect(__MODULE__)</code></p>
+<p>makes @topic named <code>Tweets.Messages</code> - but if we change the module name it changes @topic too.</p>
+<p><code>subscribe</code> function - allows us to register our index page with channel created automatically by LiveView.</p>
+<p>We have two <code>notify_subscribers</code> because we will call these after we do our DB actions - writing to the DB could fail or succeed.  If we have success then we will update all subscribers and the last line tuple passes the results of the interaction back to the actual user.   (Of course we don&rsquo;t need to notify when the DB transaction fails, we only need to pass the message back to the user).</p>
+<h3 id="subscribing-to-the-messages-channel">Subscribing to the &lsquo;Messages&rsquo; Channel</h3>
+<p>Now that we have <code>notify_subscribers</code> that broadcasts <code>Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})</code> we need a way to subscribe to this channel and receive these messages in all our index pages.</p>
+<pre><code># lib/tweets_web/live/post_live/index.ex
+defmodule TweetsWeb.PostLive.Index do
+  use TweetsWeb, :live_view
+
+  alias Tweets.Messages
+  alias Tweets.Messages.Post
+
+  @impl true
+  def mount(_params, _session, socket) do
+    # register with the channel if connection to LiveView
+    if connected?(socket), do: Messages.subscribe()
+    {:ok, assign(socket, :posts, list_posts())}
+  end
+
+  @impl true
+  def handle_info({Messages, &quot;posts-changed&quot;, posts}, socket) do
+    socket = assign(socket, :posts, posts)
+    {:noreply, socket}
+  end
+  ...
+</code></pre>
+<p>The important changes are to <strong>subscribe to the channel</strong> we we have subscribed to our Websocket we do this in the <code>mount</code> function with <code>if connected?(socket), do: Messages.subscribe()</code></p>
+<p>Now we need a way to <strong>recieve information from the channel</strong> this is done with the <code>handle_info</code> function - so we will simply take the new list of posts and update the socket and index will take care of the rest &ndash; automatically!</p>
+<h3 id="sending-messages-to-the-channel">Sending Messages to the Channel</h3>
+<p>So now to activate our changes - we need to send to the channel via <code>notify_subscribers</code> when we successfully change something in the Messages &ldquo;post&rdquo; context.  To do this we will make small changes to the create_post, update_post and delete_post functions.  We will add <code>notify_subscribers({status, post}, &quot;posts-changed&quot;)</code> to the end of each function.  Since we only defined one event <code>&quot;posts-changed&quot;</code> in our index page <code>handle_info</code> function &ndash; we will hard-code that into our <code>notify_subscribers</code> call</p>
+<p>So our simple DB calls in Messages currently looks like:</p>
+<pre><code># lib/tweets/messages.ex
+  def create_post(attrs \\ %{}) do
+    %Post{}
+      |&gt; Post.changeset(attrs)
+      |&gt; Repo.insert()
+  end
+
+  def update_post(%Post{} = post, attrs) do
+    post
+      |&gt; Post.changeset(attrs)
+      |&gt; Repo.update()
+  end
+
+  def delete_post(%Post{} = post) do
+    Repo.delete(post)
+  end
+</code></pre>
+<p>Now becomes:</p>
+<pre><code># lib/tweets/messages.ex
+  def create_post(attrs \\ %{}) do
+    {status, post} = %Post{}
+                      |&gt; Post.changeset(attrs)
+                      |&gt; Repo.insert()
+    notify_subscribers({status, post}, &quot;posts-changed&quot;)
+  end
+
+  def update_post(%Post{} = post, attrs) do
+    {status, post} = post
+                      |&gt; Post.changeset(attrs)
+                      |&gt; Repo.update()
+    notify_subscribers({status, post}, &quot;posts-changed&quot;)
+  end
+
+  def delete_post(%Post{} = post) do
+    {status, post} = post
+                      |&gt; Repo.delete()
+    notify_subscribers({status, post}, &quot;posts-changed&quot;)
+  end
+</code></pre>
+<p>Note: in-order to pass the DB transaction information back to the user, we need to capture that information with the tuple: <code>{status, post}</code> - which notify_subscribers will pass back and will be returned to the user - the returns values will be either <code>{:ok, post}</code> or <code>{:error, post_changeset}</code></p>
+<p>Let&rsquo;s be sure we didn&rsquo;t break anything and run our tests again:</p>
+<pre><code>mix test
+</code></pre>
+<p>Ideally, all is still good so lets try our updated app now:</p>
+<pre><code>mix phx.server
+</code></pre>
+<p>Now any changes we make should be seen all users.</p>
 
     </div>
 
@@ -867,17 +961,13 @@ New Tweet
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  <a class="badge badge-light" href="/tags/phoenix/">Phoenix</a>
   
-  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  <a class="badge badge-light" href="/tags/elixir/">Elixir</a>
+  
+  <a class="badge badge-light" href="/tags/liveview/">LiveView</a>
   
   <a class="badge badge-light" href="/tags/spa/">SPA</a>
-  
-  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
-  
-  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
-  
-  <a class="badge badge-light" href="/tags/modal-forms/">modal forms</a>
   
 </div>
 
@@ -894,7 +984,7 @@ New Tweet
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;text=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/&amp;text=Phoenix%20LiveView%20-%20Simple%20Real-Time%20SPA" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -907,7 +997,7 @@ New Tweet
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;t=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/&amp;t=Phoenix%20LiveView%20-%20Simple%20Real-Time%20SPA" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -920,7 +1010,7 @@ New Tweet
       
       
       <li>
-        <a href="mailto:?subject=Rails%206.1%20-%20Hotwire%20with%20Modals&amp;body=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Phoenix%20LiveView%20-%20Simple%20Real-Time%20SPA&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -933,7 +1023,7 @@ New Tweet
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;title=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/&amp;title=Phoenix%20LiveView%20-%20Simple%20Real-Time%20SPA" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -946,7 +1036,7 @@ New Tweet
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Rails%206.1%20-%20Hotwire%20with%20Modals%20https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Phoenix%20LiveView%20-%20Simple%20Real-Time%20SPA%20https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -959,7 +1049,7 @@ New Tweet
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;title=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/&amp;title=Phoenix%20LiveView%20-%20Simple%20Real-Time%20SPA" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

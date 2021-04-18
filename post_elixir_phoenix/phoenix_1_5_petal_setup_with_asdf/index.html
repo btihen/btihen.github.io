@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="A simple Single Page App using Rails and Hotwire - integrated with a modal forms">
+  <meta name="description" content="Create a modern Phoenix SPA with tremendous flexibility">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/">
 
   
 
@@ -218,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/">
+  <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/">
 
   
   
@@ -236,15 +236,15 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/">
-  <meta property="og:title" content="Rails 6.1 - Hotwire with Modals | btihen">
-  <meta property="og:description" content="A simple Single Page App using Rails and Hotwire - integrated with a modal forms"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/featured.png">
-  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/">
+  <meta property="og:title" content="Phoenix 1.5 PETAL Stack Setup - w/ asdf | btihen">
+  <meta property="og:description" content="Create a modern Phoenix SPA with tremendous flexibility"><meta property="og:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2021-03-20T18:57:00&#43;02:00">
+      <meta property="article:published_time" content="2021-04-10T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-20T18:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-04-18T01:01:53&#43;02:00">
   
 
   
@@ -263,7 +263,7 @@
 
 
 
-  <title>Rails 6.1 - Hotwire with Modals | btihen</title>
+  <title>Phoenix 1.5 PETAL Stack Setup - w/ asdf | btihen</title>
 
 </head>
 
@@ -636,10 +636,10 @@
 
 
 <div class="article-container pt-3">
-  <h1>Rails 6.1 - Hotwire with Modals</h1>
+  <h1>Phoenix 1.5 PETAL Stack Setup - w/ asdf</h1>
 
   
-  <p class="page-subtitle">A simple Rails App that works off one page - integrating modal forms</p>
+  <p class="page-subtitle">Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView - PETAL Stack</p>
   
 
   
@@ -665,8 +665,10 @@
     
     
       
+          Last updated on
+      
     
-    Sat, Mar 20, 2021
+    Sun, Apr 18, 2021
   </span>
   
 
@@ -680,6 +682,10 @@
 
   
   
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a></span>
+  
 
 </div>
 
@@ -701,9 +707,9 @@
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 365px;">
   <div style="position: relative">
-    <img src="/post_ruby_rails/rails_6_1_hotwire_modal_form/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/featured_hu83226946e6091425465295e54bca7452_288978_720x0_resize_lanczos_2.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -713,148 +719,218 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="overview">Overview</h2>
-<p>Now that you have the basics of using Hotwire in Rails 
-<a href="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/">Using Hotwire in Rails</a> - its interesting to try using it in other contexts, inparticular <strong>modals</strong> are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.</p>
-<h2 id="basic-setup">Basic Setup</h2>
-<p>Start with the code at the end of: 
-<a href="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/">Using Hotwire in Rails</a></p>
-<h2 id="add-jquery-to-bootstrap-setup">Add jQuery to Bootstrap Setup</h2>
-<p>First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &lt;body&gt; in the <code>application.html.erb</code> file:</p>
-<pre><code># app/views/layouts/application.html.erb
-&lt;body&gt;
-  &lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
-  &lt;%= yield %&gt;
-  &lt;script src=&quot;https://code.jquery.com/jquery-3.5.1.slim.min.js&quot; integrity=&quot;sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js&quot; integrity=&quot;sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
+      <p>I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.</p>
+<h2 id="install-asdf---and-required-software">Install asdf - and required software</h2>
+<p><a href="https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/">https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/</a>
+<a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></p>
+<p>On a Mac I used Homebrew:</p>
+<pre><code>brew install asdf
+echo -e '\n. $(brew --prefix asdf)/asdf.sh' &gt;&gt; ~/.bash_profile
+echo -e '\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash' &gt;&gt; ~/.bash_profile
+source ~/.bash_profile  # (or open a new terminal)
 </code></pre>
-<h2 id="add-modal-to-index">Add Modal to Index</h2>
-<p>So we will start by replacing the new-form with a button that toggles the modal.</p>
-<pre><code># app/views/tweets/index.html.erb
-&lt;h1&gt;Tweets&lt;/h1&gt;
-&lt;%= turbo_stream_from &quot;tweets&quot; %&gt;
-
-&lt;h2 class=&quot;mt-3 h4 text-muted&quot;&gt;New Tweet&lt;/h2&gt;
-&lt;%= render &quot;tweets/modal_new&quot;, tweet: @tweet %&gt;
-
-&lt;h2 class=&quot;mt-3 h4 text-muted&quot;&gt;Tweet Feed&lt;/h2&gt;
-&lt;%= turbo_frame_tag &quot;tweets&quot; do %&gt;
-  &lt;%= render @tweets %&gt;
-&lt;% end %&gt;
+<p>Now you can install asdf software packages:</p>
+<pre><code>asdf plugin-add erlang
+asdf plugin-add elixir
+asdf plugin-add nodejs
+asdf plugin-add Postgres
 </code></pre>
-<p>So now lets make a partial that has the modal toggle button and the associated html to enable the modal to function (this code is basically copied from the Bootstrap website):</p>
-<pre><code># app/views/tweets/_modal_new.html.erb
-&lt;%= link_to &quot;#&quot;, class: 'btn btn-sm btn-outline-primary', data: { toggle: &quot;modal&quot;, target: &quot;#tweetModal&quot; } do %&gt;
-New Tweet
-&lt;% end %&gt;
+<p>Now you need to install the desired versions (usually the newest) - currently:</p>
+<pre><code>asdf list all erlang
+asdf install erlang 23.3.1
 
-&lt;div class=&quot;modal fade&quot; id=&quot;tweetModal&quot; tabindex=&quot;-1&quot; aria-labelledby=&quot;exampleModalLabel&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;div class=&quot;modal-dialog&quot;&gt;
-    &lt;div class=&quot;modal-content&quot;&gt;
-      &lt;%= render &quot;tweets/modal_form&quot;, tweet: tweet %&gt;
-    &lt;/div&gt;
+# note the elixir version otp must match the erlang version!
+asdf list all elixir
+asdf install elixir 1.11.4-otp-23
+
+# asdf install elixir 1.11.4-otp-24
+# if you mismatch elixir with erlang you will get errors like:
+# {&quot;init terminating in do_boot&quot;,{undef,[{elixir,start_cli,[],[]},{init,start_em,1,[]},{init,do_boot,3,[]}]}}
+
+asdf list all nodejs
+asdf install nodejs lts-fermium
+
+asdf list all Postgres
+asdf install Postgres 13.2
+</code></pre>
+<h2 id="get-the-newest-phoenix-hex-package">Get the newest Phoenix Hex Package</h2>
+<p>Once you have established you have the requrements - the download the newest version of Phoenix (go to: <a href="https://hexdocs.pm/phoenix/installation.html#phoenix">https://hexdocs.pm/phoenix/installation.html#phoenix</a> to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:</p>
+<pre><code>mix archive.install hex phx_new 1.5.8
+</code></pre>
+<h2 id="create--config-a-project">create / config a project</h2>
+<p>First we will creat the folder / project location</p>
+<pre><code>mkdir fenix
+</code></pre>
+<p>Now we will tell it which software to use:</p>
+<pre><code>touch fenix/.tool-versions
+cat &lt;&lt;EOF &gt;&gt;fenix/.tool-versions
+erlang 23.3.1
+elixir 1.11.4-otp-23
+Postgres 13.2
+nodejs lts-Fermium
+EOF
+</code></pre>
+<h2 id="create-a-new-phoenix-project">Create a new Phoenix Project</h2>
+<p><a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></p>
+<p>Now you can simply do:</p>
+<pre><code>mix phx.new fenix --live
+cd fenix
+mix ecto.create
+mix phx.server
+</code></pre>
+<h2 id="install--test-alpine-js">install &amp; test Alpine JS</h2>
+<p><a href="https://underjord.io/getting-started-with-petal.html">https://underjord.io/getting-started-with-petal.html</a>
+<a href="https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview">https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview</a></p>
+<pre><code>cd assets
+npm install alpinejs
+</code></pre>
+<p>Now change <code>app.js</code> is to require our new setup:</p>
+<pre><code># assets/js/app.js
+// .. after the app.scss import add:
+import Alpine from &quot;alpinejs&quot;;
+</code></pre>
+<p>still in <code>assets/js/app.js</code> find<code>:</code>let liveSocket = new LiveSocket(&quot;/live&quot;, Socket, {params: {_csrf_token: csrfToken}})`</p>
+<p>and change to:</p>
+<pre><code>let liveSocket =
+    new LiveSocket(&quot;/live&quot;,
+                    Socket,
+                    { params: {_csrf_token: csrfToken},
+                      dom: {
+                        onBeforeElUpdated(from, to){
+                          if(from.__x){ Alpine.clone(from.__x, to) }
+                        }
+                    } }
+                  )
+</code></pre>
+<p>TEST by adding to the end of: <code>lib/fenix_web/live/page_live.html.leex</code></p>
+<pre><code>&lt;section&gt;
+  &lt;h2&gt;Alpine JS Installed&lt;/h2&gt;
+  &lt;div x-data=&quot;{name:''}&quot;&gt;
+    &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+    &lt;input id=&quot;name&quot; type=&quot;text&quot; x-model=&quot;name&quot; /&gt;
+    &lt;p&gt;&lt;br&gt;&lt;b&gt;&lt;em&gt;Output:&lt;/em&gt;&lt;/b&gt; &lt;span x-text=&quot;name&quot;&gt;&lt;/p&gt;
   &lt;/div&gt;
-&lt;/div&gt;
+&lt;/section&gt;
 </code></pre>
-<p>Notice we have a partial for the form still - this is because we have to point turbo at a dom_id within a partial (without doing this we can&rsquo;t get validation errors back into this form).  This is a mix of the Bootstrap example code placed within the rails form.</p>
-<pre><code>#  app/views/tweets/_modal_form.html.erb
-&lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;
+<p>test with:
+<code>mix phx.server</code></p>
+<p>when typing the name should appear below!</p>
+<h2 id="integrating-tailwind-into-phoenix">Integrating Tailwind into phoenix</h2>
+<p><a href="https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix">https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix</a>
+<a href="https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix">https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix</a></p>
+<p>This source gives several options - here we install with <code>postcss-import</code> (for components from the beginning):</p>
+<pre><code>cd assets
+npm install tailwindcss postcss autoprefixer postcss-loader@4.2  postcss-import --save-dev
 
-  &lt;div class=&quot;modal-header&quot;&gt;
-    &lt;h5 class=&quot;modal-title&quot;&gt;New Tweet&lt;/h5&gt;
-    &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-label=&quot;Close&quot;&gt;
-      &lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;
-    &lt;/button&gt;
+touch postcss.config.js
+cat &lt;&lt;EOF &gt; postcss.config.js
+module.exports = {
+  plugins: {
+    &quot;postcss-import&quot;: {},
+    tailwindcss: {},
+    autoprefixer: {}
+  }
+}
+EOF
+</code></pre>
+<p>now open: <code>assets/webpack.config.js</code> and find:</p>
+<pre><code>{
+	test: /\.[s]?css$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		'css-loader',
+		'sass-loader',
+	],
+}
+</code></pre>
+<p>change too (add <code>'postcss-loader'</code> between <code>'css-loader'</code> &amp; <code>'sass-loader'</code>):</p>
+<pre><code>{
+	test: /\.[s]?css$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		'css-loader',
+		'postcss-loader',
+		'sass-loader',
+	],
+}
+</code></pre>
+<p>now initialize tailwind config with:</p>
+<pre><code>npx tailwindcss init
+</code></pre>
+<p>this creates the file <code>tailwind.config.js</code></p>
+<p>now in <code>assets/package.json</code> find:</p>
+<pre><code>  &quot;scripts&quot;: {
+    &quot;deploy&quot;: &quot;webpack --mode production&quot;,
+    &quot;watch&quot;: &quot;webpack --mode development --watch&quot;
+  },
+</code></pre>
+<p>and change this to:</p>
+<pre><code>  &quot;scripts&quot;: {
+    &quot;deploy&quot;: &quot;NODE_ENV=production webpack --mode production&quot;,
+    &quot;watch&quot;: &quot;webpack --mode development --watch&quot;
+  },
+</code></pre>
+<p>AT THE TOP OF the file <code>assets/css/app.scss</code> (imports must be before all else) add:</p>
+<pre><code>// alpinejs is very helpful for tailwind
+import 'alpinejs'
+
+/* Import tailwind - with postcss-import installed */
+@import &quot;tailwindcss/base&quot;;
+@import &quot;tailwindcss/components&quot;;
+@import &quot;tailwindcss/utilities&quot;;
+
+/* custom styles - put after base imports! */
+@import &quot;./custom-styles.css&quot;;
+
+/* import custom components */
+@import &quot;./components/buttons.css&quot;;
+
+/* default phoenix styles - eventually remove */
+@import &quot;./phoenix.css&quot;;
+</code></pre>
+<p>be sure to create the <code>assets/css/custom-style.css</code> file:</p>
+<pre><code># assuming you are still in the assets directory on the cli
+touch css/custom-style.css
+</code></pre>
+<p>Now we can create our first sample css component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):</p>
+<pre><code># assuming you are still in the assets directory on the cli
+mkdir css/components
+touch css/components/buttons.css
+cat &lt;&lt;EOF &gt; css/components/buttons.css
+@layer components {
+  .btn-redish {
+    @apply bg-red-300 hover:bg-red-600 text-blue-800 font-bold py-2 px-4 rounded;
+  }
+  .btn-greenish {
+    @apply bg-green-300 hover:bg-green-600 text-blue-800 font-bold py-2 px-4 rounded;
+  }
+}
+EOF
+</code></pre>
+<p>add a test html from tailwind to the end of: <code>lib/fenix_web/live/page_live.html.leex</code></p>
+<pre><code>&lt;section class=&quot;grid grid-cols-1 gap-4&quot;&gt;
+  &lt;div&gt;
+    &lt;h2 class=&quot;text-red-500 text-5xl font-bold text-center&quot;&gt;Tailwind CSS with AlpineJS&lt;/h2&gt;
+    &lt;p class=&quot;mt-5 font-bold text-center&quot;&gt;Red Title with Colored Counter Buttons&lt;/p&gt;
   &lt;/div&gt;
-
-  &lt;div class=&quot;modal-body&quot;&gt;
-    &lt;% if tweet.errors.any? %&gt;
-    &lt;div id=&quot;error_explanation&quot;&gt;
-      &lt;h2&gt;&lt;%= pluralize(tweet.errors.count, &quot;error&quot;) %&gt; prohibited this tweet from being saved:&lt;/h2&gt;
-
-      &lt;ul&gt;
-        &lt;% tweet.errors.each do |error| %&gt;
-        &lt;li&gt;&lt;%= error.full_message %&gt;&lt;/li&gt;
-        &lt;% end %&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-    &lt;% end %&gt;
-
-    &lt;div class=&quot;field&quot;&gt;
-      &lt;%= form.label :body %&gt;
-      &lt;%= form.text_area :body %&gt;
-    &lt;/div&gt;
+  &lt;div class=&quot;mt-10 flex justify-center&quot; x-data=&quot;{ count: 0 }&quot;&gt;
+    &lt;button class=&quot;btn-redish&quot; x-on:click=&quot;count--&quot;&gt;Decrement&lt;/button&gt;
+    &lt;code&gt;count: &lt;/code&gt;&lt;code x-text=&quot;count&quot;&gt;&lt;/code&gt;
+    &lt;button class=&quot;btn-greenish&quot; x-on:click=&quot;count++&quot;&gt;Increment&lt;/button&gt;
   &lt;/div&gt;
-
-  &lt;div class=&quot;modal-footer&quot;&gt;
-    &lt;div class=&quot;actions&quot;&gt;
-      &lt;%= form.submit class: &quot;btn btn-sm btn-outline-success&quot; %&gt;
-      &lt;%= link_to &quot;Cancel&quot;, tweet, class: &quot;btn btn-sm btn-outline-danger&quot; %&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-&lt;% end %&gt;
+&lt;/section&gt;
 </code></pre>
-<h3 id="test">Test</h3>
-<ol>
-<li>Modal Opens</li>
-<li>Modal Close Works</li>
-<li>Modal Cancel Works</li>
-<li>Create valid Tweet &ndash; works and broadcasts</li>
-<li>Create invalid Tweet &ndash; Errors go to wrong form (must click cancel or reload)</li>
-</ol>
-<p>In fact, if you put the regular form back into the index page you will see that the validation errors show up there.</p>
-<p><img src="misplaced_validation_errors_on_create.png" alt="validation errors in wrong form"></p>
-<h2 id="fix-validation-errors">Fix validation errors</h2>
-<p>We fix this like this like a normal form - we change how the controller uses turbo_stream. So instead of pointing to the partial: &ldquo;tweets/form&rdquo; we need to point to &ldquo;tweets/modal_form&rdquo; (the new partial with the form).</p>
-<pre><code># app/controllers/tweets_controller.rb
-  def create
-    @tweet = Tweet.new(tweet_params)
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.turbo_stream { # route turbo_stream validation errors
-                      render turbo_stream: turbo_stream.replace(
-                              @tweet, partial: &quot;tweets/modal_form&quot;,
-                              locals: { tweet: @tweet}) }
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-</code></pre>
-<p>Now all our tests should work.</p>
-<h2 id="using-turbo-templates">Using turbo templates</h2>
-<p>Let&rsquo;s refactor - for future flexibility.  We&rsquo;ll create the template.  Since we are using the <code>create</code> method within the controller - we&rsquo;ll call the file: <code>create.turbo_stream.html.erb</code> - notice, unsurprisingly it looks what&rsquo;s in the controller.</p>
-<pre><code># app/views/tweets/create.turbo_stream.erb
-&lt;!--             action  dom_id           partial with the dom_id        actual data --&gt;
-&lt;%= turbo_stream.replace @tweet, partial: &quot;tweets/modal_form&quot;, locals: { tweet: @tweet } %&gt;
-</code></pre>
-<p>Now we can make the controller look like:</p>
-<pre><code># app/controllers/tweets_controller.rb
-  def create
-    @tweet = Tweet.new(tweet_params)
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to tweets_url, notice: &quot;Tweet was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.turbo_stream  # route turbo_stream validation errors
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-</code></pre>
-<p>Using the template allows us the flexibilty to make multiple dynamic changes to the page on a create.  This is demonstrated in the post describing using Flash messages with Hotwire.</p>
-<h2 id="resources">Resources</h2>
-<p>The repo where you can find this code in the branch:
-<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet</a></p>
-<p>The important commit is:
-<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131">https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131</a></p>
+<p>Now when we start the server with <code>mix phx.server</code> we should have a centered / red title and colored buttons on our counter.</p>
+<h2 id="add-test-helpers">Add Test helpers</h2>
+<p>wallaby / hound - browser testing
+{:faker, &ldquo;~&gt; 0.16&rdquo;, only: :test},
+{:ex_machina, &ldquo;~&gt; 2.7.0&rdquo;, only: :test},
+{:phoenix_integration, &ldquo;~&gt; 0.8.2&rdquo;}
+mox - mock testing external apis
+moch
+FakerElixir</p>
+<h2 id="auth-users">Auth Users</h2>
+<p>phx.auth.gen</p>
 
     </div>
 
@@ -867,17 +943,17 @@ New Tweet
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  <a class="badge badge-light" href="/tags/phoenix/">Phoenix</a>
   
-  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  <a class="badge badge-light" href="/tags/elixir/">Elixir</a>
   
-  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  <a class="badge badge-light" href="/tags/tailwindcss/">TailwindCSS</a>
   
-  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
+  <a class="badge badge-light" href="/tags/alpinejs/">AlpineJS</a>
   
-  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
+  <a class="badge badge-light" href="/tags/liveview/">LiveView</a>
   
-  <a class="badge badge-light" href="/tags/modal-forms/">modal forms</a>
+  <a class="badge badge-light" href="/tags/petal-stack/">PETAL Stack</a>
   
 </div>
 
@@ -894,7 +970,7 @@ New Tweet
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;text=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/&amp;text=Phoenix%201.5%20PETAL%20Stack%20Setup%20-%20w/%20asdf" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -907,7 +983,7 @@ New Tweet
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;t=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/&amp;t=Phoenix%201.5%20PETAL%20Stack%20Setup%20-%20w/%20asdf" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -920,7 +996,7 @@ New Tweet
       
       
       <li>
-        <a href="mailto:?subject=Rails%206.1%20-%20Hotwire%20with%20Modals&amp;body=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Phoenix%201.5%20PETAL%20Stack%20Setup%20-%20w/%20asdf&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -933,7 +1009,7 @@ New Tweet
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;title=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/&amp;title=Phoenix%201.5%20PETAL%20Stack%20Setup%20-%20w/%20asdf" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -946,7 +1022,7 @@ New Tweet
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Rails%206.1%20-%20Hotwire%20with%20Modals%20https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20PETAL%20Stack%20Setup%20-%20w/%20asdf%20https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -959,7 +1035,7 @@ New Tweet
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/&amp;title=Rails%206.1%20-%20Hotwire%20with%20Modals" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/&amp;title=Phoenix%201.5%20PETAL%20Stack%20Setup%20-%20w/%20asdf" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

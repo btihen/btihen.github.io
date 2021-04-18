@@ -22,7 +22,7 @@
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; Hotwire can easily load data - let&amp;rsquo;s do this in a lazy loaded way (after the html is loaded we add data).&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;prepare-our-code&#34;&gt;Prepare our code&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s remove the extra Tweet.new load in the controller&amp;rsquo;s index method:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb

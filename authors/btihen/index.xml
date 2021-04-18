@@ -52,10 +52,250 @@ ARC consortium members contribute by documenting applications of the agile minds
     </item>
     
     <item>
-      <title>Phoenix 1.5 PETAL Stack Setup - w/ asdf</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup/</link>
+      <title>Phoenix LiveView - Simple Real-Time SPA</title>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</link>
       <pubDate>Sat, 10 Apr 2021 17:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
+      <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
+&lt;h2 id=&#34;create--config-a-project&#34;&gt;create / config a project&lt;/h2&gt;
+&lt;p&gt;First we will creat the folder / project location&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir tweets
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will tell it which software to use:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;touch tweets/.tool-versions
+cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;tweets/.tool-versions
+erlang 23.3.1
+elixir 1.11.4-otp-23
+nodejs lts-Fermium
+Postgres 13.2
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-new-phoenix-project&#34;&gt;Create a new Phoenix Project&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now you can simply do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.new tweets --live
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You will now get the message:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The directory /Users/btihen/Dropbox/devel/marpori/tweets already exists. Are you sure you want to continue? [Yn]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Say &lt;code&gt;Y&lt;/code&gt; yes.
+Say &lt;code&gt;Y&lt;/code&gt; yes again when you see:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Fetch and install dependencies? [Yn]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This can take a few minutes - when done, enter the directory and setup.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd tweets
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Adjust the DB settings as needed in: &lt;code&gt;config/dev.exs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Create the database and lets see if default tests work and we get the start page.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix ecto.create
+mix test
+mix phx.server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming all is good lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git init
+git add .
+git commit -m &amp;quot;initial setup commit&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-our-tweet-model&#34;&gt;create our tweet model&lt;/h2&gt;
+&lt;p&gt;Create this with the generator (notice we are using &lt;code&gt;mix phx.gen.live&lt;/code&gt; not &lt;code&gt;mix phx.gen.html&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.gen.live Messages Post posts body:text
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Change migration to require data - add &lt;code&gt;null: false&lt;/code&gt; to our field so it now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# priv/repo/migrations/20210418084643_create_posts.exs
+defmodule Tweets.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :body, :text, null: false
+
+      timestamps()
+    end
+
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets update the routes as described by the generator - in &lt;code&gt;lib/tweets_web/router.ex&lt;/code&gt; so the section that looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+  scope &amp;quot;/&amp;quot;, TweetsWeb do
+    pipe_through :browser
+
+    live &amp;quot;/&amp;quot;, PageLive, :index
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;should be change to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  scope &amp;quot;/&amp;quot;, TweetsWeb do
+    pipe_through :browser
+
+    # live &amp;quot;/&amp;quot;, PageLive, :index
+    live &amp;quot;/&amp;quot;, PostLive.Index, :index
+    live &amp;quot;/posts&amp;quot;, PostLive.Index, :index
+    live &amp;quot;/posts/new&amp;quot;, PostLive.Index, :new
+    live &amp;quot;/posts/:id/edit&amp;quot;, PostLive.Index, :edit
+
+    live &amp;quot;/posts/:id&amp;quot;, PostLive.Show, :show
+    live &amp;quot;/posts/:id/show/edit&amp;quot;, PostLive.Show, :edit
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now check our field &lt;code&gt;body&lt;/code&gt; is required in validations &amp;ndash; in our changeset.  We see &lt;code&gt;validate_required([:body])&lt;/code&gt; in the file: &lt;code&gt;lib/tweets/messages/post.ex&lt;/code&gt; - so we are all set.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  def changeset(post, attrs) do
+    post
+    |&amp;gt; cast(attrs, [:body])
+    |&amp;gt; validate_required([:body])
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So it time to migrate &amp;amp; test:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+mix test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hmm - the tests generator and html use different html standards: to make the tests pass test that phoenix returns &lt;code&gt;can&amp;amp;#39;t be blank&lt;/code&gt; instead of &lt;code&gt;can&amp;amp;apos;t be blank&lt;/code&gt; in &lt;code&gt;test/tweets_web/live/post_live_test.exs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;also change: &lt;code&gt;&amp;quot;Welcome to Phoenix!&amp;quot;&lt;/code&gt; to &lt;code&gt;&amp;quot;Listing Posts&amp;quot;&lt;/code&gt; in &lt;code&gt;test/tweets_web/live/page_live_test.exs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now lets see how our new SPA works:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It works, but we want to list the most recent tweets at the top of the page &amp;ndash; let&amp;rsquo;s investigate &amp;ndash; open &lt;code&gt;lib/tweets_web/live/post_live/index.ex&lt;/code&gt; we see in the &lt;code&gt;mount&lt;/code&gt; command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets_web/live/post_live/index.ex
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, :posts, list_posts())}
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It uses &lt;code&gt;list_posts()&lt;/code&gt; to get the list - so let&amp;rsquo;s change this function.&lt;/p&gt;
+&lt;p&gt;Open: &lt;code&gt;lib/tweets/messages.ex&lt;/code&gt; and change:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+  def list_posts do
+    Repo.all(Post)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+ def list_posts do
+    Post
+      |&amp;gt; order_by(desc: :inserted_at)
+      |&amp;gt; Repo.all
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cool now our SPA works like we want &amp;ndash; but it isn&amp;rsquo;t real-time between two users / browsers.&lt;/p&gt;
+&lt;h2 id=&#34;broadcast-changes-with-pubsub&#34;&gt;Broadcast changes with Pubsub&lt;/h2&gt;
+&lt;p&gt;Phoenix uses Websockets to do &lt;code&gt;real-time&lt;/code&gt; communication.  In our &amp;ldquo;context&amp;rdquo; we will create our &lt;code&gt;channel&lt;/code&gt; - the pipeline that the socket uses to send information back and forth to various &amp;ldquo;subscribers&amp;rdquo; - viewers of our page.&lt;/p&gt;
+&lt;h3 id=&#34;setup-the-messages-channel&#34;&gt;Setup the &amp;ldquo;Messages&amp;rdquo; Channel&lt;/h3&gt;
+&lt;p&gt;We go into: &lt;code&gt;lib/tweets/messages.ex&lt;/code&gt; and at the top of the file add the Broadcast Setup:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+defmodule Tweets.Messages do
+  @moduledoc &amp;quot;&amp;quot;&amp;quot;
+  The Messages context.
+  &amp;quot;&amp;quot;&amp;quot;
+
+  import Ecto.Query, warn: false
+  alias Tweets.Repo
+  alias Tweets.Messages.Post
+
+  # Setup Broadcasting
+  @topic inspect(__MODULE__)
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(Tweets.PubSub, @topic)
+  end
+
+  def notify_subscribers({:ok, post}, event) do
+    posts = list_posts()
+    Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})
+    {:ok, post}
+  end
+
+  def notify_subscribers({:error, post}, event) do
+    {:error, post}
+  end
+  # Setup Broadcasting
+  ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets quickly review this new code:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@topic inspect(__MODULE__)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;makes @topic named &lt;code&gt;Tweets.Messages&lt;/code&gt; - but if we change the module name it changes @topic too.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;subscribe&lt;/code&gt; function - allows us to register our index page with channel created automatically by LiveView.&lt;/p&gt;
+&lt;p&gt;We have two &lt;code&gt;notify_subscribers&lt;/code&gt; because we will call these after we do our DB actions - writing to the DB could fail or succeed.  If we have success then we will update all subscribers and the last line tuple passes the results of the interaction back to the actual user.   (Of course we don&amp;rsquo;t need to notify when the DB transaction fails, we only need to pass the message back to the user).&lt;/p&gt;
+&lt;h3 id=&#34;subscribing-to-the-messages-channel&#34;&gt;Subscribing to the &amp;lsquo;Messages&amp;rsquo; Channel&lt;/h3&gt;
+&lt;p&gt;Now that we have &lt;code&gt;notify_subscribers&lt;/code&gt; that broadcasts &lt;code&gt;Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})&lt;/code&gt; we need a way to subscribe to this channel and receive these messages in all our index pages.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets_web/live/post_live/index.ex
+defmodule TweetsWeb.PostLive.Index do
+  use TweetsWeb, :live_view
+
+  alias Tweets.Messages
+  alias Tweets.Messages.Post
+
+  @impl true
+  def mount(_params, _session, socket) do
+    # register with the channel if connection to LiveView
+    if connected?(socket), do: Messages.subscribe()
+    {:ok, assign(socket, :posts, list_posts())}
+  end
+
+  @impl true
+  def handle_info({Messages, &amp;quot;posts-changed&amp;quot;, posts}, socket) do
+    socket = assign(socket, :posts, posts)
+    {:noreply, socket}
+  end
+  ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The important changes are to &lt;strong&gt;subscribe to the channel&lt;/strong&gt; we we have subscribed to our Websocket we do this in the &lt;code&gt;mount&lt;/code&gt; function with &lt;code&gt;if connected?(socket), do: Messages.subscribe()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now we need a way to &lt;strong&gt;recieve information from the channel&lt;/strong&gt; this is done with the &lt;code&gt;handle_info&lt;/code&gt; function - so we will simply take the new list of posts and update the socket and index will take care of the rest &amp;ndash; automatically!&lt;/p&gt;
+&lt;h3 id=&#34;sending-messages-to-the-channel&#34;&gt;Sending Messages to the Channel&lt;/h3&gt;
+&lt;p&gt;So now to activate our changes - we need to send to the channel via &lt;code&gt;notify_subscribers&lt;/code&gt; when we successfully change something in the Messages &amp;ldquo;post&amp;rdquo; context.  To do this we will make small changes to the create_post, update_post and delete_post functions.  We will add &lt;code&gt;notify_subscribers({status, post}, &amp;quot;posts-changed&amp;quot;)&lt;/code&gt; to the end of each function.  Since we only defined one event &lt;code&gt;&amp;quot;posts-changed&amp;quot;&lt;/code&gt; in our index page &lt;code&gt;handle_info&lt;/code&gt; function &amp;ndash; we will hard-code that into our &lt;code&gt;notify_subscribers&lt;/code&gt; call&lt;/p&gt;
+&lt;p&gt;So our simple DB calls in Messages currently looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+  def create_post(attrs \\ %{}) do
+    %Post{}
+      |&amp;gt; Post.changeset(attrs)
+      |&amp;gt; Repo.insert()
+  end
+
+  def update_post(%Post{} = post, attrs) do
+    post
+      |&amp;gt; Post.changeset(attrs)
+      |&amp;gt; Repo.update()
+  end
+
+  def delete_post(%Post{} = post) do
+    Repo.delete(post)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now becomes:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+  def create_post(attrs \\ %{}) do
+    {status, post} = %Post{}
+                      |&amp;gt; Post.changeset(attrs)
+                      |&amp;gt; Repo.insert()
+    notify_subscribers({status, post}, &amp;quot;posts-changed&amp;quot;)
+  end
+
+  def update_post(%Post{} = post, attrs) do
+    {status, post} = post
+                      |&amp;gt; Post.changeset(attrs)
+                      |&amp;gt; Repo.update()
+    notify_subscribers({status, post}, &amp;quot;posts-changed&amp;quot;)
+  end
+
+  def delete_post(%Post{} = post) do
+    {status, post} = post
+                      |&amp;gt; Repo.delete()
+    notify_subscribers({status, post}, &amp;quot;posts-changed&amp;quot;)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note: in-order to pass the DB transaction information back to the user, we need to capture that information with the tuple: &lt;code&gt;{status, post}&lt;/code&gt; - which notify_subscribers will pass back and will be returned to the user - the returns values will be either &lt;code&gt;{:ok, post}&lt;/code&gt; or &lt;code&gt;{:error, post_changeset}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s be sure we didn&amp;rsquo;t break anything and run our tests again:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ideally, all is still good so lets try our updated app now:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix phx.server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now any changes we make should be seen all users.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phoenix 1.5 PETAL Stack Setup - w/ asdf</title>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</link>
+      <pubDate>Sat, 10 Apr 2021 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</guid>
       <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
 &lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;
@@ -100,7 +340,7 @@ asdf install Postgres 13.2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we will tell it which software to use:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;touch fenix/.tool-versions
-cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;fenix/.tool-versionsx
+cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;fenix/.tool-versions
 erlang 23.3.1
 elixir 1.11.4-otp-23
 Postgres 13.2
@@ -111,9 +351,9 @@ EOF
 &lt;p&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now you can simply do:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mix phx.new fenix --live
-mix ecto.creatte
-mix phx.server
 cd fenix
+mix ecto.create
+mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install--test-alpine-js&#34;&gt;install &amp;amp; test Alpine JS&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
@@ -258,6 +498,16 @@ EOF
 &amp;lt;/section&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when we start the server with &lt;code&gt;mix phx.server&lt;/code&gt; we should have a centered / red title and colored buttons on our counter.&lt;/p&gt;
+&lt;h2 id=&#34;add-test-helpers&#34;&gt;Add Test helpers&lt;/h2&gt;
+&lt;p&gt;wallaby / hound - browser testing
+{:faker, &amp;ldquo;~&amp;gt; 0.16&amp;rdquo;, only: :test},
+{:ex_machina, &amp;ldquo;~&amp;gt; 2.7.0&amp;rdquo;, only: :test},
+{:phoenix_integration, &amp;ldquo;~&amp;gt; 0.8.2&amp;rdquo;}
+mox - mock testing external apis
+moch
+FakerElixir&lt;/p&gt;
+&lt;h2 id=&#34;auth-users&#34;&gt;Auth Users&lt;/h2&gt;
+&lt;p&gt;phx.auth.gen&lt;/p&gt;
 </description>
     </item>
     
@@ -271,7 +521,7 @@ EOF
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; Hotwire can easily load data - let&amp;rsquo;s do this in a lazy loaded way (after the html is loaded we add data).&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;prepare-our-code&#34;&gt;Prepare our code&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s remove the extra Tweet.new load in the controller&amp;rsquo;s index method:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
@@ -320,10 +570,10 @@ EOF
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Now that you have the basics of using Hotwire in Rails 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;add-jquery-to-bootstrap-setup&#34;&gt;Add jQuery to Bootstrap Setup&lt;/h2&gt;
 &lt;p&gt;First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &amp;lt;body&amp;gt; in the &lt;code&gt;application.html.erb&lt;/code&gt; file:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
@@ -517,10 +767,10 @@ export default class extends Controller {
       <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Now that you have the basics of using Hotwire in Rails 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_tweet_single_model/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;flash-messages-in-partial&#34;&gt;Flash Messages in Partial&lt;/h2&gt;
 &lt;p&gt;Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates &amp;ndash; so let&amp;rsquo;s prepare &lt;code&gt;application.html.erb&lt;/code&gt; so that flash messages use partials.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
@@ -605,10 +855,10 @@ def create
     </item>
     
     <item>
-      <title>Rails 6.1 - Hotwire (Realtime SPA)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/</link>
+      <title>Rails 6.1 - Hotwire (Simple Realtime SPA)</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</link>
       <pubDate>Sun, 28 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_single_model/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt;  is planned to be integrated into Rails 7.x and is already included in the soon to be published book: 
@@ -1687,6 +1937,13 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
 &lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://unsplash.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Unsplash&lt;/a&gt; - photos free to use for everyone&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;css&#34;&gt;CSS&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://headlessui.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;headlessui&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://tailwindui.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tailwindui&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;icons&#34;&gt;Icons&lt;/h2&gt;
 &lt;ul&gt;
