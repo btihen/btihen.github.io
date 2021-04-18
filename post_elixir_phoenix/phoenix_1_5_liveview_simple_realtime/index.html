@@ -717,7 +717,9 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.</p>
+      <p>Here is a quick example of how to create a very simple &ldquo;real-time&rdquo;-&ldquo;single-page-app&rdquo; using phoenix-liveview.  This provides the same functionality to as 
+<a href="post_ruby_rails/rails_6_1_hotwire_simple_realtime">Realtime Rails with Hotwire</a> - in order to compare.</p>
+<p>The repo can be found here: <a href="https://github.com/btihen/live-tweets">https://github.com/btihen/live-tweets</a></p>
 <h2 id="create--config-a-project">create / config a project</h2>
 <p>First we will creat the folder / project location</p>
 <pre><code>mkdir tweets
@@ -757,6 +759,7 @@ mix phx.server
 git add .
 git commit -m &quot;initial setup commit&quot;
 </code></pre>
+<p>This code commit can be seen at: <a href="https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe">https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe</a></p>
 <h2 id="create-our-tweet-model">create our tweet model</h2>
 <p>Create this with the generator (notice we are using <code>mix phx.gen.live</code> not <code>mix phx.gen.html</code>):</p>
 <pre><code>mix phx.gen.live Messages Post posts body:text
@@ -836,6 +839,7 @@ mix test
   end
 </code></pre>
 <p>Cool now our SPA works like we want &ndash; but it isn&rsquo;t real-time between two users / browsers.</p>
+<p>This code can be seen at: <a href="https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6">https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6</a></p>
 <h2 id="broadcast-changes-with-pubsub">Broadcast changes with Pubsub</h2>
 <p>Phoenix uses Websockets to do <code>real-time</code> communication.  In our &ldquo;context&rdquo; we will create our <code>channel</code> - the pipeline that the socket uses to send information back and forth to various &ldquo;subscribers&rdquo; - viewers of our page.</p>
 <h3 id="setup-the-messages-channel">Setup the &ldquo;Messages&rdquo; Channel</h3>
@@ -949,6 +953,14 @@ defmodule TweetsWeb.PostLive.Index do
 <pre><code>mix phx.server
 </code></pre>
 <p>Now any changes we make should be seen all users.</p>
+<p>Cool lets snapshot this.</p>
+<pre><code>git checkout -b liveview_spa_broadcast_with_pubsub
+git add .
+git commit -m &quot;add realtime broadcast to all users&quot;
+</code></pre>
+<p>This code can be seen at: <a href="https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac">https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac</a></p>
+<h2 id="summary">Summary</h2>
+<p>In my mind this is far simpler to setup as a single page app - using the LiveView generator and a little more work to add broadcasting than in Rails.  Converting a Standard Phoenix HTML page to LiveView however is considerably more difficult than Converting a Standard Rails page to Hotwire.  I also find adding advanced features much more straight-forward in LiveView - as you write the event_handlers in you liveview pages and it is very clear what is happening.  In rails you need to know what is happening without being able to see the code.  I also like that LiveView - when it can&rsquo;t find an event - you get lots of errors.  This is very helpful.</p>
 
     </div>
 

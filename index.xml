@@ -168,7 +168,9 @@ ARC consortium members contribute by documenting applications of the agile minds
       <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</link>
       <pubDate>Sat, 10 Apr 2021 17:01:53 +0200</pubDate>
       <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
-      <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
+      <description>&lt;p&gt;Here is a quick example of how to create a very simple &amp;ldquo;real-time&amp;rdquo;-&amp;ldquo;single-page-app&amp;rdquo; using phoenix-liveview.  This provides the same functionality to as 
+&lt;a href=&#34;post_ruby_rails/rails_6_1_hotwire_simple_realtime&#34;&gt;Realtime Rails with Hotwire&lt;/a&gt; - in order to compare.&lt;/p&gt;
+&lt;p&gt;The repo can be found here: &lt;a href=&#34;https://github.com/btihen/live-tweets&#34;&gt;https://github.com/btihen/live-tweets&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create--config-a-project&#34;&gt;create / config a project&lt;/h2&gt;
 &lt;p&gt;First we will creat the folder / project location&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mkdir tweets
@@ -208,6 +210,7 @@ mix phx.server
 git add .
 git commit -m &amp;quot;initial setup commit&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This code commit can be seen at: &lt;a href=&#34;https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe&#34;&gt;https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-our-tweet-model&#34;&gt;create our tweet model&lt;/h2&gt;
 &lt;p&gt;Create this with the generator (notice we are using &lt;code&gt;mix phx.gen.live&lt;/code&gt; not &lt;code&gt;mix phx.gen.html&lt;/code&gt;):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mix phx.gen.live Messages Post posts body:text
@@ -287,6 +290,7 @@ mix test
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Cool now our SPA works like we want &amp;ndash; but it isn&amp;rsquo;t real-time between two users / browsers.&lt;/p&gt;
+&lt;p&gt;This code can be seen at: &lt;a href=&#34;https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6&#34;&gt;https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;broadcast-changes-with-pubsub&#34;&gt;Broadcast changes with Pubsub&lt;/h2&gt;
 &lt;p&gt;Phoenix uses Websockets to do &lt;code&gt;real-time&lt;/code&gt; communication.  In our &amp;ldquo;context&amp;rdquo; we will create our &lt;code&gt;channel&lt;/code&gt; - the pipeline that the socket uses to send information back and forth to various &amp;ldquo;subscribers&amp;rdquo; - viewers of our page.&lt;/p&gt;
 &lt;h3 id=&#34;setup-the-messages-channel&#34;&gt;Setup the &amp;ldquo;Messages&amp;rdquo; Channel&lt;/h3&gt;
@@ -400,6 +404,14 @@ defmodule TweetsWeb.PostLive.Index do
 &lt;pre&gt;&lt;code&gt;mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now any changes we make should be seen all users.&lt;/p&gt;
+&lt;p&gt;Cool lets snapshot this.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git checkout -b liveview_spa_broadcast_with_pubsub
+git add .
+git commit -m &amp;quot;add realtime broadcast to all users&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This code can be seen at: &lt;a href=&#34;https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac&#34;&gt;https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;In my mind this is far simpler to setup as a single page app - using the LiveView generator and a little more work to add broadcasting than in Rails.  Converting a Standard Phoenix HTML page to LiveView however is considerably more difficult than Converting a Standard Rails page to Hotwire.  I also find adding advanced features much more straight-forward in LiveView - as you write the event_handlers in you liveview pages and it is very clear what is happening.  In rails you need to know what is happening without being able to see the code.  I also like that LiveView - when it can&amp;rsquo;t find an event - you get lots of errors.  This is very helpful.&lt;/p&gt;
 </description>
     </item>
     
