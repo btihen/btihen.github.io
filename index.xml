@@ -404,7 +404,7 @@ defmodule TweetsWeb.PostLive.Index do
 &lt;pre&gt;&lt;code&gt;mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now any changes we make should be seen all users.&lt;/p&gt;
-&lt;p&gt;Cool lets snapshot this.&lt;/p&gt;
+&lt;p&gt;Cool, lets snapshot this.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git checkout -b liveview_spa_broadcast_with_pubsub
 git add .
 git commit -m &amp;quot;add realtime broadcast to all users&amp;quot;
