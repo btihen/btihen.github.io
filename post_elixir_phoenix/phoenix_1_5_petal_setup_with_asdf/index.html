@@ -866,7 +866,32 @@ EOF
 <p>now initialize tailwind config with:</p>
 <pre><code>npx tailwindcss init
 </code></pre>
-<p>this creates the file <code>tailwind.config.js</code></p>
+<p>this creates the file <code>tailwind.config.js</code> we will replace the <code>purge: [],</code> section with:</p>
+<pre><code>purge: [
+    '../lib/**/*.ex',
+    '../lib/**/*.leex',
+    '../lib/**/*.eex',
+    './js/**/*.js'
+  ],
+</code></pre>
+<p>Now the fill will look like:</p>
+<pre><code>module.exports = {
+  purge: [
+    '../lib/**/*.ex',
+    '../lib/**/*.leex',
+    '../lib/**/*.eex',
+    './js/**/*.js'
+  ],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</code></pre>
 <p>now in <code>assets/package.json</code> find:</p>
 <pre><code>  &quot;scripts&quot;: {
     &quot;deploy&quot;: &quot;webpack --mode production&quot;,
@@ -879,29 +904,11 @@ EOF
     &quot;watch&quot;: &quot;webpack --mode development --watch&quot;
   },
 </code></pre>
-<p>AT THE TOP OF the file <code>assets/css/app.scss</code> (imports must be before all else) add:</p>
-<pre><code>// alpinejs is very helpful for tailwind
-import 'alpinejs'
-
-/* Import tailwind - with postcss-import installed */
-@import &quot;tailwindcss/base&quot;;
-@import &quot;tailwindcss/components&quot;;
-@import &quot;tailwindcss/utilities&quot;;
-
-/* custom styles - put after base imports! */
-@import &quot;./custom-styles.css&quot;;
-
-/* import custom components */
-@import &quot;./components/buttons.css&quot;;
-
-/* default phoenix styles - eventually remove */
-@import &quot;./phoenix.css&quot;;
-</code></pre>
-<p>be sure to create the <code>assets/css/custom-style.css</code> file:</p>
+<p>we will create a file for our custom styles the <code>assets/css/custom-style.css</code> file:</p>
 <pre><code># assuming you are still in the assets directory on the cli
-touch css/custom-style.css
+touch css/custom-styles.css
 </code></pre>
-<p>Now we can create our first sample css component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):</p>
+<p>Let&rsquo;s also create our a custom component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):</p>
 <pre><code># assuming you are still in the assets directory on the cli
 mkdir css/components
 touch css/components/buttons.css
@@ -915,6 +922,21 @@ cat &lt;&lt;EOF &gt; css/components/buttons.css
   }
 }
 EOF
+</code></pre>
+<p>Now will will configure Phoenix to load Tailwind, our custom-styles and our custom-components &ndash; DO THIS AT THE TOP OF the file <code>assets/css/app.scss</code> (@imports must be before all else):</p>
+<pre><code>/* Import tailwind - with postcss-import installed */
+@import &quot;tailwindcss/base&quot;;
+@import &quot;tailwindcss/components&quot;;
+@import &quot;tailwindcss/utilities&quot;;
+
+/* custom styles - put after base imports! */
+@import &quot;./custom-styles.css&quot;;
+
+/* import custom components */
+@import &quot;./components/buttons.css&quot;;
+
+/* default phoenix styles - eventually remove */
+@import &quot;./phoenix.css&quot;;
 </code></pre>
 <p>add a test html from tailwind to the end of: <code>lib/fenix_web/live/page_live.html.leex</code></p>
 <pre><code>&lt;section class=&quot;grid grid-cols-1 gap-4&quot;&gt;

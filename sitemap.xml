@@ -46,6 +46,9 @@
     <loc>https://btihen.me/courses/robot_gardner/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/tags/authentication/</loc>
+    <lastmod>2021-04-25T01:01:53+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/authors/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
@@ -67,23 +70,35 @@
     <loc>https://btihen.me/tags/elixir/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/liveview/</loc>
+    <loc>https://btihen.me/tags/email/</loc>
+    <lastmod>2021-04-25T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/hogmail/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/phoenix/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</loc>
-    <lastmod>2021-04-10T17:01:53+02:00</lastmod>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/</loc>
+    <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_elixir_phoenix/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/spa/</loc>
-    <lastmod>2021-04-10T17:01:53+02:00</lastmod>
+    <loc>https://btihen.me/tags/pow/</loc>
+    <lastmod>2021-04-25T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/liveview/</loc>
+    <lastmod>2021-04-25T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</loc>
+    <lastmod>2021-04-10T17:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/spa/</loc>
+    <lastmod>2021-04-10T17:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/alpinejs/</loc>
     <lastmod>2021-04-25T01:01:53+02:00</lastmod>
@@ -358,9 +373,6 @@
     <loc>https://btihen.me/tags/student-choice/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/authentication/</loc>
-    <lastmod>2020-07-10T20:45:51+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/tags/devise/</loc>
     <lastmod>2020-07-10T20:45:51+02:00</lastmod>
   </url><url>
@@ -512,9 +524,6 @@
     <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</loc>
-    <lastmod>2020-05-23T21:19:09+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/email/</loc>
     <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/interactive/</loc>

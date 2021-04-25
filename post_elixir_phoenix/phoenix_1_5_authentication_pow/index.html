@@ -1,0 +1,1730 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Create a modern Phoenix SPA with tremendous flexibility">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/">
+  <meta property="og:title" content="Phoenix 1.5 authentication with POW | btihen">
+  <meta property="og:description" content="Create a modern Phoenix SPA with tremendous flexibility"><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
+  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-04-25T01:01:53&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-04-25T01:01:53&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Phoenix 1.5 authentication with POW | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_web_tech"><span>Web</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Pubs</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#in_news"><span>News</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Phoenix 1.5 authentication with POW</h1>
+
+  
+  <p class="page-subtitle">Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView - PETAL Stack</p>
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sun, Apr 25, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Pow has the advantage that it updates security patches &ndash; since its a well maintained library.</p>
+<p>Get the latest version from: <a href="https://hex.pm/packages/pow">https://hex.pm/packages/pow</a></p>
+<pre><code>{:pow, &quot;~&gt; 1.0&quot;}
+</code></pre>
+<p>Install the dependency:</p>
+<pre><code>mix deps.get
+</code></pre>
+<p>Install POW:</p>
+<pre><code>mix pow.install
+</code></pre>
+<p>Lets verify all is good with the install:</p>
+<pre><code>mix deps.compile
+mix help | grep pow
+</code></pre>
+<p>Now hopefully you see some new <code>pow</code> commands</p>
+<h2 id="configure-pow">Configure Pow</h2>
+<p>There are three files you&rsquo;ll need to configure first before you can use Pow.</p>
+<p>First, append this to <code>config/config.exs</code>:</p>
+<pre><code>config :fare, :pow,
+  user: Fare.Users.User,
+  repo: Fare.Repo
+</code></pre>
+<p>Next, add <code>Pow.Plug.Session</code> plug to <code>lib/fare_web/endpoint.ex</code> after <code>plug Plug.Session</code>:</p>
+<pre><code>defmodule FareWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :fare   # add this line HERE!
+
+  # ...
+
+  plug Plug.Session, @session_options
+  plug Pow.Plug.Session, otp_app: :fare  # add this line HERE!
+  plug FareWeb.Router
+end
+</code></pre>
+<p>Last, update <code>lib/fare_web/router.ex</code> with the Pow routes - this first time we need to do a little extra config:</p>
+<pre><code>  pipeline :api do
+    plug :accepts, [&quot;json&quot;]
+  end
+  scope &quot;/&quot;, MyAppWeb do
+    pipe_through [:browser, :protected]
+
+    # Add your protected routes here
+  end
+
+  scope &quot;/&quot;, MyAppWeb do
+    pipe_through :browser
+
+    live &quot;/&quot;, PageLive, :index
+  end
+</code></pre>
+<p>Should now look like:</p>
+<pre><code>  pipeline :api do
+    plug :accepts, [&quot;json&quot;]
+  end
+
+  pipeline :protected do
+    plug Pow.Plug.RequiredAuthentication,
+          error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  scope &quot;/&quot; do
+    pipe_through :browser
+
+    pow_routes()
+  end
+
+  scope &quot;/&quot;, MyAppWeb do
+    pipe_through [:browser, :protected]
+
+    # Add your protected routes here
+    resources &quot;/tasks&quot;, TaskController
+  end
+
+  scope &quot;/&quot;, MyAppWeb do
+    pipe_through :browser
+
+    live &quot;/&quot;, PageLive, :index
+  end
+</code></pre>
+<p>Now lets check the routes - that all is well configured:</p>
+<pre><code>mix phx.routes | grep pow
+</code></pre>
+<p>Hopefully you see some new pow routes.</p>
+<p>Now we can migrate to create our users table:</p>
+<pre><code>mix ecto.migrate
+</code></pre>
+<p>Now if we start phoenix:</p>
+<pre><code>mix phx.server
+</code></pre>
+<p>and open phoenix: <code>localhost:4000</code></p>
+<h2 id="pow-user-links">POW user Links</h2>
+<p><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/</a></p>
+<p>Notice there is no menu option to login - lets build a simple signup/signin/logout link.</p>
+<p>In root.html.eex find <code>&lt;li&gt;&lt;a href=&quot;https://hexdocs.pm/phoenix/overview.html&quot;&gt;Get Started&lt;/a&gt;&lt;/li&gt;</code> and we will replace it with:</p>
+<pre><code>            &lt;%= if Pow.Plug.current_user(@conn) do %&gt;
+              &lt;li&gt;
+                &lt;%= link &quot;#{@current_user.email}&quot;, to: Routes.pow_registration_path(@conn, :edit) %&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;%= link &quot;Sign-out&quot;, to: Routes.pow_session_path(@conn, :delete), method: :delete %&gt;
+              &lt;/li&gt;
+            &lt;% else %&gt;
+              &lt;li&gt;&lt;%= link &quot;Sign-in&quot;, to: Routes.pow_session_path(@conn, :new) %&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;%= link &quot;Register&quot;, to: Routes.pow_registration_path(@conn, :new) %&gt;&lt;/li&gt;
+            &lt;% end %&gt;
+</code></pre>
+<p>Now reload and try it out:</p>
+<ol>
+<li>you should be able to register</li>
+<li>sign-out</li>
+<li>sign in</li>
+</ol>
+<h2 id="customizable-login-pages">Customizable Login pages</h2>
+<p>Generate the pages to customize with:</p>
+<pre><code>mix pow.phoenix.gen.templates
+</code></pre>
+<p>now be sure to change the config in <code>config/confix.ex</code> from:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: Fare.Repo
+</code></pre>
+<p>to:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb
+</code></pre>
+<p>Without updating the config the newly generated pages won&rsquo;t be used!</p>
+<p>The new templates to modify are found in:</p>
+<ul>
+<li><code>lib/fare_web/templates/pow/registration</code> &amp;</li>
+<li><code>lib/fare_web/templates/pow/session</code></li>
+</ul>
+<p>Now make a small change to the pages to ensure all works.</p>
+<h2 id="create-a-restricted-user-page">Create a restricted user page</h2>
+<p><a href="https://www.youtube.com/watch?v=hnD0Z0LGMIk">https://www.youtube.com/watch?v=hnD0Z0LGMIk</a>
+<a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/</a></p>
+<p>Create a normal html page first:</p>
+<pre><code>mix phx.gen.html Tasks Task tasks description:string completed:boolean
+</code></pre>
+<p>BE SURE TO PUT the new route in the <code>protected</code> area of the routes file:</p>
+<pre><code># lib/fare_web/router.ex
+  scope &quot;/&quot;, MyAppWeb do
+    pipe_through [:browser, :protected]
+
+    # Add your protected routes here
+    resources &quot;/tasks&quot;, TaskController
+  end
+</code></pre>
+<p>Now of course run the migration:</p>
+<pre><code>mix ecto.migrate
+</code></pre>
+<p>now <code>/tasks</code> should only be availble to signed in users.  Be sure you are logged out and cannot get to the <code>/tasks</code> route (and infact are redirected to sign-in). And once logged in the page works as expected.</p>
+<h2 id="extensions">Extensions</h2>
+<h3 id="persistent-login-sessions-remember-me">Persistent Login Sessions (Remember me)</h3>
+<p><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/</a></p>
+<p>Currently every time the user closes the browser they are logged out - the login cookie doesn&rsquo;t persist - most users would like the option to change this - with a <code>remember me</code> option.</p>
+<p>in <code>config/config.exs</code> change the <code>:pow</code> config to look like:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  # add the following two lines
+  extensions: [PowPersistentSession],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+</code></pre>
+<p>in <code>/lib/my_app_web/endpoint.ex</code> we need to add the persistent cookie setting immediately after the <code>Pow.Plug.Session</code> plug and before the routing <code>MyAppWeb.Router</code> plug &ndash; now the end of the endpoint file should look like:</p>
+<pre><code>  # enable Pow session based authentication
+  plug Pow.Plug.Session, otp_app: :warehouse
+  # enable Pow persistent sessions
+  plug PowPersistentSession.Plug.Cookie
+  # routing plug
+  plug MyAppWeb.Router
+end
+</code></pre>
+<p>just above the login button on the <code>sign-in</code> page add the following check-box:</p>
+<pre><code># lib/fare_web/templates/pow/session/new.html.eex
+  &lt;%= label f, :persistent_session, &quot;Remember me&quot; %&gt;
+  &lt;%= checkbox f, :persistent_session %&gt;
+
+  &lt;div&gt;
+    &lt;%= submit &quot;Sign in&quot; %&gt;
+  &lt;/div&gt;
+</code></pre>
+<p>restart Phoenix with: <code>mix phx.server</code> and now you should be able to close your browser and re-open the link and stay logged in if the <code>remember-me</code> is clicked.</p>
+<h3 id="password-reset-and-email-confirmation">Password Reset and Email Confirmation</h3>
+<p><a href="https://github.com/pow-auth/pow_assent">https://github.com/pow-auth/pow_assent</a>
+<a href="https://www.youtube.com/watch?v=hnD0Z0LGMIk">https://www.youtube.com/watch?v=hnD0Z0LGMIk</a>
+<a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/</a></p>
+<p>The following are the possible extensions:</p>
+<ul>
+<li>PowResetPassword</li>
+<li>PowEmailConfirmation</li>
+<li>PowPersistentSession</li>
+<li>PowInvitation</li>
+</ul>
+<p>Let&rsquo;s start with password reset and email confirmation.</p>
+<p>First we need to do a migration:</p>
+<pre><code>mix pow.extension.ecto.gen.migrations --extension PowResetPassword --extension PowEmailConfirmation
+</code></pre>
+<p>now update the phoenix config <code>config/config.ex</code> again from:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb
+</code></pre>
+<p>to:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+</code></pre>
+<p>now update the <code>LIB_PATH/users/user.ex</code> file from:</p>
+<pre><code>defmodule Fare.Users.User do
+  use Ecto.Schema
+  use Pow.Ecto.Schema
+
+  schema &quot;users&quot; do
+    pow_user_fields()
+
+    timestamps()
+  end
+end
+</code></pre>
+<p>to:</p>
+<pre><code>defmodule MyApp.Users.User do
+  use Ecto.Schema
+  use Pow.Ecto.Schema
+  use Pow.Extension.Ecto.Schema,
+      extensions: [PowResetPassword, PowEmailConfirmation]
+
+  schema &quot;users&quot; do
+    pow_user_fields()
+
+    timestamps()
+  end
+
+  def changeset(user_or_changeset, attrs) do
+    user_or_changeset
+    |&gt; pow_changeset(attrs)
+    |&gt; pow_extension_changeset(attrs)
+  end
+end
+</code></pre>
+<p>And of course the routes <code>WEB_PATH/router.ex</code> too - at the top of the file add:
+so it looks like:</p>
+<pre><code>defmodule MyAppWeb.Router do
+  use MyAppWeb, :router
+  use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+      extensions: [PowResetPassword, PowEmailConfirmation]
+</code></pre>
+<p>And in the pow routes config change from:</p>
+<pre><code>  scope &quot;/&quot; do
+    pipe_through :browser
+
+    pow_routes()
+  end
+</code></pre>
+<p>to:</p>
+<pre><code>  scope &quot;/&quot; do
+    pipe_through :browser
+
+    pow_routes()
+    pow_extension_routes()
+  end
+</code></pre>
+<p>Now finally, we need can update any views needed by POW&rsquo;s new extensions with:</p>
+<pre><code>mix pow.extension.phoenix.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
+</code></pre>
+<p>Now we can update the sign-in page with a reset password button.  We will add the following, to the end of <code>lib/fare_web/templates/pow/session/new.html.eex</code>:</p>
+<pre><code>|
+&lt;span&gt;
+&lt;%= link &quot;Reset Password&quot;, to: Routes.pow_reset_password_reset_password_path(@conn, :new) %&gt;
+&lt;/span&gt;
+</code></pre>
+<p>Now lets be sure we can link to reset password view.</p>
+<p>First we will do our migration:</p>
+<pre><code>mix ecto.migrate
+</code></pre>
+<p>now to to sign-in and see if the reset password link works.
+Cool it does, but it we try to use it - it complains it needs email back-end setup.</p>
+<h2 id="email-backend">Email backend</h2>
+<p><a href="https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl">https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl</a></p>
+<p>First we will create a mailer function in: <code>lib/my_app/pow_mailer.ex</code></p>
+<pre><code>defmodule FareWeb.Pow.Mailer do
+  use Pow.Phoenix.Mailer
+  # use Bamboo.Mailer, otp_app: :fare
+  require Logger
+
+  # import Bamboo.Email
+
+  @impl true
+  def cast(%{user: user, subject: subject, text: text, html: html}) do
+    # for use when Bamboo is configured
+    # new_email(
+    #   to: user.email,
+    #   from: &quot;reading-list@example.com&quot;,
+    #   subject: subject,
+    #   html_body: html,
+    #   text_body: text
+    # )
+
+    # send to logger - disable when
+    %{to: user.email, subject: subject, text: text, html: html}
+  end
+
+  @impl true
+  def process(email) do
+    # actually deliver emails - enable when `bamboo` configured
+    # deliver_now(email)
+
+    # check email functionality and contents
+    Logger.debug(&quot;E-mail sent: #{inspect email}&quot;)
+  end
+end
+</code></pre>
+<p>now that we have an email template we need to tell pow about the mailer with the config: <code>mailer_backend: MyAppWeb.Pow.Mailer</code> in <code>config/confix.exs</code> so change from:</p>
+<pre><code># config for pow - user authentication
+config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+</code></pre>
+<p>to:</p>
+<pre><code>
+# config for pow - user authentication
+config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  mailer_backend: MyAppWeb.Pow.Mailer,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+</code></pre>
+<p>Now generate any mail templates needed with:</p>
+<pre><code>mix pow.extension.phoenix.mailer.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
+</code></pre>
+<p>Phoenix also needs to know about the mailer templates we will generate so add to <code>lib/my_app_web.ex</code>:</p>
+<pre><code>  def mailer_view do
+    quote do
+      use Phoenix.View, root: &quot;lib/my_app_web/templates&quot;,
+                        namespace: MyAppWeb
+
+      use Phoenix.HTML
+    end
+  end
+</code></pre>
+<p>Now the final config change in <code>config/config.ex</code> from:</p>
+<pre><code># config for pow - user authentication
+config :fare, :pow,
+  user: Fare.Users.User,
+  repo: Fare.Repo,
+  web_module: FareWeb,
+  mailer_backend: MyAppWeb.Pow.Mailer,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+</code></pre>
+<p>to:</p>
+<pre><code># config for pow - user authentication
+config :fare, :pow,
+  user: Fare.Users.User,
+  repo: Fare.Repo,
+  web_module: FareWeb,
+  web_mailer_module: MyAppWeb,
+  mailer_backend: MyAppWeb.Pow.Mailer,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+</code></pre>
+<p>Now if we resart phoenix and test out reset link - we should see in the logs &lsquo;a pretend sent email&rsquo; - something like:</p>
+<pre><code>[debug] E-mail sent: %{html: &quot;&lt;h3&gt;Hi,&lt;/h3&gt;\n&lt;p&gt;Please use the following link to reset your password:&lt;/p&gt;\n&lt;p&gt;&lt;a href=\&quot;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\&quot;&gt;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;You can disregard this email if you didn&amp;#39;t request a password reset.&lt;/p&gt;&quot;, subject: &quot;Reset password link&quot;, text: &quot;Hi,\n\nPlease use the following link to reset your password:\n\nhttp://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\n\nYou can disregard this email if you didn't request a password reset.\n&quot;, to: &quot;btihen@gmail.com&quot;}
+</code></pre>
+<p>copy the link out of the email in the log:</p>
+<pre><code>http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw
+</code></pre>
+<p>into the browser - type a new password and try to login.</p>
+<p>One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: <a href="https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex">https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex</a> - we will use: the <code>after_sign_out_path</code> callback.</p>
+<p>To do this we will make a new <code>pow.routes</code> file:</p>
+<pre><code>touch lib/warehouse_web/pow/routes.ex
+</code></pre>
+<p>Add the following contents:</p>
+<pre><code>cat &lt;&lt; EOF&gt; lib/my_app_web/pow/routes.ex
+defmodule MyAppWeb.Pow.Routes do
+  use Pow.Phoenix.Routes
+  alias MyAppWeb.Router.Helpers, as: Routes
+
+  def after_sign_out_path(conn), do: Routes.page_path(conn, :index)
+end
+EOF
+</code></pre>
+<p>Now finally update <code>config/confix.exs</code> by adding <code>routes_backend: MyAppWeb.Pow.Routes</code> to the <code>:pow</code> config so now it would look like:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  web_mailer_module: MyAppWeb,
+  mailer_backend: MyAppWeb.Pow.Mailer,
+  routes_backend: MyAppWeb.Pow.Routes,
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation]
+</code></pre>
+<p>Assuming all works we will snapshot now!</p>
+<pre><code>git add .
+git commit -m &quot;pow configured to send emails - no sender yet&quot;
+</code></pre>
+<h2 id="configure-email-bamboo-with-pow">Configure Email BAMBOO with POW</h2>
+<p><a href="https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl">https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl</a></p>
+<p>Use Bamboo to do the mailing find the new versions at:</p>
+<ul>
+<li><a href="https://hex.pm/packages/bamboo">https://hex.pm/packages/bamboo</a></li>
+<li><a href="https://hex.pm/packages/bamboo_smtp">https://hex.pm/packages/bamboo_smtp</a>
+Add to <code>mix.exs</code>:</li>
+</ul>
+<pre><code>    {:bamboo, &quot;~&gt; 2.1&quot;},
+    {:bamboo_smtp, &quot;~&gt; 4.0&quot;}
+</code></pre>
+<p>Also add bamboo to the <code>applications</code> in mix - now it should look like:</p>
+<pre><code>  def application do
+    [
+      mod: {Fare.Application, []},
+      applications: [:bamboo, :bamboo_smtp],  # this was added
+      extra_applications: [:logger, :runtime_tools]
+    ]
+  end
+</code></pre>
+<p>Now install and setup up: <a href="https://github.com/mailhog/">https://github.com/mailhog/</a> (on a MacOS) simply install with:</p>
+<pre><code>brew install mailhog
+</code></pre>
+<p>and run mailhog with:</p>
+<pre><code>mailhog
+</code></pre>
+<p>or if you want mailhog running all the time in the background you can type:</p>
+<pre><code>  brew services start mailhog
+</code></pre>
+<p>Or you can use: or <a href="https://mailcatcher.me/">https://mailcatcher.me/</a></p>
+<p>These serivices  - listen on <code>localhost:1025</code> and you can view the email at: http://localhost:8025</p>
+<p>now configure the mail service (in <code>config/dev.exs</code>) to use Mailhog or Mailcather with Phoenix by adding:</p>
+<pre><code># config/dev.exs
+config :my_app, MyAppWeb.Pow.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: &quot;localhost&quot;,
+  port: 1025
+</code></pre>
+<p>in production it might look like:</p>
+<pre><code># config/config.exs
+config :my_app, MyApp.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: &quot;smtp.domain&quot;,
+  hostname: &quot;your.domain&quot;,
+  port: 1025,
+  username: &quot;your.name@your.domain&quot;, # or {:system, &quot;SMTP_USERNAME&quot;}
+  password: &quot;pa55word&quot;, # or {:system, &quot;SMTP_PASSWORD&quot;}
+  tls: :if_available, # can be `:always` or `:never`
+  allowed_tls_versions: [:&quot;tlsv1&quot;, :&quot;tlsv1.1&quot;, :&quot;tlsv1.2&quot;], # or {:system, &quot;ALLOWED_TLS_VERSIONS&quot;} w/ comma seprated values (e.g. &quot;tlsv1.1,tlsv1.2&quot;)
+  ssl: false, # can be `true`
+  retries: 1,
+  no_mx_lookups: false, # can be `true`
+  auth: :if_available # can be `:always`. If your smtp relay requires authentication set it to `:always`.
+</code></pre>
+<p>Update the pow mail file <code>lib/read_it_later_web/pow/mailer.ex</code> to use Bamboo - the code will look like:</p>
+<pre><code>defmodule MyAppWeb.Pow.Mailer do
+  use Pow.Phoenix.Mailer
+  use Bamboo.Mailer, otp_app: :my_app
+
+  import Bamboo.Email
+
+  @impl true
+  def cast(%{user: user, subject: subject, text: text, html: html}) do
+    new_email(
+      to: user.email,
+      from: &quot;reading-list@example.com&quot;,
+      subject: subject,
+      html_body: html,
+      text_body: text
+    )
+  end
+
+  @impl true
+  def process(email) do
+    deliver_now(email)
+  end
+end
+</code></pre>
+<h2 id="adding-flash-messages-to-pow">Adding flash messages to POW</h2>
+<p><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/</a></p>
+<h2 id="configure-to-allow-3rd-parties---google-apple-github-etc">Configure to allow 3rd Parties - Google, Apple, Github, etc.</h2>
+<p><a href="https://github.com/pow-auth/pow_assent">https://github.com/pow-auth/pow_assent</a>
+<a href="https://www.youtube.com/watch?v=hnD0Z0LGMIk">https://www.youtube.com/watch?v=hnD0Z0LGMIk</a></p>
+<p>First add to the mix file:</p>
+<pre><code>    # third party auth
+    {:pow_assent, &quot;~&gt; 0.4.10&quot;},
+    # recommended for SSL validation with :httpc adapter
+    {:certifi, &quot;~&gt; 2.4&quot;},
+    {:ssl_verify_fun, &quot;~&gt; 1.1&quot;},
+</code></pre>
+<p>and of course: <code>mix deps.get</code></p>
+<p>and install with: <code>mix pow_assent.install</code></p>
+<p>and now configure <code>lib/fare/users/user.ex</code> after <code>use Pow.Ecto.Schema</code> add <code>use PowAssent.Ecto.Schema</code> so now the top of this file should look like:</p>
+<pre><code># lib/fare/users/user.ex
+defmodule Fare.Users.User do
+  use Ecto.Schema
+  use Pow.Ecto.Schema
+  use PowAssent.Ecto.Schema  # added in this step
+  use Pow.Extension.Ecto.Schema,
+      extensions: [PowResetPassword, PowEmailConfirmation]
+</code></pre>
+<p>At the top of the <code>lib/fare_web/router.ex</code> file after <code>use PowAssent.Phoenix.Router</code> add <code>use PowAssent.Phoenix.Router</code> - now the top of this file should look like:</p>
+<pre><code># lib/fare_web/router.ex
+defmodule MyAppWeb.Router do
+  use MyAppWeb, :router
+  use Pow.Phoenix.Router
+  use PowAssent.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+      extensions: [PowResetPassword, PowEmailConfirmation]
+</code></pre>
+<p>Now after the last pipelines add a new <code>pipeline</code> and its <code>scope</code> - its a copy of the <code>:browser</code> pipeline - without <code>:protect_from_forgery</code> since that conflicts with <strong>OAuth</strong> &amp; after <code>pow_routes()</code> add <code>pow_assent_routes()</code> so now this section of the routes looks like (when Phoenix is configured for LiveView):</p>
+<pre><code>  pipeline :skip_csrf_protection do
+    plug :accepts, [&quot;html&quot;]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {FareWeb.LayoutView, :root}
+    # plug :protect_from_forgery     # conflicts with oauth
+    plug :put_secure_browser_headers
+  end
+
+  scope &quot;/&quot; do
+    pipe_through :skip_csrf_protection
+
+    # this adds new pow routes
+    pow_assent_authorization_post_callback_routes()
+  end
+
+  scope &quot;/&quot; do
+    pipe_through :browser
+
+    pow_routes()
+    pow_assent_routes()    # newly added
+    pow_extension_routes()
+  end
+</code></pre>
+<p>Remember to run the new migrations with:</p>
+<pre><code>mix ecto.migrate
+</code></pre>
+<p>Generate the PowAssent template too (the page when using this where the user add username and OAuth password from remote site):</p>
+<pre><code>mix pow_assent.phoenix.gen.templates
+</code></pre>
+<h3 id="setup-remote-oautho-providers-github---for-now">Setup remote OAutho providers (Github - for now)</h3>
+<p>Go to:
+<a href="https://github.com/settings/applications/new">https://github.com/settings/applications/new</a></p>
+<p>Enter an <strong>Application name</strong> and enter the <strong>Homepage url</strong> as:</p>
+<pre><code>http://localhost:4000/
+</code></pre>
+<p>and the <strong>Authorization callback</strong> (for our dev environment) as:</p>
+<pre><code>http://localhost:4000/auth/github/callback
+</code></pre>
+<p>Once you get your <strong>Client ID</strong> and <strong>Client secrets</strong> configure the <code>config/config.ex</code> with the following new config (just after the <code>pow</code> section):</p>
+<pre><code>config :my_app, :pow_assent,
+  providers: [
+    github: [
+      client_id: &quot;REPLACE_WITH_CLIENT_ID&quot;,
+      client_secret: &quot;REPLACE_WITH_CLIENT_SECRET&quot;,
+      strategy: Assent.Strategy.Github
+    ]
+  ]
+</code></pre>
+<p>Production deployment - put the keys in: <code>config/prod.secret.exs</code> - DO NOT CHECK the keys into github!</p>
+<p>Now at the end of the <code>lib/my_app_web/templates/pow/registration/edit.html.eex</code>, <code>lib/my_app_web/templates/pow/registration/new.html.eex</code> and to our normal sign-in file <code>lib/fare_web/templates/pow/session/new.html.eex</code> add the following comprehension to list configured OAuth log-in links:</p>
+<pre><code>&lt;%=
+  for link &lt;- PowAssent.Phoenix.ViewHelpers.provider_links(@conn),
+      do: content_tag(:span, link)
+%&gt;
+</code></pre>
+<h2 id="resources">Resources:</h2>
+<ul>
+<li>pow readme: <a href="https://hexdocs.pm/pow/README.html">https://hexdocs.pm/pow/README.html</a></li>
+<li>video tutorial: <a href="https://www.youtube.com/watch?v=hnD0Z0LGMIk">https://www.youtube.com/watch?v=hnD0Z0LGMIk</a></li>
+<li>add pubsub <a href="https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3">https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3</a></li>
+<li>add email to pow: <a href="https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl">https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl</a></li>
+<li><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/</a></li>
+<li><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/phoenix/">Phoenix</a>
+  
+  <a class="badge badge-light" href="/tags/elixir/">Elixir</a>
+  
+  <a class="badge badge-light" href="/tags/authentication/">Authentication</a>
+  
+  <a class="badge badge-light" href="/tags/pow/">POW</a>
+  
+  <a class="badge badge-light" href="/tags/email/">Email</a>
+  
+  <a class="badge badge-light" href="/tags/hogmail/">HogMail</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/&amp;text=Phoenix%201.5%20authentication%20with%20POW" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/&amp;t=Phoenix%201.5%20authentication%20with%20POW" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Phoenix%201.5%20authentication%20with%20POW&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/&amp;title=Phoenix%201.5%20authentication%20with%20POW" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.5%20authentication%20with%20POW%20https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/&amp;title=Phoenix%201.5%20authentication%20with%20POW" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2021
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
