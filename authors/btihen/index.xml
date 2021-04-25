@@ -367,6 +367,11 @@ cd fenix
 mix ecto.create
 mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming all is good lets configure git:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git init
+git add .
+git commit -m &amp;quot;initial Phoneix install with LiveView&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install--test-alpine-js&#34;&gt;install &amp;amp; test Alpine JS&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
 &lt;a href=&#34;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&#34;&gt;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&lt;/a&gt;&lt;/p&gt;
@@ -404,6 +409,10 @@ import Alpine from &amp;quot;alpinejs&amp;quot;;
 &lt;p&gt;test with:
 &lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;when typing the name should appear below!&lt;/p&gt;
+&lt;p&gt;let&amp;rsquo;s snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;phoenix with alpine js&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;integrating-tailwind-into-phoenix&#34;&gt;Integrating Tailwind into phoenix&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;
 &lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/p&gt;
@@ -510,6 +519,10 @@ EOF
 &amp;lt;/section&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when we start the server with &lt;code&gt;mix phx.server&lt;/code&gt; we should have a centered / red title and colored buttons on our counter.&lt;/p&gt;
+&lt;p&gt;now lets snapshot our PETAL setup:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;Tailwind installed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;add-test-helpers&#34;&gt;Add Test helpers&lt;/h2&gt;
 &lt;p&gt;wallaby / hound - browser testing
 {:faker, &amp;ldquo;~&amp;gt; 0.16&amp;rdquo;, only: :test},
