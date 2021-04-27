@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-04-25T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-04-25T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-04-27T01:01:53&#43;02:00">
   
 
   
@@ -657,8 +657,10 @@
     
     
       
+          Last updated on
+      
     
-    Sun, Apr 25, 2021
+    Tue, Apr 27, 2021
   </span>
   
 
@@ -703,6 +705,7 @@
 
     <div class="article-style">
       <p>Pow has the advantage that it updates security patches &ndash; since its a well maintained library.</p>
+<p>This repo can be found at: <a href="https://github.com/btihen/phoenix_1_5_pow_auth_config">https://github.com/btihen/phoenix_1_5_pow_auth_config</a></p>
 <p>Get the latest version from: <a href="https://hex.pm/packages/pow">https://hex.pm/packages/pow</a></p>
 <pre><code>{:pow, &quot;~&gt; 1.0&quot;}
 </code></pre>
@@ -886,6 +889,35 @@ end
   &lt;/div&gt;
 </code></pre>
 <p>restart Phoenix with: <code>mix phx.server</code> and now you should be able to close your browser and re-open the link and stay logged in if the <code>remember-me</code> is clicked.</p>
+<h2 id="after-logout---go-to-landing-page-after-hook-routing">After Logout - go to Landing Page (After Hook Routing)</h2>
+<p><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/</a></p>
+<p>One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: <a href="https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex">https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex</a> - we will use: the <code>after_sign_out_path</code> callback.</p>
+<p>To do this we will make a new <code>pow.routes</code> file:</p>
+<pre><code>touch lib/warehouse_web/pow/routes.ex
+</code></pre>
+<p>Add the following contents:</p>
+<pre><code>cat &lt;&lt; EOF&gt; lib/my_app_web/pow/routes.ex
+defmodule MyAppWeb.Pow.Routes do
+  use Pow.Phoenix.Routes
+  alias MyAppWeb.Router.Helpers, as: Routes
+
+  def after_sign_out_path(conn), do: Routes.page_path(conn, :index)
+end
+EOF
+</code></pre>
+<p>Now finally update <code>config/confix.exs</code> by adding <code>routes_backend: MyAppWeb.Pow.Routes</code> to the <code>:pow</code> config so now it would look like:</p>
+<pre><code>config :my_app, :pow,
+  user: MyApp.Users.User,
+  repo: MyApp.Repo,
+  web_module: MyAppWeb,
+  extensions: [PowPersistentSession],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  routes_backend: MyAppWeb.Pow.Routes    # add this line
+</code></pre>
+<p>Assuming all works we will snapshot now!</p>
+<pre><code>git add .
+git commit -m &quot;on logout go to landing page&quot;
+</code></pre>
 <h3 id="password-reset-and-email-confirmation">Password Reset and Email Confirmation</h3>
 <p><a href="https://github.com/pow-auth/pow_assent">https://github.com/pow-auth/pow_assent</a>
 <a href="https://www.youtube.com/watch?v=hnD0Z0LGMIk">https://www.youtube.com/watch?v=hnD0Z0LGMIk</a>
@@ -1081,6 +1113,12 @@ config :fare, :pow,
 <pre><code>http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw
 </code></pre>
 <p>into the browser - type a new password and try to login.</p>
+<p>Assuming all works we will snapshot now!</p>
+<pre><code>git add .
+git commit -m &quot;pow configured to send emails - no sender yet&quot;
+</code></pre>
+<h2 id="after-logout---go-to-landing-page-after-hook-routing-1">After Logout - go to Landing Page (After Hook Routing)</h2>
+<p><a href="https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/">https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/</a></p>
 <p>One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: <a href="https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex">https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex</a> - we will use: the <code>after_sign_out_path</code> callback.</p>
 <p>To do this we will make a new <code>pow.routes</code> file:</p>
 <pre><code>touch lib/warehouse_web/pow/routes.ex
@@ -1108,7 +1146,7 @@ EOF
 </code></pre>
 <p>Assuming all works we will snapshot now!</p>
 <pre><code>git add .
-git commit -m &quot;pow configured to send emails - no sender yet&quot;
+git commit -m &quot;on logout go to landing page&quot;
 </code></pre>
 <h2 id="configure-email-bamboo-with-pow">Configure Email BAMBOO with POW</h2>
 <p><a href="https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl">https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl</a></p>
@@ -1260,8 +1298,21 @@ defmodule MyAppWeb.Router do
 <p>and the <strong>Authorization callback</strong> (for our dev environment) as:</p>
 <pre><code>http://localhost:4000/auth/github/callback
 </code></pre>
-<p>Once you get your <strong>Client ID</strong> and <strong>Client secrets</strong> configure the <code>config/config.ex</code> with the following new config (just after the <code>pow</code> section):</p>
-<pre><code>config :my_app, :pow_assent,
+<p><strong>Configure Github Credential Secrets</strong></p>
+<ul>
+<li><a href="https://devato.com/post/handling-environment-variables-in-phoenix">https://devato.com/post/handling-environment-variables-in-phoenix</a></li>
+<li><a href="https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config">https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config</a></li>
+</ul>
+<p>First update <code>.gitignore</code> with the line:</p>
+<pre><code>**/*.secret.exs
+</code></pre>
+<p>then add in our case the <code>dev.secrets.exs</code> file:</p>
+<pre><code>touch config/dev.secret.exs
+</code></pre>
+<p>Once you get your <strong>Client ID</strong> and <strong>Client secrets</strong> you can configure  <code>config/dev.secret.exs</code> with the following config:</p>
+<pre><code>import Config
+
+config :my_app, :pow_assent,
   providers: [
     github: [
       client_id: &quot;REPLACE_WITH_CLIENT_ID&quot;,
@@ -1270,8 +1321,16 @@ defmodule MyAppWeb.Router do
     ]
   ]
 </code></pre>
-<p>Production deployment - put the keys in: <code>config/prod.secret.exs</code> - DO NOT CHECK the keys into github!</p>
-<p>Now at the end of the <code>lib/my_app_web/templates/pow/registration/edit.html.eex</code>, <code>lib/my_app_web/templates/pow/registration/new.html.eex</code> and to our normal sign-in file <code>lib/fare_web/templates/pow/session/new.html.eex</code> add the following comprehension to list configured OAuth log-in links:</p>
+<p>Now at the END of <code>config/dev.exs</code> add the line:</p>
+<pre><code>import_config &quot;dev.secret.exs&quot;
+</code></pre>
+<p>Now at the end of:</p>
+<ul>
+<li><code>lib/my_app_web/templates/pow/registration/edit.html.eex</code> (edit profile),</li>
+<li><code>lib/my_app_web/templates/pow/registration/new.html.eex</code> (register),</li>
+<li><code>lib/fare_web/templates/pow/session/new.html.eex</code> (sign-in)</li>
+</ul>
+<p>add the following comprehension to list all the configured OAuth log-in links:</p>
 <pre><code>&lt;%=
   for link &lt;- PowAssent.Phoenix.ViewHelpers.provider_links(@conn),
       do: content_tag(:span, link)
