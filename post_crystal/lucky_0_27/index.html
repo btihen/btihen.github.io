@@ -1,0 +1,1511 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Why Lucky Lucky offers all the features I use in Rails - but is type safe and faster than rails. Lucky&rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_crystal/lucky_0_27/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://btihen.me/post_crystal/lucky_0_27/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_crystal/lucky_0_27/">
+  <meta property="og:title" content="Lucky Framework with Crystal Language | btihen">
+  <meta property="og:description" content="Why Lucky Lucky offers all the features I use in Rails - but is type safe and faster than rails. Lucky&rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems)."><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
+  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-04-25T01:01:53&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-04-27T01:01:53&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Lucky Framework with Crystal Language | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_crystal"><span>Crystal</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Pubs</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#in_news"><span>News</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Lucky Framework with Crystal Language</h1>
+
+  
+  <p class="page-subtitle">Basics of Lucky with Relationships, Types, Forms and Language Tweeks</p>
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Tue, Apr 27, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="why-lucky">Why Lucky</h2>
+<p>Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: <a href="https://luckyframework.org/guides/getting-started/why-lucky">https://luckyframework.org/guides/getting-started/why-lucky</a> for a full list of what Lucky aims to improve.</p>
+<h2 id="installing-lucky">installing Lucky</h2>
+<p>For more information see: <a href="https://luckyframework.org/guides/getting-started/installing">https://luckyframework.org/guides/getting-started/installing</a></p>
+<p>The <code>brew install</code> of lucky (on a MacOS) is bit broken, but the Linux install also works well on MacOS!</p>
+<p>First be sure openssl and postgresql are installed and findable:</p>
+<pre><code>brew install openssl postgresql
+
+# and depending on your shell either (if you don't know which it is safe to do both):
+echo 'export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig' &gt;&gt;~/.zshrc
+echo 'export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig' &gt;&gt;~/.bash_profile
+
+# IMPORTANT - OPEN a new terminal
+
+# or if you know what shell you are using you can reload it with source!
+source ~/.bash_profile
+</code></pre>
+<p>Now install (or be sure ASDF is installed). <a href="https://asdf-vm.com/#/core-manage-asdf-vm">https://asdf-vm.com/#/core-manage-asdf-vm</a></p>
+<pre><code>brew install asdf
+# assuming bash
+echo -e &quot;\n. $(brew --prefix asdf)/asdf.sh&quot; &gt;&gt; ~/.bash_profile
+echo -e &quot;\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash&quot; &gt;&gt; ~/.bash_profile
+
+# or zsh
+echo -e &quot;\n. $(brew --prefix asdf)/asdf.sh&quot; &gt;&gt; ${ZDOTDIR:-~}/.zshrc
+</code></pre>
+<p>Now we add asdf plugin for crystal:</p>
+<pre><code>asdf plugin-add crystal https://github.com/asdf-community/asdf-crystal.git
+</code></pre>
+<p>For both Ruby and Crystal the following is also helpful:</p>
+<pre><code>echo &quot;legacy_version_file = yes&quot; &gt;&gt;~/.asdfrc
+</code></pre>
+<p>Lucky 0.27 needs Crystal 0.36.1 (not Crystal 1.0.0) - so we install it with:</p>
+<pre><code>asdf install crystal 0.36.1
+</code></pre>
+<p>I like to the local folder to crystal 0.36.1 (&amp; the node version too) - this will allow use to install and run the lucky-cli tool</p>
+<pre><code>echo &quot;cyrstal 0.36.1&quot; &gt;&gt; .tool-versions
+echo &quot;node 14.16.0&quot; &gt;&gt; .tool-versions
+</code></pre>
+<p>(but you can also just use: <code>asdf global crystal 0.36.1</code> - so you don&rsquo;t have to set the crystal version in every file you work in)!</p>
+<p>Now let&rsquo;s install lucky_cli &amp; also lucky</p>
+<pre><code>git clone https://github.com/luckyframework/lucky_cli
+cd lucky_cli
+git checkout v0.27.0
+shards install
+
+# if this following step fails (you probably forgot to reload your shell after the openssl lib path update)
+crystal build src/lucky.cr
+
+# make your compiled lucky_cli available everywhere
+mv lucky /usr/local/bin
+</code></pre>
+<p>Now if you check your settings you should get:</p>
+<pre><code>lucky -v
+# This should return 0.27.0
+
+node -v
+# should be 12.x or greater
+
+yarn -v
+# should be 1.x or greater
+
+psql --version
+# should be 10.x or greater
+</code></pre>
+<h2 id="start-a-lucky-project">Start a Lucky Project</h2>
+<p>Create your new Lucky project with the wizzard (just answer questions) - other options are at: <a href="https://luckyframework.org/guides/getting-started/starting-project">https://luckyframework.org/guides/getting-started/starting-project</a></p>
+<pre><code>lucky init
+cd {project_name}
+
+# update the db settings in: `config/database.cr`
+
+# if this step fails you may have forgotten to reload the shell after updating the openssl path
+script/setup
+
+# run lucky with:
+lucky dev
+</code></pre>
+<p>Ok lets do an initial commit:</p>
+<pre><code>git add .
+git commit -m &quot;initial commit after create&quot;
+</code></pre>
+<h2 id="quick-test-tip">Quick Test Tip</h2>
+<p>If you need to quickly check a small piece of code and you don&rsquo;t want to test the whole app you can type:</p>
+<pre><code>lucky exec
+</code></pre>
+<p>This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:</p>
+<pre><code>lucky exec
+# then when vim or nano opens you can enter something like:
+
+require &quot;../../src/app.cr&quot;
+
+include Lucky::TextHelpers
+
+pp pluralize(2, &quot;human&quot;)
+</code></pre>
+<p>and hopefuly you get <code>2 humans</code></p>
+<h2 id="create-lucky-code">Create Lucky Code</h2>
+<p>Let&rsquo;s make a little silly Human and Pets database/webpage:</p>
+<p>The simplest way to generate is with: <code>lucky gen.resource.browser</code> its basically the same as <code>rails g scaffold</code></p>
+<p>So lets get started:</p>
+<pre><code>lucky gen.resource.browser Human name:String
+</code></pre>
+<p>OOPS - that generated the plural of <code>Human</code> as <code>Humen</code> instead of <code>Humans</code>!</p>
+<p>lets clear all our incorrect files and fix this:</p>
+<pre><code>git clean -fd
+</code></pre>
+<p>Now let&rsquo;s create a new config file for inflections <code>config/inflect.cr</code> and enter:</p>
+<pre><code># this probably isn't necessary for very long - but for now it is needed.
+Wordsmith::Inflector.inflections.irregular(&quot;human&quot;, &quot;humans&quot;)
+
+# I like using persons (also a dictionary word) over people, to do this we need
+# - first we have to remove the original setting by doing:
+Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
+# - now we can override the original with our preference
+Wordsmith::Inflector.inflections.irregular(&quot;person&quot;, &quot;persons&quot;)
+
+# if using `staff` as in human staff - then also add staff to uncountable:
+Wordsmith::Inflector.inflections.uncountable(%w(staff))
+</code></pre>
+<p>Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:</p>
+<pre><code>rm -rf lib &amp;&amp; rm -rf bin &amp;&amp; shards update
+mkdir lib bin
+</code></pre>
+<p>Now if we try again (we are free to use human again):</p>
+<pre><code>lucky gen.resource.browser Human name:String
+</code></pre>
+<h2 id="create-a-related-model">Create a Related Model</h2>
+<p>Unfortunately, the Lucky generators don&rsquo;t understand <code>belongs_to</code> so we will need to do a few extra tweeks &ndash; since we can&rsquo;t do something like human:belongs_to or human:references like with Rails.</p>
+<p>So if we want to scaffold &ldquo;pets&rdquo; now and have them belong to humans (and humans can have many pets) - we first do:</p>
+<pre><code>lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
+</code></pre>
+<p>Now let&rsquo;s setup the relationships:</p>
+<p>First we need to update the migration with the human foreign_key using: <code>add_belongs_to</code></p>
+<p>So we need to update our pets migration to:</p>
+<pre><code># db/migrations/yyyymmddxxxxxx_create_pets.cr
+class CreatePets::V20210502100912 &lt; Avram::Migrator::Migration::V1
+  def migrate
+    create table_for(Pet) do
+      primary_key id : Int64
+      add_timestamps
+      add name : String
+      add breed : String
+      add species : String
+      add age : Int32
+      add house_trained : Bool
+
+      # When the associated human is deleted, their pets are also deleted
+      # because we set on_delete: :cascade
+      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
+    end
+  end
+
+  def rollback
+    drop table_for(Pet)
+  end
+end
+</code></pre>
+<p>Now that the pets database table will is correct - lets update the pet model too.
+This is straight-forward we just need to add <code>belongs_to human : Human</code> in the model file so it changes to:</p>
+<pre><code># src/models/pet.cr
+class Pet &lt; BaseModel
+  table do
+    column name : String
+    column breed : String
+    column species : String
+    column age : Int32
+    column house_trained : Bool
+
+    belongs_to human : Human     # relationship - newly added
+  end
+end
+</code></pre>
+<p>now we need to add <code>has_many</code> to the <code>Human</code> model.  So we change it to:</p>
+<pre><code># src/models/human.cr
+class Human &lt; BaseModel
+  table do
+    column name : String
+
+    has_many pets : Pet    # relationship - newly added
+  end
+end
+</code></pre>
+<p>Now we can migrate and test.</p>
+<pre><code>lucky db.migrate
+</code></pre>
+<p>Now we can create seed files and be sure the basic relations work:</p>
+<pre><code>
+</code></pre>
+<h2 id="test-with-web-forms">Test with Web forms</h2>
+<p>Now when we log in and create an human at the <code>/humans</code> url</p>
+<p>Now when we go to the <code>/pets</code> url we discover we have problems - validation errors.</p>
+<ul>
+<li>Type mismatches (crystal is strongly typed - but the form generator ignores this - so we need to adjust by hans)</li>
+<li>Required human_id is missing (the generator isn&rsquo;t aware of <code>belongs_to</code>)</li>
+</ul>
+<p>So lets add the human_id to the pet form:</p>
+<pre><code># src/components/pets/form_fields.cr
+class Pets::FormFields &lt; BaseComponent
+  needs operation : SavePet
+
+  def render
+    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;, attrs: [:required])
+    mount Shared::Field, operation.breed
+    mount Shared::Field, operation.species
+    mount Shared::Field, operation.age
+    mount Shared::Field, operation.house_trained
+    mount Shared::Field, operation.human_id, &amp;.number_input() # newly added
+  end
+end
+</code></pre>
+<p>We know we will have some type errors, but lets see if this fixes the required relationship error.</p>
+<p>NOPE - now it says we need to allow this to be saved - so we need to add the <code>human_id</code> variable to: <code>src/operations/save_pet.cr</code> &ndash; now it should look like:</p>
+<pre><code># src/operations/save_pet.cr
+class SavePet &lt; Pet::SaveOperation
+  permit_columns name, breed, species, age, house_trained, human_id
+end
+</code></pre>
+<p>Let&rsquo;s test again and be sure to use the human_id of the existing human.</p>
+<p>Cool, but this is inconvient, let&rsquo;s make the human a drop-down list that inserts the expected integer.  We can do this some extra form-code:</p>
+<pre><code># src/components/pets/form_fields.cr
+class Pets::FormFields &lt; BaseComponent
+  needs operation : SavePet
+
+  def render
+    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;)
+    mount Shared::Field, operation.breed
+    mount Shared::Field, operation.species
+    mount Shared::Field, operation.age
+    mount Shared::Field, operation.house_trained
+
+    # human name for the user to see and the human's db_id for Lucky
+    mount Shared::Field, operation.human_id do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.human_id, options_for_humans
+      end
+    end
+  end
+
+  # create an array of tuples with the human_name and human id - ie: [{&quot;bill&quot;, 1}, {&quot;jane&quot;, 2}]
+  private def options_for_humans
+    OwnerQuery.new.map do |human|
+      { human.name, human.id }
+    end
+  end
+end
+</code></pre>
+<p>The private method <code>options_for_owners</code> queries the database and creates an array of tuples with the human&rsquo;s name to display and the human&rsquo;s db_id - ie:  [{&ldquo;Bill&rdquo;, 1}, {&ldquo;Jane&rdquo;, 2}] which is then used by the <code>do</code> which builds the <code>select</code> form.</p>
+<p>If we test this we should now not only be free of the validation error on the relationships, but also have a way to ensure the user has appropriate values to enter.</p>
+<p>Let&rsquo;s fix the house_training input - I tried variations on checkboxes and radio-buttons:</p>
+<pre><code>    # mount Shared::Field, operation.house_trained, &amp;.checkbox(&quot;no&quot;, &quot;yes&quot;, append_class: &quot;custom-check&quot;)
+    # mount Shared::Field, operation.house_trained, &amp;.checkbox(0, 1, append_class: &quot;custom-check&quot;)
+    # mount Shared::Field, operation.house_trained, &amp;.checkbox(false, true, append_class: &quot;custom-check&quot;)
+    # mount Shared::Field, operation.house_trained, &amp;.radio(op.question_five, &quot;Yes&quot;)
+    # mount Shared::Field, operation.house_trained, &amp;.radio(op.question_five, &quot;No&quot;)
+</code></pre>
+<p>but it seems these will only pass strings - got no end of errors looking like:
+<code>Error: no overload matches 'Shared::Field(Bool)#checkbox' with types Bool, Bool, field: Avram::PermittedAttribute(Bool), class: String</code>
+(It took me a while to figure out that meant the type Lucky was seeing from the form was a type mis-match).</p>
+<p>Finally, I decided to use a select form where I could have text for the use and a boolean for Lucky:</p>
+<pre><code># src/components/pets/form_fields.cr
+class Pets::FormFields &lt; BaseComponent
+  needs operation : SavePet
+
+  def render
+    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;)
+    mount Shared::Field, operation.breed
+    mount Shared::Field, operation.species
+    mount Shared::Field, operation.age
+
+    # we are using a select with an array of tuples - human readable words and boolean for lucky:
+    # [{&quot;yes&quot;, true}, {&quot;no&quot;, false}]
+    mount Shared::Field, operation.house_trained do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.house_trained, [{&quot;yes&quot;, true}, {&quot;no&quot;, false}]
+      end
+    end
+
+    # human name for the user to see and the human's db_id for Lucky
+    mount Shared::Field, operation.human_id do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.human_id, options_for_humans
+      end
+    end
+  end
+
+  # create an array of tuples with the human_name and human id - ie: [{&quot;bill&quot;, 1}, {&quot;jane&quot;, 2}]
+  private def options_for_humans
+    OwnerQuery.new.map do |human|
+      { human.name, human.id }
+    end
+  end
+end
+</code></pre>
+<p>Fixing the age input as a number was an easy casting fix with: <code>mount Shared::Field, operation.age, &amp;.number_input(attrs: [:required], append_class: &quot;custom-input&quot;, min: &quot;0&quot;, max: &quot;99&quot;)</code> - this restricts the pets age range which seemed reasonable.</p>
+<p>I also figured we would do a dropdown for species (not breeds - there are way to many animal breeds) - since I only have had cats and dogs I used:</p>
+<pre><code>    mount Shared::Field, operation.species do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.species, [{&quot;Dog&quot;, &quot;dog&quot;}, {&quot;Cat&quot;, &quot;cat&quot;}]
+      end
+    end
+</code></pre>
+<p>So now the completed form looks like:</p>
+<pre><code># src/components/pets/form_fields.cr
+class Pets::FormFields &lt; BaseComponent
+  needs operation : SavePet
+
+  def render
+    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;, attrs: [:required])
+    mount Shared::Field, operation.breed, &amp;.text_input(attrs: [:required])
+    mount Shared::Field, operation.species do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.species, [{&quot;Dog&quot;, &quot;dog&quot;}, {&quot;Cat&quot;, &quot;cat&quot;}]
+      end
+    end
+    mount Shared::Field, operation.age, &amp;.number_input(append_class: &quot;custom-input&quot;, min: &quot;0&quot;, max: &quot;99&quot;)
+    mount Shared::Field, operation.house_trained do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.house_trained, [{&quot;yes&quot;, true}, {&quot;no&quot;, false}]
+      end
+    end
+    mount Shared::Field, operation.owner_id do |input_html|
+      input_html.select_input append_class: &quot;select-input&quot; do
+        options_for_select operation.owner_id, options_for_owners
+      end
+    end
+  end
+
+  private def options_for_owners
+    OwnerQuery.new.map do |owner|
+      { owner.name, owner.id }
+    end
+  end
+
+end
+</code></pre>
+<h2 id="display-validation-errors">Display Validation Errors</h2>
+<p>If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&rsquo;t see them with our default form.  Lets fix that.</p>
+<h2 id="validations--optional-fields">Validations &amp; Optional Fields</h2>
+<p>Let&rsquo;s figure out how to allow some fields to be nil</p>
+<h2 id="tailwind--alpine-integration">Tailwind &amp; Alpine Integration</h2>
+<p>Let&rsquo;s make the forms a little nicer</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/relationships/">Relationships</a>
+  
+  <a class="badge badge-light" href="/tags/basics/">Basics</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_crystal/lucky_0_27/&amp;text=Lucky%20Framework%20with%20Crystal%20Language" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_crystal/lucky_0_27/&amp;t=Lucky%20Framework%20with%20Crystal%20Language" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Lucky%20Framework%20with%20Crystal%20Language&amp;body=https://btihen.me/post_crystal/lucky_0_27/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_crystal/lucky_0_27/&amp;title=Lucky%20Framework%20with%20Crystal%20Language" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Lucky%20Framework%20with%20Crystal%20Language%20https://btihen.me/post_crystal/lucky_0_27/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_crystal/lucky_0_27/&amp;title=Lucky%20Framework%20with%20Crystal%20Language" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2021
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
