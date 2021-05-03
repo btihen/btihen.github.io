@@ -176,6 +176,7 @@ ARC consortium members contribute by documenting applications of the agile minds
 &lt;li&gt;&lt;a href=&#34;https://luckycasts.com/&#34;&gt;https://luckycasts.com/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://luckyframework.org/guides&#34;&gt;https://luckyframework.org/guides&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://onchain.io/blog/lucky_tutorial&#34;&gt;https://onchain.io/blog/lucky_tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/andrewmcodes/awesome-lucky&#34;&gt;https://github.com/andrewmcodes/awesome-lucky&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;My goal is to have a simple tutorial for important basic features and orientation of the Lucky Framework - for myself and students I work with.&lt;/p&gt;
@@ -717,6 +718,10 @@ Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
 &lt;p&gt;For now something like &lt;strong&gt;LiveView&lt;/strong&gt; and &lt;strong&gt;Hotwire&lt;/strong&gt; are not yet integrated into lucky - its build your own.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/cable-cr/cable&#34;&gt;https://github.com/cable-cr/cable&lt;/a&gt;
 &lt;a href=&#34;https://github.com/luckyframework/lucky/issues/554&#34;&gt;https://github.com/luckyframework/lucky/issues/554&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;deploying-lucky--env&#34;&gt;Deploying Lucky &amp;amp; ENV&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://fullstackstanley.com/read/categories/lucky-framework/&#34;&gt;https://fullstackstanley.com/read/categories/lucky-framework/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;security-alternatives&#34;&gt;Security (Alternatives)&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/grottopress/shield&#34;&gt;https://github.com/grottopress/shield&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lucky | btihen</title>
+    <link>https://btihen.me/categories/lucky/</link>
+      <atom:link href="https://btihen.me/categories/lucky/index.xml" rel="self" type="application/rss+xml" />
+    <description>Lucky</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 02 May 2021 01:01:53 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>Lucky</title>
+      <link>https://btihen.me/categories/lucky/</link>
+    </image>
+    
+    <item>
+      <title>Lucky Framework with Crystal Language</title>
+      <link>https://btihen.me/post_crystal/lucky_0_27/</link>
+      <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_crystal/lucky_0_27/</guid>
+      <description>&lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
+&lt;p&gt;Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&amp;rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/why-lucky&#34;&gt;https://luckyframework.org/guides/getting-started/why-lucky&lt;/a&gt; for a full list of what Lucky aims to improve.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;This article is a collection of making sense of the following resources&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://luckycasts.com/&#34;&gt;https://luckycasts.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://luckyframework.org/guides&#34;&gt;https://luckyframework.org/guides&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://onchain.io/blog/lucky_tutorial&#34;&gt;https://onchain.io/blog/lucky_tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/andrewmcodes/awesome-lucky&#34;&gt;https://github.com/andrewmcodes/awesome-lucky&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My goal is to have a simple tutorial for important basic features and orientation of the Lucky Framework - for myself and students I work with.&lt;/p&gt;
+&lt;h2 id=&#34;installing-lucky&#34;&gt;installing Lucky&lt;/h2&gt;
+&lt;p&gt;For more information see: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/installing&#34;&gt;https://luckyframework.org/guides/getting-started/installing&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;brew install&lt;/code&gt; of lucky (on a MacOS) is bit broken, but the Linux install also works well on MacOS!&lt;/p&gt;
+&lt;p&gt;First be sure openssl and postgresql are installed and findable:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew install openssl postgresql
+
+# and depending on your shell either (if you don&#39;t know which it is safe to do both):
+echo &#39;export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig&#39; &amp;gt;&amp;gt;~/.zshrc
+echo &#39;export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig&#39; &amp;gt;&amp;gt;~/.bash_profile
+
+# IMPORTANT - OPEN a new terminal
+
+# or if you know what shell you are using you can reload it with source!
+source ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now install (or be sure ASDF is installed). &lt;a href=&#34;https://asdf-vm.com/#/core-manage-asdf-vm&#34;&gt;https://asdf-vm.com/#/core-manage-asdf-vm&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew install asdf
+# assuming bash
+echo -e &amp;quot;\n. $(brew --prefix asdf)/asdf.sh&amp;quot; &amp;gt;&amp;gt; ~/.bash_profile
+echo -e &amp;quot;\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash&amp;quot; &amp;gt;&amp;gt; ~/.bash_profile
+
+# or zsh
+echo -e &amp;quot;\n. $(brew --prefix asdf)/asdf.sh&amp;quot; &amp;gt;&amp;gt; ${ZDOTDIR:-~}/.zshrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we add asdf plugin for crystal:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;asdf plugin-add crystal https://github.com/asdf-community/asdf-crystal.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For both Ruby and Crystal the following is also helpful:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;echo &amp;quot;legacy_version_file = yes&amp;quot; &amp;gt;&amp;gt;~/.asdfrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lucky 0.27 needs Crystal 0.36.1 (not Crystal 1.0.0) - so we install it with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;asdf install crystal 0.36.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I like to the local folder to crystal 0.36.1 (&amp;amp; the node version too) - this will allow use to install and run the lucky-cli tool&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;echo &amp;quot;cyrstal 0.36.1&amp;quot; &amp;gt;&amp;gt; .tool-versions
+echo &amp;quot;node 14.16.0&amp;quot; &amp;gt;&amp;gt; .tool-versions
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(but you can also just use: &lt;code&gt;asdf global crystal 0.36.1&lt;/code&gt; - so you don&amp;rsquo;t have to set the crystal version in every file you work in)!&lt;/p&gt;
+&lt;p&gt;Now let&amp;rsquo;s install lucky_cli &amp;amp; also lucky&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/luckyframework/lucky_cli
+cd lucky_cli
+git checkout v0.27.0
+shards install
+
+# if this following step fails (you probably forgot to reload your shell after the openssl lib path update)
+crystal build src/lucky.cr
+
+# make your compiled lucky_cli available everywhere
+mv lucky /usr/local/bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now if you check your settings you should get:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky -v
+# This should return 0.27.0
+
+node -v
+# should be 12.x or greater
+
+yarn -v
+# should be 1.x or greater
+
+psql --version
+# should be 10.x or greater
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;start-a-lucky-project&#34;&gt;Start a Lucky Project&lt;/h2&gt;
+&lt;p&gt;Create your new Lucky project with the wizzard (just answer questions) - other options are at: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/starting-project&#34;&gt;https://luckyframework.org/guides/getting-started/starting-project&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky init
+cd {project_name}
+
+# update the db settings in: `config/database.cr`
+
+# if this step fails you may have forgotten to reload the shell after updating the openssl path
+script/setup
+
+# run lucky with:
+lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok lets do an initial commit:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;initial commit after create&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;language-inflections&#34;&gt;Language Inflections&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s make a little silly Human and Pets database/webpage:&lt;/p&gt;
+&lt;p&gt;The simplest way to generate is with: &lt;code&gt;lucky gen.resource.browser&lt;/code&gt; its basically the same as &lt;code&gt;rails g scaffold&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So lets get started:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Human name:String
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;OOPS - that generated the plural of &lt;code&gt;Human&lt;/code&gt; as &lt;code&gt;Humen&lt;/code&gt; instead of &lt;code&gt;Humans&lt;/code&gt;!&lt;/p&gt;
+&lt;p&gt;lets clear all our incorrect files and fix this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clean -fd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s create a new config file for inflections &lt;code&gt;config/inflect.cr&lt;/code&gt; and enter:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# this probably isn&#39;t necessary for very long - but for now it is needed.
+Wordsmith::Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
+
+# I like using persons (also a dictionary word) over people, to do this we need
+# - first we have to remove the original setting by doing:
+Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
+# - now we can override the original with our preference
+Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+
+# if using `staff` as in human staff - then also add staff to uncountable:
+Wordsmith::Inflector.inflections.uncountable(%w(staff))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf lib &amp;amp;&amp;amp; rm -rf bin &amp;amp;&amp;amp; shards update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can try to create a new Resource again.&lt;/p&gt;
+&lt;h2 id=&#34;quick-lucky-test-tip&#34;&gt;Quick Lucky Test Tip&lt;/h2&gt;
+&lt;p&gt;Lets quickly test our new config wiht &lt;code&gt;lucky exec&lt;/code&gt; - type:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky exec
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky exec
+# then when vim or nano opens you can enter something like:
+
+require &amp;quot;../../src/app.cr&amp;quot;
+
+include Lucky::TextHelpers
+
+pp pluralize(2, &amp;quot;human&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and hopefuly you get &lt;code&gt;2 humans&lt;/code&gt; - cool - it works lets snapshot our changes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;language inflection updates and customization&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;scaffold-a-simple-resource&#34;&gt;Scaffold a Simple Resource&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckyframework.org/guides/command-line-tasks/built-in&#34;&gt;https://luckyframework.org/guides/command-line-tasks/built-in&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now if we try again (we are free to use human again):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Human name:String
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets run the migration:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky db.migrate
+
+# oops I haven&#39;t create the DB yet
+lucky db.create
+
+# now migrate
+lucky db.migrate
+
+# start lucky &amp;amp; test
+lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now log_in and create humans at the &lt;code&gt;/humans&lt;/code&gt; url&lt;/p&gt;
+&lt;p&gt;Cool - lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;First simple &#39;Human&#39; resource with scaffold&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;lucky-html-and-rootpage-routing&#34;&gt;Lucky HTML and RootPage Routing&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/lucky-html-in-crystal&#34;&gt;https://luckycasts.com/videos/lucky-html-in-crystal&lt;/a&gt;
+&lt;a href=&#34;https://www.luckyframework.org/guides/http-and-routing/routing-and-params#root-page&#34;&gt;https://www.luckyframework.org/guides/http-and-routing/routing-and-params#root-page&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If we look in &lt;code&gt;src/actions/home/index.cr&lt;/code&gt; we see:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/actions/home/index.cr
+class Home::Index &amp;lt; BrowserAction
+  include Auth::AllowGuests
+
+  get &amp;quot;/&amp;quot; do
+    if current_user?
+      redirect Me::Show
+    else
+      # html Landing::IndexPage
+      html Lucky::WelcomePage
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As we can see - when we are not logged in &amp;ldquo;/&amp;rdquo; points to &lt;code&gt;Lucky::WelcomePage&lt;/code&gt; or whatever new landing page we make and when logged in we are pointed to the &lt;code&gt;Me::Show&lt;/code&gt; page.&lt;/p&gt;
+&lt;p&gt;Let practice adding some &lt;code&gt;html&lt;/code&gt; and add links to our expected resources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;/humans&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;/pets&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So lets change this too and practice lucky html&lt;/p&gt;
+&lt;p&gt;We will add our list of resources - &amp;lsquo;pets&amp;rsquo; and &amp;lsquo;humans&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;So from looking at the existing html in &lt;code&gt;src/pages/me/show_page.cr&lt;/code&gt; it&amp;rsquo;s like a combo of haml and JS to create executable blocks with &lt;code&gt;{}&lt;/code&gt; so I created the method: &lt;code&gt;private def resource_links&lt;/code&gt; and tried out two methods of linking - not bad, but I figure it will take a bit of practice with this new format.  I don&amp;rsquo;t know the reason behind this, since almost all web resources will need to be reformatted - but I assume it is pre-compiled and thus fast!&lt;/p&gt;
+&lt;p&gt;In the end I created this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/pages/me/show_page.cr
+class Me::ShowPage &amp;lt; MainLayout
+  def content
+    h1 &amp;quot;This is your profile:&amp;quot;
+    h2 &amp;quot;Email:  #{@current_user.email}&amp;quot;
+    resource_links
+    helpful_tips
+  end
+
+  private def resource_links
+    h2 &amp;quot;Available Resources&amp;quot;
+    ul do
+      li { a &amp;quot;Pet Owners&amp;quot;, href: &amp;quot;/humans&amp;quot; }
+      li { link_to_pets }
+    end
+  end
+
+  private def helpful_tips
+    h3 &amp;quot;Next, you may want to:&amp;quot;
+    ul do
+      li { link_to_authentication_guides }
+      li &amp;quot;Modify this page: src/pages/me/show_page.cr&amp;quot;
+      li &amp;quot;Change where you go after sign in: src/actions/home/index.cr&amp;quot;
+    end
+  end
+
+  private def link_to_pets
+    a &amp;quot;Pets&amp;quot;, href: &amp;quot;/pets&amp;quot;
+  end
+
+  private def link_to_authentication_guides
+    a &amp;quot;Check out the authentication guides&amp;quot;,
+      href: &amp;quot;https://luckyframework.org/guides/authentication&amp;quot;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets test it out:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;cool - good enough for now.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;added html links to user_home_page &#39;me&#39;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-related-model&#34;&gt;Create a Related Model&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#belongs-to&#34;&gt;https://www.luckyframework.org/guides/database/models#belongs-to&lt;/a&gt;
+&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#has-many-one-to-many&#34;&gt;https://www.luckyframework.org/guides/database/models#has-many-one-to-many&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/database/migrations#associations&#34;&gt;https://luckyframework.org/guides/database/migrations#associations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Unfortunately, the Lucky generators don&amp;rsquo;t understand &lt;code&gt;belongs_to&lt;/code&gt; so we will need to do a few extra tweeks &amp;ndash; since we can&amp;rsquo;t do something like human:belongs_to or human:references like with Rails.&lt;/p&gt;
+&lt;p&gt;So if we want to scaffold &amp;ldquo;pets&amp;rdquo; now and have them belong to humans (and humans can have many pets) - we first do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s setup the relationships:&lt;/p&gt;
+&lt;p&gt;First we need to update the migration with the human foreign_key using: &lt;code&gt;add_belongs_to&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So we need to update our pets migration to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# db/migrations/yyyymmddxxxxxx_create_pets.cr
+class CreatePets::V20210502100912 &amp;lt; Avram::Migrator::Migration::V1
+  def migrate
+    create table_for(Pet) do
+      primary_key id : Int64
+      add_timestamps
+      add name : String
+      add breed : String
+      add species : String
+      add age : Int32
+      add house_trained : Bool
+
+      # When the associated human is deleted, their pets are also deleted
+      # because we set on_delete: :cascade
+      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
+    end
+  end
+
+  def rollback
+    drop table_for(Pet)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that the pets database table will is correct - lets update the pet model too.
+This is straight-forward we just need to add &lt;code&gt;belongs_to human : Human&lt;/code&gt; in the model file so it changes to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/models/pet.cr
+class Pet &amp;lt; BaseModel
+  table do
+    column name : String
+    column breed : String
+    column species : String
+    column age : Int32
+    column house_trained : Bool
+
+    belongs_to human : Human     # relationship - newly added
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we need to add &lt;code&gt;has_many&lt;/code&gt; to the &lt;code&gt;Human&lt;/code&gt; model.  So we change it to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/models/human.cr
+class Human &amp;lt; BaseModel
+  table do
+    column name : String
+
+    has_many pets : Pet    # relationship - newly added
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can migrate:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky db.migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;seed-files&#34;&gt;Seed Files&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/database/database-setup#seeding-data&#34;&gt;https://luckyframework.org/guides/database/database-setup#seeding-data&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now we can create seed files and be sure our basic relations work:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and run the seeds with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;simple-lucky-forms-in-pages-instead-of-shared&#34;&gt;Simple Lucky Forms (in pages instead of shared)&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/component-basics&#34;&gt;https://luckycasts.com/videos/component-basics&lt;/a&gt;
+&lt;a href=&#34;https://luckycasts.com/videos/lucky-html-in-crystal&#34;&gt;https://luckycasts.com/videos/lucky-html-in-crystal&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/frontend/html-forms&#34;&gt;https://luckyframework.org/guides/frontend/html-forms&lt;/a&gt;
+&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/frontend/html-forms#shared-components&#34;&gt;https://luckyframework.org/guides/frontend/html-forms#shared-components&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Lets test the web page&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and go to the url &lt;code&gt;/pets&lt;/code&gt; and create a &lt;strong&gt;Pet&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We discover we have problems - validation errors.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Type mismatches (crystal is strongly typed - but the form generator ignores this - so we need to adjust by hans)&lt;/li&gt;
+&lt;li&gt;Required human_id is missing (the generator isn&amp;rsquo;t aware of &lt;code&gt;belongs_to&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I didn&amp;rsquo;t find lots of Documentation or examples on Components, but I did find this article - which got me started on Lucky html and forms:
+&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;After I figured out how to update FormComponents I found this: &lt;a href=&#34;https://luckycasts.com/videos/component-basics&#34;&gt;https://luckycasts.com/videos/component-basics&lt;/a&gt; - I&amp;rsquo;ll go back and view this!&lt;/p&gt;
+&lt;p&gt;This got me going!  However, one difficulty I had was the Boolean field &lt;code&gt;house_trained&lt;/code&gt; - I tried both Checkboxes and Radio Buttons, but I kept getting &lt;code&gt;overload&lt;/code&gt; errors (which I finally realized were type mis-matches - you can&amp;rsquo;t send text into a Boolean field).  So I settled on a select_list where I can present a tuple with a &amp;ldquo;human readable value&amp;rdquo; and a &amp;ldquo;model value&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;So in the end my first draft form looked like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/pages/pets/new_page.cr
+class Pets::NewPage &amp;lt; MainLayout
+  needs operation : SavePet
+  quick_def page_title, &amp;quot;New Pet&amp;quot;
+
+  def content
+    h1 &amp;quot;New Pet&amp;quot;
+    render_pet_form(operation)
+  end
+
+  def render_pet_form(op)
+    # comment out the form component for now
+    # form_for Pets::Create do
+    #   # Edit fields in src/components/pets/form_fields.cr
+    #   mount Pets::FormFields, op
+
+    #   submit &amp;quot;Save&amp;quot;, data_disable_with: &amp;quot;Saving...&amp;quot;
+    # end
+
+    form_for Pets::Create do
+      div do
+        label_for op.name
+        text_input op.name
+      end
+      div do
+        label_for op.species
+        select_input(op.species, class: &amp;quot;custom-select&amp;quot;) do
+          select_prompt(&amp;quot;Select&amp;quot;)
+          options_for_select(op.species, [{&amp;quot;Cat&amp;quot;, &amp;quot;cat&amp;quot;}, {&amp;quot;Dog&amp;quot;, &amp;quot;dog&amp;quot;}])
+        end
+      end
+      # eventually allow for this to be blank
+      # eventually allow a dropdown list to be dependent on species
+      div do
+        label_for op.breed
+        text_input op.breed
+      end
+      div do
+        label_for op.age
+        number_input(op.age, class: &amp;quot;custom-input&amp;quot;, min: &amp;quot;0&amp;quot;, max: &amp;quot;99&amp;quot;)
+      end
+      div do
+        label_for op.house_trained
+        select_input(op.house_trained, class: &amp;quot;custom-select&amp;quot;) do
+          select_prompt(&amp;quot;Select&amp;quot;)
+          options_for_select(op.house_trained, [{&amp;quot;yes&amp;quot;, true}, {&amp;quot;No&amp;quot;, false}])
+        end
+      end
+      div do
+        label_for op.human_id
+        select_input op.human_id do
+          options_for_select(op.human_id, humans_for_select)
+        end
+      end
+      submit &amp;quot;Save Pet&amp;quot;
+    end
+  end
+
+  # find all the humans and create a tuple of the name and id - displayed and passed to model
+  private def humans_for_select
+    HumanQuery.new.map do |human|
+      { human.name, human.id }
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;of course this isn&amp;rsquo;t shared by the &lt;code&gt;edit&lt;/code&gt; page, but it is still helpful to see the Lucky way to create html.&lt;/p&gt;
+&lt;p&gt;So after a while I figured out how to revert this code and use SharedForms (I think this is a form of FrontEnd Components).&lt;/p&gt;
+&lt;p&gt;Lets test again:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cool it works as I expect&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;a working &#39;new&#39; html form - not shared&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;shared-web-form---component&#34;&gt;Shared Web Form - Component&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/component-basics&#34;&gt;https://luckycasts.com/videos/component-basics&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/frontend/html-forms&#34;&gt;https://luckyframework.org/guides/frontend/html-forms&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/frontend/html-forms#shared-components&#34;&gt;https://luckyframework.org/guides/frontend/html-forms#shared-components&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;With a little more experience with Lucky HTML lets try the component forms again at &lt;code&gt;src/components/pets/form_fields.cr&lt;/code&gt; (so lets revert: &lt;code&gt;src/pages/pets/new_page.cr&lt;/code&gt; back to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/pages/pets/new_page.cr
+class Pets::NewPage &amp;lt; MainLayout
+  needs operation : SavePet
+  quick_def page_title, &amp;quot;New Pet&amp;quot;
+
+  def content
+    h1 &amp;quot;New Pet&amp;quot;
+    render_pet_form(operation)
+  end
+
+  def render_pet_form(op)
+    form_for Pets::Create do
+      # Edit fields in src/components/pets/form_fields.cr
+      mount Pets::FormFields, op
+
+      submit &amp;quot;Save&amp;quot;, data_disable_with: &amp;quot;Saving...&amp;quot;
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once I had build the first form and understood the errors - so the same form as a form_component looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/components/pets/form_fields.cr
+class Pets::FormFields &amp;lt; BaseComponent
+  needs operation : SavePet
+
+  def render
+    mount Shared::Field, operation.name, &amp;amp;.text_input(autofocus: &amp;quot;true&amp;quot;, attrs: [:required])
+    mount Shared::Field, operation.species do |input_html|
+      input_html.select_input append_class: &amp;quot;select-input&amp;quot; do
+        select_prompt(&amp;quot;Select&amp;quot;)
+        options_for_select operation.species, [{&amp;quot;Dog&amp;quot;, &amp;quot;dog&amp;quot;}, {&amp;quot;Cat&amp;quot;, &amp;quot;cat&amp;quot;}]
+      end
+    end
+    mount Shared::Field, operation.breed  # default setting: &amp;amp;.text_input(attrs: [:required])
+    mount Shared::Field, operation.age, &amp;amp;.number_input(append_class: &amp;quot;custom-input&amp;quot;, min: &amp;quot;0&amp;quot;, max: &amp;quot;99&amp;quot;)
+    mount Shared::Field, operation.house_trained do |input_html|
+      input_html.select_input append_class: &amp;quot;select-input&amp;quot; do
+        select_prompt(&amp;quot;Select&amp;quot;)
+        options_for_select operation.house_trained, [{&amp;quot;yes&amp;quot;, true}, {&amp;quot;no&amp;quot;, false}]
+      end
+    end
+    mount Shared::Field, operation.human_id do |input_html|
+      input_html.select_input append_class: &amp;quot;select-input&amp;quot; do
+        select_prompt(&amp;quot;Select&amp;quot;)
+        options_for_select operation.human_id, options_for_humans
+      end
+    end
+  end
+
+  private def options_for_humans
+    HumanQuery.new.map do |human|
+      { human.name, human.id }
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets test again:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;cool - lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;working shared form component with a variety of types&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;redirect-after-create--update-to-index&#34;&gt;Redirect after Create / Update to Index&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckyframework.org/guides/http-and-routing/routing-and-params&#34;&gt;https://luckyframework.org/guides/http-and-routing/routing-and-params&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I find it annoying after creating and updating a resource to have to then manually go back to the index page from the show page.&lt;/p&gt;
+&lt;p&gt;In lucky the routing/controll happens in the &lt;code&gt;action&lt;/code&gt; files.&lt;/p&gt;
+&lt;p&gt;To change what happens after creating and updating a Pet we simply change &lt;code&gt;src/actions/pets/create.cr&lt;/code&gt; to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/actions/pets/create.cr
+class Pets::Create &amp;lt; BrowserAction
+  post &amp;quot;/pets&amp;quot; do
+    SavePet.create(params) do |operation, pet|
+      if pet
+        flash.success = &amp;quot;The record has been saved&amp;quot;
+        html IndexPage, pets: PetQuery.new  # new action (copied from index)
+        # redirect Show.with(pet.id)        # old no longer wanted
+      else
+        flash.failure = &amp;quot;It looks like the form is not valid&amp;quot;
+        html NewPage, operation: operation
+      end
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And update &lt;code&gt;src/actions/pets/update.cr&lt;/code&gt; is similarly easy:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/actions/pets/update.cr
+class Pets::Update &amp;lt; BrowserAction
+  put &amp;quot;/pets/:pet_id&amp;quot; do
+    pet = PetQuery.find(pet_id)
+    SavePet.update(pet, params) do |operation, updated_pet|
+      if operation.saved?
+        flash.success = &amp;quot;The record has been updated&amp;quot;
+        html IndexPage, pets: PetQuery.new
+        # redirect Show.with(updated_pet.id)
+      else
+        flash.failure = &amp;quot;It looks like the form is not valid&amp;quot;
+        html EditPage, operation: operation, pet: updated_pet
+      end
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I appreciate how explicit these are!&lt;/p&gt;
+&lt;h2 id=&#34;display-validation-errors&#34;&gt;Display Validation Errors&lt;/h2&gt;
+&lt;p&gt;If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&amp;rsquo;t see them with our default form.  Lets fix that.&lt;/p&gt;
+&lt;h2 id=&#34;add-validations&#34;&gt;Add Validations&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s add a few custom validations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;minimal pet_name length&lt;/li&gt;
+&lt;li&gt;numeric range&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;tests-for-our-validations&#34;&gt;Tests for our Validations&lt;/h2&gt;
+&lt;p&gt;Now that we have some logic lets add some tests&lt;/p&gt;
+&lt;h2 id=&#34;optional-fields&#34;&gt;Optional Fields&lt;/h2&gt;
+&lt;p&gt;Often a &lt;strong&gt;breed&lt;/strong&gt; is unknown - we could just add an &lt;code&gt;unknown&lt;/code&gt; value, but that&amp;rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our &lt;code&gt;breed&lt;/code&gt; field.&lt;/p&gt;
+&lt;h2 id=&#34;bulma-integration&#34;&gt;Bulma Integration&lt;/h2&gt;
+&lt;p&gt;Integrate CSS Frameworks&lt;/p&gt;
+&lt;h2 id=&#34;view-components&#34;&gt;View Components&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/component-basics&#34;&gt;https://luckycasts.com/videos/component-basics&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/frontend/rendering-html#creating-and-using-components&#34;&gt;https://luckyframework.org/guides/frontend/rendering-html#creating-and-using-components&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tailwind-integration&#34;&gt;Tailwind Integration&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/tailwind-css&#34;&gt;https://luckycasts.com/videos/tailwind-css&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s make the pages a bit nicer&lt;/p&gt;
+&lt;h2 id=&#34;html-to-lucky-formatter&#34;&gt;HTML to Lucky formatter&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckyframework.org/html&#34;&gt;https://luckyframework.org/html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If we want to create some more complex pages with tailwind - lets use the converted to help.&lt;/p&gt;
+&lt;h2 id=&#34;dynamic-front-end---selections-dependencies-alpinejs--stimulusjs-&#34;&gt;Dynamic Front-end - Selections Dependencies (AlpineJS / StimulusJS) ?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/stimulus-js&#34;&gt;https://luckycasts.com/videos/stimulus-js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Make the breed list, dependent on the species list
+Lets change the Front-End language on the fly
+Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
+&lt;h2 id=&#34;has-many-through&#34;&gt;Has many through&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#has-many-through-many-to-many&#34;&gt;https://www.luckyframework.org/guides/database/models#has-many-through-many-to-many&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;polymorphic-relationships&#34;&gt;Polymorphic Relationships&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#polymorphic-associations&#34;&gt;https://www.luckyframework.org/guides/database/models#polymorphic-associations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;One reason I favor Lucky is the database &lt;code&gt;Avram&lt;/code&gt; supports polymorphic relationships - which seems to come up a lot in my code - so lets see how to get it working and support multiple types:&lt;/p&gt;
+&lt;h2 id=&#34;optional-relations&#34;&gt;Optional Relations&lt;/h2&gt;
+&lt;h2 id=&#34;internationalization-i18n&#34;&gt;Internationalization (i18n)&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/translations&#34;&gt;https://luckycasts.com/videos/translations&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/frontend/internationalization&#34;&gt;https://luckyframework.org/guides/frontend/internationalization&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dynamic-i18n-in-front-end&#34;&gt;Dynamic i18n in Front-End?&lt;/h2&gt;
+&lt;h2 id=&#34;components-with-scopes&#34;&gt;Components (with scopes)&lt;/h2&gt;
+&lt;h2 id=&#34;lucky-code-scopes&#34;&gt;Lucky Code Scopes&lt;/h2&gt;
+&lt;h2 id=&#34;resource-authorization&#34;&gt;Resource Authorization&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/stephendolan/pundit&#34;&gt;https://github.com/stephendolan/pundit&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;web-sockets&#34;&gt;Web Sockets&lt;/h2&gt;
+&lt;p&gt;For now something like &lt;strong&gt;LiveView&lt;/strong&gt; and &lt;strong&gt;Hotwire&lt;/strong&gt; are not yet integrated into lucky - its build your own.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/cable-cr/cable&#34;&gt;https://github.com/cable-cr/cable&lt;/a&gt;
+&lt;a href=&#34;https://github.com/luckyframework/lucky/issues/554&#34;&gt;https://github.com/luckyframework/lucky/issues/554&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;deploying-lucky--env&#34;&gt;Deploying Lucky &amp;amp; ENV&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://fullstackstanley.com/read/categories/lucky-framework/&#34;&gt;https://fullstackstanley.com/read/categories/lucky-framework/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;security-alternatives&#34;&gt;Security (Alternatives)&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/grottopress/shield&#34;&gt;https://github.com/grottopress/shield&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
