@@ -26,7 +26,8 @@
       <link>https://btihen.me/post_crystal/lucky_0_27/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
       <guid>https://btihen.me/post_crystal/lucky_0_27/</guid>
-      <description>&lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
+      <description>&lt;p&gt;~/devel/learning/crystal_frameworks/lucky/brews&lt;/p&gt;
+&lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
 &lt;p&gt;Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&amp;rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/why-lucky&#34;&gt;https://luckyframework.org/guides/getting-started/why-lucky&lt;/a&gt; for a full list of what Lucky aims to improve.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;This article is a collection of making sense of the following resources&lt;/p&gt;
@@ -563,6 +564,7 @@ Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-relationships&#34;&gt;Polymorphic Relationships&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#polymorphic-associations&#34;&gt;https://www.luckyframework.org/guides/database/models#polymorphic-associations&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;One reason I favor Lucky is the database &lt;code&gt;Avram&lt;/code&gt; supports polymorphic relationships - which seems to come up a lot in my code - so lets see how to get it working and support multiple types:&lt;/p&gt;
+&lt;p&gt;Pets -&amp;gt; Cats, Dogs, Horses, etc&lt;/p&gt;
 &lt;h2 id=&#34;optional-relations&#34;&gt;Optional Relations&lt;/h2&gt;
 &lt;h2 id=&#34;internationalization-i18n&#34;&gt;Internationalization (i18n)&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/translations&#34;&gt;https://luckycasts.com/videos/translations&lt;/a&gt;

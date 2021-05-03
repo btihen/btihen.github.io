@@ -56,7 +56,8 @@ ARC consortium members contribute by documenting applications of the agile minds
       <link>https://btihen.me/post_crystal/lucky_0_27/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
       <guid>https://btihen.me/post_crystal/lucky_0_27/</guid>
-      <description>&lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
+      <description>&lt;p&gt;~/devel/learning/crystal_frameworks/lucky/brews&lt;/p&gt;
+&lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
 &lt;p&gt;Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&amp;rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/why-lucky&#34;&gt;https://luckyframework.org/guides/getting-started/why-lucky&lt;/a&gt; for a full list of what Lucky aims to improve.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;This article is a collection of making sense of the following resources&lt;/p&gt;
@@ -593,6 +594,7 @@ Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-relationships&#34;&gt;Polymorphic Relationships&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#polymorphic-associations&#34;&gt;https://www.luckyframework.org/guides/database/models#polymorphic-associations&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;One reason I favor Lucky is the database &lt;code&gt;Avram&lt;/code&gt; supports polymorphic relationships - which seems to come up a lot in my code - so lets see how to get it working and support multiple types:&lt;/p&gt;
+&lt;p&gt;Pets -&amp;gt; Cats, Dogs, Horses, etc&lt;/p&gt;
 &lt;h2 id=&#34;optional-relations&#34;&gt;Optional Relations&lt;/h2&gt;
 &lt;h2 id=&#34;internationalization-i18n&#34;&gt;Internationalization (i18n)&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/translations&#34;&gt;https://luckycasts.com/videos/translations&lt;/a&gt;
@@ -3156,7 +3158,13 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
       <link>https://btihen.me/post_tech_notes/web_design_resources/</link>
       <pubDate>Sun, 01 Nov 2020 01:57:16 +0200</pubDate>
       <guid>https://btihen.me/post_tech_notes/web_design_resources/</guid>
-      <description>&lt;h2 id=&#34;logos&#34;&gt;Logos&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;thesarus-word-finder&#34;&gt;Thesarus (word finder)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.wordhippo.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;wordhippo&lt;/a&gt; - finds older and specialty words!&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;logos&#34;&gt;Logos&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://logomakr.com/&#34;&gt;https://logomakr.com/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.freelogodesign.org/&#34;&gt;https://www.freelogodesign.org/&lt;/a&gt;&lt;/li&gt;
@@ -3229,6 +3237,13 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
 &lt;a href=&#34;https://simpleicons.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SimpleIcons&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://devicon.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;devicon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://iconic.app/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;iconic&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;db-svelte-tool&#34;&gt;DB Svelte Tool&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dbgate.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dbgate&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;svg-text-logos&#34;&gt;SVG Text Logos&lt;/h2&gt;
 &lt;p&gt;Sometimes I find it hard to come up with a good logo, but not a shortname.&lt;/p&gt;
@@ -3253,7 +3268,6 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
   &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;22&amp;quot; class=&amp;quot;heavy&amp;quot; fill=&amp;quot;blue&amp;quot;&amp;gt;ED&amp;lt;/text&amp;gt;
   &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;40&amp;quot; class=&amp;quot;small&amp;quot; fill=&amp;quot;green&amp;quot;&amp;gt;gility&amp;lt;/text&amp;gt;
 &amp;lt;/svg&amp;gt;
-
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

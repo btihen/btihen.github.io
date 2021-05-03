@@ -17,7 +17,13 @@
       <link>https://btihen.me/post_tech_notes/web_design_resources/</link>
       <pubDate>Sun, 01 Nov 2020 01:57:16 +0200</pubDate>
       <guid>https://btihen.me/post_tech_notes/web_design_resources/</guid>
-      <description>&lt;h2 id=&#34;logos&#34;&gt;Logos&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;thesarus-word-finder&#34;&gt;Thesarus (word finder)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.wordhippo.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;wordhippo&lt;/a&gt; - finds older and specialty words!&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;logos&#34;&gt;Logos&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://logomakr.com/&#34;&gt;https://logomakr.com/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.freelogodesign.org/&#34;&gt;https://www.freelogodesign.org/&lt;/a&gt;&lt;/li&gt;
@@ -90,6 +96,13 @@
 &lt;a href=&#34;https://simpleicons.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SimpleIcons&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://devicon.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;devicon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://iconic.app/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;iconic&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;db-svelte-tool&#34;&gt;DB Svelte Tool&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dbgate.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dbgate&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;svg-text-logos&#34;&gt;SVG Text Logos&lt;/h2&gt;
 &lt;p&gt;Sometimes I find it hard to come up with a good logo, but not a shortname.&lt;/p&gt;
@@ -114,7 +127,6 @@
   &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;22&amp;quot; class=&amp;quot;heavy&amp;quot; fill=&amp;quot;blue&amp;quot;&amp;gt;ED&amp;lt;/text&amp;gt;
   &amp;lt;text x=&amp;quot;0&amp;quot; y=&amp;quot;40&amp;quot; class=&amp;quot;small&amp;quot; fill=&amp;quot;green&amp;quot;&amp;gt;gility&amp;lt;/text&amp;gt;
 &amp;lt;/svg&amp;gt;
-
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
