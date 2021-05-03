@@ -735,6 +735,15 @@
     <div class="article-style">
       <h2 id="why-lucky">Why Lucky</h2>
 <p>Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: <a href="https://luckyframework.org/guides/getting-started/why-lucky">https://luckyframework.org/guides/getting-started/why-lucky</a> for a full list of what Lucky aims to improve.</p>
+<h2 id="resources">Resources</h2>
+<p>This article is a collection of making sense of the following resources</p>
+<ul>
+<li><a href="https://luckycasts.com/">https://luckycasts.com/</a></li>
+<li><a href="https://luckyframework.org/guides">https://luckyframework.org/guides</a></li>
+<li><a href="https://onchain.io/blog/lucky_tutorial">https://onchain.io/blog/lucky_tutorial</a></li>
+<li><a href="https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1">https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1</a></li>
+</ul>
+<p>My goal is to have a simple tutorial for important basic features and orientation of the Lucky Framework - for myself and students I work with.</p>
 <h2 id="installing-lucky">installing Lucky</h2>
 <p>For more information see: <a href="https://luckyframework.org/guides/getting-started/installing">https://luckyframework.org/guides/getting-started/installing</a></p>
 <p>The <code>brew install</code> of lucky (on a MacOS) is bit broken, but the Linux install also works well on MacOS!</p>
@@ -815,22 +824,7 @@ lucky dev
 <pre><code>git add .
 git commit -m &quot;initial commit after create&quot;
 </code></pre>
-<h2 id="quick-test-tip">Quick Test Tip</h2>
-<p>If you need to quickly check a small piece of code and you don&rsquo;t want to test the whole app you can type:</p>
-<pre><code>lucky exec
-</code></pre>
-<p>This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:</p>
-<pre><code>lucky exec
-# then when vim or nano opens you can enter something like:
-
-require &quot;../../src/app.cr&quot;
-
-include Lucky::TextHelpers
-
-pp pluralize(2, &quot;human&quot;)
-</code></pre>
-<p>and hopefuly you get <code>2 humans</code></p>
-<h2 id="create-lucky-code">Create Lucky Code</h2>
+<h2 id="language-inflections">Language Inflections</h2>
 <p>Let&rsquo;s make a little silly Human and Pets database/webpage:</p>
 <p>The simplest way to generate is with: <code>lucky gen.resource.browser</code> its basically the same as <code>rails g scaffold</code></p>
 <p>So lets get started:</p>
@@ -855,12 +849,123 @@ Wordsmith::Inflector.inflections.uncountable(%w(staff))
 </code></pre>
 <p>Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:</p>
 <pre><code>rm -rf lib &amp;&amp; rm -rf bin &amp;&amp; shards update
-mkdir lib bin
 </code></pre>
+<p>Now we can try to create a new Resource again.</p>
+<h2 id="quick-lucky-test-tip">Quick Lucky Test Tip</h2>
+<p>Lets quickly test our new config wiht <code>lucky exec</code> - type:</p>
+<pre><code>lucky exec
+</code></pre>
+<p>This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:</p>
+<pre><code>lucky exec
+# then when vim or nano opens you can enter something like:
+
+require &quot;../../src/app.cr&quot;
+
+include Lucky::TextHelpers
+
+pp pluralize(2, &quot;human&quot;)
+</code></pre>
+<p>and hopefuly you get <code>2 humans</code> - cool - it works lets snapshot our changes.</p>
+<pre><code>git add .
+git commit -m &quot;language inflection updates and customization&quot;
+</code></pre>
+<h2 id="scaffold-a-simple-resource">Scaffold a Simple Resource</h2>
+<p><a href="https://luckyframework.org/guides/command-line-tasks/built-in">https://luckyframework.org/guides/command-line-tasks/built-in</a></p>
 <p>Now if we try again (we are free to use human again):</p>
 <pre><code>lucky gen.resource.browser Human name:String
 </code></pre>
+<p>Now lets run the migration:</p>
+<pre><code>lucky db.migrate
+
+# oops I haven't create the DB yet
+lucky db.create
+
+# now migrate
+lucky db.migrate
+
+# start lucky &amp; test
+lucky dev
+</code></pre>
+<p>Now log_in and create humans at the <code>/humans</code> url</p>
+<p>Cool - lets snapshot:</p>
+<pre><code>git add .
+git commit -m &quot;First simple 'Human' resource with scaffold&quot;
+</code></pre>
+<h2 id="lucky-html-and-rootpage-routing">Lucky HTML and RootPage Routing</h2>
+<p><a href="https://luckycasts.com/videos/lucky-html-in-crystal">https://luckycasts.com/videos/lucky-html-in-crystal</a>
+<a href="https://www.luckyframework.org/guides/http-and-routing/routing-and-params#root-page">https://www.luckyframework.org/guides/http-and-routing/routing-and-params#root-page</a></p>
+<p>If we look in <code>src/actions/home/index.cr</code> we see:</p>
+<pre><code># src/actions/home/index.cr
+class Home::Index &lt; BrowserAction
+  include Auth::AllowGuests
+
+  get &quot;/&quot; do
+    if current_user?
+      redirect Me::Show
+    else
+      # html Landing::IndexPage
+      html Lucky::WelcomePage
+    end
+  end
+end
+</code></pre>
+<p>As we can see - when we are not logged in &ldquo;/&rdquo; points to <code>Lucky::WelcomePage</code> or whatever new landing page we make and when logged in we are pointed to the <code>Me::Show</code> page.</p>
+<p>Let practice adding some <code>html</code> and add links to our expected resources:</p>
+<ul>
+<li>&lsquo;/humans&rsquo;</li>
+<li>&lsquo;/pets&rsquo;</li>
+</ul>
+<p>So lets change this too and practice lucky html</p>
+<p>We will add our list of resources - &lsquo;pets&rsquo; and &lsquo;humans&rsquo;.</p>
+<p>So from looking at the existing html in <code>src/pages/me/show_page.cr</code> it&rsquo;s like a combo of haml and JS to create executable blocks with <code>{}</code> so I created the method: <code>private def resource_links</code> and tried out two methods of linking - not bad, but I figure it will take a bit of practice with this new format.  I don&rsquo;t know the reason behind this, since almost all web resources will need to be reformatted - but I assume it is pre-compiled and thus fast!</p>
+<p>In the end I created this:</p>
+<pre><code># src/pages/me/show_page.cr
+class Me::ShowPage &lt; MainLayout
+  def content
+    h1 &quot;This is your profile:&quot;
+    h2 &quot;Email:  #{@current_user.email}&quot;
+    resource_links
+    helpful_tips
+  end
+
+  private def resource_links
+    h2 &quot;Available Resources&quot;
+    ul do
+      li { a &quot;Pet Owners&quot;, href: &quot;/humans&quot; }
+      li { link_to_pets }
+    end
+  end
+
+  private def helpful_tips
+    h3 &quot;Next, you may want to:&quot;
+    ul do
+      li { link_to_authentication_guides }
+      li &quot;Modify this page: src/pages/me/show_page.cr&quot;
+      li &quot;Change where you go after sign in: src/actions/home/index.cr&quot;
+    end
+  end
+
+  private def link_to_pets
+    a &quot;Pets&quot;, href: &quot;/pets&quot;
+  end
+
+  private def link_to_authentication_guides
+    a &quot;Check out the authentication guides&quot;,
+      href: &quot;https://luckyframework.org/guides/authentication&quot;
+  end
+end
+</code></pre>
+<p>lets test it out:</p>
+<pre><code>lucky dev
+</code></pre>
+<p>cool - good enough for now.</p>
+<pre><code>git add .
+git commit -m &quot;added html links to user_home_page 'me'&quot;
+</code></pre>
 <h2 id="create-a-related-model">Create a Related Model</h2>
+<p><a href="https://www.luckyframework.org/guides/database/models#belongs-to">https://www.luckyframework.org/guides/database/models#belongs-to</a>
+<a href="https://www.luckyframework.org/guides/database/models#has-many-one-to-many">https://www.luckyframework.org/guides/database/models#has-many-one-to-many</a>
+<a href="https://luckyframework.org/guides/database/migrations#associations">https://luckyframework.org/guides/database/migrations#associations</a></p>
 <p>Unfortunately, the Lucky generators don&rsquo;t understand <code>belongs_to</code> so we will need to do a few extra tweeks &ndash; since we can&rsquo;t do something like human:belongs_to or human:references like with Rails.</p>
 <p>So if we want to scaffold &ldquo;pets&rdquo; now and have them belong to humans (and humans can have many pets) - we first do:</p>
 <pre><code>lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
@@ -916,165 +1021,267 @@ class Human &lt; BaseModel
   end
 end
 </code></pre>
-<p>Now we can migrate and test.</p>
+<p>Now we can migrate:</p>
 <pre><code>lucky db.migrate
 </code></pre>
-<p>Now we can create seed files and be sure the basic relations work:</p>
+<h2 id="seed-files">Seed Files</h2>
+<p><a href="https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1">https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1</a>
+<a href="https://luckyframework.org/guides/database/database-setup#seeding-data">https://luckyframework.org/guides/database/database-setup#seeding-data</a></p>
+<p>Now we can create seed files and be sure our basic relations work:</p>
 <pre><code>
 </code></pre>
-<h2 id="test-with-web-forms">Test with Web forms</h2>
-<p>Now when we log in and create an human at the <code>/humans</code> url</p>
-<p>Now when we go to the <code>/pets</code> url we discover we have problems - validation errors.</p>
+<p>and run the seeds with:</p>
+<pre><code>
+</code></pre>
+<h2 id="simple-lucky-forms-in-pages-instead-of-shared">Simple Lucky Forms (in pages instead of shared)</h2>
+<p><a href="https://luckycasts.com/videos/component-basics">https://luckycasts.com/videos/component-basics</a>
+<a href="https://luckycasts.com/videos/lucky-html-in-crystal">https://luckycasts.com/videos/lucky-html-in-crystal</a>
+<a href="https://luckyframework.org/guides/frontend/html-forms">https://luckyframework.org/guides/frontend/html-forms</a>
+<a href="https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1">https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1</a>
+<a href="https://luckyframework.org/guides/frontend/html-forms#shared-components">https://luckyframework.org/guides/frontend/html-forms#shared-components</a></p>
+<p>Lets test the web page</p>
+<pre><code>lucky dev
+</code></pre>
+<p>and go to the url <code>/pets</code> and create a <strong>Pet</strong>.</p>
+<p>We discover we have problems - validation errors.</p>
 <ul>
 <li>Type mismatches (crystal is strongly typed - but the form generator ignores this - so we need to adjust by hans)</li>
 <li>Required human_id is missing (the generator isn&rsquo;t aware of <code>belongs_to</code>)</li>
 </ul>
-<p>So lets add the human_id to the pet form:</p>
+<p>I didn&rsquo;t find lots of Documentation or examples on Components, but I did find this article - which got me started on Lucky html and forms:
+<a href="https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1">https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1</a></p>
+<p>After I figured out how to update FormComponents I found this: <a href="https://luckycasts.com/videos/component-basics">https://luckycasts.com/videos/component-basics</a> - I&rsquo;ll go back and view this!</p>
+<p>This got me going!  However, one difficulty I had was the Boolean field <code>house_trained</code> - I tried both Checkboxes and Radio Buttons, but I kept getting <code>overload</code> errors (which I finally realized were type mis-matches - you can&rsquo;t send text into a Boolean field).  So I settled on a select_list where I can present a tuple with a &ldquo;human readable value&rdquo; and a &ldquo;model value&rdquo;.</p>
+<p>So in the end my first draft form looked like:</p>
+<pre><code># src/pages/pets/new_page.cr
+class Pets::NewPage &lt; MainLayout
+  needs operation : SavePet
+  quick_def page_title, &quot;New Pet&quot;
+
+  def content
+    h1 &quot;New Pet&quot;
+    render_pet_form(operation)
+  end
+
+  def render_pet_form(op)
+    # comment out the form component for now
+    # form_for Pets::Create do
+    #   # Edit fields in src/components/pets/form_fields.cr
+    #   mount Pets::FormFields, op
+
+    #   submit &quot;Save&quot;, data_disable_with: &quot;Saving...&quot;
+    # end
+
+    form_for Pets::Create do
+      div do
+        label_for op.name
+        text_input op.name
+      end
+      div do
+        label_for op.species
+        select_input(op.species, class: &quot;custom-select&quot;) do
+          select_prompt(&quot;Select&quot;)
+          options_for_select(op.species, [{&quot;Cat&quot;, &quot;cat&quot;}, {&quot;Dog&quot;, &quot;dog&quot;}])
+        end
+      end
+      # eventually allow for this to be blank
+      # eventually allow a dropdown list to be dependent on species
+      div do
+        label_for op.breed
+        text_input op.breed
+      end
+      div do
+        label_for op.age
+        number_input(op.age, class: &quot;custom-input&quot;, min: &quot;0&quot;, max: &quot;99&quot;)
+      end
+      div do
+        label_for op.house_trained
+        select_input(op.house_trained, class: &quot;custom-select&quot;) do
+          select_prompt(&quot;Select&quot;)
+          options_for_select(op.house_trained, [{&quot;yes&quot;, true}, {&quot;No&quot;, false}])
+        end
+      end
+      div do
+        label_for op.human_id
+        select_input op.human_id do
+          options_for_select(op.human_id, humans_for_select)
+        end
+      end
+      submit &quot;Save Pet&quot;
+    end
+  end
+
+  # find all the humans and create a tuple of the name and id - displayed and passed to model
+  private def humans_for_select
+    HumanQuery.new.map do |human|
+      { human.name, human.id }
+    end
+  end
+end
+</code></pre>
+<p>of course this isn&rsquo;t shared by the <code>edit</code> page, but it is still helpful to see the Lucky way to create html.</p>
+<p>So after a while I figured out how to revert this code and use SharedForms (I think this is a form of FrontEnd Components).</p>
+<p>Lets test again:</p>
+<pre><code>lucky dev
+</code></pre>
+<p>Cool it works as I expect</p>
+<pre><code>git add .
+git commit -m &quot;a working 'new' html form - not shared&quot;
+</code></pre>
+<h2 id="shared-web-form---component">Shared Web Form - Component</h2>
+<p><a href="https://luckycasts.com/videos/component-basics">https://luckycasts.com/videos/component-basics</a>
+<a href="https://luckyframework.org/guides/frontend/html-forms">https://luckyframework.org/guides/frontend/html-forms</a>
+<a href="https://luckyframework.org/guides/frontend/html-forms#shared-components">https://luckyframework.org/guides/frontend/html-forms#shared-components</a></p>
+<p>With a little more experience with Lucky HTML lets try the component forms again at <code>src/components/pets/form_fields.cr</code> (so lets revert: <code>src/pages/pets/new_page.cr</code> back to:</p>
+<pre><code># src/pages/pets/new_page.cr
+class Pets::NewPage &lt; MainLayout
+  needs operation : SavePet
+  quick_def page_title, &quot;New Pet&quot;
+
+  def content
+    h1 &quot;New Pet&quot;
+    render_pet_form(operation)
+  end
+
+  def render_pet_form(op)
+    form_for Pets::Create do
+      # Edit fields in src/components/pets/form_fields.cr
+      mount Pets::FormFields, op
+
+      submit &quot;Save&quot;, data_disable_with: &quot;Saving...&quot;
+    end
+  end
+end
+</code></pre>
+<p>Once I had build the first form and understood the errors - so the same form as a form_component looks like:</p>
 <pre><code># src/components/pets/form_fields.cr
 class Pets::FormFields &lt; BaseComponent
   needs operation : SavePet
 
   def render
     mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;, attrs: [:required])
-    mount Shared::Field, operation.breed
-    mount Shared::Field, operation.species
-    mount Shared::Field, operation.age
-    mount Shared::Field, operation.house_trained
-    mount Shared::Field, operation.human_id, &amp;.number_input() # newly added
-  end
-end
-</code></pre>
-<p>We know we will have some type errors, but lets see if this fixes the required relationship error.</p>
-<p>NOPE - now it says we need to allow this to be saved - so we need to add the <code>human_id</code> variable to: <code>src/operations/save_pet.cr</code> &ndash; now it should look like:</p>
-<pre><code># src/operations/save_pet.cr
-class SavePet &lt; Pet::SaveOperation
-  permit_columns name, breed, species, age, house_trained, human_id
-end
-</code></pre>
-<p>Let&rsquo;s test again and be sure to use the human_id of the existing human.</p>
-<p>Cool, but this is inconvient, let&rsquo;s make the human a drop-down list that inserts the expected integer.  We can do this some extra form-code:</p>
-<pre><code># src/components/pets/form_fields.cr
-class Pets::FormFields &lt; BaseComponent
-  needs operation : SavePet
-
-  def render
-    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;)
-    mount Shared::Field, operation.breed
-    mount Shared::Field, operation.species
-    mount Shared::Field, operation.age
-    mount Shared::Field, operation.house_trained
-
-    # human name for the user to see and the human's db_id for Lucky
-    mount Shared::Field, operation.human_id do |input_html|
-      input_html.select_input append_class: &quot;select-input&quot; do
-        options_for_select operation.human_id, options_for_humans
-      end
-    end
-  end
-
-  # create an array of tuples with the human_name and human id - ie: [{&quot;bill&quot;, 1}, {&quot;jane&quot;, 2}]
-  private def options_for_humans
-    OwnerQuery.new.map do |human|
-      { human.name, human.id }
-    end
-  end
-end
-</code></pre>
-<p>The private method <code>options_for_owners</code> queries the database and creates an array of tuples with the human&rsquo;s name to display and the human&rsquo;s db_id - ie:  [{&ldquo;Bill&rdquo;, 1}, {&ldquo;Jane&rdquo;, 2}] which is then used by the <code>do</code> which builds the <code>select</code> form.</p>
-<p>If we test this we should now not only be free of the validation error on the relationships, but also have a way to ensure the user has appropriate values to enter.</p>
-<p>Let&rsquo;s fix the house_training input - I tried variations on checkboxes and radio-buttons:</p>
-<pre><code>    # mount Shared::Field, operation.house_trained, &amp;.checkbox(&quot;no&quot;, &quot;yes&quot;, append_class: &quot;custom-check&quot;)
-    # mount Shared::Field, operation.house_trained, &amp;.checkbox(0, 1, append_class: &quot;custom-check&quot;)
-    # mount Shared::Field, operation.house_trained, &amp;.checkbox(false, true, append_class: &quot;custom-check&quot;)
-    # mount Shared::Field, operation.house_trained, &amp;.radio(op.question_five, &quot;Yes&quot;)
-    # mount Shared::Field, operation.house_trained, &amp;.radio(op.question_five, &quot;No&quot;)
-</code></pre>
-<p>but it seems these will only pass strings - got no end of errors looking like:
-<code>Error: no overload matches 'Shared::Field(Bool)#checkbox' with types Bool, Bool, field: Avram::PermittedAttribute(Bool), class: String</code>
-(It took me a while to figure out that meant the type Lucky was seeing from the form was a type mis-match).</p>
-<p>Finally, I decided to use a select form where I could have text for the use and a boolean for Lucky:</p>
-<pre><code># src/components/pets/form_fields.cr
-class Pets::FormFields &lt; BaseComponent
-  needs operation : SavePet
-
-  def render
-    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;)
-    mount Shared::Field, operation.breed
-    mount Shared::Field, operation.species
-    mount Shared::Field, operation.age
-
-    # we are using a select with an array of tuples - human readable words and boolean for lucky:
-    # [{&quot;yes&quot;, true}, {&quot;no&quot;, false}]
-    mount Shared::Field, operation.house_trained do |input_html|
-      input_html.select_input append_class: &quot;select-input&quot; do
-        options_for_select operation.house_trained, [{&quot;yes&quot;, true}, {&quot;no&quot;, false}]
-      end
-    end
-
-    # human name for the user to see and the human's db_id for Lucky
-    mount Shared::Field, operation.human_id do |input_html|
-      input_html.select_input append_class: &quot;select-input&quot; do
-        options_for_select operation.human_id, options_for_humans
-      end
-    end
-  end
-
-  # create an array of tuples with the human_name and human id - ie: [{&quot;bill&quot;, 1}, {&quot;jane&quot;, 2}]
-  private def options_for_humans
-    OwnerQuery.new.map do |human|
-      { human.name, human.id }
-    end
-  end
-end
-</code></pre>
-<p>Fixing the age input as a number was an easy casting fix with: <code>mount Shared::Field, operation.age, &amp;.number_input(attrs: [:required], append_class: &quot;custom-input&quot;, min: &quot;0&quot;, max: &quot;99&quot;)</code> - this restricts the pets age range which seemed reasonable.</p>
-<p>I also figured we would do a dropdown for species (not breeds - there are way to many animal breeds) - since I only have had cats and dogs I used:</p>
-<pre><code>    mount Shared::Field, operation.species do |input_html|
-      input_html.select_input append_class: &quot;select-input&quot; do
-        options_for_select operation.species, [{&quot;Dog&quot;, &quot;dog&quot;}, {&quot;Cat&quot;, &quot;cat&quot;}]
-      end
-    end
-</code></pre>
-<p>So now the completed form looks like:</p>
-<pre><code># src/components/pets/form_fields.cr
-class Pets::FormFields &lt; BaseComponent
-  needs operation : SavePet
-
-  def render
-    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;, attrs: [:required])
-    mount Shared::Field, operation.breed, &amp;.text_input(attrs: [:required])
     mount Shared::Field, operation.species do |input_html|
       input_html.select_input append_class: &quot;select-input&quot; do
+        select_prompt(&quot;Select&quot;)
         options_for_select operation.species, [{&quot;Dog&quot;, &quot;dog&quot;}, {&quot;Cat&quot;, &quot;cat&quot;}]
       end
     end
+    mount Shared::Field, operation.breed  # default setting: &amp;.text_input(attrs: [:required])
     mount Shared::Field, operation.age, &amp;.number_input(append_class: &quot;custom-input&quot;, min: &quot;0&quot;, max: &quot;99&quot;)
     mount Shared::Field, operation.house_trained do |input_html|
       input_html.select_input append_class: &quot;select-input&quot; do
+        select_prompt(&quot;Select&quot;)
         options_for_select operation.house_trained, [{&quot;yes&quot;, true}, {&quot;no&quot;, false}]
       end
     end
-    mount Shared::Field, operation.owner_id do |input_html|
+    mount Shared::Field, operation.human_id do |input_html|
       input_html.select_input append_class: &quot;select-input&quot; do
-        options_for_select operation.owner_id, options_for_owners
+        select_prompt(&quot;Select&quot;)
+        options_for_select operation.human_id, options_for_humans
       end
     end
   end
 
-  private def options_for_owners
-    OwnerQuery.new.map do |owner|
-      { owner.name, owner.id }
+  private def options_for_humans
+    HumanQuery.new.map do |human|
+      { human.name, human.id }
     end
   end
-
 end
 </code></pre>
+<p>Lets test again:</p>
+<pre><code>lucky dev
+</code></pre>
+<p>cool - lets snapshot:</p>
+<pre><code>git add .
+git commit -m &quot;working shared form component with a variety of types&quot;
+</code></pre>
+<h2 id="redirect-after-create--update-to-index">Redirect after Create / Update to Index</h2>
+<p><a href="https://luckyframework.org/guides/http-and-routing/routing-and-params">https://luckyframework.org/guides/http-and-routing/routing-and-params</a></p>
+<p>I find it annoying after creating and updating a resource to have to then manually go back to the index page from the show page.</p>
+<p>In lucky the routing/controll happens in the <code>action</code> files.</p>
+<p>To change what happens after creating and updating a Pet we simply change <code>src/actions/pets/create.cr</code> to:</p>
+<pre><code># src/actions/pets/create.cr
+class Pets::Create &lt; BrowserAction
+  post &quot;/pets&quot; do
+    SavePet.create(params) do |operation, pet|
+      if pet
+        flash.success = &quot;The record has been saved&quot;
+        html IndexPage, pets: PetQuery.new  # new action (copied from index)
+        # redirect Show.with(pet.id)        # old no longer wanted
+      else
+        flash.failure = &quot;It looks like the form is not valid&quot;
+        html NewPage, operation: operation
+      end
+    end
+  end
+end
+</code></pre>
+<p>And update <code>src/actions/pets/update.cr</code> is similarly easy:</p>
+<pre><code># src/actions/pets/update.cr
+class Pets::Update &lt; BrowserAction
+  put &quot;/pets/:pet_id&quot; do
+    pet = PetQuery.find(pet_id)
+    SavePet.update(pet, params) do |operation, updated_pet|
+      if operation.saved?
+        flash.success = &quot;The record has been updated&quot;
+        html IndexPage, pets: PetQuery.new
+        # redirect Show.with(updated_pet.id)
+      else
+        flash.failure = &quot;It looks like the form is not valid&quot;
+        html EditPage, operation: operation, pet: updated_pet
+      end
+    end
+  end
+end
+</code></pre>
+<p>I appreciate how explicit these are!</p>
 <h2 id="display-validation-errors">Display Validation Errors</h2>
 <p>If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&rsquo;t see them with our default form.  Lets fix that.</p>
-<h2 id="validations--optional-fields">Validations &amp; Optional Fields</h2>
-<p>Let&rsquo;s figure out how to allow some fields to be nil</p>
-<h2 id="tailwind--alpine-integration">Tailwind &amp; Alpine Integration</h2>
-<p>Let&rsquo;s make the forms a little nicer</p>
+<h2 id="add-validations">Add Validations</h2>
+<p>Let&rsquo;s add a few custom validations:</p>
+<ul>
+<li>minimal pet_name length</li>
+<li>numeric range</li>
+</ul>
+<h2 id="tests-for-our-validations">Tests for our Validations</h2>
+<p>Now that we have some logic lets add some tests</p>
+<h2 id="optional-fields">Optional Fields</h2>
+<p>Often a <strong>breed</strong> is unknown - we could just add an <code>unknown</code> value, but that&rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our <code>breed</code> field.</p>
+<h2 id="bulma-integration">Bulma Integration</h2>
+<p>Integrate CSS Frameworks</p>
+<h2 id="view-components">View Components</h2>
+<p><a href="https://luckycasts.com/videos/component-basics">https://luckycasts.com/videos/component-basics</a>
+<a href="https://luckyframework.org/guides/frontend/rendering-html#creating-and-using-components">https://luckyframework.org/guides/frontend/rendering-html#creating-and-using-components</a></p>
+<h2 id="tailwind-integration">Tailwind Integration</h2>
+<p><a href="https://luckycasts.com/videos/tailwind-css">https://luckycasts.com/videos/tailwind-css</a></p>
+<p>Let&rsquo;s make the pages a bit nicer</p>
+<h2 id="html-to-lucky-formatter">HTML to Lucky formatter</h2>
+<p><a href="https://luckyframework.org/html">https://luckyframework.org/html</a></p>
+<p>If we want to create some more complex pages with tailwind - lets use the converted to help.</p>
+<h2 id="dynamic-front-end---selections-dependencies-alpinejs--stimulusjs-">Dynamic Front-end - Selections Dependencies (AlpineJS / StimulusJS) ?</h2>
+<p><a href="https://luckycasts.com/videos/stimulus-js">https://luckycasts.com/videos/stimulus-js</a></p>
+<p>Make the breed list, dependent on the species list
+Lets change the Front-End language on the fly
+Lets make the new TailwindUI menu bar have the dynamic features.</p>
+<h2 id="has-many-through">Has many through</h2>
+<p><a href="https://www.luckyframework.org/guides/database/models#has-many-through-many-to-many">https://www.luckyframework.org/guides/database/models#has-many-through-many-to-many</a></p>
+<h2 id="polymorphic-relationships">Polymorphic Relationships</h2>
+<p><a href="https://www.luckyframework.org/guides/database/models#polymorphic-associations">https://www.luckyframework.org/guides/database/models#polymorphic-associations</a></p>
+<p>One reason I favor Lucky is the database <code>Avram</code> supports polymorphic relationships - which seems to come up a lot in my code - so lets see how to get it working and support multiple types:</p>
+<h2 id="optional-relations">Optional Relations</h2>
+<h2 id="internationalization-i18n">Internationalization (i18n)</h2>
+<p><a href="https://luckycasts.com/videos/translations">https://luckycasts.com/videos/translations</a>
+<a href="https://luckyframework.org/guides/frontend/internationalization">https://luckyframework.org/guides/frontend/internationalization</a></p>
+<h2 id="dynamic-i18n-in-front-end">Dynamic i18n in Front-End?</h2>
+<h2 id="components-with-scopes">Components (with scopes)</h2>
+<h2 id="lucky-code-scopes">Lucky Code Scopes</h2>
+<h2 id="resource-authorization">Resource Authorization</h2>
+<p><a href="https://github.com/stephendolan/pundit">https://github.com/stephendolan/pundit</a></p>
+<h2 id="web-sockets">Web Sockets</h2>
+<p>For now something like <strong>LiveView</strong> and <strong>Hotwire</strong> are not yet integrated into lucky - its build your own.</p>
+<p><a href="https://github.com/cable-cr/cable">https://github.com/cable-cr/cable</a>
+<a href="https://github.com/luckyframework/lucky/issues/554">https://github.com/luckyframework/lucky/issues/554</a></p>
 
     </div>
 
