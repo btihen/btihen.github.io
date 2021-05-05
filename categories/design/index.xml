@@ -68,9 +68,15 @@
 &lt;h2 id=&#34;css&#34;&gt;CSS&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
+&lt;a href=&#34;https://bulma.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bulma&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://tailwindcss.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tailwindcss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
 &lt;a href=&#34;https://headlessui.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;headlessui&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://tailwindui.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tailwindui&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.tailwindtoolbox.com/starter-components&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tailwindtoolbar&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;icons&#34;&gt;Icons&lt;/h2&gt;
 &lt;ul&gt;
