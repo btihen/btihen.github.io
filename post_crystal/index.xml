@@ -524,6 +524,8 @@ end
 &lt;p&gt;I appreciate how explicit these are!&lt;/p&gt;
 &lt;h2 id=&#34;display-validation-errors&#34;&gt;Display Validation Errors&lt;/h2&gt;
 &lt;p&gt;If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&amp;rsquo;t see them with our default form.  Lets fix that.&lt;/p&gt;
+&lt;h2 id=&#34;optional-fields&#34;&gt;Optional Fields&lt;/h2&gt;
+&lt;p&gt;Often a &lt;strong&gt;breed&lt;/strong&gt; is unknown - we could just add an &lt;code&gt;unknown&lt;/code&gt; value, but that&amp;rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our &lt;code&gt;breed&lt;/code&gt; field.&lt;/p&gt;
 &lt;h2 id=&#34;add-validations&#34;&gt;Add Validations&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s add a few custom validations:&lt;/p&gt;
 &lt;ul&gt;
@@ -532,8 +534,18 @@ end
 &lt;/ul&gt;
 &lt;h2 id=&#34;tests-for-our-validations&#34;&gt;Tests for our Validations&lt;/h2&gt;
 &lt;p&gt;Now that we have some logic lets add some tests&lt;/p&gt;
-&lt;h2 id=&#34;optional-fields&#34;&gt;Optional Fields&lt;/h2&gt;
-&lt;p&gt;Often a &lt;strong&gt;breed&lt;/strong&gt; is unknown - we could just add an &lt;code&gt;unknown&lt;/code&gt; value, but that&amp;rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our &lt;code&gt;breed&lt;/code&gt; field.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/luckyframework/lucky_flow&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;BrowserTesting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;pretty-urls&#34;&gt;Pretty URLs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/luckyframework/avram_slugify&#34;&gt;https://github.com/luckyframework/avram_slugify&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lucky-pubsub&#34;&gt;Lucky PubSub&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/luckyframework/pulsar&#34;&gt;https://github.com/luckyframework/pulsar&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;bulma-integration&#34;&gt;Bulma Integration&lt;/h2&gt;
 &lt;p&gt;Integrate CSS Frameworks&lt;/p&gt;
 &lt;h2 id=&#34;view-components&#34;&gt;View Components&lt;/h2&gt;
@@ -573,6 +585,15 @@ Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://fullstackstanley.com/read/categories/lucky-framework/&#34;&gt;https://fullstackstanley.com/read/categories/lucky-framework/&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;security-alternatives&#34;&gt;Security (Alternatives)&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/grottopress/shield&#34;&gt;https://github.com/grottopress/shield&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;message--events---queues&#34;&gt;Message / Events - Queues&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/mosquito-cr/mosquito&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Redis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/mperham/sidekiq.cr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sidekiq&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/bmulvihill/dispatch&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;InMemory-JobQueue&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

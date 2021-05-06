@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-05-02T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-05-03T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-05-06T01:01:53&#43;02:00">
   
 
   
@@ -689,7 +689,7 @@
           Last updated on
       
     
-    Mon, May 3, 2021
+    Thu, May 6, 2021
   </span>
   
 
@@ -1240,6 +1240,8 @@ end
 <p>I appreciate how explicit these are!</p>
 <h2 id="display-validation-errors">Display Validation Errors</h2>
 <p>If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&rsquo;t see them with our default form.  Lets fix that.</p>
+<h2 id="optional-fields">Optional Fields</h2>
+<p>Often a <strong>breed</strong> is unknown - we could just add an <code>unknown</code> value, but that&rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our <code>breed</code> field.</p>
 <h2 id="add-validations">Add Validations</h2>
 <p>Let&rsquo;s add a few custom validations:</p>
 <ul>
@@ -1248,8 +1250,18 @@ end
 </ul>
 <h2 id="tests-for-our-validations">Tests for our Validations</h2>
 <p>Now that we have some logic lets add some tests</p>
-<h2 id="optional-fields">Optional Fields</h2>
-<p>Often a <strong>breed</strong> is unknown - we could just add an <code>unknown</code> value, but that&rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our <code>breed</code> field.</p>
+<ul>
+<li>
+<a href="https://github.com/luckyframework/lucky_flow" target="_blank" rel="noopener">BrowserTesting</a></li>
+</ul>
+<h2 id="pretty-urls">Pretty URLs</h2>
+<ul>
+<li><a href="https://github.com/luckyframework/avram_slugify">https://github.com/luckyframework/avram_slugify</a></li>
+</ul>
+<h2 id="lucky-pubsub">Lucky PubSub</h2>
+<ul>
+<li><a href="https://github.com/luckyframework/pulsar">https://github.com/luckyframework/pulsar</a></li>
+</ul>
 <h2 id="bulma-integration">Bulma Integration</h2>
 <p>Integrate CSS Frameworks</p>
 <h2 id="view-components">View Components</h2>
@@ -1289,6 +1301,15 @@ Lets make the new TailwindUI menu bar have the dynamic features.</p>
 <p><a href="https://fullstackstanley.com/read/categories/lucky-framework/">https://fullstackstanley.com/read/categories/lucky-framework/</a></p>
 <h2 id="security-alternatives">Security (Alternatives)</h2>
 <p><a href="https://github.com/grottopress/shield">https://github.com/grottopress/shield</a></p>
+<h2 id="message--events---queues">Message / Events - Queues</h2>
+<ul>
+<li>
+<a href="https://github.com/mosquito-cr/mosquito" target="_blank" rel="noopener">Redis</a></li>
+<li>
+<a href="https://github.com/mperham/sidekiq.cr" target="_blank" rel="noopener">Sidekiq</a></li>
+<li>
+<a href="https://github.com/bmulvihill/dispatch" target="_blank" rel="noopener">InMemory-JobQueue</a></li>
+</ul>
 
     </div>
 

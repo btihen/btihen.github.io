@@ -19,8 +19,11 @@
       <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</guid>
       <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
 &lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;
-&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://thinkingelixir.com/install-elixir-using-asdf/&#34;&gt;https://thinkingelixir.com/install-elixir-using-asdf/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;On a Mac I used Homebrew:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;brew install asdf
 echo -e &#39;\n. $(brew --prefix asdf)/asdf.sh&#39; &amp;gt;&amp;gt; ~/.bash_profile
@@ -254,16 +257,16 @@ EOF
 &lt;pre&gt;&lt;code&gt;git add .
 git commit -m &amp;quot;Tailwind installed&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;add-test-helpers&#34;&gt;Add Test helpers&lt;/h2&gt;
-&lt;p&gt;wallaby / hound - browser testing
-{:faker, &amp;ldquo;~&amp;gt; 0.16&amp;rdquo;, only: :test},
-{:ex_machina, &amp;ldquo;~&amp;gt; 2.7.0&amp;rdquo;, only: :test},
-{:phoenix_integration, &amp;ldquo;~&amp;gt; 0.8.2&amp;rdquo;}
-mox - mock testing external apis
-moch
-FakerElixir&lt;/p&gt;
-&lt;h2 id=&#34;auth-users&#34;&gt;Auth Users&lt;/h2&gt;
-&lt;p&gt;phx.auth.gen&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=o4Prej0wIZA&#34;&gt;https://www.youtube.com/watch?v=o4Prej0wIZA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.pthompson.org/alpine-js-and-liveview&#34;&gt;http://blog.pthompson.org/alpine-js-and-liveview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&#34;&gt;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&#34;&gt;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
