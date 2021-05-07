@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-05-02T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-05-06T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-05-07T01:01:53&#43;02:00">
   
 
   
@@ -689,7 +689,7 @@
           Last updated on
       
     
-    Thu, May 6, 2021
+    Fri, May 7, 2021
   </span>
   
 
@@ -1238,10 +1238,104 @@ class Pets::Update &lt; BrowserAction
 end
 </code></pre>
 <p>I appreciate how explicit these are!</p>
-<h2 id="display-validation-errors">Display Validation Errors</h2>
-<p>If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&rsquo;t see them with our default form.  Lets fix that.</p>
 <h2 id="optional-fields">Optional Fields</h2>
 <p>Often a <strong>breed</strong> is unknown - we could just add an <code>unknown</code> value, but that&rsquo;s silly, lets figure out how to work with unknown / unneeded data and allow nil in our <code>breed</code> field.</p>
+<p>Since Crystal is strongly typed - one needs to explicitly mark that a field can be nil with <code>?</code> - you can see the docs here: <a href="https://luckyframework.org/guides/database/models#adding-a-column">https://luckyframework.org/guides/database/models#adding-a-column</a></p>
+<p>So to make <strong>breed</strong> optional we will change the pets model to:</p>
+<pre><code>class Pet &lt; BaseModel
+  table do
+    column name : String
+    column species : String
+    column breed : String?  # adding `?` makes the field optional (nil-able)
+    column age : Int32
+    column house_trained : Bool
+
+    # relations
+    belongs_to owner : Owner
+  end
+end
+</code></pre>
+<p>Now when I run lucky - I&rsquo;ll expect to find some errors - (probably in a view saying I need null protecction).  However instead I get:</p>
+<pre><code>Unhandled exception: Pet has defined 'breed' as nilable (String?), but the database column does not allow nils.
+web          |
+web          | Either mark the column as required in Pet:
+web          |
+web          |   # Remove the '?'
+web          |   column breed : String
+web          |
+web          | Or, make the column optional in a migration:
+web          |
+web          |   ▸ Generate a migration:
+web          |
+web          |       lucky gen.migration MakePetBreedOptional
+web          |
+web          |   ▸ Make the column optional:
+web          |
+web          |       make_optional :pets, :breed
+</code></pre>
+<p>Oddly, I don&rsquo;t see anything in the migration Docs <code>https://www.luckyframework.org/guides/database/migrations</code> about marking a file optional (nor how to make it optional in the original migration).  Since we w</p>
+<p>But lets try:</p>
+<pre><code>lucky gen.migration MakePetBreedOptional
+</code></pre>
+<p>Hmm, the error says what to put in the migration, but not the rollback, lets search the luckyframework repos and see what we find:  <a href="https://github.com/luckyframework/avram/blob/f676a9a7d2e70d74891ad686039bf393983d0760/src/avram/migrator/statement_helpers.cr">https://github.com/luckyframework/avram/blob/f676a9a7d2e70d74891ad686039bf393983d0760/src/avram/migrator/statement_helpers.cr</a></p>
+<p>Here we see what the options are so lets edit the migration to look like:</p>
+<pre><code>class MakePetBreedOptional::V20210507125901 &lt; Avram::Migrator::Migration::V1
+  def migrate
+    make_optional :pets, :breed
+    # alter table_for(Pet) do
+    #   make_optional :breed
+    # end
+  end
+
+  def rollback
+    # query for breed fields that are nil and fill them BEFORE making the field REQUIRED!
+    PetQuery.new.breed.is_nil.each do |pet|
+      SavePet.update!(pet, breed: &quot;unknown&quot;)
+    end
+    # this would work too, but might as well let the db do the heavy lifting
+    # PetQuery.new.each do |pet|
+    #   SavePet.update!(pet, breed: &quot;unknown&quot;) if pet.breed.nil?
+    # end
+
+    # simple way of making ONE field required
+    make_required :pets, :breed
+
+    # this would be better when changing lots of fields
+    # alter table_for(Pet) do
+    #   make_required :breed
+    # end
+  end
+end
+</code></pre>
+<p>OK - lets try again:</p>
+<pre><code>lucky dev
+</code></pre>
+<p>Cool it works - lets make a new record - with an null value.</p>
+<p>Lets look at the record within postgresql:</p>
+<pre><code>psql -d pets_development
+select * from pets;
+
+ id |       created_at       |       updated_at       | name  | breed | species | age | house_trained | owner_id
+----+------------------------+------------------------+-------+-------+---------+-----+---------------+----------
+  1 | 2021-05-07 15:23:28+02 | 2021-05-07 15:23:28+02 | Nyima |       | dog     |  11 | t             |        1
+\q
+</code></pre>
+<p>Now let&rsquo;s be sure our rollback works.  Notice - before we make it <code>required</code> we find records with nil values and fill them <code>unknown</code>.  An example of adding data logic within a migration can be found at: <a href="https://luckyframework.org/guides/database/migrations#using-fill_existing_with-and-default-values">https://luckyframework.org/guides/database/migrations#using-fill_existing_with-and-default-values</a></p>
+<pre><code>lucky db.rollback
+</code></pre>
+<p>OK - good the migration didn&rsquo;t crash - lets check the DB.</p>
+<pre><code>
+psql -d pets_development
+select * from pets;
+
+ id |       created_at       |       updated_at       | name  |  breed  | species | age | house_trained | owner_id
+----+------------------------+------------------------+-------+---------+---------+-----+---------------+----------
+  1 | 2021-05-07 15:23:28+02 | 2021-05-07 16:28:55+02 | Nyima | unknown | dog     |  11 | t             |        1
+\q
+</code></pre>
+<p>Nice it worked.</p>
+<h2 id="display-validation-errors">Display Validation Errors</h2>
+<p>If we leave some fields out - Lucky gives us validation errors - all fields appear to be required without explicitly allowing nils - but we don&rsquo;t see them with our default form.  Lets fix that.</p>
 <h2 id="add-validations">Add Validations</h2>
 <p>Let&rsquo;s add a few custom validations:</p>
 <ul>
@@ -1255,6 +1349,7 @@ end
 <a href="https://github.com/luckyframework/lucky_flow" target="_blank" rel="noopener">BrowserTesting</a></li>
 </ul>
 <h2 id="pretty-urls">Pretty URLs</h2>
+<p>Looks interesting and easy</p>
 <ul>
 <li><a href="https://github.com/luckyframework/avram_slugify">https://github.com/luckyframework/avram_slugify</a></li>
 </ul>
