@@ -18,6 +18,7 @@
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
       <guid>https://btihen.me/post_crystal/lucky_0_27/</guid>
       <description>&lt;p&gt;~/devel/learning/crystal_frameworks/lucky/brews&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/stephendolan/lucky_jumpstart/&#34;&gt;https://github.com/stephendolan/lucky_jumpstart/&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
 &lt;p&gt;Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&amp;rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/why-lucky&#34;&gt;https://luckyframework.org/guides/getting-started/why-lucky&lt;/a&gt; for a full list of what Lucky aims to improve.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
@@ -133,6 +134,20 @@ Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot
 # if using `staff` as in human staff - then also add staff to uncountable:
 Wordsmith::Inflector.inflections.uncountable(%w(staff))
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&#34;&gt;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# config/inflector.cr
+module Wordsmith
+  Inflector.inflections.clear
+
+  Inflector.inflections.plural(/$/, &amp;quot;s&amp;quot;)
+  Inflector.inflections.plural(/s$/i, &amp;quot;s&amp;quot;)
+
+  # etc, etc, etc
+
+  Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
+  Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;rm -rf lib &amp;amp;&amp;amp; rm -rf bin &amp;amp;&amp;amp; shards update
 &lt;/code&gt;&lt;/pre&gt;
@@ -176,6 +191,68 @@ lucky dev
 &lt;p&gt;Cool - lets snapshot:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git add .
 git commit -m &amp;quot;First simple &#39;Human&#39; resource with scaffold&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-related-model&#34;&gt;Create a Related Model&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#belongs-to&#34;&gt;https://www.luckyframework.org/guides/database/models#belongs-to&lt;/a&gt;
+&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#has-many-one-to-many&#34;&gt;https://www.luckyframework.org/guides/database/models#has-many-one-to-many&lt;/a&gt;
+&lt;a href=&#34;https://luckyframework.org/guides/database/migrations#associations&#34;&gt;https://luckyframework.org/guides/database/migrations#associations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Unfortunately, the Lucky generators don&amp;rsquo;t understand &lt;code&gt;belongs_to&lt;/code&gt; so we will need to do a few extra tweeks &amp;ndash; since we can&amp;rsquo;t do something like human:belongs_to or human:references like with Rails.&lt;/p&gt;
+&lt;p&gt;So if we want to scaffold &amp;ldquo;pets&amp;rdquo; now and have them belong to humans (and humans can have many pets) - we first do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s setup the relationships:&lt;/p&gt;
+&lt;p&gt;First we need to update the migration with the human foreign_key using: &lt;code&gt;add_belongs_to&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So we need to update our pets migration to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# db/migrations/yyyymmddxxxxxx_create_pets.cr
+class CreatePets::V20210502100912 &amp;lt; Avram::Migrator::Migration::V1
+  def migrate
+    create table_for(Pet) do
+      primary_key id : Int64
+      add_timestamps
+      add name : String
+      add breed : String
+      add species : String
+      add age : Int32
+      add house_trained : Bool
+
+      # When the associated human is deleted, their pets are also deleted
+      # because we set on_delete: :cascade
+      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
+    end
+  end
+
+  def rollback
+    drop table_for(Pet)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that the pets database table will is correct - lets update the pet model too.
+This is straight-forward we just need to add &lt;code&gt;belongs_to human : Human&lt;/code&gt; in the model file so it changes to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/models/pet.cr
+class Pet &amp;lt; BaseModel
+  table do
+    column name : String
+    column breed : String
+    column species : String
+    column age : Int32
+    column house_trained : Bool
+
+    belongs_to human : Human     # relationship - newly added
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now we need to add &lt;code&gt;has_many&lt;/code&gt; to the &lt;code&gt;Human&lt;/code&gt; model.  So we change it to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# src/models/human.cr
+class Human &amp;lt; BaseModel
+  table do
+    column name : String
+
+    has_many pets : Pet    # relationship - newly added
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can migrate:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky db.migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;lucky-html-and-rootpage-routing&#34;&gt;Lucky HTML and RootPage Routing&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/lucky-html-in-crystal&#34;&gt;https://luckycasts.com/videos/lucky-html-in-crystal&lt;/a&gt;
@@ -247,68 +324,6 @@ end
 &lt;p&gt;cool - good enough for now.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git add .
 git commit -m &amp;quot;added html links to user_home_page &#39;me&#39;&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;create-a-related-model&#34;&gt;Create a Related Model&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#belongs-to&#34;&gt;https://www.luckyframework.org/guides/database/models#belongs-to&lt;/a&gt;
-&lt;a href=&#34;https://www.luckyframework.org/guides/database/models#has-many-one-to-many&#34;&gt;https://www.luckyframework.org/guides/database/models#has-many-one-to-many&lt;/a&gt;
-&lt;a href=&#34;https://luckyframework.org/guides/database/migrations#associations&#34;&gt;https://luckyframework.org/guides/database/migrations#associations&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Unfortunately, the Lucky generators don&amp;rsquo;t understand &lt;code&gt;belongs_to&lt;/code&gt; so we will need to do a few extra tweeks &amp;ndash; since we can&amp;rsquo;t do something like human:belongs_to or human:references like with Rails.&lt;/p&gt;
-&lt;p&gt;So if we want to scaffold &amp;ldquo;pets&amp;rdquo; now and have them belong to humans (and humans can have many pets) - we first do:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now let&amp;rsquo;s setup the relationships:&lt;/p&gt;
-&lt;p&gt;First we need to update the migration with the human foreign_key using: &lt;code&gt;add_belongs_to&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;So we need to update our pets migration to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# db/migrations/yyyymmddxxxxxx_create_pets.cr
-class CreatePets::V20210502100912 &amp;lt; Avram::Migrator::Migration::V1
-  def migrate
-    create table_for(Pet) do
-      primary_key id : Int64
-      add_timestamps
-      add name : String
-      add breed : String
-      add species : String
-      add age : Int32
-      add house_trained : Bool
-
-      # When the associated human is deleted, their pets are also deleted
-      # because we set on_delete: :cascade
-      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
-    end
-  end
-
-  def rollback
-    drop table_for(Pet)
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now that the pets database table will is correct - lets update the pet model too.
-This is straight-forward we just need to add &lt;code&gt;belongs_to human : Human&lt;/code&gt; in the model file so it changes to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# src/models/pet.cr
-class Pet &amp;lt; BaseModel
-  table do
-    column name : String
-    column breed : String
-    column species : String
-    column age : Int32
-    column house_trained : Bool
-
-    belongs_to human : Human     # relationship - newly added
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;now we need to add &lt;code&gt;has_many&lt;/code&gt; to the &lt;code&gt;Human&lt;/code&gt; model.  So we change it to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# src/models/human.cr
-class Human &amp;lt; BaseModel
-  table do
-    column name : String
-
-    has_many pets : Pet    # relationship - newly added
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can migrate:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;lucky db.migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;seed-files&#34;&gt;Seed Files&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;
@@ -445,14 +460,14 @@ class Pets::FormFields &amp;lt; BaseComponent
   needs operation : SavePet
 
   def render
-    mount Shared::Field, operation.name, &amp;amp;.text_input(autofocus: &amp;quot;true&amp;quot;, attrs: [:required])
+    mount Shared::Field, operation.name, &amp;amp;.text_input(autofocus: &amp;quot;true&amp;quot;)
     mount Shared::Field, operation.species do |input_html|
       input_html.select_input append_class: &amp;quot;select-input&amp;quot; do
         select_prompt(&amp;quot;Select&amp;quot;)
         options_for_select operation.species, [{&amp;quot;Dog&amp;quot;, &amp;quot;dog&amp;quot;}, {&amp;quot;Cat&amp;quot;, &amp;quot;cat&amp;quot;}]
       end
     end
-    mount Shared::Field, operation.breed  # default setting: &amp;amp;.text_input(attrs: [:required])
+    mount Shared::Field, operation.breed
     mount Shared::Field, operation.age, &amp;amp;.number_input(append_class: &amp;quot;custom-input&amp;quot;, min: &amp;quot;0&amp;quot;, max: &amp;quot;99&amp;quot;)
     mount Shared::Field, operation.house_trained do |input_html|
       input_html.select_input append_class: &amp;quot;select-input&amp;quot; do
@@ -475,6 +490,15 @@ class Pets::FormFields &amp;lt; BaseComponent
   end
 end
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;the documentation has several examples with: &lt;code&gt;attrs: [:required]&lt;/code&gt; in the form.  This does client side validation (will not even submit the form if empty).  I don&amp;rsquo;t recommend using this generally.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;if you don&amp;rsquo;t put anything next to the variable a text input without anything more than the errors are assumed &lt;code&gt;&amp;amp;.text_input()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;Lets test again:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;lucky dev
 &lt;/code&gt;&lt;/pre&gt;

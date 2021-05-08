@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-05-02T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-05-07T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-05-08T01:01:53&#43;02:00">
   
 
   
@@ -689,7 +689,7 @@
           Last updated on
       
     
-    Fri, May 7, 2021
+    Sat, May 8, 2021
   </span>
   
 
@@ -734,6 +734,7 @@
 
     <div class="article-style">
       <p>~/devel/learning/crystal_frameworks/lucky/brews</p>
+<p><a href="https://github.com/stephendolan/lucky_jumpstart/">https://github.com/stephendolan/lucky_jumpstart/</a></p>
 <h2 id="why-lucky">Why Lucky</h2>
 <p>Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: <a href="https://luckyframework.org/guides/getting-started/why-lucky">https://luckyframework.org/guides/getting-started/why-lucky</a> for a full list of what Lucky aims to improve.</p>
 <h2 id="resources">Resources</h2>
@@ -849,6 +850,20 @@ Wordsmith::Inflector.inflections.irregular(&quot;person&quot;, &quot;persons&quo
 # if using `staff` as in human staff - then also add staff to uncountable:
 Wordsmith::Inflector.inflections.uncountable(%w(staff))
 </code></pre>
+<p><a href="https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr">https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr</a></p>
+<pre><code># config/inflector.cr
+module Wordsmith
+  Inflector.inflections.clear
+
+  Inflector.inflections.plural(/$/, &quot;s&quot;)
+  Inflector.inflections.plural(/s$/i, &quot;s&quot;)
+
+  # etc, etc, etc
+
+  Inflector.inflections.irregular(&quot;human&quot;, &quot;humans&quot;)
+  Inflector.inflections.irregular(&quot;person&quot;, &quot;persons&quot;)
+end
+</code></pre>
 <p>Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:</p>
 <pre><code>rm -rf lib &amp;&amp; rm -rf bin &amp;&amp; shards update
 </code></pre>
@@ -892,6 +907,68 @@ lucky dev
 <p>Cool - lets snapshot:</p>
 <pre><code>git add .
 git commit -m &quot;First simple 'Human' resource with scaffold&quot;
+</code></pre>
+<h2 id="create-a-related-model">Create a Related Model</h2>
+<p><a href="https://www.luckyframework.org/guides/database/models#belongs-to">https://www.luckyframework.org/guides/database/models#belongs-to</a>
+<a href="https://www.luckyframework.org/guides/database/models#has-many-one-to-many">https://www.luckyframework.org/guides/database/models#has-many-one-to-many</a>
+<a href="https://luckyframework.org/guides/database/migrations#associations">https://luckyframework.org/guides/database/migrations#associations</a></p>
+<p>Unfortunately, the Lucky generators don&rsquo;t understand <code>belongs_to</code> so we will need to do a few extra tweeks &ndash; since we can&rsquo;t do something like human:belongs_to or human:references like with Rails.</p>
+<p>So if we want to scaffold &ldquo;pets&rdquo; now and have them belong to humans (and humans can have many pets) - we first do:</p>
+<pre><code>lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
+</code></pre>
+<p>Now let&rsquo;s setup the relationships:</p>
+<p>First we need to update the migration with the human foreign_key using: <code>add_belongs_to</code></p>
+<p>So we need to update our pets migration to:</p>
+<pre><code># db/migrations/yyyymmddxxxxxx_create_pets.cr
+class CreatePets::V20210502100912 &lt; Avram::Migrator::Migration::V1
+  def migrate
+    create table_for(Pet) do
+      primary_key id : Int64
+      add_timestamps
+      add name : String
+      add breed : String
+      add species : String
+      add age : Int32
+      add house_trained : Bool
+
+      # When the associated human is deleted, their pets are also deleted
+      # because we set on_delete: :cascade
+      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
+    end
+  end
+
+  def rollback
+    drop table_for(Pet)
+  end
+end
+</code></pre>
+<p>Now that the pets database table will is correct - lets update the pet model too.
+This is straight-forward we just need to add <code>belongs_to human : Human</code> in the model file so it changes to:</p>
+<pre><code># src/models/pet.cr
+class Pet &lt; BaseModel
+  table do
+    column name : String
+    column breed : String
+    column species : String
+    column age : Int32
+    column house_trained : Bool
+
+    belongs_to human : Human     # relationship - newly added
+  end
+end
+</code></pre>
+<p>now we need to add <code>has_many</code> to the <code>Human</code> model.  So we change it to:</p>
+<pre><code># src/models/human.cr
+class Human &lt; BaseModel
+  table do
+    column name : String
+
+    has_many pets : Pet    # relationship - newly added
+  end
+end
+</code></pre>
+<p>Now we can migrate:</p>
+<pre><code>lucky db.migrate
 </code></pre>
 <h2 id="lucky-html-and-rootpage-routing">Lucky HTML and RootPage Routing</h2>
 <p><a href="https://luckycasts.com/videos/lucky-html-in-crystal">https://luckycasts.com/videos/lucky-html-in-crystal</a>
@@ -963,68 +1040,6 @@ end
 <p>cool - good enough for now.</p>
 <pre><code>git add .
 git commit -m &quot;added html links to user_home_page 'me'&quot;
-</code></pre>
-<h2 id="create-a-related-model">Create a Related Model</h2>
-<p><a href="https://www.luckyframework.org/guides/database/models#belongs-to">https://www.luckyframework.org/guides/database/models#belongs-to</a>
-<a href="https://www.luckyframework.org/guides/database/models#has-many-one-to-many">https://www.luckyframework.org/guides/database/models#has-many-one-to-many</a>
-<a href="https://luckyframework.org/guides/database/migrations#associations">https://luckyframework.org/guides/database/migrations#associations</a></p>
-<p>Unfortunately, the Lucky generators don&rsquo;t understand <code>belongs_to</code> so we will need to do a few extra tweeks &ndash; since we can&rsquo;t do something like human:belongs_to or human:references like with Rails.</p>
-<p>So if we want to scaffold &ldquo;pets&rdquo; now and have them belong to humans (and humans can have many pets) - we first do:</p>
-<pre><code>lucky gen.resource.browser Pet name:String breed:String species:String age:Int32 house_trained:Bool
-</code></pre>
-<p>Now let&rsquo;s setup the relationships:</p>
-<p>First we need to update the migration with the human foreign_key using: <code>add_belongs_to</code></p>
-<p>So we need to update our pets migration to:</p>
-<pre><code># db/migrations/yyyymmddxxxxxx_create_pets.cr
-class CreatePets::V20210502100912 &lt; Avram::Migrator::Migration::V1
-  def migrate
-    create table_for(Pet) do
-      primary_key id : Int64
-      add_timestamps
-      add name : String
-      add breed : String
-      add species : String
-      add age : Int32
-      add house_trained : Bool
-
-      # When the associated human is deleted, their pets are also deleted
-      # because we set on_delete: :cascade
-      add_belongs_to human : Human, on_delete: :cascade    # relationship - newly added
-    end
-  end
-
-  def rollback
-    drop table_for(Pet)
-  end
-end
-</code></pre>
-<p>Now that the pets database table will is correct - lets update the pet model too.
-This is straight-forward we just need to add <code>belongs_to human : Human</code> in the model file so it changes to:</p>
-<pre><code># src/models/pet.cr
-class Pet &lt; BaseModel
-  table do
-    column name : String
-    column breed : String
-    column species : String
-    column age : Int32
-    column house_trained : Bool
-
-    belongs_to human : Human     # relationship - newly added
-  end
-end
-</code></pre>
-<p>now we need to add <code>has_many</code> to the <code>Human</code> model.  So we change it to:</p>
-<pre><code># src/models/human.cr
-class Human &lt; BaseModel
-  table do
-    column name : String
-
-    has_many pets : Pet    # relationship - newly added
-  end
-end
-</code></pre>
-<p>Now we can migrate:</p>
-<pre><code>lucky db.migrate
 </code></pre>
 <h2 id="seed-files">Seed Files</h2>
 <p><a href="https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1">https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1</a>
@@ -1161,14 +1176,14 @@ class Pets::FormFields &lt; BaseComponent
   needs operation : SavePet
 
   def render
-    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;, attrs: [:required])
+    mount Shared::Field, operation.name, &amp;.text_input(autofocus: &quot;true&quot;)
     mount Shared::Field, operation.species do |input_html|
       input_html.select_input append_class: &quot;select-input&quot; do
         select_prompt(&quot;Select&quot;)
         options_for_select operation.species, [{&quot;Dog&quot;, &quot;dog&quot;}, {&quot;Cat&quot;, &quot;cat&quot;}]
       end
     end
-    mount Shared::Field, operation.breed  # default setting: &amp;.text_input(attrs: [:required])
+    mount Shared::Field, operation.breed
     mount Shared::Field, operation.age, &amp;.number_input(append_class: &quot;custom-input&quot;, min: &quot;0&quot;, max: &quot;99&quot;)
     mount Shared::Field, operation.house_trained do |input_html|
       input_html.select_input append_class: &quot;select-input&quot; do
@@ -1191,6 +1206,15 @@ class Pets::FormFields &lt; BaseComponent
   end
 end
 </code></pre>
+<p>NOTE:</p>
+<ol>
+<li>
+<p>the documentation has several examples with: <code>attrs: [:required]</code> in the form.  This does client side validation (will not even submit the form if empty).  I don&rsquo;t recommend using this generally.</p>
+</li>
+<li>
+<p>if you don&rsquo;t put anything next to the variable a text input without anything more than the errors are assumed <code>&amp;.text_input()</code></p>
+</li>
+</ol>
 <p>Lets test again:</p>
 <pre><code>lucky dev
 </code></pre>
