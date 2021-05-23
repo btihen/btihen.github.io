@@ -1,0 +1,2156 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Framework Agnostic Polymorphism - allowing Rails Code to easily interoperate smoothly with other languages">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/">
+  <meta property="og:title" content="Rails 6.x - Framework Agnostic Associations - part 1 | btihen">
+  <meta property="og:description" content="Framework Agnostic Polymorphism - allowing Rails Code to easily interoperate smoothly with other languages"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-05-19T01:57:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-05-19T01:57:00&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 6.x - Framework Agnostic Associations - part 1 | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_crystal"><span>Crystal</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Pubs</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#in_news"><span>News</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Rails 6.x - Framework Agnostic Associations - part 1</h1>
+
+  
+  <p class="page-subtitle">Framework Agnostic Polymorphism - allowing Ruby Code t</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Wed, May 19, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 260px; max-height: 274px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="purpose">Purpose</h2>
+<p>In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.</p>
+<h2 id="overview">Overview</h2>
+<p>In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.</p>
+<p>The basic model will then look something like:</p>
+<pre><code>              ┌───────────────┐
+              │    Contact    │
+              │ (roles:array) │
+              │(display_name)*│  *virtual attribute
+              └───────────────┘
+                      ┼ 1
+         ┌────────────┴─────────────┐
+        ╱│╲ *                    * ╱│╲
+┌───────────────┐          ┌───────────────┐
+│    Business   │╲       1 │    Person     │
+│  (legal_name) │ ○ ─ ─ ─ ┼│  (full_name)  │
+│(display_name)*│╱ 0..*    │(display_name)*│
+└───────────────┘          └───────────────┘
+        ╲│╱ *                    * ╲│╱
+         └────────────┬─────────────┘
+                      ┼ 1
+              ┌───────────────┐
+              │  Transaction  │
+              │    (notes)    │
+              │               │
+              └───────────────┘
+            Created with Monodraw
+</code></pre>
+<h2 id="create-a-default-rails-app">Create a default Rails app</h2>
+<pre><code class="language-bash">rails new rails_poly
+cd rails_poly
+bin/rails db:create
+bin/rails db:migrate
+git add .
+git commit -m &quot;initial commit&quot;
+</code></pre>
+<h2 id="starting-simple---optional-relations">Starting Simple - optional relations</h2>
+<h3 id="build-businesses">Build Businesses</h3>
+<p>Lets start with the simple relationship between businesses and people:</p>
+<pre><code>  ┌────────────┐          ┌───────────┐
+  │            │╲       1 │           │
+  │  Business  │ ○ ─ ─ ─ ┼│  Person   │
+  │(legal_name)│╱ 0..*    │(full_name)│
+  └────────────┘          └───────────┘
+</code></pre>
+<p>For expedience, I&rsquo;ll use scaffolds:</p>
+<p>Generating a simple business model.</p>
+<pre><code class="language-bash">rails g scaffold Business legal_name
+</code></pre>
+<p>Lets adjust the migration to require the business' legal name, by adding <code>null: false</code> to the name:</p>
+<pre><code class="language-ruby"># db/migrate/20210516080420_create_businesses.rb
+class CreateBusinesses &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :businesses do |t|
+      t.string :legal_name, null: false
+
+      t.timestamps
+    end
+  end
+end
+</code></pre>
+<p>Now we will validate the business' name in the model:</p>
+<pre><code class="language-ruby"># app/models/business.rb
+class Business &lt; ApplicationRecord
+  validates :legal_name, presence: true
+end
+
+</code></pre>
+<p>Now lets be sure we can migrate:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>lets use seed to quickly check our models and relations (&amp; get an idea of how to use them):</p>
+<pre><code class="language-ruby"># db/seeds.rb
+business = Business.create(legal_name: &quot;Business&quot;)
+</code></pre>
+<p>Lets check the seed with:</p>
+<pre><code class="language-bash">bin/rails db:seed
+</code></pre>
+<p>Assuming this works, let&rsquo;s see the &ldquo;/businesses&rdquo; page:</p>
+<pre><code class="language-bash">bin/rails s
+open localhost:3000/businesses/
+</code></pre>
+<p>Great - lets snapshot:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;created business model&quot;
+</code></pre>
+<h3 id="build-people">Build People</h3>
+<p>Now let&rsquo;s build the person model and its relations to businesses.</p>
+<pre><code class="language-bash">rails g scaffold Person full_name business:references
+</code></pre>
+<p>In this case we want the person to optionally be a member of a business, so lets update the both the models and the migration.  Starting with the migration, we need to remove <code>null: false</code> in the foreign key, and add that to the name - so it should now look like:</p>
+<pre><code class="language-ruby"># db/migrate/20210516080414_create_people.rb
+class CreatePeople &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :people do |t|
+      t.string :full_name, null: false
+      t.references :company, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+</code></pre>
+<p>Now lets adjust the person model - we&rsquo;ll make the relation optional with <code>optional: true</code> and require the name with the validation <code>validates :full_name, presence: true</code>, so it should now look like:</p>
+<pre><code class="language-ruby"># app/models/person.rb
+class Person &lt; ApplicationRecord
+  belongs_to :company, optional: true
+
+  validates :full_name, presence: true
+end
+</code></pre>
+<p>And lets let the Business know it can have lots of people with <code>has_many :people</code> - now the model will look like:</p>
+<pre><code class="language-ruby"># app/models/business.rb
+class Business &lt; ApplicationRecord
+  has_many :people
+
+  validates :legal_name, presence: true
+end
+</code></pre>
+<p>Lets check the migrations work:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>lets use seed a couple of people too - so it now looks like:</p>
+<pre><code class="language-ruby"># db/seed.rb
+business = Business.create(legal_name: &quot;Business&quot;)
+company = Business.create(legal_name: &quot;Company&quot;)
+
+company.build_person(full_name: &quot;Company Man&quot;)
+company.save
+
+person = Person.create(full_name: &quot;Own Person&quot;)
+</code></pre>
+<p>Lets check the seed with:</p>
+<pre><code class="language-bash">bin/rails db:seed
+</code></pre>
+<p>Now lets check our pages again:</p>
+<pre><code class="language-bash">bin/rails s
+open localhost:3000
+</code></pre>
+<p>Lets check the index pages</p>
+<p>On the business page it would be nice to see how many employees - so we can update the model with:</p>
+<pre><code class="language-ruby"># app/models/business.rb
+class Business &lt; ApplicationRecord
+  has_many :people
+
+  validates :legal_name, presence: true
+
+  def people_count
+    people.count
+  end
+end
+</code></pre>
+<p>And now <code>people_count</code> is added as a virtual attribute (as well as all other business fields because of <code>'businesses.*</code>) - now we can use in our view using = <code>&lt;td&gt;&lt;%= business.people_count %&gt;&lt;/td&gt;</code> so now it would look something like:</p>
+<pre><code class="language-ruby"># app/views/businesses/index.html.erb
+&lt;h1&gt;Businesses&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Legal name&lt;/th&gt;
+      &lt;th&gt;Employee Count&lt;/th&gt;
+      &lt;th colspan=&quot;3&quot;&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;% @businesses.each do |business| %&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;%= business.legal_name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= business.people_count %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Show', business %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Edit', edit_business_path(business) %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;% end %&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>and on the &lsquo;/people&rsquo; page it would be nice to see there business name instead of id.</p>
+<p>so in the model:</p>
+<pre><code class="language-ruby"># app/model/person.rb
+class Person &lt; ApplicationRecord
+  belongs_to :business, optional: true
+
+  validates :full_name, presence: true
+
+  def associated_business_name
+    business&amp;.legal_name
+  end
+end
+</code></pre>
+<p>and in the index view:</p>
+<pre><code class="language-ruby"># app/views/people/index.html.erb
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Full name&lt;/th&gt;
+      &lt;th&gt;Business&lt;/th&gt;
+      &lt;th colspan=&quot;3&quot;&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;% @people.each do |person| %&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;%= person.full_name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= person.associated_business_name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Show', person %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Edit', edit_person_path(person) %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;% end %&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>to show all employees on the business show page we can do:</p>
+<pre><code class="language-ruby"># app/views/businesses/show.html.erb
+&lt;p&gt;
+  &lt;strong&gt;Legal name:&lt;/strong&gt;
+  &lt;%= @business.legal_name %&gt;
+&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Employee&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;% @business.people.each do |person| %&gt;
+    &lt;tr&gt;&lt;td&gt;person.full_name&lt;/td&gt;&lt;/tr&gt;
+    &lt;% end %&gt;
+  &lt;/tbody&gt;
+
+&lt;/table&gt;
+</code></pre>
+<p>And now lets look for n+1 queries - to do that we will create many records in the seeds file:</p>
+<pre><code class="language-ruby"># db/seeds.rb
+business = Business.create(legal_name: &quot;Business&quot;)
+company  = Business.create(legal_name: &quot;Company&quot;)
+boss_man = Person.create(full_name: &quot;Company Man&quot;, business: company)
+person = Person.create(full_name: &quot;Own Person&quot;)
+
+# larger numbers (look for n+1 lookups)
+50.times do |business_number|
+  company  = Business.create(legal_name: &quot;Company #{business_number}&quot;)
+  business_number.times do |employee_number|
+    Person.create(full_name: &quot;Employee #{employee_number}&quot;,
+                  business: company)
+  end
+end
+</code></pre>
+<p>Now when we visit &lsquo;/people&rsquo; we see an n+1 (to look up the business to get the business name) - this is an easy fix with a pre-load in the controller - just add <code>.include(:business)</code> to the query - now the index method will look like</p>
+<pre><code class="language-ruby"># app/controllers/people_controller.rb
+class PeopleController &lt; ApplicationController
+
+  def index
+    @people = Person.include(:business).all
+  end
+</code></pre>
+<p>Fix n+1 lookups - for the business employee count is a bit trickier - to avoid lots of look ups we need the db to do the count and add the count as a virtual attribute - this is done with the following query:</p>
+<pre><code class="language-ruby"># app/controllers/people_controller.rb
+class BusinessController &lt; ApplicationController
+
+  def index
+    # businesses = Business.all  # (N+1 when using referring to people)
+    # select must go last or it gets lost / overwritten
+    @businesses = Business.joins(:people)
+                          .group('businesses.id')
+                          .select('businesses.*, count(people.id) as people_count')
+  end
+</code></pre>
+<p>to avoid confusion - lets rename the method in the class to <code>employee_count</code>:</p>
+<pre><code class="language-ruby"># app/models/business.rb
+class Business &lt; ApplicationRecord
+  has_many :people
+
+  validates :legal_name, presence: true
+
+  def employee_count
+    people.count
+  end
+end
+</code></pre>
+<p>lets run the seeds again:</p>
+<pre><code class="language-bash">bin/rails db:seed
+</code></pre>
+<p>cool now when we look at the log we just have one query instead of many!</p>
+<p>Now let&rsquo;s make the people form to associate a business by name instead of the id!</p>
+<pre><code class="language-ruby"># app/views/people/_form.html.erb
+&lt;%= form_with(model: person) do |form| %&gt;
+  &lt;% if person.errors.any? %&gt;
+    &lt;div id=&quot;error_explanation&quot;&gt;
+      &lt;h2&gt;&lt;%= pluralize(person.errors.count, &quot;error&quot;) %&gt; prohibited this person from being saved:&lt;/h2&gt;
+
+      &lt;ul&gt;
+        &lt;% person.errors.each do |error| %&gt;
+          &lt;li&gt;&lt;%= error.full_message %&gt;&lt;/li&gt;
+        &lt;% end %&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= form.label :full_name %&gt;
+    &lt;%= form.text_field :full_name %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= form.label :business %&gt;
+    &lt;%= form.select :business_id,
+                    Business.all.collect { |b| [ b.legal_name, b.id ] },
+                    prompt: &quot;Select One&quot;, include_blank: true %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;actions&quot;&gt;
+    &lt;%= form.submit %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+</code></pre>
+<p>Great - lets snapshot:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;created person related to businesses - w/o n+1&quot;
+</code></pre>
+<h2 id="polymorphic-sti---sometime-called-inverse-polymorphic">Polymorphic (STI) - sometime called inverse polymorphic</h2>
+<pre><code>          ┌───────────────┐
+          │    Contact    │
+          │  (functions)+ │ + supplier, reseller, customer, sales-rep
+          │(display_name)*│ * virtual attribute
+          └───────────────┘
+                  ┼ 1
+     ┌────────────┴─────────────┐
+    ╱│╲ *                    * ╱│╲
+</code></pre>
+<p>┌───────────────┐          ┌───────────────┐
+│    Business   │╲       1 │    Person     │
+│  (legal_name) │ ○ ─ ─ ─ ┼│  (full_name)  │
+│(display_name)<em>│╱ 0..</em>    │(display_name)*│
+└───────────────┘          └───────────────┘</p>
+<p>A contact could be either a person or a business - but must be one or the other.</p>
+<h3 id="migration-and-relationships">Migration and Relationships</h3>
+<p>Rails doesn&rsquo;t have a built-in array migration, so we use string and then we change the migration:</p>
+<pre><code class="language-bash">bin/rails g scaffold Contact functions:string business:references person:references
+</code></pre>
+<p>Now update the migration to ensure we have a functions as an array &amp; relations as Foreign keys (but optional). Since there we only want/need one of the two foreign_keys at a time they must be nullable and we need to change roles to an array - so now:</p>
+<pre><code class="language-ruby"># db/migrate/20210519205042_create_contacts.rb
+class CreateContacts &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :contacts do |t|
+      t.string :functions, array: true, null: false, default: []
+      t.references :business, foreign_key: true
+      t.references :person, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+</code></pre>
+<p>update the Contact model with the validations &amp; flexible relations - we also want to be able to refer to the sub-model by one name we will call that <code>contactable</code> - so now the model will look like:</p>
+<pre><code class="language-ruby"># app/models/contact.rb
+class Contact &lt; ApplicationRecord
+  belongs_to :business, optional: true
+  belongs_to :person, optional: true
+
+  VALID_FUNCTIONS_LIST = %w(supplier reseller customer sales-rep)
+
+  validate :validate_relationship_functions
+  validate :validate_belongs_to_one_and_only_one_foreign_key
+
+  def contactable
+    business || person
+  end
+
+  private
+
+  # be sure we have the variable, it is an Array &amp; all elements are in the valid list
+  def validate_relationship_functions
+    return if functions.present? &amp;&amp; functions.is_a?(Array)
+              functions.all? { |role| VALID_FUNCTIONS_LIST.include?(role.to_s) }
+
+    errors.add :functions, &quot;must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}&quot;
+  end
+
+  # exclusive or (XOR) is true if one or the other is true, but not when both are true
+  # we could get a model (or possibly an id)
+  def validate_belongs_to_one_and_only_one_foreign_key
+    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
+
+    # add to base since, the error could be either field.
+    errors.add :base, 'must belong to ONE business or person, but not both'
+  end
+
+end
+</code></pre>
+<p>update the Person model and relations and enforce every person is a member of the contact list - with a contact role:</p>
+<pre><code class="language-ruby"># app/models/person.rb
+class Person &lt; ApplicationRecord
+  has_one :contact
+  belongs_to :business, optional: true
+
+  validates :contact, presence: true
+  validates :full_name, presence: true
+end
+</code></pre>
+<p>update the business model and relations and enforce every business is a member of the contact list - with a contact role:</p>
+<pre><code class="language-ruby"># # app/models/business.rb
+class Business &lt; ApplicationRecord
+  has_one :contact
+  has_many :people
+
+  validates :contact, presence: true
+  validates :legal_name, presence: true
+end
+</code></pre>
+<p>Lets check the seed with:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>If we go to a person or business we can no longer make changes - they need to have an associated Contact.
+We&rsquo;ll start by rolling back the last migration and fixing it with (we can use the logic in the seeds to guide us in the Business/Person creation controller):</p>
+<pre><code class="language-bash">bin/rails db:rollback
+</code></pre>
+<p>we need to fix the old relations in the migration (or simply drop the database and reseed it) - but given this is to article is find cross-framework &ndash; &lsquo;real-world&rsquo; techniques - let&rsquo;s be sure the existing records stay useful.  We will assume a business is a supplier, a person associated with a business is a sales-rep, and unassociated people are customers.</p>
+<pre><code class="language-ruby"># db/migrate/20210519205042_create_contacts.rb
+class CreateContacts &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :contacts do |t|
+      t.string :functions, array: true, null: false, default: []
+      t.references :business, foreign_key: true
+      t.references :person, foreign_key: true
+
+      t.timestamps
+    end
+
+    # add a contact for each existing company
+    businesses = Business.joins(:people)
+                         .group('businesses.id')
+                         .select('businesses.*, count(people.id) as people_count')
+    businesses.each do |business|
+      functions = if business.people_count &lt; 10
+                    ['supplier']
+                  elsif business.people_count &lt; 20
+                    ['reseller']
+                  elsif business.people_count &lt; 30
+                    ['supplier', 'reseller']
+                  end
+      Contact.create!(functions: functions, business: business)
+    end
+
+    # add a contact for each existing person
+    Person.all.each do |person|
+      functions = if person.business
+                    ['sales_rep']
+                  else
+                    ['customer']
+                  end
+      Contact.create!(functions: functions, person: person)
+    end
+  end
+end
+</code></pre>
+<p>Lets the existing models now:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>OK - we are in business lets update our seed file too:</p>
+<pre><code class="language-ruby"># db/seed.rb
+# create small business w/o employees
+20.times do |num|
+  business = Business.create(legal_name: &quot;Business #{num}&quot;,
+                             contact: Contact.new(functions: ['supplier']))
+end
+
+# create individuals
+20.times do |num|
+  person = Person.create(full_name: &quot;Individual #{num}&quot;,
+                            contact: Contact.new(functions: ['customer']))
+end
+
+# create big companies with employees
+20.times do |bus_num|
+  functions = if bus_num &lt; 3
+                ['supplier']
+              elsif bus_num&lt; 5
+                ['reseller']
+              elsif bus_num &lt; 8
+                ['supplier', 'reseller']
+              else
+                %w[supplier reseller customer]
+              end
+  company  = Business.create(legal_name: &quot;Company #{bus_num}&quot;,
+                             contact: Contact.new(functions: functions))
+
+  bus_num.times do |emp_num|
+    Person.create(full_name: &quot;Employee #{bus_num}-#{emp_num}&quot;,
+                  business: company,
+                  contact: Contact.new(functions: ['sales-rep']))
+  end
+end
+</code></pre>
+<p>Lets check the seed with:</p>
+<pre><code class="language-bash">bin/rails db:seed
+</code></pre>
+<p>Great all works!</p>
+<h3 id="lets-make-the-index-page-more-useful">Lets make the index page more useful</h3>
+<p>When we visit the contacts page we would like more than the ids - but we need a unified way to present that info so let&rsquo;s add a display_name so we can show the name of the primary model, if a person we would like to know the associated business if present and if a company we would like the employee_count so we will delegate these to the sub-models.</p>
+<p>Let&rsquo;s update contact first by adding:</p>
+<pre><code class="language-ruby">  # this references our existing contactable
+  delegate :display_name, :associated_business_name, :employee_count,
+           to: :contactable
+
+  def contactable
+    business || person
+  end
+</code></pre>
+<p>So now the contact model will look like (with validations)</p>
+<pre><code class="language-ruby"># app/models/contact.rb
+class Contact &lt; ApplicationRecord
+  belongs_to :business, optional: true
+  belongs_to :person, optional: true
+
+  VALID_FUNCTIONS_LIST = %w(supplier reseller customer sales-rep)
+
+  validate :validate_relationship_functions
+  validate :validate_belongs_to_one_and_only_one_foreign_key
+
+  delegate :display_name, :associated_business_name, :employee_count,
+           to: :contactable
+
+  def contactable
+    business || person
+    # would memoize be valuable here?
+    # @contactable ||= (business || person)
+  end
+
+  private
+
+  # be sure we have the variable, it is an Array &amp; all elements are in the valid list
+  def validate_relationship_functions
+    return if functions.present? &amp;&amp; functions.is_a?(Array)
+              functions.all? { |role| VALID_FUNCTIONS_LIST.include?(role.to_s) }
+
+    errors.add :functions, &quot;must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}&quot;
+  end
+
+  # exclusive or (XOR) is true if one or the other is true, but not when both are true
+  # we could get a model (or possibly an id)
+  def validate_belongs_to_one_and_only_one_foreign_key
+    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
+
+    # add to base since, some forms may not have the person/business fields
+    errors.add :base, 'must belong to ONE business or person, but not both'
+    # errors.add :contactable, 'must belong to a business or a person'
+  end
+end
+</code></pre>
+<p>Lets update the models to provide the needed info</p>
+<p>Business now will look like:</p>
+<pre><code class="language-ruby"># app/models/business.rb
+class Business &lt; ApplicationRecord
+  has_one :contact
+  has_many :people
+
+  validates :contact, presence: true
+  validates :legal_name, presence: true
+
+  def display_name
+    legal_name
+  end
+
+  def employee_count
+    people.count
+  end
+
+  def associated_business_name
+    &quot;&quot;
+  end
+end
+</code></pre>
+<p>And person will look like:</p>
+<pre><code class="language-ruby"># app/models/person.rb
+class Person &lt; ApplicationRecord
+  has_one :contact
+  belongs_to :business, optional: true
+
+  validates :contact, presence: true
+  validates :full_name, presence: true
+
+  def display_name
+    full_name
+  end
+
+  def employee_count
+    nil  # person count has no meaning under person
+  end
+
+  def associated_business_name
+    business&amp;.display_name
+  end
+end
+</code></pre>
+<p>Now lets update the index view to show our new info:</p>
+<pre><code class="language-ruby">&lt;h1&gt;Contacts&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Person/Business&lt;/th&gt;
+      &lt;th&gt;Employee Count&lt;/th&gt;
+      &lt;th&gt;Contact Name&lt;/th&gt;
+      &lt;th&gt;Business Name&lt;/th&gt;
+      &lt;th&gt;Relationships&lt;/th&gt;
+      &lt;th colspan=&quot;3&quot;&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;% @contacts.each do |contact| %&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;%= contact.contactable.class.name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= contact.employee_count %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= contact.display_name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= contact.associated_business_name %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= contact.functions %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Show', contact %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Edit', edit_contact_path(contact) %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;% end %&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Now we see another n+1 query - we will fix the main part - but not the employee count this time:</p>
+<pre><code class="language-ruby">class ContactsController &lt; ApplicationController
+  def index
+    # @contacts = Contact.all
+    @contacts = Contact.includes(:business).includes(:person).all
+  end
+</code></pre>
+<p>Cool now the page is usable (a bit long but we will ignore that)</p>
+<h3 id="lets-be-sure-we-can-create-new-contacts">Lets be sure we can create new contacts</h3>
+<p>I usually use an input model (for more flexibility), but for now I will use nested_params.
+A few articles on nested params and nested fields:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=PYYwjTlcoa4">https://www.youtube.com/watch?v=PYYwjTlcoa4</a></li>
+<li><a href="https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes">https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes</a></li>
+<li><a href="https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e">https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e</a></li>
+<li><a href="https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5">https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5</a></li>
+</ul>
+<p>To start we will tell the contacts model that it can create nested models with do by adding:</p>
+<pre><code class="language-ruby">  accepts_nested_attributes_for :business
+  accepts_nested_attributes_for :person
+</code></pre>
+<p>so now now the contact model looks like:</p>
+<pre><code class="language-ruby"># app/models/contact.rb
+class Contact &lt; ApplicationRecord
+  belongs_to :business, optional: true
+  belongs_to :person, optional: true
+
+  accepts_nested_attributes_for :business
+  accepts_nested_attributes_for :person
+
+  VALID_FUNCTIONS_LIST = %w(supplier reseller customer sales-rep)
+
+  validate :validate_relationship_functions
+  validate :validate_belongs_to_one_and_only_one_foreign_key
+
+  delegate :display_name, :associated_business_name, :employee_count,
+           to: :contactable
+
+  def contactable
+    business || person
+    # would memoize be valuable here?
+    # @contactable ||= (business || person)
+  end
+
+  private
+
+  # be sure we have the variable, it is an Array &amp; all elements are in the valid list
+  def validate_relationship_functions
+    return if functions.present? &amp;&amp; functions.is_a?(Array)
+              functions.all? { |role| VALID_FUNCTIONS_LIST.include?(role.to_s) }
+
+    errors.add :functions, &quot;must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}&quot;
+  end
+
+  # exclusive or (XOR) is true if one or the other is true, but not when both are true
+  # we could get a model (or possibly an id)
+  def validate_belongs_to_one_and_only_one_foreign_key
+    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
+
+    # add to base since, some forms may not have the person/business fields
+    errors.add :base, 'must belong to ONE business or person, but not both'
+    # errors.add :contactable, 'must belong to a business or a person'
+  end
+end
+</code></pre>
+<p>In the controller we need to create models as part of @contact to allow nested-fields - which feed the nested attributes. to allow the new information in via strong params:</p>
+<pre><code class="language-ruby"># app/controllers/contacts_controller.rb
+  def new
+    @contact = Contact.new
+    # add empty sub-models for our form
+    @contact.person = Person.new
+    @contact.business = Business.new
+  end
+
+  # update strong params to accept the sub-model attributes
+  # sub-models from nested-forms feeding nested_atttributes in the model
+  # take the form &lt;model_name&gt;_attributes
+  # `functions` is an empty array since it is taking a list of values
+  # person_attributes &amp; business_attributes - need to include the list of attributes to accept!
+  # so in our case:
+  def contact_params
+    contact_attribs = params.require(:contact)
+                            .permit(functions: [],  # is empty - takes a list of values
+                                    person_attributes: [:full_name],  # needs to include the list of attributes to accept
+                                    business_attributes: [:legal_name])
+  end
+</code></pre>
+<p>update the contact form to tie this all together by adding our nested forms:</p>
+<pre><code class="language-ruby">  &lt;div class=&quot;field-group&quot;&gt;
+    &lt;h2&gt;Create your Contact: a Person or a Business&lt;/h2&gt;
+
+    &lt;h3&gt;Business&lt;/h3&gt;
+    &lt;%= form.fields_for :business, Business.new do |f| %&gt;
+      &lt;%= f.label :legal_name %&gt;
+      &lt;%= f.text_field :legal_name %&gt;
+    &lt;% end %&gt;
+
+    &lt;h3&gt;Person&lt;/h3&gt;
+    &lt;%= form.fields_for :person, Person.new do |f| %&gt;
+      &lt;%= f.label :full_name %&gt;
+      &lt;%= f.text_field :full_name %&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+</code></pre>
+<p>We will also need to make the list of possible relationship functions a multi-select - I always forget the format &ndash; so remember BOTH {} are required when using multi-select!!  The first one is for normal drop-down select options &ndash; like include_blank, the second one is where the multi-select must go!</p>
+<p>This looks like:</p>
+<pre><code class="language-ruby">  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= form.label :functions %&gt;
+    &lt;%= form.select :functions,
+                    options_for_select(Contact::VALID_FUNCTIONS_LIST,
+                                      selected: Contact::VALID_FUNCTIONS_LIST.second),
+                                      {}, #{:include_blank =&gt; 'None'},
+                                      {:multiple =&gt; true, size: 3} %&gt;
+  &lt;/div&gt;
+</code></pre>
+<p>so now the template looks like:</p>
+<pre><code class="language-ruby"># app/views/contacts/_form.html.erb
+&lt;%= form_with(model: contact) do |form| %&gt;
+  &lt;% if contact.errors.any? %&gt;
+  &lt;div id=&quot;error_explanation&quot;&gt;
+    &lt;h2&gt;&lt;%= pluralize(contact.errors.count, &quot;error&quot;) %&gt; prohibited this contact from being saved:&lt;/h2&gt;
+
+    &lt;ul&gt;
+      &lt;% contact.errors.each do |error| %&gt;
+      &lt;li&gt;&lt;%= error.full_message %&gt;&lt;/li&gt;
+      &lt;% end %&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;% end %&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= form.label :functions %&gt;
+    &lt;%= form.select :functions,
+                    options_for_select(Contact::VALID_FUNCTIONS_LIST,
+                                      selected: Contact::VALID_FUNCTIONS_LIST.second),
+                                      {}, #{:include_blank =&gt; 'None'},
+                                      {:multiple =&gt; true, size: 3} %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field-group&quot;&gt;
+    &lt;h2&gt;Create your Contact: a Person or a Business&lt;/h2&gt;
+
+    &lt;h3&gt;Business&lt;/h3&gt;
+    &lt;%= form.fields_for :business, Business.new do |f| %&gt;
+      &lt;%= f.label :legal_name %&gt;
+      &lt;%= f.text_field :legal_name %&gt;
+    &lt;% end %&gt;
+
+    &lt;h3&gt;Person&lt;/h3&gt;
+    &lt;%= form.fields_for :person, Person.new do |f| %&gt;
+      &lt;%= f.label :full_name %&gt;
+      &lt;%= f.text_field :full_name %&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;actions&quot;&gt;
+    &lt;%= form.submit %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+</code></pre>
+<p>Now when we try <code>/contacts</code> we notice one more problem - it is always invalid - rails automatically add a leading &quot;&quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &ldquo;&quot;) using:</p>
+<pre><code class="language-ruby">  contact_attribs[&quot;functions&quot;].reject! {|f| f.blank? }
+  contact_attribs
+</code></pre>
+<p>we also need to be sure in our case we only send the params of the business or the person, but not both - since we are only creating one.  So we will remove whichever one is empty - also with an in-place update - using:</p>
+<pre><code class="language-ruby">    # find and set to nil the model without params
+    if contact_attribs[&quot;person_attributes&quot;]
+      # since we only have one param we can do
+      contact_attribs[&quot;person_attributes&quot;] = nil if contact_attribs[&quot;person_attributes&quot;][&quot;full_name&quot;].blank?
+    end
+
+    if contact_attribs[&quot;business_attributes&quot;]
+      # assuming we had multiple params the test is easier with:
+      contact_attribs[&quot;business_attributes&quot;] = nil if contact_attribs[&quot;business_attributes&quot;].to_h.all? {|key,value| value.blank?}
+    end
+
+    # remove the nested attributes set to nil so contact will only create the desired associated model
+    contact_attribs.reject! {|key, value| value.blank? }
+    contact_attribs
+</code></pre>
+<p>So now the full controller looks like:</p>
+<pre><code class="language-ruby">class ContactsController &lt; ApplicationController
+  before_action :set_contact, only: %i[ show edit update destroy ]
+
+  def index
+    # @contacts = Contact.all
+    @contacts = Contact.includes(:business).includes(:person).all
+  end
+
+  def show
+  end
+
+  def new
+    @contact = Contact.new
+    @contact.person = Person.new
+    @contact.business = Business.new
+  end
+
+  def edit
+  end
+
+  def create
+    @contact = Contact.new(contact_params)
+
+    respond_to do |format|
+      if @contact.save
+        format.html { redirect_to @contact, notice: &quot;Contact was successfully created.&quot; }
+        format.json { render :show, status: :created, location: @contact }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @contact.update(contact_params)
+        format.html { redirect_to @contact, notice: &quot;Contact was successfully updated.&quot; }
+        format.json { render :show, status: :ok, location: @contact }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @contact.destroy
+    respond_to do |format|
+      format.html { redirect_to contacts_url, notice: &quot;Contact was successfully destroyed.&quot; }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def contact_params
+    # update strong params to accept the sub-model attributes
+    # sub-models from nested-forms feeding nested_atttributes in the model
+    # take the form &lt;model_name&gt;_attributes
+    # `functions` is an empty array since it is taking a list of values
+    # person_attributes &amp; business_attributes - need to include the list of attributes to accept!
+    # so in our case:
+    contact_attribs = params.require(:contact)
+                            .permit(functions: [],
+                                    person_attributes: [:full_name],
+                                    business_attributes: [:legal_name])
+    # cleanup array - always delivers with [''] - :(
+    # https://stackoverflow.com/questions/51341912/empty-array-value-being-input-with-simple-form-entries
+
+    # easiest way in in-place replacement (given that params is now objects and not a hash), but that always makes me a bit nervous
+    # https://stackoverflow.com/questions/20164354/rails-strong-parameters-with-empty-arrays
+    # reject and replace in place
+    contact_attribs[&quot;functions&quot;].reject! {|f| f.blank? }
+
+    # remove empty model attributes
+    # contact_attribs[&quot;person_attributes&quot;].reject {|key,value| value.blank?}
+    if contact_attribs[&quot;person_attributes&quot;]
+      contact_attribs[&quot;person_attributes&quot;] = nil if contact_attribs[&quot;person_attributes&quot;][&quot;full_name&quot;].blank?
+    end
+
+    if contact_attribs[&quot;business_attributes&quot;]
+      contact_attribs[&quot;business_attributes&quot;] = nil if contact_attribs[&quot;business_attributes&quot;].to_h.all? {|key,value| value.blank?}
+    end
+
+    # have to remove nil attributes for models so nested attributes works correctly
+    contact_attribs.reject! {|key, value| value.blank? }
+
+    # return the attributes with the tidied array
+    contact_attribs
+  end
+end
+</code></pre>
+<p>now when we try again:</p>
+<pre><code class="language-bash">bin/rails s
+open localhost:3000/contacts/new
+</code></pre>
+<p>Cool - it works.  We could now do the same for the <code>/business/new</code> and <code>/people/new</code>, but we won&rsquo;t do that here in the article. Lets snapshot:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;created person possibly related to the model&quot;
+</code></pre>
+<h2 id="polymorphic">Polymorphic</h2>
+<p>a model associated with several different models - serving a similar purpose in both cases</p>
+<pre><code>  ┌────────────┐          ┌───────────┐
+  │            │╲       1 │           │
+  │  Business  │ ○ ─ ─ ─ ┼│  Person   │
+  │            │╱ 0..*    │           │
+  └────────────┘          └───────────┘
+        ╲│╱ *                * ╲│╱
+         └───────────┬──────────┘
+                     ┼ 1
+             ┌──────────────┐
+             │              │
+             │  Transaction │
+             │              │
+             └──────────────┘
+</code></pre>
+<p>A contact could be either a person or a business - but must be one or the other.</p>
+<pre><code class="language-bash">bin/rails g Contact roles:array business:references person:references
+</code></pre>
+<p>update the migration to ensure we have a role provided &amp; relations:</p>
+<pre><code class="language-ruby">#
+</code></pre>
+<p>update the Contact model with the validations &amp; flexible relations:</p>
+<pre><code class="language-ruby"># contact.rb
+</code></pre>
+<p>update the Person model and relations:</p>
+<pre><code class="language-ruby"># person.rb
+
+</code></pre>
+<p>update the Business model and relations:</p>
+<pre><code class="language-ruby"># business.rb
+
+</code></pre>
+<p>lets use seed a couple of people too - so it now looks like:</p>
+<pre><code class="language-ruby"># db/seed.rb
+business = Business.create(legal_name: &quot;Business&quot;)
+company = Business.create(legal_name: &quot;Company&quot;)
+
+company.build_person(full_name: &quot;Company Man&quot;)
+company.save
+
+person = Person.create(full_name: &quot;Own Person&quot;)
+</code></pre>
+<p>Lets check the seed with:</p>
+<pre><code class="language-bash">bin/rails db:seed
+</code></pre>
+<p>Assuming this works, let&rsquo;s see the &ldquo;/people&rdquo; page:</p>
+<pre><code class="language-bash">bin/rails s
+open localhost:3000/businesses/
+</code></pre>
+<p>Great - lets snapshot:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;created person possibly related to the model&quot;
+</code></pre>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  
+  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  
+  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
+  
+  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
+  
+  <a class="badge badge-light" href="/tags/flash-message/">flash message</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/&amp;text=Rails%206.x%20-%20Framework%20Agnostic%20Associations%20-%20part%201" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/&amp;t=Rails%206.x%20-%20Framework%20Agnostic%20Associations%20-%20part%201" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%206.x%20-%20Framework%20Agnostic%20Associations%20-%20part%201&amp;body=https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/&amp;title=Rails%206.x%20-%20Framework%20Agnostic%20Associations%20-%20part%201" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%206.x%20-%20Framework%20Agnostic%20Associations%20-%20part%201%20https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/&amp;title=Rails%206.x%20-%20Framework%20Agnostic%20Associations%20-%20part%201" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2021
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

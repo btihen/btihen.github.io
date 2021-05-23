@@ -23,13 +23,34 @@
     
     <item>
       <title>Lucky Framework with Crystal Language</title>
-      <link>https://btihen.me/post_crystal/lucky_0_27/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_27_project_basics/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_crystal/lucky_0_27/</guid>
-      <description>&lt;p&gt;~/devel/learning/crystal_frameworks/lucky/brews&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/stephendolan/lucky_jumpstart/&#34;&gt;https://github.com/stephendolan/lucky_jumpstart/&lt;/a&gt;&lt;/p&gt;
+      <guid>https://btihen.me/post_crystal/lucky_0_27_project_basics/</guid>
+      <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.&lt;/p&gt;
+&lt;p&gt;If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I&amp;rsquo;ll probably switch to Lucky.&lt;/p&gt;
 &lt;h2 id=&#34;why-lucky&#34;&gt;Why Lucky&lt;/h2&gt;
-&lt;p&gt;Lucky offers all the features I use in Rails - but is type safe and faster than rails.  Lucky&amp;rsquo;s focus is on stability (its not the fastest Crystal Framework, but it focuses on preventing run-time problems).  See: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/why-lucky&#34;&gt;https://luckyframework.org/guides/getting-started/why-lucky&lt;/a&gt; for a full list of what Lucky aims to improve.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Lucky offers all the features I use in Rails - but is type safe and faster than rails.&lt;/li&gt;
+&lt;li&gt;Lucky&amp;rsquo;s focus is on run-time stability (its not the fastest Crystal Framework, but it faster than rails).&lt;/li&gt;
+&lt;li&gt;The code / structure is well organized.&lt;/li&gt;
+&lt;li&gt;The Lucky Discord community is extremely helpful!&lt;/li&gt;
+&lt;li&gt;The Docs are generally good when you are investigating a specific component &amp;amp; when that is missing - the codebase can be searched (and the code is clear)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;See: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/why-lucky&#34;&gt;https://luckyframework.org/guides/getting-started/why-lucky&lt;/a&gt; for a full list of what Lucky aims to improve.&lt;/p&gt;
+&lt;p&gt;PS - I didn&amp;rsquo;t try out more advanced features such as file uploads, remote file storage, sending emails, etc.  These are all common in the apps I write.&lt;/p&gt;
+&lt;h2 id=&#34;why-not-lucky-027&#34;&gt;Why Not Lucky (0.27)&lt;/h2&gt;
+&lt;p&gt;I am hoping that Lucky 1.0 will address much of the following.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;I found I had to read a lot of docs (scattered over many locations) &amp;amp; experiment to grock the basic design/mindset what do for common simple things: (like making a field optional and how to adapt a shared / component form)&lt;/li&gt;
+&lt;li&gt;There aren&amp;rsquo;t many Stack Overflow or Blogs describing basic usage.&lt;/li&gt;
+&lt;li&gt;The docs in some cases are incomplete, misleading or have missing information and are not oriented to getting doing the things a framework beginner needs to know.&lt;/li&gt;
+&lt;li&gt;The helper scripts don&amp;rsquo;t help with Relationships - that must be done by hand&lt;/li&gt;
+&lt;li&gt;Language support is very hard to accomplish - I was never able to reliably use the inflector.&lt;/li&gt;
+&lt;li&gt;Setting up internationalization is time consuming and manual and as far as I can tell possibly not easy to integrate with the inflector.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The language support is a BIGGIE for me - living in a country where we regularly work with multiple language (Rails and/or Phoenix have much better i18n support)!&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t see the lack of Stack Overflow articles as such a big problem since the Lucky Discord group is so helpful.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;This article is a collection of making sense of the following resources&lt;/p&gt;
 &lt;ul&gt;
@@ -37,12 +58,12 @@
 &lt;li&gt;&lt;a href=&#34;https://luckyframework.org/guides&#34;&gt;https://luckyframework.org/guides&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://onchain.io/blog/lucky_tutorial&#34;&gt;https://onchain.io/blog/lucky_tutorial&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/andrewmcodes/awesome-lucky&#34;&gt;https://github.com/andrewmcodes/awesome-lucky&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stephendolan/lucky_jumpstart&#34;&gt;https://github.com/stephendolan/lucky_jumpstart&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;My goal is to have a simple tutorial for important basic features and orientation of the Lucky Framework - for myself and students I work with.&lt;/p&gt;
-&lt;h2 id=&#34;installing-lucky&#34;&gt;installing Lucky&lt;/h2&gt;
+&lt;h2 id=&#34;installing-lucky&#34;&gt;Installing Lucky&lt;/h2&gt;
 &lt;p&gt;For more information see: &lt;a href=&#34;https://luckyframework.org/guides/getting-started/installing&#34;&gt;https://luckyframework.org/guides/getting-started/installing&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;brew install&lt;/code&gt; of lucky (on a MacOS) is bit broken, but the Linux install also works well on MacOS!&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;brew install&lt;/code&gt; of lucky (on a MacOS) is bit broken, but the Linux install technique works well on MacOS!&lt;/p&gt;
 &lt;p&gt;First be sure openssl and postgresql are installed and findable:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;brew install openssl postgresql
 
@@ -120,47 +141,6 @@ lucky dev
 &lt;pre&gt;&lt;code&gt;git add .
 git commit -m &amp;quot;initial commit after create&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;language-inflections&#34;&gt;Language Inflections&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s make a little silly Human and Pets database/webpage:&lt;/p&gt;
-&lt;p&gt;The simplest way to generate is with: &lt;code&gt;lucky gen.resource.browser&lt;/code&gt; its basically the same as &lt;code&gt;rails g scaffold&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;So lets get started:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Human name:String
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;OOPS - that generated the plural of &lt;code&gt;Human&lt;/code&gt; as &lt;code&gt;Humen&lt;/code&gt; instead of &lt;code&gt;Humans&lt;/code&gt;!&lt;/p&gt;
-&lt;p&gt;lets clear all our incorrect files and fix this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git clean -fd
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now let&amp;rsquo;s create a new config file for inflections &lt;code&gt;config/inflect.cr&lt;/code&gt; and enter:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# this probably isn&#39;t necessary for very long - but for now it is needed.
-Wordsmith::Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
-
-# I like using persons (also a dictionary word) over people, to do this we need
-# - first we have to remove the original setting by doing:
-Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
-# - now we can override the original with our preference
-Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
-
-# if using `staff` as in human staff - then also add staff to uncountable:
-Wordsmith::Inflector.inflections.uncountable(%w(staff))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&#34;&gt;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/inflector.cr
-module Wordsmith
-  Inflector.inflections.clear
-
-  Inflector.inflections.plural(/$/, &amp;quot;s&amp;quot;)
-  Inflector.inflections.plural(/s$/i, &amp;quot;s&amp;quot;)
-
-  # etc, etc, etc
-
-  Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
-  Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rm -rf lib &amp;amp;&amp;amp; rm -rf bin &amp;amp;&amp;amp; shards update
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can try to create a new Resource again.&lt;/p&gt;
 &lt;h2 id=&#34;quick-lucky-test-tip&#34;&gt;Quick Lucky Test Tip&lt;/h2&gt;
 &lt;p&gt;Lets quickly test our new config wiht &lt;code&gt;lucky exec&lt;/code&gt; - type:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;lucky exec
@@ -241,12 +221,12 @@ This is straight-forward we just need to add &lt;code&gt;belongs_to human : Huma
 class Pet &amp;lt; BaseModel
   table do
     column name : String
-    column breed : String
+    column breed : String     # column breed : String? - makes this field optional
     column species : String
     column age : Int32
     column house_trained : Bool
 
-    belongs_to human : Human     # relationship - newly added
+    belongs_to human : Human  # relationship - newly added
   end
 end
 &lt;/code&gt;&lt;/pre&gt;
@@ -338,10 +318,73 @@ git commit -m &amp;quot;added html links to user_home_page &#39;me&#39;&amp;quot
 &lt;p&gt;&lt;a href=&#34;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&#34;&gt;https://dev.to/hinchy/setting-up-a-crud-app-in-lucky-jo1&lt;/a&gt;
 &lt;a href=&#34;https://luckyframework.org/guides/database/database-setup#seeding-data&#34;&gt;https://luckyframework.org/guides/database/database-setup#seeding-data&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now we can create seed files and be sure our basic relations work:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;p&gt;Lets test our building a model and the Lucky mechanisms before we get fancy with relationships and in particular polymorphism.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://luckyframework.org/guides/tutorial/new-resource&#34;&gt;https://luckyframework.org/guides/tutorial/new-resource&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So we will generate an animal resource - using a full stack generator:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Animal nick_name:String species:String
+lucky db.migrate
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and run the seeds with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;p&gt;Now let&amp;rsquo;s create some sample data in &lt;code&gt;tasks/db/seed/sample_data.cr&lt;/code&gt; - via the seed task - from these instructions: &lt;a href=&#34;https://luckyframework.org/guides/database/database-setup#seeding-data&#34;&gt;https://luckyframework.org/guides/database/database-setup#seeding-data&lt;/a&gt; as our base.&lt;/p&gt;
+&lt;p&gt;We will start by using what&amp;rsquo;s used to save when we create new records with incomming data. &lt;code&gt;SaveAnimal.create!(nick_name: &amp;quot;racky coon&amp;quot;)&lt;/code&gt; so now our file will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-crystal&#34;&gt;# tasks/db/seed/sample_data.cr
+require &amp;quot;../../../spec/support/factories/**&amp;quot;
+
+class Db::Seed::SampleData &amp;lt; LuckyTask::Task
+  summary &amp;quot;Add sample database records helpful for development&amp;quot;
+
+  def call
+    SavePet.create!(nick_name: &amp;quot;racky coon&amp;quot;)
+
+    puts &amp;quot;Done adding sample data&amp;quot;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We test this with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;lucky db.seed.sample_data
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming this runs we should be able to view this data in our db (I often use the cli - but you might also want to use: &lt;code&gt;dbgate&lt;/code&gt; &lt;a href=&#34;https://dbgate.org/):&#34;&gt;https://dbgate.org/):&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;psql
+\l
+\c lucky_poly_development
+select * from animals;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;cool - lets try a factory too - these are especially help when complex and building relationships, etc:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-crystal&#34;&gt;# spec/support/factories/animal_factory.cr
+class AnimalFactory &amp;lt; Avram::Factory
+  def initialize
+    nick_name &amp;quot;Nick Name&amp;quot;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets try using our factory in the seed file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-crystal&#34;&gt;# tasks/db/seed/sample_data.cr
+require &amp;quot;../../../spec/support/factories/**&amp;quot;
+
+class Db::Seed::SampleData &amp;lt; LuckyTask::Task
+  summary &amp;quot;Add sample database records helpful for development&amp;quot;
+
+  def call
+    SaveAnimal.create!(nick_name: &amp;quot;racky coon&amp;quot;, species: &amp;quot;racoon&amp;quot;)
+
+    # using a factory: https://luckyframework.org/guides/testing/creating-test-data#factory-create
+    AnimalFactory.create do |factory|
+      factory.nick_name(&amp;quot;Dyno&amp;quot;)
+      factory.species(&amp;quot;Dog&amp;quot;)
+    end
+
+    # a shortcut way to write a block in crystal, see: https://crystal-lang.org/reference/syntax_and_semantics/blocks_and_procs.html#short-one-argument-syntax
+    AnimalFactory.create &amp;amp;.nick_name(&amp;quot;Shiné&amp;quot;).species(&amp;quot;cat&amp;quot;)
+
+    puts &amp;quot;Done adding sample data&amp;quot;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;test again with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;lucky db.seed.sample_data
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Sweet, let&amp;rsquo;s snapshot and try more complex stuff!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;add a simple model and seed data in it&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;simple-lucky-forms-in-pages-instead-of-shared&#34;&gt;Simple Lucky Forms (in pages instead of shared)&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://luckycasts.com/videos/component-basics&#34;&gt;https://luckycasts.com/videos/component-basics&lt;/a&gt;
@@ -722,6 +765,47 @@ Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://github.com/bmulvihill/dispatch&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;InMemory-JobQueue&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;language-inflections&#34;&gt;Language Inflections&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s make a little silly Human and Pets database/webpage:&lt;/p&gt;
+&lt;p&gt;The simplest way to generate is with: &lt;code&gt;lucky gen.resource.browser&lt;/code&gt; its basically the same as &lt;code&gt;rails g scaffold&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So lets get started:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Human name:String
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;OOPS - that generated the plural of &lt;code&gt;Human&lt;/code&gt; as &lt;code&gt;Humen&lt;/code&gt; instead of &lt;code&gt;Humans&lt;/code&gt;!&lt;/p&gt;
+&lt;p&gt;lets clear all our incorrect files and fix this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clean -fd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s create a new config file for inflections &lt;code&gt;config/inflect.cr&lt;/code&gt; and enter:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# this probably isn&#39;t necessary for very long - but for now it is needed.
+Wordsmith::Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
+
+# I like using persons (also a dictionary word) over people, to do this we need
+# - first we have to remove the original setting by doing:
+Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
+# - now we can override the original with our preference
+Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+
+# if using `staff` as in human staff - then also add staff to uncountable:
+Wordsmith::Inflector.inflections.uncountable(%w(staff))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&#34;&gt;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# config/inflector.cr
+module Wordsmith
+  Inflector.inflections.clear
+
+  Inflector.inflections.plural(/$/, &amp;quot;s&amp;quot;)
+  Inflector.inflections.plural(/s$/i, &amp;quot;s&amp;quot;)
+
+  # etc, etc, etc
+
+  Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
+  Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf lib &amp;amp;&amp;amp; rm -rf bin &amp;amp;&amp;amp; shards update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can try to create a new Resource again.&lt;/p&gt;
 </description>
     </item>
     
