@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="Framework Agnostic Polymorphism - allowing Rails Code to easily interoperate smoothly with other languages">
+  <meta name="description" content="Framework Agnostic Associations - Data models that work across many frameworks">
 
   
   <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/">
@@ -238,13 +238,13 @@
   <meta property="og:site_name" content="btihen">
   <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/">
   <meta property="og:title" content="Rails 6.x - Framework Agnostic Associations - part 1 | btihen">
-  <meta property="og:description" content="Framework Agnostic Polymorphism - allowing Rails Code to easily interoperate smoothly with other languages"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png">
+  <meta property="og:description" content="Framework Agnostic Associations - Data models that work across many frameworks"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png">
   <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2021-05-19T01:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-05-19T01:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-05-29T01:57:00&#43;02:00">
   
 
   
@@ -369,6 +369,8 @@
         
         
           
+            
+          
         
 
         
@@ -376,46 +378,10 @@
         
         
         
-        
-          
-          
-          
-            
-          
-          
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#projects"><span>Projects</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+          <a class="nav-link " href="https://container4.ch/" target="_blank" rel="noopener"><span>Projects</span></a>
         </li>
 
         
@@ -445,6 +411,35 @@
 
         <li class="nav-item">
           <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
         </li>
 
         
@@ -666,7 +661,7 @@
   <h1>Rails 6.x - Framework Agnostic Associations - part 1</h1>
 
   
-  <p class="page-subtitle">Framework Agnostic Polymorphism - allowing Ruby Code t</p>
+  <p class="page-subtitle">Basic Associations: belongs_to and has_many</p>
   
 
   
@@ -692,8 +687,10 @@
     
     
       
+          Last updated on
+      
     
-    Wed, May 19, 2021
+    Sat, May 29, 2021
   </span>
   
 
@@ -728,7 +725,7 @@
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 260px; max-height: 274px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 456px; max-height: 378px;">
   <div style="position: relative">
     <img src="/post_ruby_rails/rails_6_x_agnostic_associations_1/featured.png" alt="" class="featured-image">
     
@@ -742,31 +739,37 @@
     <div class="article-style">
       <h2 id="purpose">Purpose</h2>
 <p>In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.</p>
+<p>This is the second article in the series.  This article is followed up with (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]</p>
 <h2 id="overview">Overview</h2>
 <p>In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.</p>
 <p>The basic model will then look something like:</p>
-<pre><code>              ┌───────────────┐
-              │    Contact    │
-              │ (roles:array) │
-              │(display_name)*│  *virtual attribute
-              └───────────────┘
-                      ┼ 1
-         ┌────────────┴─────────────┐
-        ╱│╲ *                    * ╱│╲
-┌───────────────┐          ┌───────────────┐
-│    Business   │╲       1 │    Person     │
-│  (legal_name) │ ○ ─ ─ ─ ┼│  (full_name)  │
-│(display_name)*│╱ 0..*    │(display_name)*│
-└───────────────┘          └───────────────┘
-        ╲│╱ *                    * ╲│╱
-         └────────────┬─────────────┘
-                      ┼ 1
-              ┌───────────────┐
-              │  Transaction  │
-              │    (notes)    │
-              │               │
-              └───────────────┘
-            Created with Monodraw
+<pre><code>          ┌───────────┐                         ┌───────────┐
+          │           │╲                       ╱│           │
+          │  Contact  │─────────────────────────│UserContact│
+          │           │╱                       ╲│           │
+          └───────────┘                         └───────────┘
+                ┼                                    ╲│╱
+                │                                     │
+  ┌─────────────┴───────────┐                         │
+  │                         │                         │
+ ╱│╲                       ╱│╲                       ╱│╲
+</code></pre>
+<p>┌───────────┐             ┌───────────┐             ┌───────────┐
+│           │╲            │           │             │           │
+│ Business  │─○──────────┼│  Person   │             │   User    │
+│           │╱            │           │             │           │
+└───────────┘             └───────────┘             └───────────┘
+┼                         ┼                         ┼
+│                         │                         │
+└────────────┬────────────┘                         │
+│                                      │
+╱│╲                                     │
+┌───────────┐                                │
+│           │╲                               │
+│  Remark   │─○──────────────────────────────┘
+│           │╱
+└───────────┘</p>
+<pre><code>                    Created with Monodraw
 </code></pre>
 <h2 id="create-a-default-rails-app">Create a default Rails app</h2>
 <pre><code class="language-bash">rails new rails_poly
@@ -779,12 +782,11 @@ git commit -m &quot;initial commit&quot;
 <h2 id="starting-simple---optional-relations">Starting Simple - optional relations</h2>
 <h3 id="build-businesses">Build Businesses</h3>
 <p>Lets start with the simple relationship between businesses and people:</p>
-<pre><code>  ┌────────────┐          ┌───────────┐
-  │            │╲       1 │           │
-  │  Business  │ ○ ─ ─ ─ ┼│  Person   │
-  │(legal_name)│╱ 0..*    │(full_name)│
-  └────────────┘          └───────────┘
-</code></pre>
+<p>┌────────────┐             ┌───────────┐
+│            │╲          1 │           │
+│  Business  │─○──────────┼│  Person   │
+│-legal_name │╱0..*        │-full_name │
+└────────────┘             └───────────┘</p>
 <p>For expedience, I&rsquo;ll use scaffolds:</p>
 <p>Generating a simple business model.</p>
 <pre><code class="language-bash">rails g scaffold Business legal_name
@@ -806,7 +808,6 @@ end
 class Business &lt; ApplicationRecord
   validates :legal_name, presence: true
 end
-
 </code></pre>
 <p>Now lets be sure we can migrate:</p>
 <pre><code class="language-bash">bin/rails db:migrate
@@ -1080,584 +1081,7 @@ git commit -m &quot;created person related to businesses - w/o n+1&quot;
 │(display_name)<em>│╱ 0..</em>    │(display_name)*│
 └───────────────┘          └───────────────┘</p>
 <p>A contact could be either a person or a business - but must be one or the other.</p>
-<h3 id="migration-and-relationships">Migration and Relationships</h3>
-<p>Rails doesn&rsquo;t have a built-in array migration, so we use string and then we change the migration:</p>
-<pre><code class="language-bash">bin/rails g scaffold Contact functions:string business:references person:references
-</code></pre>
-<p>Now update the migration to ensure we have a functions as an array &amp; relations as Foreign keys (but optional). Since there we only want/need one of the two foreign_keys at a time they must be nullable and we need to change roles to an array - so now:</p>
-<pre><code class="language-ruby"># db/migrate/20210519205042_create_contacts.rb
-class CreateContacts &lt; ActiveRecord::Migration[6.1]
-  def change
-    create_table :contacts do |t|
-      t.string :functions, array: true, null: false, default: []
-      t.references :business, foreign_key: true
-      t.references :person, foreign_key: true
-
-      t.timestamps
-    end
-  end
-end
-</code></pre>
-<p>update the Contact model with the validations &amp; flexible relations - we also want to be able to refer to the sub-model by one name we will call that <code>contactable</code> - so now the model will look like:</p>
-<pre><code class="language-ruby"># app/models/contact.rb
-class Contact &lt; ApplicationRecord
-  belongs_to :business, optional: true
-  belongs_to :person, optional: true
-
-  VALID_FUNCTIONS_LIST = %w(supplier reseller customer sales-rep)
-
-  validate :validate_relationship_functions
-  validate :validate_belongs_to_one_and_only_one_foreign_key
-
-  def contactable
-    business || person
-  end
-
-  private
-
-  # be sure we have the variable, it is an Array &amp; all elements are in the valid list
-  def validate_relationship_functions
-    return if functions.present? &amp;&amp; functions.is_a?(Array)
-              functions.all? { |role| VALID_FUNCTIONS_LIST.include?(role.to_s) }
-
-    errors.add :functions, &quot;must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}&quot;
-  end
-
-  # exclusive or (XOR) is true if one or the other is true, but not when both are true
-  # we could get a model (or possibly an id)
-  def validate_belongs_to_one_and_only_one_foreign_key
-    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
-
-    # add to base since, the error could be either field.
-    errors.add :base, 'must belong to ONE business or person, but not both'
-  end
-
-end
-</code></pre>
-<p>update the Person model and relations and enforce every person is a member of the contact list - with a contact role:</p>
-<pre><code class="language-ruby"># app/models/person.rb
-class Person &lt; ApplicationRecord
-  has_one :contact
-  belongs_to :business, optional: true
-
-  validates :contact, presence: true
-  validates :full_name, presence: true
-end
-</code></pre>
-<p>update the business model and relations and enforce every business is a member of the contact list - with a contact role:</p>
-<pre><code class="language-ruby"># # app/models/business.rb
-class Business &lt; ApplicationRecord
-  has_one :contact
-  has_many :people
-
-  validates :contact, presence: true
-  validates :legal_name, presence: true
-end
-</code></pre>
-<p>Lets check the seed with:</p>
-<pre><code class="language-bash">bin/rails db:migrate
-</code></pre>
-<p>If we go to a person or business we can no longer make changes - they need to have an associated Contact.
-We&rsquo;ll start by rolling back the last migration and fixing it with (we can use the logic in the seeds to guide us in the Business/Person creation controller):</p>
-<pre><code class="language-bash">bin/rails db:rollback
-</code></pre>
-<p>we need to fix the old relations in the migration (or simply drop the database and reseed it) - but given this is to article is find cross-framework &ndash; &lsquo;real-world&rsquo; techniques - let&rsquo;s be sure the existing records stay useful.  We will assume a business is a supplier, a person associated with a business is a sales-rep, and unassociated people are customers.</p>
-<pre><code class="language-ruby"># db/migrate/20210519205042_create_contacts.rb
-class CreateContacts &lt; ActiveRecord::Migration[6.1]
-  def change
-    create_table :contacts do |t|
-      t.string :functions, array: true, null: false, default: []
-      t.references :business, foreign_key: true
-      t.references :person, foreign_key: true
-
-      t.timestamps
-    end
-
-    # add a contact for each existing company
-    businesses = Business.joins(:people)
-                         .group('businesses.id')
-                         .select('businesses.*, count(people.id) as people_count')
-    businesses.each do |business|
-      functions = if business.people_count &lt; 10
-                    ['supplier']
-                  elsif business.people_count &lt; 20
-                    ['reseller']
-                  elsif business.people_count &lt; 30
-                    ['supplier', 'reseller']
-                  end
-      Contact.create!(functions: functions, business: business)
-    end
-
-    # add a contact for each existing person
-    Person.all.each do |person|
-      functions = if person.business
-                    ['sales_rep']
-                  else
-                    ['customer']
-                  end
-      Contact.create!(functions: functions, person: person)
-    end
-  end
-end
-</code></pre>
-<p>Lets the existing models now:</p>
-<pre><code class="language-bash">bin/rails db:migrate
-</code></pre>
-<p>OK - we are in business lets update our seed file too:</p>
-<pre><code class="language-ruby"># db/seed.rb
-# create small business w/o employees
-20.times do |num|
-  business = Business.create(legal_name: &quot;Business #{num}&quot;,
-                             contact: Contact.new(functions: ['supplier']))
-end
-
-# create individuals
-20.times do |num|
-  person = Person.create(full_name: &quot;Individual #{num}&quot;,
-                            contact: Contact.new(functions: ['customer']))
-end
-
-# create big companies with employees
-20.times do |bus_num|
-  functions = if bus_num &lt; 3
-                ['supplier']
-              elsif bus_num&lt; 5
-                ['reseller']
-              elsif bus_num &lt; 8
-                ['supplier', 'reseller']
-              else
-                %w[supplier reseller customer]
-              end
-  company  = Business.create(legal_name: &quot;Company #{bus_num}&quot;,
-                             contact: Contact.new(functions: functions))
-
-  bus_num.times do |emp_num|
-    Person.create(full_name: &quot;Employee #{bus_num}-#{emp_num}&quot;,
-                  business: company,
-                  contact: Contact.new(functions: ['sales-rep']))
-  end
-end
-</code></pre>
-<p>Lets check the seed with:</p>
-<pre><code class="language-bash">bin/rails db:seed
-</code></pre>
-<p>Great all works!</p>
-<h3 id="lets-make-the-index-page-more-useful">Lets make the index page more useful</h3>
-<p>When we visit the contacts page we would like more than the ids - but we need a unified way to present that info so let&rsquo;s add a display_name so we can show the name of the primary model, if a person we would like to know the associated business if present and if a company we would like the employee_count so we will delegate these to the sub-models.</p>
-<p>Let&rsquo;s update contact first by adding:</p>
-<pre><code class="language-ruby">  # this references our existing contactable
-  delegate :display_name, :associated_business_name, :employee_count,
-           to: :contactable
-
-  def contactable
-    business || person
-  end
-</code></pre>
-<p>So now the contact model will look like (with validations)</p>
-<pre><code class="language-ruby"># app/models/contact.rb
-class Contact &lt; ApplicationRecord
-  belongs_to :business, optional: true
-  belongs_to :person, optional: true
-
-  VALID_FUNCTIONS_LIST = %w(supplier reseller customer sales-rep)
-
-  validate :validate_relationship_functions
-  validate :validate_belongs_to_one_and_only_one_foreign_key
-
-  delegate :display_name, :associated_business_name, :employee_count,
-           to: :contactable
-
-  def contactable
-    business || person
-    # would memoize be valuable here?
-    # @contactable ||= (business || person)
-  end
-
-  private
-
-  # be sure we have the variable, it is an Array &amp; all elements are in the valid list
-  def validate_relationship_functions
-    return if functions.present? &amp;&amp; functions.is_a?(Array)
-              functions.all? { |role| VALID_FUNCTIONS_LIST.include?(role.to_s) }
-
-    errors.add :functions, &quot;must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}&quot;
-  end
-
-  # exclusive or (XOR) is true if one or the other is true, but not when both are true
-  # we could get a model (or possibly an id)
-  def validate_belongs_to_one_and_only_one_foreign_key
-    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
-
-    # add to base since, some forms may not have the person/business fields
-    errors.add :base, 'must belong to ONE business or person, but not both'
-    # errors.add :contactable, 'must belong to a business or a person'
-  end
-end
-</code></pre>
-<p>Lets update the models to provide the needed info</p>
-<p>Business now will look like:</p>
-<pre><code class="language-ruby"># app/models/business.rb
-class Business &lt; ApplicationRecord
-  has_one :contact
-  has_many :people
-
-  validates :contact, presence: true
-  validates :legal_name, presence: true
-
-  def display_name
-    legal_name
-  end
-
-  def employee_count
-    people.count
-  end
-
-  def associated_business_name
-    &quot;&quot;
-  end
-end
-</code></pre>
-<p>And person will look like:</p>
-<pre><code class="language-ruby"># app/models/person.rb
-class Person &lt; ApplicationRecord
-  has_one :contact
-  belongs_to :business, optional: true
-
-  validates :contact, presence: true
-  validates :full_name, presence: true
-
-  def display_name
-    full_name
-  end
-
-  def employee_count
-    nil  # person count has no meaning under person
-  end
-
-  def associated_business_name
-    business&amp;.display_name
-  end
-end
-</code></pre>
-<p>Now lets update the index view to show our new info:</p>
-<pre><code class="language-ruby">&lt;h1&gt;Contacts&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Person/Business&lt;/th&gt;
-      &lt;th&gt;Employee Count&lt;/th&gt;
-      &lt;th&gt;Contact Name&lt;/th&gt;
-      &lt;th&gt;Business Name&lt;/th&gt;
-      &lt;th&gt;Relationships&lt;/th&gt;
-      &lt;th colspan=&quot;3&quot;&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-
-  &lt;tbody&gt;
-    &lt;% @contacts.each do |contact| %&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;%= contact.contactable.class.name %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= contact.employee_count %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= contact.display_name %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= contact.associated_business_name %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= contact.functions %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= link_to 'Show', contact %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= link_to 'Edit', edit_contact_path(contact) %&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;% end %&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-</code></pre>
-<p>Now we see another n+1 query - we will fix the main part - but not the employee count this time:</p>
-<pre><code class="language-ruby">class ContactsController &lt; ApplicationController
-  def index
-    # @contacts = Contact.all
-    @contacts = Contact.includes(:business).includes(:person).all
-  end
-</code></pre>
-<p>Cool now the page is usable (a bit long but we will ignore that)</p>
-<h3 id="lets-be-sure-we-can-create-new-contacts">Lets be sure we can create new contacts</h3>
-<p>I usually use an input model (for more flexibility), but for now I will use nested_params.
-A few articles on nested params and nested fields:</p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=PYYwjTlcoa4">https://www.youtube.com/watch?v=PYYwjTlcoa4</a></li>
-<li><a href="https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes">https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes</a></li>
-<li><a href="https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e">https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e</a></li>
-<li><a href="https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5">https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5</a></li>
-</ul>
-<p>To start we will tell the contacts model that it can create nested models with do by adding:</p>
-<pre><code class="language-ruby">  accepts_nested_attributes_for :business
-  accepts_nested_attributes_for :person
-</code></pre>
-<p>so now now the contact model looks like:</p>
-<pre><code class="language-ruby"># app/models/contact.rb
-class Contact &lt; ApplicationRecord
-  belongs_to :business, optional: true
-  belongs_to :person, optional: true
-
-  accepts_nested_attributes_for :business
-  accepts_nested_attributes_for :person
-
-  VALID_FUNCTIONS_LIST = %w(supplier reseller customer sales-rep)
-
-  validate :validate_relationship_functions
-  validate :validate_belongs_to_one_and_only_one_foreign_key
-
-  delegate :display_name, :associated_business_name, :employee_count,
-           to: :contactable
-
-  def contactable
-    business || person
-    # would memoize be valuable here?
-    # @contactable ||= (business || person)
-  end
-
-  private
-
-  # be sure we have the variable, it is an Array &amp; all elements are in the valid list
-  def validate_relationship_functions
-    return if functions.present? &amp;&amp; functions.is_a?(Array)
-              functions.all? { |role| VALID_FUNCTIONS_LIST.include?(role.to_s) }
-
-    errors.add :functions, &quot;must be ONE or MORE of the following options: #{VALID_FUNCTIONS_LIST.join(',')}&quot;
-  end
-
-  # exclusive or (XOR) is true if one or the other is true, but not when both are true
-  # we could get a model (or possibly an id)
-  def validate_belongs_to_one_and_only_one_foreign_key
-    return if business.present? ^ person.present? ^ business_id.present? ^ person_id.present?
-
-    # add to base since, some forms may not have the person/business fields
-    errors.add :base, 'must belong to ONE business or person, but not both'
-    # errors.add :contactable, 'must belong to a business or a person'
-  end
-end
-</code></pre>
-<p>In the controller we need to create models as part of @contact to allow nested-fields - which feed the nested attributes. to allow the new information in via strong params:</p>
-<pre><code class="language-ruby"># app/controllers/contacts_controller.rb
-  def new
-    @contact = Contact.new
-    # add empty sub-models for our form
-    @contact.person = Person.new
-    @contact.business = Business.new
-  end
-
-  # update strong params to accept the sub-model attributes
-  # sub-models from nested-forms feeding nested_atttributes in the model
-  # take the form &lt;model_name&gt;_attributes
-  # `functions` is an empty array since it is taking a list of values
-  # person_attributes &amp; business_attributes - need to include the list of attributes to accept!
-  # so in our case:
-  def contact_params
-    contact_attribs = params.require(:contact)
-                            .permit(functions: [],  # is empty - takes a list of values
-                                    person_attributes: [:full_name],  # needs to include the list of attributes to accept
-                                    business_attributes: [:legal_name])
-  end
-</code></pre>
-<p>update the contact form to tie this all together by adding our nested forms:</p>
-<pre><code class="language-ruby">  &lt;div class=&quot;field-group&quot;&gt;
-    &lt;h2&gt;Create your Contact: a Person or a Business&lt;/h2&gt;
-
-    &lt;h3&gt;Business&lt;/h3&gt;
-    &lt;%= form.fields_for :business, Business.new do |f| %&gt;
-      &lt;%= f.label :legal_name %&gt;
-      &lt;%= f.text_field :legal_name %&gt;
-    &lt;% end %&gt;
-
-    &lt;h3&gt;Person&lt;/h3&gt;
-    &lt;%= form.fields_for :person, Person.new do |f| %&gt;
-      &lt;%= f.label :full_name %&gt;
-      &lt;%= f.text_field :full_name %&gt;
-    &lt;% end %&gt;
-  &lt;/div&gt;
-</code></pre>
-<p>We will also need to make the list of possible relationship functions a multi-select - I always forget the format &ndash; so remember BOTH {} are required when using multi-select!!  The first one is for normal drop-down select options &ndash; like include_blank, the second one is where the multi-select must go!</p>
-<p>This looks like:</p>
-<pre><code class="language-ruby">  &lt;div class=&quot;field&quot;&gt;
-    &lt;%= form.label :functions %&gt;
-    &lt;%= form.select :functions,
-                    options_for_select(Contact::VALID_FUNCTIONS_LIST,
-                                      selected: Contact::VALID_FUNCTIONS_LIST.second),
-                                      {}, #{:include_blank =&gt; 'None'},
-                                      {:multiple =&gt; true, size: 3} %&gt;
-  &lt;/div&gt;
-</code></pre>
-<p>so now the template looks like:</p>
-<pre><code class="language-ruby"># app/views/contacts/_form.html.erb
-&lt;%= form_with(model: contact) do |form| %&gt;
-  &lt;% if contact.errors.any? %&gt;
-  &lt;div id=&quot;error_explanation&quot;&gt;
-    &lt;h2&gt;&lt;%= pluralize(contact.errors.count, &quot;error&quot;) %&gt; prohibited this contact from being saved:&lt;/h2&gt;
-
-    &lt;ul&gt;
-      &lt;% contact.errors.each do |error| %&gt;
-      &lt;li&gt;&lt;%= error.full_message %&gt;&lt;/li&gt;
-      &lt;% end %&gt;
-    &lt;/ul&gt;
-  &lt;/div&gt;
-  &lt;% end %&gt;
-
-  &lt;div class=&quot;field&quot;&gt;
-    &lt;%= form.label :functions %&gt;
-    &lt;%= form.select :functions,
-                    options_for_select(Contact::VALID_FUNCTIONS_LIST,
-                                      selected: Contact::VALID_FUNCTIONS_LIST.second),
-                                      {}, #{:include_blank =&gt; 'None'},
-                                      {:multiple =&gt; true, size: 3} %&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;field-group&quot;&gt;
-    &lt;h2&gt;Create your Contact: a Person or a Business&lt;/h2&gt;
-
-    &lt;h3&gt;Business&lt;/h3&gt;
-    &lt;%= form.fields_for :business, Business.new do |f| %&gt;
-      &lt;%= f.label :legal_name %&gt;
-      &lt;%= f.text_field :legal_name %&gt;
-    &lt;% end %&gt;
-
-    &lt;h3&gt;Person&lt;/h3&gt;
-    &lt;%= form.fields_for :person, Person.new do |f| %&gt;
-      &lt;%= f.label :full_name %&gt;
-      &lt;%= f.text_field :full_name %&gt;
-    &lt;% end %&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;actions&quot;&gt;
-    &lt;%= form.submit %&gt;
-  &lt;/div&gt;
-&lt;% end %&gt;
-</code></pre>
-<p>Now when we try <code>/contacts</code> we notice one more problem - it is always invalid - rails automatically add a leading &quot;&quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &ldquo;&quot;) using:</p>
-<pre><code class="language-ruby">  contact_attribs[&quot;functions&quot;].reject! {|f| f.blank? }
-  contact_attribs
-</code></pre>
-<p>we also need to be sure in our case we only send the params of the business or the person, but not both - since we are only creating one.  So we will remove whichever one is empty - also with an in-place update - using:</p>
-<pre><code class="language-ruby">    # find and set to nil the model without params
-    if contact_attribs[&quot;person_attributes&quot;]
-      # since we only have one param we can do
-      contact_attribs[&quot;person_attributes&quot;] = nil if contact_attribs[&quot;person_attributes&quot;][&quot;full_name&quot;].blank?
-    end
-
-    if contact_attribs[&quot;business_attributes&quot;]
-      # assuming we had multiple params the test is easier with:
-      contact_attribs[&quot;business_attributes&quot;] = nil if contact_attribs[&quot;business_attributes&quot;].to_h.all? {|key,value| value.blank?}
-    end
-
-    # remove the nested attributes set to nil so contact will only create the desired associated model
-    contact_attribs.reject! {|key, value| value.blank? }
-    contact_attribs
-</code></pre>
-<p>So now the full controller looks like:</p>
-<pre><code class="language-ruby">class ContactsController &lt; ApplicationController
-  before_action :set_contact, only: %i[ show edit update destroy ]
-
-  def index
-    # @contacts = Contact.all
-    @contacts = Contact.includes(:business).includes(:person).all
-  end
-
-  def show
-  end
-
-  def new
-    @contact = Contact.new
-    @contact.person = Person.new
-    @contact.business = Business.new
-  end
-
-  def edit
-  end
-
-  def create
-    @contact = Contact.new(contact_params)
-
-    respond_to do |format|
-      if @contact.save
-        format.html { redirect_to @contact, notice: &quot;Contact was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @contact }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: &quot;Contact was successfully updated.&quot; }
-        format.json { render :show, status: :ok, location: @contact }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @contact.destroy
-    respond_to do |format|
-      format.html { redirect_to contacts_url, notice: &quot;Contact was successfully destroyed.&quot; }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_contact
-    @contact = Contact.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def contact_params
-    # update strong params to accept the sub-model attributes
-    # sub-models from nested-forms feeding nested_atttributes in the model
-    # take the form &lt;model_name&gt;_attributes
-    # `functions` is an empty array since it is taking a list of values
-    # person_attributes &amp; business_attributes - need to include the list of attributes to accept!
-    # so in our case:
-    contact_attribs = params.require(:contact)
-                            .permit(functions: [],
-                                    person_attributes: [:full_name],
-                                    business_attributes: [:legal_name])
-    # cleanup array - always delivers with [''] - :(
-    # https://stackoverflow.com/questions/51341912/empty-array-value-being-input-with-simple-form-entries
-
-    # easiest way in in-place replacement (given that params is now objects and not a hash), but that always makes me a bit nervous
-    # https://stackoverflow.com/questions/20164354/rails-strong-parameters-with-empty-arrays
-    # reject and replace in place
-    contact_attribs[&quot;functions&quot;].reject! {|f| f.blank? }
-
-    # remove empty model attributes
-    # contact_attribs[&quot;person_attributes&quot;].reject {|key,value| value.blank?}
-    if contact_attribs[&quot;person_attributes&quot;]
-      contact_attribs[&quot;person_attributes&quot;] = nil if contact_attribs[&quot;person_attributes&quot;][&quot;full_name&quot;].blank?
-    end
-
-    if contact_attribs[&quot;business_attributes&quot;]
-      contact_attribs[&quot;business_attributes&quot;] = nil if contact_attribs[&quot;business_attributes&quot;].to_h.all? {|key,value| value.blank?}
-    end
-
-    # have to remove nil attributes for models so nested attributes works correctly
-    contact_attribs.reject! {|key, value| value.blank? }
-
-    # return the attributes with the tidied array
-    contact_attribs
-  end
-end
-</code></pre>
-<p>now when we try again:</p>
-<pre><code class="language-bash">bin/rails s
-open localhost:3000/contacts/new
-</code></pre>
-<p>Cool - it works.  We could now do the same for the <code>/business/new</code> and <code>/people/new</code>, but we won&rsquo;t do that here in the article. Lets snapshot:</p>
-<pre><code class="language-bash">git add .
-git commit -m &quot;created person possibly related to the model&quot;
-</code></pre>
+<p>This is implemented in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]</p>
 <h2 id="polymorphic">Polymorphic</h2>
 <p>a model associated with several different models - serving a similar purpose in both cases</p>
 <pre><code>  ┌────────────┐          ┌───────────┐
@@ -1726,15 +1150,15 @@ git commit -m &quot;created person possibly related to the model&quot;
   
   <a class="badge badge-light" href="/tags/rails/">Rails</a>
   
-  <a class="badge badge-light" href="/tags/hotwire/">Hotwire</a>
+  <a class="badge badge-light" href="/tags/databases/">Databases</a>
   
-  <a class="badge badge-light" href="/tags/spa/">SPA</a>
+  <a class="badge badge-light" href="/tags/data-models/">Data models</a>
   
-  <a class="badge badge-light" href="/tags/websocket/">WebSocket</a>
+  <a class="badge badge-light" href="/tags/framework-agnostic/">Framework Agnostic</a>
   
-  <a class="badge badge-light" href="/tags/realtime/">realtime</a>
+  <a class="badge badge-light" href="/tags/belongs_to/">belongs_to</a>
   
-  <a class="badge badge-light" href="/tags/flash-message/">flash message</a>
+  <a class="badge badge-light" href="/tags/has_many/">has_many</a>
   
 </div>
 

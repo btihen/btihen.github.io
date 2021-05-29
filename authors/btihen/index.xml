@@ -5,7 +5,7 @@
     <link>https://btihen.me/authors/btihen/</link>
       <atom:link href="https://btihen.me/authors/btihen/index.xml" rel="self" type="application/rss+xml" />
     <description>Bill Tihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 19 May 2021 01:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 29 May 2021 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Bill Tihen</title>
@@ -52,349 +52,80 @@ ARC consortium members contribute by documenting applications of the agile minds
     </item>
     
     <item>
-      <title>Rails 6.x - Framework Agnostic Associations - part 1</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</link>
-      <pubDate>Wed, 19 May 2021 01:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</guid>
+      <title>Rails 6.x - Framework Agnostic Associations - part 2</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</link>
+      <pubDate>Sat, 29 May 2021 01:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.&lt;/p&gt;
+&lt;p&gt;This is the second article in the series.  This article builds on (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;              ┌───────────────┐
-              │    Contact    │
-              │ (roles:array) │
-              │(display_name)*│  *virtual attribute
-              └───────────────┘
-                      ┼ 1
-         ┌────────────┴─────────────┐
-        ╱│╲ *                    * ╱│╲
-┌───────────────┐          ┌───────────────┐
-│    Business   │╲       1 │    Person     │
-│  (legal_name) │ ○ ─ ─ ─ ┼│  (full_name)  │
-│(display_name)*│╱ 0..*    │(display_name)*│
-└───────────────┘          └───────────────┘
-        ╲│╱ *                    * ╲│╱
-         └────────────┬─────────────┘
-                      ┼ 1
-              ┌───────────────┐
-              │  Transaction  │
-              │    (notes)    │
-              │               │
-              └───────────────┘
-            Created with Monodraw
+&lt;pre&gt;&lt;code&gt;          ┌───────────┐                         ┌───────────┐
+          │           │╲                       ╱│           │
+          │  Contact  │─────────────────────────│UserContact│
+          │           │╱                       ╲│           │
+          └───────────┘                         └───────────┘
+                ┼                                    ╲│╱
+                │                                     │
+  ┌─────────────┴───────────┐                         │
+  │                         │                         │
+ ╱│╲                       ╱│╲                       ╱│╲
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;create-a-default-rails-app&#34;&gt;Create a default Rails app&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new rails_poly
-cd rails_poly
-bin/rails db:create
-bin/rails db:migrate
-git add .
-git commit -m &amp;quot;initial commit&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;starting-simple---optional-relations&#34;&gt;Starting Simple - optional relations&lt;/h2&gt;
-&lt;h3 id=&#34;build-businesses&#34;&gt;Build Businesses&lt;/h3&gt;
-&lt;p&gt;Lets start with the simple relationship between businesses and people:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  ┌────────────┐          ┌───────────┐
-  │            │╲       1 │           │
-  │  Business  │ ○ ─ ─ ─ ┼│  Person   │
-  │(legal_name)│╱ 0..*    │(full_name)│
-  └────────────┘          └───────────┘
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For expedience, I&amp;rsquo;ll use scaffolds:&lt;/p&gt;
-&lt;p&gt;Generating a simple business model.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Business legal_name
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets adjust the migration to require the business&#39; legal name, by adding &lt;code&gt;null: false&lt;/code&gt; to the name:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/20210516080420_create_businesses.rb
-class CreateBusinesses &amp;lt; ActiveRecord::Migration[6.1]
-  def change
-    create_table :businesses do |t|
-      t.string :legal_name, null: false
+&lt;p&gt;┌───────────┐             ┌───────────┐             ┌───────────┐
+│           │╲            │           │             │           │
+│ Business  │─○──────────┼│  Person   │             │   User    │
+│           │╱            │           │             │           │
+└───────────┘             └───────────┘             └───────────┘
+┼                         ┼                         ┼
+│                         │                         │
+└────────────┬────────────┘                         │
+│                                      │
+╱│╲                                     │
+┌───────────┐                                │
+│           │╲                               │
+│  Remark   │─○──────────────────────────────┘
+│           │╱
+└───────────┘&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                    Created with Monodraw
 
-      t.timestamps
-    end
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we will validate the business&#39; name in the model:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
-class Business &amp;lt; ApplicationRecord
-  validates :legal_name, presence: true
-end
+              *virtual attribute
 
+             Created with Monodraw
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now lets be sure we can migrate:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
+&lt;h2 id=&#34;rails-app-and-first-models&#34;&gt;Rails app and first Models&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
+│            │╲          1 │           │
+│  Business  │─○──────────┼│  Person   │
+│-legal_name │╱0..*        │-full_name │
+└────────────┘             └───────────┘
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;lets use seed to quickly check our models and relations (&amp;amp; get an idea of how to use them):&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
-business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets check the seed with:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Assuming this works, let&amp;rsquo;s see the &amp;ldquo;/businesses&amp;rdquo; page:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
-open localhost:3000/businesses/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Great - lets snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
-git commit -m &amp;quot;created business model&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;build-people&#34;&gt;Build People&lt;/h3&gt;
-&lt;p&gt;Now let&amp;rsquo;s build the person model and its relations to businesses.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Person full_name business:references
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In this case we want the person to optionally be a member of a business, so lets update the both the models and the migration.  Starting with the migration, we need to remove &lt;code&gt;null: false&lt;/code&gt; in the foreign key, and add that to the name - so it should now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/20210516080414_create_people.rb
-class CreatePeople &amp;lt; ActiveRecord::Migration[6.1]
-  def change
-    create_table :people do |t|
-      t.string :full_name, null: false
-      t.references :company, foreign_key: true
-
-      t.timestamps
-    end
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now lets adjust the person model - we&amp;rsquo;ll make the relation optional with &lt;code&gt;optional: true&lt;/code&gt; and require the name with the validation &lt;code&gt;validates :full_name, presence: true&lt;/code&gt;, so it should now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/person.rb
-class Person &amp;lt; ApplicationRecord
-  belongs_to :company, optional: true
-
-  validates :full_name, presence: true
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And lets let the Business know it can have lots of people with &lt;code&gt;has_many :people&lt;/code&gt; - now the model will look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
-class Business &amp;lt; ApplicationRecord
-  has_many :people
-
-  validates :legal_name, presence: true
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets check the migrations work:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;lets use seed a couple of people too - so it now looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seed.rb
-business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
-company = Business.create(legal_name: &amp;quot;Company&amp;quot;)
-
-company.build_person(full_name: &amp;quot;Company Man&amp;quot;)
-company.save
-
-person = Person.create(full_name: &amp;quot;Own Person&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets check the seed with:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now lets check our pages again:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
-open localhost:3000
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets check the index pages&lt;/p&gt;
-&lt;p&gt;On the business page it would be nice to see how many employees - so we can update the model with:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
-class Business &amp;lt; ApplicationRecord
-  has_many :people
-
-  validates :legal_name, presence: true
-
-  def people_count
-    people.count
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And now &lt;code&gt;people_count&lt;/code&gt; is added as a virtual attribute (as well as all other business fields because of &lt;code&gt;&#39;businesses.*&lt;/code&gt;) - now we can use in our view using = &lt;code&gt;&amp;lt;td&amp;gt;&amp;lt;%= business.people_count %&amp;gt;&amp;lt;/td&amp;gt;&lt;/code&gt; so now it would look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/businesses/index.html.erb
-&amp;lt;h1&amp;gt;Businesses&amp;lt;/h1&amp;gt;
-
-&amp;lt;table&amp;gt;
-  &amp;lt;thead&amp;gt;
-    &amp;lt;tr&amp;gt;
-      &amp;lt;th&amp;gt;Legal name&amp;lt;/th&amp;gt;
-      &amp;lt;th&amp;gt;Employee Count&amp;lt;/th&amp;gt;
-      &amp;lt;th colspan=&amp;quot;3&amp;quot;&amp;gt;&amp;lt;/th&amp;gt;
-    &amp;lt;/tr&amp;gt;
-  &amp;lt;/thead&amp;gt;
-
-  &amp;lt;tbody&amp;gt;
-    &amp;lt;% @businesses.each do |business| %&amp;gt;
-    &amp;lt;tr&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= business.legal_name %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= business.people_count %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Show&#39;, business %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Edit&#39;, edit_business_path(business) %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Destroy&#39;, business, method: :delete, data: { confirm: &#39;Are you sure?&#39; } %&amp;gt;&amp;lt;/td&amp;gt;
-    &amp;lt;/tr&amp;gt;
-    &amp;lt;% end %&amp;gt;
-  &amp;lt;/tbody&amp;gt;
-&amp;lt;/table&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and on the &amp;lsquo;/people&amp;rsquo; page it would be nice to see there business name instead of id.&lt;/p&gt;
-&lt;p&gt;so in the model:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/model/person.rb
-class Person &amp;lt; ApplicationRecord
-  belongs_to :business, optional: true
-
-  validates :full_name, presence: true
-
-  def associated_business_name
-    business&amp;amp;.legal_name
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and in the index view:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/people/index.html.erb
-&amp;lt;table&amp;gt;
-  &amp;lt;thead&amp;gt;
-    &amp;lt;tr&amp;gt;
-      &amp;lt;th&amp;gt;Full name&amp;lt;/th&amp;gt;
-      &amp;lt;th&amp;gt;Business&amp;lt;/th&amp;gt;
-      &amp;lt;th colspan=&amp;quot;3&amp;quot;&amp;gt;&amp;lt;/th&amp;gt;
-    &amp;lt;/tr&amp;gt;
-  &amp;lt;/thead&amp;gt;
-
-  &amp;lt;tbody&amp;gt;
-    &amp;lt;% @people.each do |person| %&amp;gt;
-    &amp;lt;tr&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= person.full_name %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= person.associated_business_name %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Show&#39;, person %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Edit&#39;, edit_person_path(person) %&amp;gt;&amp;lt;/td&amp;gt;
-      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Destroy&#39;, person, method: :delete, data: { confirm: &#39;Are you sure?&#39; } %&amp;gt;&amp;lt;/td&amp;gt;
-    &amp;lt;/tr&amp;gt;
-    &amp;lt;% end %&amp;gt;
-  &amp;lt;/tbody&amp;gt;
-&amp;lt;/table&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to show all employees on the business show page we can do:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/businesses/show.html.erb
-&amp;lt;p&amp;gt;
-  &amp;lt;strong&amp;gt;Legal name:&amp;lt;/strong&amp;gt;
-  &amp;lt;%= @business.legal_name %&amp;gt;
-&amp;lt;/p&amp;gt;
-
-&amp;lt;table&amp;gt;
-  &amp;lt;thead&amp;gt;
-    &amp;lt;tr&amp;gt;
-      &amp;lt;th&amp;gt;Employee&amp;lt;/th&amp;gt;
-    &amp;lt;/tr&amp;gt;
-  &amp;lt;/thead&amp;gt;
-  &amp;lt;tbody&amp;gt;
-    &amp;lt;% @business.people.each do |person| %&amp;gt;
-    &amp;lt;tr&amp;gt;&amp;lt;td&amp;gt;person.full_name&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;
-    &amp;lt;% end %&amp;gt;
-  &amp;lt;/tbody&amp;gt;
-
-&amp;lt;/table&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And now lets look for n+1 queries - to do that we will create many records in the seeds file:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
-business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
-company  = Business.create(legal_name: &amp;quot;Company&amp;quot;)
-boss_man = Person.create(full_name: &amp;quot;Company Man&amp;quot;, business: company)
-person = Person.create(full_name: &amp;quot;Own Person&amp;quot;)
-
-# larger numbers (look for n+1 lookups)
-50.times do |business_number|
-  company  = Business.create(legal_name: &amp;quot;Company #{business_number}&amp;quot;)
-  business_number.times do |employee_number|
-    Person.create(full_name: &amp;quot;Employee #{employee_number}&amp;quot;,
-                  business: company)
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now when we visit &amp;lsquo;/people&amp;rsquo; we see an n+1 (to look up the business to get the business name) - this is an easy fix with a pre-load in the controller - just add &lt;code&gt;.include(:business)&lt;/code&gt; to the query - now the index method will look like&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/people_controller.rb
-class PeopleController &amp;lt; ApplicationController
-
-  def index
-    @people = Person.include(:business).all
-  end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Fix n+1 lookups - for the business employee count is a bit trickier - to avoid lots of look ups we need the db to do the count and add the count as a virtual attribute - this is done with the following query:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/people_controller.rb
-class BusinessController &amp;lt; ApplicationController
-
-  def index
-    # businesses = Business.all  # (N+1 when using referring to people)
-    # select must go last or it gets lost / overwritten
-    @businesses = Business.joins(:people)
-                          .group(&#39;businesses.id&#39;)
-                          .select(&#39;businesses.*, count(people.id) as people_count&#39;)
-  end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to avoid confusion - lets rename the method in the class to &lt;code&gt;employee_count&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
-class Business &amp;lt; ApplicationRecord
-  has_many :people
-
-  validates :legal_name, presence: true
-
-  def employee_count
-    people.count
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;lets run the seeds again:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;cool now when we look at the log we just have one query instead of many!&lt;/p&gt;
-&lt;p&gt;Now let&amp;rsquo;s make the people form to associate a business by name instead of the id!&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/people/_form.html.erb
-&amp;lt;%= form_with(model: person) do |form| %&amp;gt;
-  &amp;lt;% if person.errors.any? %&amp;gt;
-    &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
-      &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(person.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this person from being saved:&amp;lt;/h2&amp;gt;
-
-      &amp;lt;ul&amp;gt;
-        &amp;lt;% person.errors.each do |error| %&amp;gt;
-          &amp;lt;li&amp;gt;&amp;lt;%= error.full_message %&amp;gt;&amp;lt;/li&amp;gt;
-        &amp;lt;% end %&amp;gt;
-      &amp;lt;/ul&amp;gt;
-    &amp;lt;/div&amp;gt;
-  &amp;lt;% end %&amp;gt;
-
-  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
-    &amp;lt;%= form.label :full_name %&amp;gt;
-    &amp;lt;%= form.text_field :full_name %&amp;gt;
-  &amp;lt;/div&amp;gt;
-
-  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
-    &amp;lt;%= form.label :business %&amp;gt;
-    &amp;lt;%= form.select :business_id,
-                    Business.all.collect { |b| [ b.legal_name, b.id ] },
-                    prompt: &amp;quot;Select One&amp;quot;, include_blank: true %&amp;gt;
-  &amp;lt;/div&amp;gt;
-
-  &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
-    &amp;lt;%= form.submit %&amp;gt;
-  &amp;lt;/div&amp;gt;
-&amp;lt;% end %&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Great - lets snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
-git commit -m &amp;quot;created person related to businesses - w/o n+1&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We discussed / explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;          ┌───────────────┐
-          │    Contact    │
-          │  (functions)+ │ + supplier, reseller, customer, sales-rep
-          │(display_name)*│ * virtual attribute
-          └───────────────┘
-                  ┼ 1
-     ┌────────────┴─────────────┐
-    ╱│╲ *                    * ╱│╲
+&lt;p&gt;In this article we will build this structure (a replacement for Rails STI).  Many frameworks will only use columns that can be identified as foreign keys to ensure DB integrity - therefore, we will build this using DB structures that are supported by Rails, Lucky and Phoenix and probably most frameworks.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;               ┌─────────────┐
+               │   Contact   │
+               │  relations* │
+               │+display_name│
+               └─────────────┘
+                      ┼
+                      │
+      ┌───────────────┴────────────┐
+      │                            │
+     ╱│╲                          ╱│╲
+┌─────────────┐             ┌─────────────┐
+│  Business   │╲            │    Person   │
+│ -legal_name │─○──────────┼│ -full_name  │
+│+display_name│╱            │+display_name│
+└─────────────┘             └─────────────┘
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────────┐          ┌───────────────┐
-│    Business   │╲       1 │    Person     │
-│  (legal_name) │ ○ ─ ─ ─ ┼│  (full_name)  │
-│(display_name)&lt;em&gt;│╱ 0..&lt;/em&gt;    │(display_name)*│
-└───────────────┘          └───────────────┘&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;array: supplier, reseller, customer, sales-rep&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;virtual attribute (public method)&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;A contact could be either a person or a business - but must be one or the other.&lt;/p&gt;
 &lt;h3 id=&#34;migration-and-relationships&#34;&gt;Migration and Relationships&lt;/h3&gt;
 &lt;p&gt;Rails doesn&amp;rsquo;t have a built-in array migration, so we use string and then we change the migration:&lt;/p&gt;
@@ -974,6 +705,510 @@ open localhost:3000/contacts/new
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;polymorphic&#34;&gt;Polymorphic&lt;/h2&gt;
+&lt;p&gt;In the next article we will explore the following in (part 3)[post_ruby_rails/rails_6_x_agnostic_associations_3/]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌───────────┐             ┌───────────┐
+│           │╲            │           │
+│ Business  │─○──────────┼│  Person   │
+│           │╱            │           │
+└───────────┘             └───────────┘
+      ┼                         ┼
+      │                         │
+      └────────────┬────────────┘
+                   │
+                  ╱│╲
+             ┌───────────┐
+             │           │
+             │  Remark   │
+             │           │
+             └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 6.x - Framework Agnostic Associations - part 2</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</link>
+      <pubDate>Sat, 29 May 2021 01:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</guid>
+      <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.&lt;/p&gt;
+&lt;p&gt;This is the second article in the series.  This article builds on (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
+&lt;p&gt;The basic model will then look something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;          ┌───────────┐                         ┌───────────┐
+          │           │╲                       ╱│           │
+          │  Contact  │─────────────────────────│UserContact│
+          │           │╱                       ╲│           │
+          └───────────┘                         └───────────┘
+                ┼                                    ╲│╱
+                │                                     │
+  ┌─────────────┴───────────┐                         │
+  │                         │                         │
+ ╱│╲                       ╱│╲                       ╱│╲
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;┌───────────┐             ┌───────────┐             ┌───────────┐
+│           │╲            │           │             │           │
+│ Business  │─○──────────┼│  Person   │             │   User    │
+│           │╱            │           │             │           │
+└───────────┘             └───────────┘             └───────────┘
+┼                         ┼                         ┼
+│                         │                         │
+└────────────┬────────────┘                         │
+│                                      │
+╱│╲                                     │
+┌───────────┐                                │
+│           │╲                               │
+│  Remark   │─○──────────────────────────────┘
+│           │╱
+└───────────┘&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                    Created with Monodraw
+
+              *virtual attribute
+
+             Created with Monodraw
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-app-and-first-models&#34;&gt;Rails app and first Models&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
+│            │╲          1 │           │
+│  Business  │─○──────────┼│  Person   │
+│-legal_name │╱0..*        │-full_name │
+└────────────┘             └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
+&lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;               ┌─────────────┐
+               │   Contact   │
+               │  relations* │
+               │+display_name│
+               └─────────────┘
+                      ┼
+                      │
+      ┌───────────────┴────────────┐
+      │                            │
+     ╱│╲                          ╱│╲
+┌─────────────┐             ┌─────────────┐
+│  Business   │╲            │    Person   │
+│ -legal_name │─○──────────┼│ -full_name  │
+│+display_name│╱            │+display_name│
+└─────────────┘             └─────────────┘
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;array: supplier, reseller, customer, sales-rep&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;virtual attribute (public method)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]&lt;/p&gt;
+&lt;h2 id=&#34;polymorphic&#34;&gt;Polymorphic&lt;/h2&gt;
+&lt;p&gt;Coming soon&lt;/p&gt;
+&lt;p&gt;a model associated with several different models - serving a similar purpose in both cases&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ┌────────────┐          ┌───────────┐
+  │            │╲       1 │           │
+  │  Business  │ ○ ─ ─ ─ ┼│  Person   │
+  │            │╱ 0..*    │           │
+  └────────────┘          └───────────┘
+        ╲│╱ *                * ╲│╱
+         └───────────┬──────────┘
+                     ┼ 1
+             ┌──────────────┐
+             │              │
+             │  Transaction │
+             │              │
+             └──────────────┘
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A contact could be either a person or a business - but must be one or the other.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g Contact roles:array business:references person:references
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the migration to ensure we have a role provided &amp;amp; relations:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the Contact model with the validations &amp;amp; flexible relations:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# contact.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the Person model and relations:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# person.rb
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the Business model and relations:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# business.rb
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets use seed a couple of people too - so it now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seed.rb
+business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
+company = Business.create(legal_name: &amp;quot;Company&amp;quot;)
+
+company.build_person(full_name: &amp;quot;Company Man&amp;quot;)
+company.save
+
+person = Person.create(full_name: &amp;quot;Own Person&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets check the seed with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming this works, let&amp;rsquo;s see the &amp;ldquo;/people&amp;rdquo; page:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
+open localhost:3000/businesses/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Great - lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;created person possibly related to the model&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 6.x - Framework Agnostic Associations - part 1</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</link>
+      <pubDate>Wed, 19 May 2021 01:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</guid>
+      <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.&lt;/p&gt;
+&lt;p&gt;This is the second article in the series.  This article is followed up with (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
+&lt;p&gt;The basic model will then look something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;          ┌───────────┐                         ┌───────────┐
+          │           │╲                       ╱│           │
+          │  Contact  │─────────────────────────│UserContact│
+          │           │╱                       ╲│           │
+          └───────────┘                         └───────────┘
+                ┼                                    ╲│╱
+                │                                     │
+  ┌─────────────┴───────────┐                         │
+  │                         │                         │
+ ╱│╲                       ╱│╲                       ╱│╲
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;┌───────────┐             ┌───────────┐             ┌───────────┐
+│           │╲            │           │             │           │
+│ Business  │─○──────────┼│  Person   │             │   User    │
+│           │╱            │           │             │           │
+└───────────┘             └───────────┘             └───────────┘
+┼                         ┼                         ┼
+│                         │                         │
+└────────────┬────────────┘                         │
+│                                      │
+╱│╲                                     │
+┌───────────┐                                │
+│           │╲                               │
+│  Remark   │─○──────────────────────────────┘
+│           │╱
+└───────────┘&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                    Created with Monodraw
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-default-rails-app&#34;&gt;Create a default Rails app&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new rails_poly
+cd rails_poly
+bin/rails db:create
+bin/rails db:migrate
+git add .
+git commit -m &amp;quot;initial commit&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;starting-simple---optional-relations&#34;&gt;Starting Simple - optional relations&lt;/h2&gt;
+&lt;h3 id=&#34;build-businesses&#34;&gt;Build Businesses&lt;/h3&gt;
+&lt;p&gt;Lets start with the simple relationship between businesses and people:&lt;/p&gt;
+&lt;p&gt;┌────────────┐             ┌───────────┐
+│            │╲          1 │           │
+│  Business  │─○──────────┼│  Person   │
+│-legal_name │╱0..*        │-full_name │
+└────────────┘             └───────────┘&lt;/p&gt;
+&lt;p&gt;For expedience, I&amp;rsquo;ll use scaffolds:&lt;/p&gt;
+&lt;p&gt;Generating a simple business model.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Business legal_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets adjust the migration to require the business&#39; legal name, by adding &lt;code&gt;null: false&lt;/code&gt; to the name:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/20210516080420_create_businesses.rb
+class CreateBusinesses &amp;lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :businesses do |t|
+      t.string :legal_name, null: false
+
+      t.timestamps
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will validate the business&#39; name in the model:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
+class Business &amp;lt; ApplicationRecord
+  validates :legal_name, presence: true
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets be sure we can migrate:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets use seed to quickly check our models and relations (&amp;amp; get an idea of how to use them):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets check the seed with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming this works, let&amp;rsquo;s see the &amp;ldquo;/businesses&amp;rdquo; page:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
+open localhost:3000/businesses/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Great - lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;created business model&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-people&#34;&gt;Build People&lt;/h3&gt;
+&lt;p&gt;Now let&amp;rsquo;s build the person model and its relations to businesses.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Person full_name business:references
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this case we want the person to optionally be a member of a business, so lets update the both the models and the migration.  Starting with the migration, we need to remove &lt;code&gt;null: false&lt;/code&gt; in the foreign key, and add that to the name - so it should now look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/20210516080414_create_people.rb
+class CreatePeople &amp;lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :people do |t|
+      t.string :full_name, null: false
+      t.references :company, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets adjust the person model - we&amp;rsquo;ll make the relation optional with &lt;code&gt;optional: true&lt;/code&gt; and require the name with the validation &lt;code&gt;validates :full_name, presence: true&lt;/code&gt;, so it should now look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/person.rb
+class Person &amp;lt; ApplicationRecord
+  belongs_to :company, optional: true
+
+  validates :full_name, presence: true
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And lets let the Business know it can have lots of people with &lt;code&gt;has_many :people&lt;/code&gt; - now the model will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
+class Business &amp;lt; ApplicationRecord
+  has_many :people
+
+  validates :legal_name, presence: true
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets check the migrations work:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets use seed a couple of people too - so it now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seed.rb
+business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
+company = Business.create(legal_name: &amp;quot;Company&amp;quot;)
+
+company.build_person(full_name: &amp;quot;Company Man&amp;quot;)
+company.save
+
+person = Person.create(full_name: &amp;quot;Own Person&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets check the seed with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets check our pages again:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
+open localhost:3000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets check the index pages&lt;/p&gt;
+&lt;p&gt;On the business page it would be nice to see how many employees - so we can update the model with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
+class Business &amp;lt; ApplicationRecord
+  has_many :people
+
+  validates :legal_name, presence: true
+
+  def people_count
+    people.count
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now &lt;code&gt;people_count&lt;/code&gt; is added as a virtual attribute (as well as all other business fields because of &lt;code&gt;&#39;businesses.*&lt;/code&gt;) - now we can use in our view using = &lt;code&gt;&amp;lt;td&amp;gt;&amp;lt;%= business.people_count %&amp;gt;&amp;lt;/td&amp;gt;&lt;/code&gt; so now it would look something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/businesses/index.html.erb
+&amp;lt;h1&amp;gt;Businesses&amp;lt;/h1&amp;gt;
+
+&amp;lt;table&amp;gt;
+  &amp;lt;thead&amp;gt;
+    &amp;lt;tr&amp;gt;
+      &amp;lt;th&amp;gt;Legal name&amp;lt;/th&amp;gt;
+      &amp;lt;th&amp;gt;Employee Count&amp;lt;/th&amp;gt;
+      &amp;lt;th colspan=&amp;quot;3&amp;quot;&amp;gt;&amp;lt;/th&amp;gt;
+    &amp;lt;/tr&amp;gt;
+  &amp;lt;/thead&amp;gt;
+
+  &amp;lt;tbody&amp;gt;
+    &amp;lt;% @businesses.each do |business| %&amp;gt;
+    &amp;lt;tr&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= business.legal_name %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= business.people_count %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Show&#39;, business %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Edit&#39;, edit_business_path(business) %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Destroy&#39;, business, method: :delete, data: { confirm: &#39;Are you sure?&#39; } %&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;/tr&amp;gt;
+    &amp;lt;% end %&amp;gt;
+  &amp;lt;/tbody&amp;gt;
+&amp;lt;/table&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and on the &amp;lsquo;/people&amp;rsquo; page it would be nice to see there business name instead of id.&lt;/p&gt;
+&lt;p&gt;so in the model:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/model/person.rb
+class Person &amp;lt; ApplicationRecord
+  belongs_to :business, optional: true
+
+  validates :full_name, presence: true
+
+  def associated_business_name
+    business&amp;amp;.legal_name
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and in the index view:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/people/index.html.erb
+&amp;lt;table&amp;gt;
+  &amp;lt;thead&amp;gt;
+    &amp;lt;tr&amp;gt;
+      &amp;lt;th&amp;gt;Full name&amp;lt;/th&amp;gt;
+      &amp;lt;th&amp;gt;Business&amp;lt;/th&amp;gt;
+      &amp;lt;th colspan=&amp;quot;3&amp;quot;&amp;gt;&amp;lt;/th&amp;gt;
+    &amp;lt;/tr&amp;gt;
+  &amp;lt;/thead&amp;gt;
+
+  &amp;lt;tbody&amp;gt;
+    &amp;lt;% @people.each do |person| %&amp;gt;
+    &amp;lt;tr&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= person.full_name %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= person.associated_business_name %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Show&#39;, person %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Edit&#39;, edit_person_path(person) %&amp;gt;&amp;lt;/td&amp;gt;
+      &amp;lt;td&amp;gt;&amp;lt;%= link_to &#39;Destroy&#39;, person, method: :delete, data: { confirm: &#39;Are you sure?&#39; } %&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;/tr&amp;gt;
+    &amp;lt;% end %&amp;gt;
+  &amp;lt;/tbody&amp;gt;
+&amp;lt;/table&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to show all employees on the business show page we can do:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/businesses/show.html.erb
+&amp;lt;p&amp;gt;
+  &amp;lt;strong&amp;gt;Legal name:&amp;lt;/strong&amp;gt;
+  &amp;lt;%= @business.legal_name %&amp;gt;
+&amp;lt;/p&amp;gt;
+
+&amp;lt;table&amp;gt;
+  &amp;lt;thead&amp;gt;
+    &amp;lt;tr&amp;gt;
+      &amp;lt;th&amp;gt;Employee&amp;lt;/th&amp;gt;
+    &amp;lt;/tr&amp;gt;
+  &amp;lt;/thead&amp;gt;
+  &amp;lt;tbody&amp;gt;
+    &amp;lt;% @business.people.each do |person| %&amp;gt;
+    &amp;lt;tr&amp;gt;&amp;lt;td&amp;gt;person.full_name&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;
+    &amp;lt;% end %&amp;gt;
+  &amp;lt;/tbody&amp;gt;
+
+&amp;lt;/table&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now lets look for n+1 queries - to do that we will create many records in the seeds file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+business = Business.create(legal_name: &amp;quot;Business&amp;quot;)
+company  = Business.create(legal_name: &amp;quot;Company&amp;quot;)
+boss_man = Person.create(full_name: &amp;quot;Company Man&amp;quot;, business: company)
+person = Person.create(full_name: &amp;quot;Own Person&amp;quot;)
+
+# larger numbers (look for n+1 lookups)
+50.times do |business_number|
+  company  = Business.create(legal_name: &amp;quot;Company #{business_number}&amp;quot;)
+  business_number.times do |employee_number|
+    Person.create(full_name: &amp;quot;Employee #{employee_number}&amp;quot;,
+                  business: company)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when we visit &amp;lsquo;/people&amp;rsquo; we see an n+1 (to look up the business to get the business name) - this is an easy fix with a pre-load in the controller - just add &lt;code&gt;.include(:business)&lt;/code&gt; to the query - now the index method will look like&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/people_controller.rb
+class PeopleController &amp;lt; ApplicationController
+
+  def index
+    @people = Person.include(:business).all
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fix n+1 lookups - for the business employee count is a bit trickier - to avoid lots of look ups we need the db to do the count and add the count as a virtual attribute - this is done with the following query:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/people_controller.rb
+class BusinessController &amp;lt; ApplicationController
+
+  def index
+    # businesses = Business.all  # (N+1 when using referring to people)
+    # select must go last or it gets lost / overwritten
+    @businesses = Business.joins(:people)
+                          .group(&#39;businesses.id&#39;)
+                          .select(&#39;businesses.*, count(people.id) as people_count&#39;)
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to avoid confusion - lets rename the method in the class to &lt;code&gt;employee_count&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
+class Business &amp;lt; ApplicationRecord
+  has_many :people
+
+  validates :legal_name, presence: true
+
+  def employee_count
+    people.count
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets run the seeds again:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;cool now when we look at the log we just have one query instead of many!&lt;/p&gt;
+&lt;p&gt;Now let&amp;rsquo;s make the people form to associate a business by name instead of the id!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/people/_form.html.erb
+&amp;lt;%= form_with(model: person) do |form| %&amp;gt;
+  &amp;lt;% if person.errors.any? %&amp;gt;
+    &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
+      &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(person.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this person from being saved:&amp;lt;/h2&amp;gt;
+
+      &amp;lt;ul&amp;gt;
+        &amp;lt;% person.errors.each do |error| %&amp;gt;
+          &amp;lt;li&amp;gt;&amp;lt;%= error.full_message %&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;% end %&amp;gt;
+      &amp;lt;/ul&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;% end %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :full_name %&amp;gt;
+    &amp;lt;%= form.text_field :full_name %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :business %&amp;gt;
+    &amp;lt;%= form.select :business_id,
+                    Business.all.collect { |b| [ b.legal_name, b.id ] },
+                    prompt: &amp;quot;Select One&amp;quot;, include_blank: true %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
+    &amp;lt;%= form.submit %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Great - lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;created person related to businesses - w/o n+1&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;          ┌───────────────┐
+          │    Contact    │
+          │  (functions)+ │ + supplier, reseller, customer, sales-rep
+          │(display_name)*│ * virtual attribute
+          └───────────────┘
+                  ┼ 1
+     ┌────────────┴─────────────┐
+    ╱│╲ *                    * ╱│╲
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;┌───────────────┐          ┌───────────────┐
+│    Business   │╲       1 │    Person     │
+│  (legal_name) │ ○ ─ ─ ─ ┼│  (full_name)  │
+│(display_name)&lt;em&gt;│╱ 0..&lt;/em&gt;    │(display_name)*│
+└───────────────┘          └───────────────┘&lt;/p&gt;
+&lt;p&gt;A contact could be either a person or a business - but must be one or the other.&lt;/p&gt;
+&lt;p&gt;This is implemented in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic&#34;&gt;Polymorphic&lt;/h2&gt;
 &lt;p&gt;a model associated with several different models - serving a similar purpose in both cases&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;  ┌────────────┐          ┌───────────┐

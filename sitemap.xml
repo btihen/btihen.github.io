@@ -47,43 +47,52 @@
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/belongs_to/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/btihen/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/flash-message/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <loc>https://btihen.me/tags/data-models/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/hotwire/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <loc>https://btihen.me/tags/databases/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/framework-agnostic/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/has_one/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/rails/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_ruby_rails/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/realtime/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/spa/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/websocket/</loc>
-    <lastmod>2021-05-19T01:57:00+02:00</lastmod>
+    <loc>https://btihen.me/tags/has_many/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</loc>
+    <lastmod>2021-05-29T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/basics/</loc>
     <lastmod>2021-05-08T01:01:53+02:00</lastmod>
@@ -157,6 +166,9 @@
     <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</loc>
     <lastmod>2021-04-10T17:01:53+02:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/tags/spa/</loc>
+    <lastmod>2021-04-10T17:01:53+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/tags/alpinejs/</loc>
     <lastmod>2021-05-06T01:01:53+02:00</lastmod>
   </url><url>
@@ -169,17 +181,29 @@
     <loc>https://btihen.me/tags/tailwindcss/</loc>
     <lastmod>2021-05-06T01:01:53+02:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/tags/hotwire/</loc>
+    <lastmod>2021-04-05T18:57:00+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/tags/lazy-load-data/</loc>
     <lastmod>2021-03-28T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</loc>
     <lastmod>2021-03-28T01:57:00+02:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/tags/realtime/</loc>
+    <lastmod>2021-04-05T18:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/websocket/</loc>
+    <lastmod>2021-04-05T18:57:00+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/tags/modal-forms/</loc>
     <lastmod>2021-03-20T18:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</loc>
     <lastmod>2021-03-20T18:57:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/flash-message/</loc>
+    <lastmod>2021-04-05T18:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</loc>
     <lastmod>2021-04-05T18:57:00+02:00</lastmod>
@@ -445,13 +469,7 @@
     <loc>https://btihen.me/tags/user-error-handling/</loc>
     <lastmod>2020-07-10T09:43:51+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/belongs_to/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/tags/dependent-delete/</loc>
-    <lastmod>2020-07-06T13:06:29+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/has_many/</loc>
     <lastmod>2020-07-06T13:06:29+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</loc>
