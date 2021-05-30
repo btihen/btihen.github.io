@@ -242,9 +242,9 @@
   <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2021-05-29T01:57:00&#43;02:00">
+      <meta property="article:published_time" content="2021-05-30T01:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-05-29T01:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-05-30T01:57:00&#43;02:00">
   
 
   
@@ -688,7 +688,7 @@
     
       
     
-    Sat, May 29, 2021
+    Sun, May 30, 2021
   </span>
   
 
@@ -723,7 +723,7 @@
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 456px; max-height: 378px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 421px; max-height: 326px;">
   <div style="position: relative">
     <img src="/post_ruby_rails/rails_6_x_agnostic_associations_3/featured.png" alt="" class="featured-image">
     
@@ -741,38 +741,32 @@
 <h2 id="overview">Overview</h2>
 <p>In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.</p>
 <p>The basic model will then look something like:</p>
-<pre><code>          ┌───────────┐                         ┌───────────┐
-          │           │╲                       ╱│           │
-          │  Contact  │─────────────────────────│UserContact│
-          │           │╱                       ╲│           │
-          └───────────┘                         └───────────┘
-                ┼                                    ╲│╱
-                │                                     │
-  ┌─────────────┴───────────┐                         │
-  │                         │                         │
- ╱│╲                       ╱│╲                       ╱│╲
+<pre><code>                   ┌───────────┐           ┌───────────┐
+                   │           │╲         ╱│           │
+  ┌──────────────○┼│  Contact  │───────────│UserContact│
+  │                │           │╱         ╲│           │
+  │                └───────────┘           └───────────┘
+  │                      ┼                      ╲│╱
+  │                      ○                       │
+  │                      │                       │
+  │                      │                       │
+ ╱│╲                    ╱│╲                      │
 </code></pre>
-<p>┌───────────┐             ┌───────────┐             ┌───────────┐
-│           │╲            │           │             │           │
-│ Business  │─○──────────┼│  Person   │             │   User    │
-│           │╱            │           │             │           │
-└───────────┘             └───────────┘             └───────────┘
-┼                         ┼                         ┼
-│                         │                         │
-└────────────┬────────────┘                         │
-│                                      │
-╱│╲                                     │
-┌───────────┐                                │
-│           │╲                               │
-│  Remark   │─○──────────────────────────────┘
-│           │╱
-└───────────┘</p>
-<pre><code>                    Created with Monodraw
-
-              *virtual attribute
-
-             Created with Monodraw
-</code></pre>
+<p>┌───────────┐          ┌───────────┐                 │
+│           │╲         │           │                 │
+│ Business  │─○───────┼│  Person   │                 │
+│           │╱         │           │                 │
+└───────────┘          └───────────┘                 │
+╲│╱                    ╲│╱                      │
+│                      │                       │
+│                      │                       │
+│                      ○                       │
+│                      ┼                      ╱│╲
+│                ┌───────────┐           ┌───────────┐
+│                │           │          ╱│           │
+└──────────────○┼│  Remark   │┼──────────│   User    │
+│           │          ╲│           │
+└───────────┘           └───────────┘</p>
 <h2 id="rails-app-and-first-models">Rails app and first Models</h2>
 <pre><code>┌────────────┐             ┌───────────┐
 │            │╲          1 │           │
@@ -805,60 +799,185 @@
 <li>virtual attribute (public method)</li>
 </ul>
 <p>We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]</p>
-<h2 id="polymorphic">Polymorphic</h2>
-<p>Coming soon</p>
-<p>a model associated with several different models - serving a similar purpose in both cases</p>
-<pre><code>  ┌────────────┐          ┌───────────┐
-  │            │╲       1 │           │
-  │  Business  │ ○ ─ ─ ─ ┼│  Person   │
-  │            │╱ 0..*    │           │
-  └────────────┘          └───────────┘
-        ╲│╱ *                * ╲│╱
-         └───────────┬──────────┘
-                     ┼ 1
-             ┌──────────────┐
-             │              │
-             │  Transaction │
-             │              │
-             └──────────────┘
+<h2 id="polymorphic-modeling">Polymorphic Modeling</h2>
+<p>Is a model that can be associated with several different models - serving a similar purpose in all cases.  For example perhaps we would like to leave remarks on our interactions with various other business partners as shown below.</p>
+<p>┌───────────┐          ┌───────────┐
+│           │╲         │           │
+│ Business  │─○───────┼│  Person   │
+│           │╱         │           │
+└───────────┘          └───────────┘
+╲│╱                    ╲│╱
+│                      │
+│                      │
+│                      ○
+│                      ┼
+│                ┌───────────┐           ┌───────────┐
+│                │           │          ╱│           │
+└──────────────○┼│  Remark   │┼──────────│   User    │
+│           │          ╲│           │
+└───────────┘           └───────────┘</p>
+<p>A Remark could be either associated with either a person or a business - this is called polymorphism.  For ubiquitous things like comments, pictures, etc. this is a common approach.</p>
+<p>The standard rails way - is convenient (only uses 2 columns for any number of models), but lacks a foreign key so the DB can&rsquo;t ensure Data integrity.  For this reason, many other frameworks do not encourage this approach.  So we will use an approach accepted by all frameworks.</p>
+<h3 id="models-and-relationships">Models and relationships</h3>
+<p>Lets build the user model first so we have all the models needed by Remark.</p>
+<pre><code class="language-ruby">bin/rails g model User email:string:uniq
 </code></pre>
-<p>A contact could be either a person or a business - but must be one or the other.</p>
-<pre><code class="language-bash">bin/rails g Contact roles:array business:references person:references
-</code></pre>
-<p>update the migration to ensure we have a role provided &amp; relations:</p>
-<pre><code class="language-ruby">#
-</code></pre>
-<p>update the Contact model with the validations &amp; flexible relations:</p>
-<pre><code class="language-ruby"># contact.rb
-</code></pre>
-<p>update the Person model and relations:</p>
-<pre><code class="language-ruby"># person.rb
+<p>Let&rsquo;s add an email validation to match the DB settings (and case insensitive):</p>
+<pre><code class="language-ruby"># app/models/user.rb
+class User &lt; ApplicationRecord
+  validates :name, presence: true,
+                   uniqueness: { case_sensitive: false }
+end
 
 </code></pre>
-<p>update the Business model and relations:</p>
-<pre><code class="language-ruby"># business.rb
-
+<p>Given the simplicity of this model we can just continue. lets build Remark now.</p>
+<pre><code class="language-ruby">bin/rails g model Remark note:text user:references business:references person:references
 </code></pre>
-<p>lets use seed a couple of people too - so it now looks like:</p>
+<p>Like contact we will need to update the migration to allow null in the Business and Person foreign keys, but not for user.  Then we will update the models too.</p>
+<p>update the migration to ensure we have a note and user, and allow either a business or person associated with each remark:</p>
+<pre><code class="language-ruby"># db/migrate/20210530104742_create_remarks.rb
+class CreateRemarks &lt; ActiveRecord::Migration[6.1]
+  def change
+    create_table :remarks do |t|
+      t.text :note, null: false
+
+      t.references :business, foreign_key: true
+      t.references :person, foreign_key: true
+      t.references :user, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+</code></pre>
+<p>Now we will update the User, Business and Person models to know they could have many remarks with <code>has_many :remarks</code>:</p>
+<pre><code class="language-ruby"># app/models/user.rb
+class User &lt; ApplicationRecord
+  has_many :remarks
+  validates :email, presence: true,
+                    uniqueness: { case_sensitive: false }
+end
+</code></pre>
+<pre><code class="language-ruby"># app/models/person.rb
+class Person &lt; ApplicationRecord
+  has_one :contact
+  has_many :remarks
+  belongs_to :business, optional: true
+
+  validates :contact, presence: true
+  validates :full_name, presence: true
+
+  def display_name
+    full_name
+  end
+
+  def employee_count
+    nil
+  end
+
+  def associated_business_name
+    business&amp;.display_name
+  end
+end
+</code></pre>
+<pre><code class="language-ruby"># app/models/business.rb
+class Business &lt; ApplicationRecord
+  has_one :contact
+  has_many :people
+  has_many :remarks
+
+  accepts_nested_attributes_for :contact
+
+  validates :contact, presence: true
+  validates :legal_name, presence: true
+
+  def display_name
+    legal_name
+  end
+
+  def employee_count
+    people.count
+  end
+
+  def associated_business_name
+    &quot;&quot;
+  end
+end
+</code></pre>
+<p>update the Remark model with the validations to enforce relations:</p>
+<pre><code class="language-ruby"># app/models/remark.rb
+class Remark &lt; ApplicationRecord
+  belongs_to :user
+  belongs_to :person, optional: true
+  belongs_to :business, optional: true
+
+  validates :user, presence: true
+  validates :note, presence: true
+  # validate :validate_remarkable_belongs_to_one_and_only_one_foreign_key
+
+  def remarkable
+    business || person
+  end
+
+  private
+
+  # exclusive or (XOR) is true if one or the other is true, but both
+  # if un-persisted we could get a model w/o an id
+  # if persisted we could have a model and an id
+  def validate_remarkable_belongs_to_one_and_only_one_foreign_key
+    return if (business_id.present? ^ person_id.present?) ||
+              (business.present? ^ person.present?)
+
+    # add to base since, some forms may not have the person/business fields
+    errors.add :base, 'must belong to ONE business or person, but not both'
+    # errors.add :remarkable, 'must belong to a business or a person'
+  end
+end
+</code></pre>
+<p>Lets be sure this migrates:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>Now lets add the following to the end of our seed file:</p>
 <pre><code class="language-ruby"># db/seed.rb
-business = Business.create(legal_name: &quot;Business&quot;)
-company = Business.create(legal_name: &quot;Company&quot;)
+# We will create a few users
+require 'securerandom'
 
-company.build_person(full_name: &quot;Company Man&quot;)
-company.save
+10.times do
+  username = SecureRandom.alphanumeric(10)  # or use SecureRandom.uuid
+  User.create!(email: &quot;#{username}@example.ch&quot;)
+end
 
-person = Person.create(full_name: &quot;Own Person&quot;)
+# Lets add a remark to most People and Business (using a random user)
+users = User.all
+
+Person.all.each_with_index do |person, index|
+  next if rand(1..3) == 1  # skip one in 3 people
+
+  user = users.sample
+  Remark.create!(person: person, user: user,
+                note: &quot;some note about #{person.display_name}, by user: #{user.email}&quot;)
+end
+
+Business.all.each_with_index do |business, index|
+  next if rand(1..4) == 1  # skip one in 4 businesses
+
+  user = users.sample
+  Remark.create!(business: business, user: user,
+                note: &quot;some note about #{business.display_name}, by user: #{user.email}&quot;)
+end
 </code></pre>
 <p>Lets check the seed with:</p>
 <pre><code class="language-bash">bin/rails db:seed
 </code></pre>
+<h2 id="n1-checks--forms">N+1 checks &amp; Forms</h2>
+<p><strong>Comming soon &hellip;</strong></p>
 <p>Assuming this works, let&rsquo;s see the &ldquo;/people&rdquo; page:</p>
 <pre><code class="language-bash">bin/rails s
 open localhost:3000/businesses/
 </code></pre>
 <p>Great - lets snapshot:</p>
 <pre><code class="language-bash">git add .
-git commit -m &quot;created person possibly related to the model&quot;
+git commit -m &quot;created an agnostic polymorphic model with data integrity enforced&quot;
 </code></pre>
 
     </div>

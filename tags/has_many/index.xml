@@ -23,34 +23,33 @@
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;          ┌───────────┐                         ┌───────────┐
-          │           │╲                       ╱│           │
-          │  Contact  │─────────────────────────│UserContact│
-          │           │╱                       ╲│           │
-          └───────────┘                         └───────────┘
-                ┼                                    ╲│╱
-                │                                     │
-  ┌─────────────┴───────────┐                         │
-  │                         │                         │
- ╱│╲                       ╱│╲                       ╱│╲
+&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
+                   │           │╲         ╱│           │
+  ┌──────────────○┼│  Contact  │───────────│UserContact│
+  │                │           │╱         ╲│           │
+  │                └───────────┘           └───────────┘
+  │                      ┼                      ╲│╱
+  │                      ○                       │
+  │                      │                       │
+  │                      │                       │
+ ╱│╲                    ╱│╲                      │
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐             ┌───────────┐             ┌───────────┐
-│           │╲            │           │             │           │
-│ Business  │─○──────────┼│  Person   │             │   User    │
-│           │╱            │           │             │           │
-└───────────┘             └───────────┘             └───────────┘
-┼                         ┼                         ┼
-│                         │                         │
-└────────────┬────────────┘                         │
-│                                      │
-╱│╲                                     │
-┌───────────┐                                │
-│           │╲                               │
-│  Remark   │─○──────────────────────────────┘
-│           │╱
-└───────────┘&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                    Created with Monodraw
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+│           │╲         │           │                 │
+│ Business  │─○───────┼│  Person   │                 │
+│           │╱         │           │                 │
+└───────────┘          └───────────┘                 │
+╲│╱                    ╲│╱                      │
+│                      │                       │
+│                      │                       │
+│                      ○                       │
+│                      ┼                      ╱│╲
+│                ┌───────────┐           ┌───────────┐
+│                │           │          ╱│           │
+└──────────────○┼│  Remark   │┼──────────│   User    │
+│           │          ╲│           │
+└───────────┘           └───────────┘
+Created with Monodraw&lt;/p&gt;
 &lt;h2 id=&#34;create-a-default-rails-app&#34;&gt;Create a default Rails app&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new rails_poly
 cd rails_poly
