@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-03-06T18:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-06T18:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:57:00&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -689,8 +689,10 @@
     
     
       
+          Last updated on
+      
     
-    Sat, Mar 6, 2021
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -727,7 +729,7 @@
 
 <div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
   <div style="position: relative">
-    <img src="/post_ruby_rails/rails_6_1_hotwire_flash_messages/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="/post_ruby_rails/rails_6_1_hotwire_flash_messages/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_3.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -745,24 +747,24 @@
 <a href="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/">Using Hotwire in Rails</a></p>
 <h2 id="flash-messages-in-partial">Flash Messages in Partial</h2>
 <p>Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates &ndash; so let&rsquo;s prepare <code>application.html.erb</code> so that flash messages use partials.</p>
-<pre><code># app/views/layouts/application.html.erb
+<pre><code class="language-ruby"># app/views/layouts/application.html.erb
 &lt;body&gt;
   &lt;%= render &quot;shared/notice&quot;, notice: notice %&gt;
   &lt;%= yield %&gt;
 &lt;/body&gt;
 </code></pre>
 <p>and of course we need a partials for notices now (we will keep it very simple):</p>
-<pre><code># app/views/shared/_notice.html.erb
+<pre><code class="language-ruby"># app/views/shared/_notice.html.erb
 &lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
 </code></pre>
 <p>now we will create a turbo template to handle the flash on create:</p>
-<pre><code># app/views/tweets/create.turbo_stream.erb
+<pre><code class="language-ruby"># app/views/tweets/create.turbo_stream.erb
 &lt;%# to send a message to the notice partial %&gt;
 &lt;!--            action   dom_id         partial with dom_id   data to send in the notice --&gt;
 &lt;%= turbo_stream.append &quot;notice&quot;, partial: &quot;shared/notice&quot;, locals: {notice: &quot;Tweet created.&quot;} %&gt;
 </code></pre>
 <p>In order for the controller and turbo_stream to handle this non-standard action we need to update the create method in the controller with the instructions <code>format.turbo_stream</code> on a successful create:</p>
-<pre><code># app/controllers/tweets_controller.rb
+<pre><code class="language-ruby"># app/controllers/tweets_controller.rb
 def create
     @tweet = Tweet.new(tweet_params)
 
@@ -784,7 +786,7 @@ def create
 </code></pre>
 <p>Now when we test everything works great, except our form no longer clears. We can fix that by adding a second action to the create template (we will send a Tweet.new - there are other approaches too - covered in 
 <a href="/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs">Hotwire and StimulusJS</a>)</p>
-<pre><code># app/views/tweets/create.turbo_stream.erb
+<pre><code class="language-ruby"># app/views/tweets/create.turbo_stream.erb
 &lt;%# clear form on create - without using JavaScript - by replacing the old Tweet info with Tweet.new %&gt;
 &lt;%= turbo_stream.replace &quot;tweet-form&quot;, partial: &quot;tweets/form&quot;, locals: { tweet: Tweet.new } %&gt;
 &lt;%# to send a message to the notice partial %&gt;
@@ -793,19 +795,19 @@ def create
 <h2 id="refactor">Refactor</h2>
 <p>You might have noticed, that we have moved most of our turbo_steam template to the template file, but not the replace for validation errors &ndash; since we already have a <code>replace</code> command in our template - we will need to leave our specific instructions in the errors as is &ndash; until we clear the form with JS.</p>
 <p>NOTE: now that we are consolidating our template info it might be tempting to add the following:</p>
-<pre><code>&lt;!-- to prepend on create - disabled to avoid double vision when broadcasting --&gt;
+<pre><code class="language-ruby">&lt;!-- to prepend on create - disabled to avoid double vision when broadcasting --&gt;
 &lt;%#%   stream_action   dom_id_target, render_partial,       send_local_variables   %&gt;
 &lt;%= turbo_stream.prepend &quot;tweets&quot;, partial: &quot;tweets/tweet&quot;, locals: { tweet: @tweet } %&gt;
 </code></pre>
 <p>but don&rsquo;t add the default happy path instructions to the template when a model already has a broadcast after hook - if you add this instruction the person creating a new tweet will see two!</p>
 <h2 id="flash-after-we-update">Flash after we update</h2>
 <p>This is now very straight forward we simply add <code>format.turbo_stream</code> to our save and create an <code>update.turbo_stream.erb</code> template</p>
-<pre><code># app/views/tweets/update.turbo_stream.erb
+<pre><code class="language-ruby"># app/views/tweets/update.turbo_stream.erb
 &lt;%# to send a message to the notice partial %&gt;
 &lt;%= turbo_stream.append &quot;notice&quot;, partial: &quot;shared/notice&quot;, locals: {notice: &quot;Tweet was successfully created.&quot;} %&gt;
 </code></pre>
 <p>And now we can tell the controller to use that:</p>
-<pre><code>#  app/controllers/tweets_controller.rb
+<pre><code class="language-ruby">#  app/controllers/tweets_controller.rb
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
@@ -822,7 +824,8 @@ def create
 <p>We don&rsquo;t have to clear the form on update since the <code>edit</code> template is replaced with the <code>show</code> template already.  So we are done.</p>
 <h2 id="resources">Resources</h2>
 <p>The repo where you can find this code in the branch:
-<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages</a></p>
+
+<a href="https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages" target="_blank" rel="noopener">https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages</a></p>
 
     </div>
 
@@ -1180,7 +1183,7 @@ def create
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

@@ -23,11 +23,12 @@
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt; allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;
-&lt;p&gt;This code can be found at: &lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This code can be found at: 
+&lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;h3 id=&#34;create-the-project&#34;&gt;Create the project&lt;/h3&gt;
 &lt;p&gt;We&amp;rsquo;ll skip Turbolinks since Turbo replaces Turbolinks and also installs Stimulus&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
 cd tweets
 git add .
 git commit -m &amp;quot;initial commit after creation&amp;quot;
@@ -36,10 +37,10 @@ git commit -m &amp;quot;initial commit after creation&amp;quot;
 &lt;h3 id=&#34;create-a-traditional-rails-tweet-clone&#34;&gt;Create a Traditional Rails Tweet Clone&lt;/h3&gt;
 &lt;h4 id=&#34;tweet-model&#34;&gt;Tweet Model&lt;/h4&gt;
 &lt;p&gt;We&amp;rsquo;ll scaffold the model to get all the parts we need&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails g scaffold tweet body:text likes:integer retweets:integer
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g scaffold tweet body:text likes:integer retweets:integer
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We&amp;rsquo;ll update the migration to prevent blanks - make the migration file look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# db/migrate/yyyymmddHHMMSS_create_tweets.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/yyyymmddHHMMSS_create_tweets.rb
 class CreateTweets &amp;lt; ActiveRecord::Migration[6.1]
   def change
     create_table :tweets do |t|
@@ -53,28 +54,28 @@ class CreateTweets &amp;lt; ActiveRecord::Migration[6.1]
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we should be able to successfully create and migrate out database&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails db:create
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:create
 bin/rails db:migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Given the Database restrictions we&amp;rsquo;ll add validations to the model. So now it should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/tweet.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/tweet.rb
 class Tweet &amp;lt; ApplicationRecord
   validates :body, presence: true
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets also point the root route at our tweets resource - so now it should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/routes.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
 Rails.application.routes.draw do
   resources :tweets
   root to: &amp;quot;tweets#index&amp;quot;
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets start up rails and be sure everything works so far:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails s
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;go to &lt;code&gt;http://localhost:3000&lt;/code&gt; and make and edit and delete some tweets.&lt;/p&gt;
 &lt;p&gt;Assuming it works lets commit these changes.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&#34;lets-make-this-useable-more-like-a-single-page-app&#34;&gt;Let&amp;rsquo;s make this useable (more like a single page app)&lt;/h4&gt;
@@ -90,7 +91,7 @@ git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
 &lt;p&gt;As mentioned users shouldn&amp;rsquo;t choose their likes and retweets:
 &lt;img src=&#34;tweet_form_1st.png&#34; alt=&#34;tweet_form_1st&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Now lets remove likes and retweets from our form:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_form.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_form.html.erb
 &amp;lt;%= form_with(model: tweet) do |form| %&amp;gt;
   &amp;lt;% if tweet.errors.any? %&amp;gt;
     &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
@@ -119,7 +120,7 @@ git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
 &lt;p&gt;If you made several tweets you&amp;rsquo;ll notice that the tweets are in oldest to newest.
 &lt;img src=&#34;tweet_index_1st_oldest.png&#34; alt=&#34;tweet_index_1st&#34;&gt;&lt;/p&gt;
 &lt;p&gt;We&amp;rsquo;ll fix that with the index controller sort order:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
 class TweetsController &amp;lt; ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
 
@@ -132,7 +133,7 @@ end
 &lt;p&gt;&lt;img src=&#34;tweet_index_2nd_newest.png&#34; alt=&#34;tweet_index_2nd&#34;&gt;&lt;/p&gt;
 &lt;p&gt;now tweets should be newest to oldest&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s put our create tweet at the top of our index page&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
@@ -145,7 +146,7 @@ end
 &lt;p&gt;now when we check out index page again &amp;ndash; oops, we get an error:
 &lt;img src=&#34;tweet_index_3rd_error.png&#34; alt=&#34;tweet_index_3rd_error&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;errors&lt;/code&gt; is null because the new instance isn&amp;rsquo;t available we need to add a new tweet to our index page from the controller:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
 class TweetsController &amp;lt; ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
 
@@ -163,7 +164,7 @@ class TweetsController &amp;lt; ApplicationController
 &lt;p&gt;with:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;We will have the same problem with update &amp;ndash; so let&amp;rsquo;s fix them both.  Now the controller should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
 
@@ -194,7 +195,7 @@ class TweetsController &amp;lt; ApplicationController
 &lt;img src=&#34;tweet_index_5th_after_create.png&#34; alt=&#34;tweet_index_5th&#34;&gt;&lt;/p&gt;
 &lt;p&gt;OK we are almost there, but we still have rows of tables and not a nice tweet feed look.&lt;/p&gt;
 &lt;p&gt;Lets add Bootstrap CSS for some modest beauty (you can copy this file or use the below link to get the newest Bootstrap CSS)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/layout/application.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layout/application.html.erb
 &amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
@@ -217,9 +218,11 @@ class TweetsController &amp;lt; ApplicationController
 
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;you can get the newest bootstrap link from: &lt;a href=&#34;https://getbootstrap.com/docs/&#34;&gt;https://getbootstrap.com/docs/&lt;/a&gt; or &lt;a href=&#34;https://www.bootstrapcdn.com/&#34;&gt;https://www.bootstrapcdn.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;you can get the newest bootstrap link from: 
+&lt;a href=&#34;https://getbootstrap.com/docs/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://getbootstrap.com/docs/&lt;/a&gt; or 
+&lt;a href=&#34;https://www.bootstrapcdn.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bootstrapcdn.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now lets make a partial reformat our feed with bootstrap:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_tweet.html.erb
 &amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
   &amp;lt;div&amp;gt;&amp;lt;%= tweet.body %&amp;gt;&amp;lt;/div&amp;gt;
 
@@ -238,7 +241,7 @@ class TweetsController &amp;lt; ApplicationController
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets integrate the tweet partial into the index page:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
@@ -258,7 +261,7 @@ git commit -m &amp;quot;tweet app mostly from the index page&amp;quot;
 &lt;h4 id=&#34;activate-likes-and-retweets&#34;&gt;Activate likes and retweets&lt;/h4&gt;
 &lt;p&gt;To finish this simple app lets activate Likes and Retweets - we will do this with new controllers since this is an independent action from our tweet itself.  We will use the &lt;code&gt;create&lt;/code&gt; since we are &lt;code&gt;creating&lt;/code&gt; a like or a retweet.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s build the like controller - we will redirect back to the index where we want to stay:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/likes_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/likes_controller.rb
 class LikesController &amp;lt; ApplicationController
   before_action :set_tweet
 
@@ -275,7 +278,7 @@ class LikesController &amp;lt; ApplicationController
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And now the retweet controller:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/retweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/retweets_controller.rb
 class RetweetsController &amp;lt; ApplicationController
   before_action :set_tweet
 
@@ -292,7 +295,7 @@ class RetweetsController &amp;lt; ApplicationController
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These controllers are dependent on the tweet so they are subroutes of a tweet - so lets update our routes to be:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/routes.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
 Rails.application.routes.draw do
   resources :tweets do
     resource :like, only: [:create]
@@ -302,7 +305,7 @@ Rails.application.routes.draw do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets add the connection to controller in our front-end with buttons.  Note we need to use the &lt;code&gt;method: :post&lt;/code&gt; for our like and retweet &lt;code&gt;create&lt;/code&gt; because these are normally &lt;code&gt;posted&lt;/code&gt; by the &lt;code&gt;edit&lt;/code&gt; form.  In this case we want to bypass a form and just update.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_tweet.html.erb
 &amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
   &amp;lt;div&amp;gt;&amp;lt;%= tweet.body %&amp;gt;&amp;lt;/div&amp;gt;
 
@@ -327,7 +330,7 @@ end
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Test that everything works as expected!  Assuming it works - we will take another snapshot.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on index page&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_7th_likes_retweets.png&#34; alt=&#34;tweet_index_7th&#34;&gt;&lt;/p&gt;
@@ -352,22 +355,28 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
 &lt;p&gt;In the end, I feel like its easier / better to use tailwindcss with AlpineJS since that is how it evolved and lots of Internet resources are available for that.&lt;/p&gt;
 &lt;h2 id=&#34;install-tailwind-css-20&#34;&gt;Install Tailwind CSS 2.0&lt;/h2&gt;
 &lt;h3 id=&#34;tailwind-css-20-install&#34;&gt;Tailwind CSS 2.0 Install&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://tailwindcss.com/docs&#34;&gt;https://tailwindcss.com/docs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://tailwindcss.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://tailwindcss.com/docs&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) &amp;ndash; with or without upgrading webpacker the following should work:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add tailwindcss@latest postcss@latest autoprefixer@latest
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
 # if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
 # yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add alpinejs
+&lt;p&gt;now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus play well together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add alpinejs
 yarn add alpine-turbo-drive-adapter
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you see something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;arn add aplinejs
+error An unexpected error occurred: “https://registry.yarnpkg.com/aplinejs: Not found”.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then check the spelling of the package(s).&lt;/p&gt;
 &lt;p&gt;Now create the tailwind config file&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npx tailwindcss init
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npx tailwindcss init
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now config tailwind:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# tailwind.config.js
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// tailwind.config.js
 module.exports = {
   purge: [
     &#39;./app/**/*/*.html.erb&#39;,
@@ -390,7 +399,7 @@ module.exports = {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;tell &lt;code&gt;postcss.config.js&lt;/code&gt; about tailwind:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* postcss.config.js */
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/* postcss.config.js */
 module.exports = {
   plugins: [
     require(&amp;quot;tailwindcss&amp;quot;)(&amp;quot;./tailwind.config.js&amp;quot;),
@@ -406,7 +415,7 @@ module.exports = {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;create application.scss&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir app/javascript/stylesheets
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/javascript/stylesheets
 touch app/javascript/stylesheets/application.scss
 cat &amp;lt;&amp;lt;EOF &amp;gt;app/javascript/stylesheets/application.scss
 /* app/javascript/stylesheets/application.scss */
@@ -418,7 +427,7 @@ cat &amp;lt;&amp;lt;EOF &amp;gt;app/javascript/stylesheets/application.scss
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;import tailwind into &lt;code&gt;application.js&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* app/javascript/packs/application.js */
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/* app/javascript/packs/application.js */
 import Rails from &amp;quot;@rails/ujs&amp;quot;
 import &amp;quot;@hotwired/turbo-rails&amp;quot;
 import * as ActiveStorage from &amp;quot;@rails/activestorage&amp;quot;
@@ -439,9 +448,10 @@ import &amp;quot;controllers&amp;quot;
 require(&amp;quot;trix&amp;quot;)
 require(&amp;quot;@rails/actiontext&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It&amp;rsquo;s great to get samples from &lt;a href=&#34;https://tailwindui.com&#34;&gt;https://tailwindui.com&lt;/a&gt; (&amp;amp; other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s great to get samples from 
+&lt;a href=&#34;https://tailwindui.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://tailwindui.com&lt;/a&gt; (&amp;amp; other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.&lt;/p&gt;
 &lt;p&gt;create a navbar:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch app/views/layouts/_navbar.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch app/views/layouts/_navbar.html.erb
 cat &amp;lt;&amp;lt;EOF &amp;gt;app/views/layouts/_navbar.html.erb
 &amp;lt;nav x-data=&amp;quot;{ open: false }&amp;quot; class=&amp;quot;bg-gray-800&amp;quot;&amp;gt;
   &amp;lt;!-- NavBar here --&amp;gt;
@@ -449,7 +459,7 @@ cat &amp;lt;&amp;lt;EOF &amp;gt;app/views/layouts/_navbar.html.erb
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create a footer:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- app/views/layouts/_footer.html.erb --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- app/views/layouts/_footer.html.erb --&amp;gt;
 &amp;lt;footer class=&amp;quot;bg-gray-50&amp;quot; aria-labelledby=&amp;quot;footerHeading&amp;quot;&amp;gt;
   &amp;lt;h2 id=&amp;quot;footerHeading&amp;quot; class=&amp;quot;sr-only&amp;quot;&amp;gt;Company&amp;lt;/h2&amp;gt;
   &amp;lt;div class=&amp;quot;max-w-md mx-auto pt-12 px-4 sm:max-w-7xl sm:px-6 lg:pt-16 lg:px-8&amp;quot;&amp;gt;
@@ -465,11 +475,11 @@ EOF
 &amp;lt;/footer&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Update the landing page:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- app/views/landing/index.html.erb --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- app/views/landing/index.html.erb --&amp;gt;
 &amp;lt;!-- landing page here --&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;application.html.erb&lt;/code&gt; needs to import the javascript stylesheet and the navbar&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- app/views/layouts/application.html.erb --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- app/views/layouts/application.html.erb --&amp;gt;
 &amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
@@ -512,59 +522,67 @@ EOF
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You may need to want rails with both (to increase reload speed after changes &amp;ndash; but &lt;code&gt;bin/rails s&lt;/code&gt; is enough):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails s
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
 # runnding the following in a separate window tends to speed CSS / JS recompilation
 ./bin/webpack-dev-server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install-tailwind-svg-icons&#34;&gt;Install Tailwind SVG Icons&lt;/h2&gt;
 &lt;p&gt;You can embed the Icon directly into the View - downloading from:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://heroicons.dev/&#34;&gt;https://heroicons.dev/&lt;/a&gt;
-&lt;a href=&#34;https://heroicons.com/&#34;&gt;https://heroicons.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://heroicons.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.dev/&lt;/a&gt;
+
+&lt;a href=&#34;https://heroicons.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;However, you can also use a gem and add flexibility:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/bharget/heroicon&#34;&gt;https://github.com/bharget/heroicon&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/bharget/heroicon&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bharget/heroicon&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In gemfile&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gem &amp;quot;heroicon&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;gem &amp;quot;heroicon&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;From CLI:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle
 rails g heroicon:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Usage:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= heroicon &amp;quot;search&amp;quot; %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= heroicon &amp;quot;search&amp;quot; %&amp;gt;
 &amp;lt;%= heroicon &amp;quot;search&amp;quot;, variant: :outline %&amp;gt;
 &amp;lt;%= heroicon &amp;quot;search&amp;quot;, options: { class: &amp;quot;text-primary-500&amp;quot; } %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;or
-&lt;a href=&#34;https://github.com/andrewjmead/rails_heroicons/&#34;&gt;https://github.com/andrewjmead/rails_heroicons/&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/andrewjmead/rails_heroicons/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/andrewjmead/rails_heroicons/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Gemfile&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gem &#39;rails_heroicons&#39;, &#39;~&amp;gt; 1.0.1&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;gem &#39;rails_heroicons&#39;, &#39;~&amp;gt; 1.0.1&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;CLI&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle
 gem install rails_heroicons
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Usage:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= heroicon(&#39;user&#39;) %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= heroicon(&#39;user&#39;) %&amp;gt;
 &amp;lt;%= heroicon(&#39;user&#39;, class_name: &#39;icon icon-large&#39;) %&amp;gt;
 &amp;lt;%= heroicon(&#39;user&#39;, style: :outline, class_name: &#39;icon icon-large&#39;) %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The classes magically update the SVG embedded using:&lt;/p&gt;
 &lt;h3 id=&#34;use-svg-images--icons-in-rails----heroicons-or-zondicons&#34;&gt;USE SVG Images / Icons in Rails &amp;ndash; HeroIcons or ZondIcons&lt;/h3&gt;
 &lt;p&gt;Downloaded SVG images in Rails:
-&lt;a href=&#34;https://heroicons.com/&#34;&gt;https://heroicons.com/&lt;/a&gt;
-&lt;a href=&#34;https://heroicons.dev/&#34;&gt;https://heroicons.dev/&lt;/a&gt;
-&lt;a href=&#34;http://www.zondicons.com/icons.html&#34;&gt;http://www.zondicons.com/icons.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://heroicons.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.com/&lt;/a&gt;
+
+&lt;a href=&#34;https://heroicons.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.dev/&lt;/a&gt;
+
+&lt;a href=&#34;http://www.zondicons.com/icons.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.zondicons.com/icons.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;OR download the Icons and use the gem:
-&lt;a href=&#34;https://github.com/jamesmartin/inline_svg&#34;&gt;https://github.com/jamesmartin/inline_svg&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/jamesmartin/inline_svg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/jamesmartin/inline_svg&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Gemfile:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gem &#39;inline_svg&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;gem &#39;inline_svg&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;CLI:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle
 gem install inline_svg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;USAGE:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Sprockets
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# Sprockets
 inline_svg_tag(file_name, options={})
 
 # Webpacker
@@ -572,10 +590,13 @@ inline_svg_pack_tag(file_name, options={})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;OR without gem:&lt;/p&gt;
 &lt;p&gt;you can embed the SVG directly into rails using:
-&lt;a href=&#34;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&#34;&gt;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;reference-articles&#34;&gt;Reference Articles&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&#34;&gt;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&lt;/a&gt;
-&lt;a href=&#34;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&#34;&gt;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&lt;/a&gt;
+
+&lt;a href=&#34;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

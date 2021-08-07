@@ -25,7 +25,7 @@
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;prepare-our-code&#34;&gt;Prepare our code&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s remove the extra Tweet.new load in the controller&amp;rsquo;s index method:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def index
     @tweets = Tweet.all.order(created_at: :desc)
     # @tweet = Tweet.new # no longer needed
@@ -34,7 +34,7 @@
 &lt;p&gt;now if we try our code we get a null value error (for course).&lt;/p&gt;
 &lt;p&gt;So to fix this we need to load the data back in (and restructure our index page a bit).&lt;/p&gt;
 &lt;p&gt;Turbo works well if you use the normal templates - so in this case we will use the &lt;code&gt;new&lt;/code&gt; template on the home page to call the new form and get its own data:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
 &amp;lt;%= turbo_stream_from &amp;quot;tweets&amp;quot; %&amp;gt;
 
@@ -50,7 +50,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Notice the new template is using the dom_id &amp;ldquo;new-tweet&amp;rdquo; and not &amp;ldquo;new_tweet&amp;rdquo;. Also note that this tag has a &lt;code&gt;src:&lt;/code&gt; - that is where it is getting its data source (&amp;amp; view to use) - in this case the &lt;code&gt;new_tweet_path&lt;/code&gt; routes to &lt;code&gt;tweets_controller#new&lt;/code&gt; and that calls the &lt;code&gt;veiw&lt;/code&gt; template.  The final thing to note is the &lt;code&gt;target&lt;/code&gt; - this tells the turbo_tag to look / act outside the contraints of its frame (otherwise we couldn&amp;rsquo;t reach the controller).&lt;/p&gt;
 &lt;p&gt;Currently this won&amp;rsquo;t work yet - we need to create a &lt;strong&gt;matching tag&lt;/strong&gt; &amp;ndash; including the &lt;code&gt;target&lt;/code&gt; in the &lt;code&gt;new&lt;/code&gt; template.  So our updated &lt;code&gt;new&lt;/code&gt; template now looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; app/views/tweets/new.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt; app/views/tweets/new.html.erb
 &amp;lt;h1&amp;gt;New Tweet&amp;lt;/h1&amp;gt;
 
 &amp;lt;%= turbo_frame_tag &amp;quot;new-tweet&amp;quot;, target: &amp;quot;_top&amp;quot; do %&amp;gt;
@@ -60,7 +60,8 @@
 &lt;p&gt;Now we should have a new form that uses the standard rails data flow within the index - just like the display and edit of individual tweets also uses show and edit templates too.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:
-&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

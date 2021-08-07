@@ -20,73 +20,99 @@
       <description>&lt;h2 id=&#34;auth&#34;&gt;Auth&lt;/h2&gt;
 &lt;p&gt;Auth with POW&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.skcript.com/svr/using-bamboo-to-send-emails-in-phoenix/&#34;&gt;https://www.skcript.com/svr/using-bamboo-to-send-emails-in-phoenix/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-auth-some-users/&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-auth-some-users/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-sign-up-flow-spa-style-with-liveview/&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-sign-up-flow-spa-style-with-liveview/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/@andreichernykh/phoenix-simple-authentication-authorization-in-step-by-step-tutorial-form-dc93ea350153&#34;&gt;https://medium.com/@andreichernykh/phoenix-simple-authentication-authorization-in-step-by-step-tutorial-form-dc93ea350153&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.skcript.com/svr/using-bamboo-to-send-emails-in-phoenix/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.skcript.com/svr/using-bamboo-to-send-emails-in-phoenix/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-auth-some-users/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-auth-some-users/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-sign-up-flow-spa-style-with-liveview/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-sign-up-flow-spa-style-with-liveview/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://medium.com/@andreichernykh/phoenix-simple-authentication-authorization-in-step-by-step-tutorial-form-dc93ea350153&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://medium.com/@andreichernykh/phoenix-simple-authentication-authorization-in-step-by-step-tutorial-form-dc93ea350153&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;POW and LiveViews&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://dev.to/oliverandrich/how-to-connect-pow-and-live-view-in-your-phoenix-project-1ga1&#34;&gt;https://dev.to/oliverandrich/how-to-connect-pow-and-live-view-in-your-phoenix-project-1ga1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dev.to/oliverandrich/how-to-connect-pow-and-live-view-in-your-phoenix-project-1ga1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/how-to-connect-pow-and-live-view-in-your-phoenix-project-1ga1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Auth with auth.gen&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://elixircasts.io/using-phx_gen_auth-for-phoenix-authentication&#34;&gt;https://elixircasts.io/using-phx_gen_auth-for-phoenix-authentication&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combining-authentication-solutions-with-guardian-and-phx-gen-auth&#34;&gt;https://fullstackphoenix.com/tutorials/combining-authentication-solutions-with-guardian-and-phx-gen-auth&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://elixircasts.io/using-phx_gen_auth-for-phoenix-authentication&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixircasts.io/using-phx_gen_auth-for-phoenix-authentication&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combining-authentication-solutions-with-guardian-and-phx-gen-auth&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/combining-authentication-solutions-with-guardian-and-phx-gen-auth&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Auth with PubSub&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&#34;&gt;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Auth with Email&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://hex.pm/packages/bamboo&#34;&gt;https://hex.pm/packages/bamboo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hexdocs.pm/bamboo_smtp/readme.html&#34;&gt;https://hexdocs.pm/bamboo_smtp/readme.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://elixircasts.io/sending-email-with-bamboo-part-1&#34;&gt;https://elixircasts.io/sending-email-with-bamboo-part-1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://elixircasts.io/sending-email-with-bamboo-part-2&#34;&gt;https://elixircasts.io/sending-email-with-bamboo-part-2&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://devato.com/post/use-bamboo-to-send-email-in-phoenix&#34;&gt;https://devato.com/post/use-bamboo-to-send-email-in-phoenix&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hex.pm/packages/bamboo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hex.pm/packages/bamboo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hexdocs.pm/bamboo_smtp/readme.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/bamboo_smtp/readme.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://elixircasts.io/sending-email-with-bamboo-part-1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixircasts.io/sending-email-with-bamboo-part-1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://elixircasts.io/sending-email-with-bamboo-part-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixircasts.io/sending-email-with-bamboo-part-2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://devato.com/post/use-bamboo-to-send-email-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://devato.com/post/use-bamboo-to-send-email-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;General Auth Principles
-&lt;a href=&#34;https://nithinbekal.com/posts/phoenix-authentication/&#34;&gt;https://nithinbekal.com/posts/phoenix-authentication/&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://nithinbekal.com/posts/phoenix-authentication/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://nithinbekal.com/posts/phoenix-authentication/&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;mail-in-test-env&#34;&gt;Mail in Test Env&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/mailhog/MailHog&#34;&gt;https://github.com/mailhog/MailHog&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://mailcatcher.me/&#34;&gt;https://mailcatcher.me/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/mailhog/MailHog&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mailhog/MailHog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://mailcatcher.me/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mailcatcher.me/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
 &lt;p&gt;Pow has the advantage that it updates security patches &amp;ndash; since its a well maintained library.&lt;/p&gt;
-&lt;p&gt;This repo can be found at: &lt;a href=&#34;https://github.com/btihen/phoenix_1_5_pow_auth_config&#34;&gt;https://github.com/btihen/phoenix_1_5_pow_auth_config&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Get the latest version from: &lt;a href=&#34;https://hex.pm/packages/pow&#34;&gt;https://hex.pm/packages/pow&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{:pow, &amp;quot;~&amp;gt; 1.0&amp;quot;}
+&lt;p&gt;This repo can be found at: 
+&lt;a href=&#34;https://github.com/btihen/phoenix_1_5_pow_auth_config&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/phoenix_1_5_pow_auth_config&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Get the latest version from: 
+&lt;a href=&#34;https://hex.pm/packages/pow&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hex.pm/packages/pow&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;{:pow, &amp;quot;~&amp;gt; 1.0&amp;quot;}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Install the dependency:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix deps.get
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix deps.get
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Install POW:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix pow.install
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix pow.install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets verify all is good with the install:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix deps.compile
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix deps.compile
 mix help | grep pow
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now hopefully you see some new &lt;code&gt;pow&lt;/code&gt; commands&lt;/p&gt;
 &lt;h2 id=&#34;configure-pow&#34;&gt;Configure Pow&lt;/h2&gt;
 &lt;p&gt;There are three files you&amp;rsquo;ll need to configure first before you can use Pow.&lt;/p&gt;
 &lt;p&gt;First, append this to &lt;code&gt;config/config.exs&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :fare, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :fare, :pow,
   user: Fare.Users.User,
   repo: Fare.Repo
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Next, add &lt;code&gt;Pow.Plug.Session&lt;/code&gt; plug to &lt;code&gt;lib/fare_web/endpoint.ex&lt;/code&gt; after &lt;code&gt;plug Plug.Session&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;defmodule FareWeb.Endpoint do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;defmodule FareWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :fare   # add this line HERE!
 
   # ...
@@ -97,7 +123,7 @@ mix help | grep pow
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Last, update &lt;code&gt;lib/fare_web/router.ex&lt;/code&gt; with the Pow routes - this first time we need to do a little extra config:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  pipeline :api do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  pipeline :api do
     plug :accepts, [&amp;quot;json&amp;quot;]
   end
   scope &amp;quot;/&amp;quot;, MyAppWeb do
@@ -113,7 +139,7 @@ end
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Should now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  pipeline :api do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  pipeline :api do
     plug :accepts, [&amp;quot;json&amp;quot;]
   end
 
@@ -142,21 +168,22 @@ end
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets check the routes - that all is well configured:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix phx.routes | grep pow
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix phx.routes | grep pow
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Hopefully you see some new pow routes.&lt;/p&gt;
 &lt;p&gt;Now we can migrate to create our users table:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix ecto.migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now if we start phoenix:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix phx.server
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and open phoenix: &lt;code&gt;localhost:4000&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;pow-user-links&#34;&gt;POW user Links&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Notice there is no menu option to login - lets build a simple signup/signin/logout link.&lt;/p&gt;
 &lt;p&gt;In root.html.eex find &lt;code&gt;&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https://hexdocs.pm/phoenix/overview.html&amp;quot;&amp;gt;Get Started&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/code&gt; and we will replace it with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;            &amp;lt;%= if Pow.Plug.current_user(@conn) do %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;            &amp;lt;%= if Pow.Plug.current_user(@conn) do %&amp;gt;
               &amp;lt;li&amp;gt;
                 &amp;lt;%= link &amp;quot;#{@current_user.email}&amp;quot;, to: Routes.pow_registration_path(@conn, :edit) %&amp;gt;
               &amp;lt;/li&amp;gt;
@@ -176,15 +203,15 @@ end
 &lt;/ol&gt;
 &lt;h2 id=&#34;customizable-login-pages&#34;&gt;Customizable Login pages&lt;/h2&gt;
 &lt;p&gt;Generate the pages to customize with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix pow.phoenix.gen.templates
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix pow.phoenix.gen.templates
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now be sure to change the config in &lt;code&gt;config/confix.ex&lt;/code&gt; from:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: Fare.Repo
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb
@@ -197,13 +224,15 @@ end
 &lt;/ul&gt;
 &lt;p&gt;Now make a small change to the pages to ensure all works.&lt;/p&gt;
 &lt;h2 id=&#34;create-a-restricted-user-page&#34;&gt;Create a restricted user page&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;
-&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;
+
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Create a normal html page first:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix phx.gen.html Tasks Task tasks description:string completed:boolean
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix phx.gen.html Tasks Task tasks description:string completed:boolean
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;BE SURE TO PUT the new route in the &lt;code&gt;protected&lt;/code&gt; area of the routes file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/fare_web/router.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/fare_web/router.ex
   scope &amp;quot;/&amp;quot;, MyAppWeb do
     pipe_through [:browser, :protected]
 
@@ -212,15 +241,16 @@ end
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now of course run the migration:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix ecto.migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now &lt;code&gt;/tasks&lt;/code&gt; should only be availble to signed in users.  Be sure you are logged out and cannot get to the &lt;code&gt;/tasks&lt;/code&gt; route (and infact are redirected to sign-in). And once logged in the page works as expected.&lt;/p&gt;
 &lt;h2 id=&#34;extensions&#34;&gt;Extensions&lt;/h2&gt;
 &lt;h3 id=&#34;persistent-login-sessions-remember-me&#34;&gt;Persistent Login Sessions (Remember me)&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Currently every time the user closes the browser they are logged out - the login cookie doesn&amp;rsquo;t persist - most users would like the option to change this - with a &lt;code&gt;remember me&lt;/code&gt; option.&lt;/p&gt;
 &lt;p&gt;in &lt;code&gt;config/config.exs&lt;/code&gt; change the &lt;code&gt;:pow&lt;/code&gt; config to look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb,
@@ -229,7 +259,7 @@ end
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;in &lt;code&gt;/lib/my_app_web/endpoint.ex&lt;/code&gt; we need to add the persistent cookie setting immediately after the &lt;code&gt;Pow.Plug.Session&lt;/code&gt; plug and before the routing &lt;code&gt;MyAppWeb.Router&lt;/code&gt; plug &amp;ndash; now the end of the endpoint file should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  # enable Pow session based authentication
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  # enable Pow session based authentication
   plug Pow.Plug.Session, otp_app: :warehouse
   # enable Pow persistent sessions
   plug PowPersistentSession.Plug.Cookie
@@ -238,7 +268,7 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;just above the login button on the &lt;code&gt;sign-in&lt;/code&gt; page add the following check-box:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/fare_web/templates/pow/session/new.html.eex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/fare_web/templates/pow/session/new.html.eex
   &amp;lt;%= label f, :persistent_session, &amp;quot;Remember me&amp;quot; %&amp;gt;
   &amp;lt;%= checkbox f, :persistent_session %&amp;gt;
 
@@ -248,13 +278,15 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;restart Phoenix with: &lt;code&gt;mix phx.server&lt;/code&gt; and now you should be able to close your browser and re-open the link and stay logged in if the &lt;code&gt;remember-me&lt;/code&gt; is clicked.&lt;/p&gt;
 &lt;h2 id=&#34;after-logout---go-to-landing-page-after-hook-routing&#34;&gt;After Logout - go to Landing Page (After Hook Routing)&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: &lt;a href=&#34;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&#34;&gt;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&lt;/a&gt; - we will use: the &lt;code&gt;after_sign_out_path&lt;/code&gt; callback.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: 
+&lt;a href=&#34;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&lt;/a&gt; - we will use: the &lt;code&gt;after_sign_out_path&lt;/code&gt; callback.&lt;/p&gt;
 &lt;p&gt;To do this we will make a new &lt;code&gt;pow.routes&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch lib/warehouse_web/pow/routes.ex
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch lib/warehouse_web/pow/routes.ex
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Add the following contents:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt; EOF&amp;gt; lib/my_app_web/pow/routes.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;cat &amp;lt;&amp;lt; EOF&amp;gt; lib/my_app_web/pow/routes.ex
 defmodule MyAppWeb.Pow.Routes do
   use Pow.Phoenix.Routes
   alias MyAppWeb.Router.Helpers, as: Routes
@@ -264,7 +296,7 @@ end
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now finally update &lt;code&gt;config/confix.exs&lt;/code&gt; by adding &lt;code&gt;routes_backend: MyAppWeb.Pow.Routes&lt;/code&gt; to the &lt;code&gt;:pow&lt;/code&gt; config so now it would look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb,
@@ -273,13 +305,16 @@ EOF
   routes_backend: MyAppWeb.Pow.Routes    # add this line
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Assuming all works we will snapshot now!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;on logout go to landing page&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;password-reset-and-email-confirmation&#34;&gt;Password Reset and Email Confirmation&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/pow-auth/pow_assent&#34;&gt;https://github.com/pow-auth/pow_assent&lt;/a&gt;
-&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;
-&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/pow-auth/pow_assent&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/pow-auth/pow_assent&lt;/a&gt;
+
+&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;
+
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The following are the possible extensions:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;PowResetPassword&lt;/li&gt;
@@ -289,16 +324,16 @@ git commit -m &amp;quot;on logout go to landing page&amp;quot;
 &lt;/ul&gt;
 &lt;p&gt;Let&amp;rsquo;s start with password reset and email confirmation.&lt;/p&gt;
 &lt;p&gt;First we need to do a migration:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix pow.extension.ecto.gen.migrations --extension PowResetPassword --extension PowEmailConfirmation
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix pow.extension.ecto.gen.migrations --extension PowResetPassword --extension PowEmailConfirmation
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now update the phoenix config &lt;code&gt;config/config.ex&lt;/code&gt; again from:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb,
@@ -306,7 +341,7 @@ git commit -m &amp;quot;on logout go to landing page&amp;quot;
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now update the &lt;code&gt;LIB_PATH/users/user.ex&lt;/code&gt; file from:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;defmodule Fare.Users.User do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;defmodule Fare.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
 
@@ -318,7 +353,7 @@ git commit -m &amp;quot;on logout go to landing page&amp;quot;
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;defmodule MyApp.Users.User do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;defmodule MyApp.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
   use Pow.Extension.Ecto.Schema,
@@ -339,21 +374,21 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And of course the routes &lt;code&gt;WEB_PATH/router.ex&lt;/code&gt; too - at the top of the file add:
 so it looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;defmodule MyAppWeb.Router do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;defmodule MyAppWeb.Router do
   use MyAppWeb, :router
   use Pow.Phoenix.Router
   use Pow.Extension.Phoenix.Router,
       extensions: [PowResetPassword, PowEmailConfirmation]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And in the pow routes config change from:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  scope &amp;quot;/&amp;quot; do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  scope &amp;quot;/&amp;quot; do
     pipe_through :browser
 
     pow_routes()
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  scope &amp;quot;/&amp;quot; do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  scope &amp;quot;/&amp;quot; do
     pipe_through :browser
 
     pow_routes()
@@ -364,21 +399,22 @@ so it looks like:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mix pow.extension.phoenix.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we can update the sign-in page with a reset password button.  We will add the following, to the end of &lt;code&gt;lib/fare_web/templates/pow/session/new.html.eex&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;|
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;|
 &amp;lt;span&amp;gt;
 &amp;lt;%= link &amp;quot;Reset Password&amp;quot;, to: Routes.pow_reset_password_reset_password_path(@conn, :new) %&amp;gt;
 &amp;lt;/span&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets be sure we can link to reset password view.&lt;/p&gt;
 &lt;p&gt;First we will do our migration:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix ecto.migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now to to sign-in and see if the reset password link works.
 Cool it does, but it we try to use it - it complains it needs email back-end setup.&lt;/p&gt;
 &lt;h2 id=&#34;email-backend&#34;&gt;Email backend&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;First we will create a mailer function in: &lt;code&gt;lib/my_app_web/pow/pow_mailer.ex&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir lib/my_app_web/pow/
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;mkdir lib/my_app_web/pow/
 touch lib/my_app_web/pow/pow_mailer.ex
 cat &amp;lt;&amp;lt;EOF &amp;gt; lib/my_app_web/pow/pow_mailer.ex
 defmodule FareWeb.Pow.Mailer do
@@ -401,7 +437,7 @@ end
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now that we have an email template we need to tell pow about the mailer with the config: &lt;code&gt;mailer_backend: MyAppWeb.Pow.Mailer&lt;/code&gt; in &lt;code&gt;config/config.exs&lt;/code&gt; so change to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config for pow - user authentication
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# config for pow - user authentication
 config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
@@ -411,10 +447,10 @@ config :my_app, :pow,
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now generate the POW mail templates - with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix pow.extension.phoenix.mailer.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix pow.extension.phoenix.mailer.gen.templates --extension PowResetPassword --extension PowEmailConfirmation
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Phoenix also needs to know about the mailer templates we will generate so add to &lt;code&gt;lib/my_app_web.ex&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  def mailer_view do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  def mailer_view do
     quote do
       use Phoenix.View, root: &amp;quot;lib/my_app_web/templates&amp;quot;,
                         namespace: MyAppWeb
@@ -424,7 +460,7 @@ config :my_app, :pow,
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now the final config change in &lt;code&gt;config/config.ex&lt;/code&gt; to access our new templates:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config for pow - user authentication
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# config for pow - user authentication
 config :fare, :pow,
   user: Fare.Users.User,
   repo: Fare.Repo,
@@ -435,24 +471,26 @@ config :fare, :pow,
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now if we resart phoenix and test out reset link - we should see in the logs &amp;lsquo;a pretend sent email&amp;rsquo; - something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[debug] E-mail sent: %{html: &amp;quot;&amp;lt;h3&amp;gt;Hi,&amp;lt;/h3&amp;gt;\n&amp;lt;p&amp;gt;Please use the following link to reset your password:&amp;lt;/p&amp;gt;\n&amp;lt;p&amp;gt;&amp;lt;a href=\&amp;quot;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\&amp;quot;&amp;gt;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;\n&amp;lt;p&amp;gt;You can disregard this email if you didn&amp;amp;#39;t request a password reset.&amp;lt;/p&amp;gt;&amp;quot;, subject: &amp;quot;Reset password link&amp;quot;, text: &amp;quot;Hi,\n\nPlease use the following link to reset your password:\n\nhttp://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\n\nYou can disregard this email if you didn&#39;t request a password reset.\n&amp;quot;, to: &amp;quot;btihen@gmail.com&amp;quot;}
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[debug] E-mail sent: %{html: &amp;quot;&amp;lt;h3&amp;gt;Hi,&amp;lt;/h3&amp;gt;\n&amp;lt;p&amp;gt;Please use the following link to reset your password:&amp;lt;/p&amp;gt;\n&amp;lt;p&amp;gt;&amp;lt;a href=\&amp;quot;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\&amp;quot;&amp;gt;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;\n&amp;lt;p&amp;gt;You can disregard this email if you didn&amp;amp;#39;t request a password reset.&amp;lt;/p&amp;gt;&amp;quot;, subject: &amp;quot;Reset password link&amp;quot;, text: &amp;quot;Hi,\n\nPlease use the following link to reset your password:\n\nhttp://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw\n\nYou can disregard this email if you didn&#39;t request a password reset.\n&amp;quot;, to: &amp;quot;btihen@gmail.com&amp;quot;}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;copy the link out of the email in the log:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;http://localhost:4000/reset-password/SFMyNTY.MTJkNDliZWItZTg2My00ZDM3LTg2YzgtYzE5MDdjMDk5ODgz.kFRCfvdOSeEnupbbujdAKoaCuMXXk91qzZCUMrB43mw
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;into the browser - type a new password and try to login.&lt;/p&gt;
 &lt;p&gt;Assuming all works we will snapshot now!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;pow configured to send emails - no sender yet&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;after-logout---go-to-landing-page-after-hook-routing-1&#34;&gt;After Logout - go to Landing Page (After Hook Routing)&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: &lt;a href=&#34;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&#34;&gt;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&lt;/a&gt; - we will use: the &lt;code&gt;after_sign_out_path&lt;/code&gt; callback.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;One little annoying thing is that when we logout we go to the sign-in page instead of the landing page.  We can fix that by adding a call_back_route - you can find all the callback routes at: 
+&lt;a href=&#34;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/danschultzer/pow/blob/master/lib/pow/phoenix/routes.ex&lt;/a&gt; - we will use: the &lt;code&gt;after_sign_out_path&lt;/code&gt; callback.&lt;/p&gt;
 &lt;p&gt;To do this we will make a new &lt;code&gt;pow.routes&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch lib/warehouse_web/pow/routes.ex
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch lib/warehouse_web/pow/routes.ex
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Add the following contents:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt; EOF&amp;gt; lib/my_app_web/pow/routes.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;cat &amp;lt;&amp;lt; EOF&amp;gt; lib/my_app_web/pow/routes.ex
 defmodule MyAppWeb.Pow.Routes do
   use Pow.Phoenix.Routes
   alias MyAppWeb.Router.Helpers, as: Routes
@@ -462,7 +500,7 @@ end
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now finally update &lt;code&gt;config/confix.exs&lt;/code&gt; by adding &lt;code&gt;routes_backend: MyAppWeb.Pow.Routes&lt;/code&gt; to the &lt;code&gt;:pow&lt;/code&gt; config so now it would look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :my_app, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :my_app, :pow,
   user: MyApp.Users.User,
   repo: MyApp.Repo,
   web_module: MyAppWeb,
@@ -473,42 +511,46 @@ EOF
   extensions: [PowPersistentSession, PowResetPassword, PowEmailConfirmation]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Assuming all works we will snapshot now!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;on logout go to landing page&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;configure-email-bamboo-with-pow&#34;&gt;Configure Email BAMBOO with POW&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://hexdocs.pm/bamboo/readme.html&#34;&gt;https://hexdocs.pm/bamboo/readme.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hexdocs.pm/bamboo/readme.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/bamboo/readme.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Use Bamboo to do the mailing find the new versions at:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://hex.pm/packages/bamboo&#34;&gt;https://hex.pm/packages/bamboo&lt;/a&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hex.pm/packages/bamboo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hex.pm/packages/bamboo&lt;/a&gt;
 Add to &lt;code&gt;mix.exs&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;    {:bamboo, &amp;quot;~&amp;gt; 2.1&amp;quot;}
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;    {:bamboo, &amp;quot;~&amp;gt; 2.1&amp;quot;}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;get the new dependency:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix deps.get
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix deps.get
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the Test Config we need to configure bamboo with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/test.exs
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# config/test.exs
 config :my_app, MyApp.Mailer,
   adapter: Bamboo.TestAdapter
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the Dev Config lets setup the in-memory email config&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/dev.exs
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# config/dev.exs
 config :fare, FareWeb.Pow.Mailer,
   adapter: Bamboo.LocalAdapter
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;When using &lt;code&gt;Bamboo.LocalAdapter&lt;/code&gt; in dev mode we can view the email (without digging through the log file) using &lt;code&gt;Bamboo.EmailPreviewPlug&lt;/code&gt; - we set this up with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;if Mix.env == :dev do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;if Mix.env == :dev do
   forward &amp;quot;/sent_emails&amp;quot;, Bamboo.EmailPreviewPlug
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now let&amp;rsquo;s setup our mailer to use Bamboo - we will edit:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/my_app_web/pow/pow_mailer.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/my_app_web/pow/pow_mailer.ex
 defmodule MyAppWeb.Pow.Mailer do
   use Pow.Phoenix.Mailer
 
@@ -543,39 +585,46 @@ end
 &lt;p&gt;Let&amp;rsquo;s register a new account (or reset a password).
 Now we can see the sent email at: http://localhost/sent_emails (in dev mode)&lt;/p&gt;
 &lt;h2 id=&#34;bamboo-adapters---smtp-config-production-ideas&#34;&gt;Bamboo Adapters - SMTP Config (Production Ideas)&lt;/h2&gt;
-&lt;p&gt;Available adapters are listed at: &lt;a href=&#34;https://hexdocs.pm/bamboo/readme.html#available-adapters&#34;&gt;https://hexdocs.pm/bamboo/readme.html#available-adapters&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Available adapters are listed at: 
+&lt;a href=&#34;https://hexdocs.pm/bamboo/readme.html#available-adapters&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/bamboo/readme.html#available-adapters&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Given the number of adapters - here we will configure just SMTP (and learn to trap it while testing)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&lt;/a&gt;
-&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.kabisa.nl/tech/real-world-phoenix-lets-send-some-emails/&lt;/a&gt;
+
+&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Use Bamboo to do the mailing find the new versions at:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://hex.pm/packages/bamboo&#34;&gt;https://hex.pm/packages/bamboo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hex.pm/packages/bamboo_smtp&#34;&gt;https://hex.pm/packages/bamboo_smtp&lt;/a&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hex.pm/packages/bamboo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hex.pm/packages/bamboo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hex.pm/packages/bamboo_smtp&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hex.pm/packages/bamboo_smtp&lt;/a&gt;
 Add to &lt;code&gt;mix.exs&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;    {:bamboo, &amp;quot;~&amp;gt; 2.1&amp;quot;},
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;    {:bamboo, &amp;quot;~&amp;gt; 2.1&amp;quot;},
     {:bamboo_smtp, &amp;quot;~&amp;gt; 2.1&amp;quot;}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now install and setup up: &lt;a href=&#34;https://github.com/mailhog/&#34;&gt;https://github.com/mailhog/&lt;/a&gt; (on a MacOS) simply install with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;brew install mailhog
+&lt;p&gt;Now install and setup up: 
+&lt;a href=&#34;https://github.com/mailhog/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mailhog/&lt;/a&gt; (on a MacOS) simply install with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install mailhog
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and run mailhog with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mailhog
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mailhog
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;or if you want mailhog running all the time in the background you can type:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  brew services start mailhog
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;  brew services start mailhog
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or you can use: or &lt;a href=&#34;https://mailcatcher.me/&#34;&gt;https://mailcatcher.me/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Or you can use: or 
+&lt;a href=&#34;https://mailcatcher.me/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mailcatcher.me/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;These serivices  - listen on &lt;code&gt;localhost:1025&lt;/code&gt; and you can view the email at: http://localhost:8025&lt;/p&gt;
 &lt;p&gt;now configure the mail service (in &lt;code&gt;config/dev.exs&lt;/code&gt;) to use Mailhog or Mailcather with Phoenix by adding:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/dev.exs
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# config/dev.exs
 config :my_app, MyAppWeb.Pow.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: &amp;quot;localhost&amp;quot;,
   port: 1025
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In production it might look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/config.exs
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# config/config.exs
 config :my_app, MyApp.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: &amp;quot;smtp.domain&amp;quot;,
@@ -591,16 +640,17 @@ config :my_app, MyApp.Mailer,
   auth: :if_available # can be `:always`. If your smtp relay requires authentication set it to `:always`.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now you will need to start your mail-trap (in a separate cli terminal):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mailhog
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mailhog
 # or `mailcather`
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when you register a new account or change a password you can see the email at:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;http://localhost:8025
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http://localhost:8025
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;customizing---pow-flash-messages&#34;&gt;Customizing - POW Flash messages&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Create a new module for our messages.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch lib/my_app_web/pow/messages.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;touch lib/my_app_web/pow/messages.ex
 cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;lib/my_app_web/pow/messages.ex
 defmodule MyAppWeb.Pow.Messages do
   use Pow.Phoenix.Messages
@@ -631,7 +681,7 @@ end
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To be able to use this module we need to tell our config about it - so we update &lt;code&gt;config/config.exs&lt;/code&gt; with &lt;code&gt;messages_backend: FareWeb.Pow.Messages&lt;/code&gt; - so now it looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config :fare, :pow,
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;config :fare, :pow,
   user: Fare.Users.User,
   repo: Fare.Repo,
   web_module: FareWeb,
@@ -644,14 +694,16 @@ EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now you should see your custom messages!&lt;/p&gt;
 &lt;p&gt;let&amp;rsquo;s snapshot this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;allow POW to send custom / i18n messages&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;configure-to-allow-3rd-parties---google-apple-github-etc&#34;&gt;Configure to allow 3rd Parties - Google, Apple, Github, etc.&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/pow-auth/pow_assent&#34;&gt;https://github.com/pow-auth/pow_assent&lt;/a&gt;
-&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/pow-auth/pow_assent&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/pow-auth/pow_assent&lt;/a&gt;
+
+&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;First add to the mix file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;    # third party auth
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;    # third party auth
     {:pow_assent, &amp;quot;~&amp;gt; 0.4.10&amp;quot;},
     # recommended for SSL validation with :httpc adapter
     {:certifi, &amp;quot;~&amp;gt; 2.4&amp;quot;},
@@ -660,7 +712,7 @@ git commit -m &amp;quot;allow POW to send custom / i18n messages&amp;quot;
 &lt;p&gt;and of course: &lt;code&gt;mix deps.get&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;and install with: &lt;code&gt;mix pow_assent.install&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;and now configure &lt;code&gt;lib/fare/users/user.ex&lt;/code&gt; after &lt;code&gt;use Pow.Ecto.Schema&lt;/code&gt; add &lt;code&gt;use PowAssent.Ecto.Schema&lt;/code&gt; so now the top of this file should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/fare/users/user.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/fare/users/user.ex
 defmodule Fare.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
@@ -669,7 +721,7 @@ defmodule Fare.Users.User do
       extensions: [PowResetPassword, PowEmailConfirmation]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At the top of the &lt;code&gt;lib/fare_web/router.ex&lt;/code&gt; file after &lt;code&gt;use PowAssent.Phoenix.Router&lt;/code&gt; add &lt;code&gt;use PowAssent.Phoenix.Router&lt;/code&gt; - now the top of this file should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/fare_web/router.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/fare_web/router.ex
 defmodule MyAppWeb.Router do
   use MyAppWeb, :router
   use Pow.Phoenix.Router
@@ -678,7 +730,7 @@ defmodule MyAppWeb.Router do
       extensions: [PowResetPassword, PowEmailConfirmation]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now after the last pipelines add a new &lt;code&gt;pipeline&lt;/code&gt; and its &lt;code&gt;scope&lt;/code&gt; - its a copy of the &lt;code&gt;:browser&lt;/code&gt; pipeline - without &lt;code&gt;:protect_from_forgery&lt;/code&gt; since that conflicts with &lt;strong&gt;OAuth&lt;/strong&gt; &amp;amp; after &lt;code&gt;pow_routes()&lt;/code&gt; add &lt;code&gt;pow_assent_routes()&lt;/code&gt; so now this section of the routes looks like (when Phoenix is configured for LiveView):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  pipeline :skip_csrf_protection do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  pipeline :skip_csrf_protection do
     plug :accepts, [&amp;quot;html&amp;quot;]
     plug :fetch_session
     plug :fetch_live_flash
@@ -703,35 +755,40 @@ defmodule MyAppWeb.Router do
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Remember to run the new migrations with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix ecto.migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Generate the PowAssent template too (the page when using this where the user add username and OAuth password from remote site):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix pow_assent.phoenix.gen.templates
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix pow_assent.phoenix.gen.templates
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;setup-remote-oauth-providers-github---for-now&#34;&gt;Setup remote OAuth providers (Github - for now)&lt;/h3&gt;
 &lt;p&gt;Go to:
-&lt;a href=&#34;https://github.com/settings/applications/new&#34;&gt;https://github.com/settings/applications/new&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/settings/applications/new&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/settings/applications/new&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Enter an &lt;strong&gt;Application name&lt;/strong&gt; and enter the &lt;strong&gt;Homepage url&lt;/strong&gt; as:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;http://localhost:4000/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http://localhost:4000/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and the &lt;strong&gt;Authorization callback&lt;/strong&gt; (for our dev environment) as:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;http://localhost:4000/auth/github/callback
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http://localhost:4000/auth/github/callback
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Configure Github Credential Secrets&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://hexdocs.pm/elixir/Application.html&#34;&gt;https://hexdocs.pm/elixir/Application.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://devato.com/post/handling-environment-variables-in-phoenix&#34;&gt;https://devato.com/post/handling-environment-variables-in-phoenix&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config&#34;&gt;https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/30995743/how-to-get-a-variable-value-from-environment-files-in-phoenix&#34;&gt;https://stackoverflow.com/questions/30995743/how-to-get-a-variable-value-from-environment-files-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hexdocs.pm/elixir/Application.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/elixir/Application.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://devato.com/post/handling-environment-variables-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://devato.com/post/handling-environment-variables-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/44510403/phoenix-import-module-into-config&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/30995743/how-to-get-a-variable-value-from-environment-files-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/30995743/how-to-get-a-variable-value-from-environment-files-in-phoenix&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;First update &lt;code&gt;.gitignore&lt;/code&gt; with the line:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;**/*.secret.exs
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;**/*.secret.exs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;then add in our case the &lt;code&gt;dev.secrets.exs&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch config/dev.secret.exs
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch config/dev.secret.exs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Once you get your &lt;strong&gt;Client ID&lt;/strong&gt; and &lt;strong&gt;Client secrets&lt;/strong&gt; you can configure  &lt;code&gt;config/dev.secret.exs&lt;/code&gt; with the following config:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import Config
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;import Config
 
 config :my_app, :pow_assent,
   providers: [
@@ -743,7 +800,7 @@ config :my_app, :pow_assent,
   ]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now at the END of &lt;code&gt;config/dev.exs&lt;/code&gt; add the line:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import_config &amp;quot;dev.secret.exs&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;import_config &amp;quot;dev.secret.exs&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now at the end of:&lt;/p&gt;
 &lt;ul&gt;
@@ -752,19 +809,25 @@ config :my_app, :pow_assent,
 &lt;li&gt;&lt;code&gt;lib/fare_web/templates/pow/session/new.html.eex&lt;/code&gt; (sign-in)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;add the following comprehension to list all the configured OAuth log-in links:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%=
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;&amp;lt;%=
   for link &amp;lt;- PowAssent.Phoenix.ViewHelpers.provider_links(@conn),
       do: content_tag(:span, link)
 %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources:&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;pow readme: &lt;a href=&#34;https://hexdocs.pm/pow/README.html&#34;&gt;https://hexdocs.pm/pow/README.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;video tutorial: &lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;add pubsub &lt;a href=&#34;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&#34;&gt;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;add email to pow: &lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;pow readme: 
+&lt;a href=&#34;https://hexdocs.pm/pow/README.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/pow/README.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;video tutorial: 
+&lt;a href=&#34;https://www.youtube.com/watch?v=hnD0Z0LGMIk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=hnD0Z0LGMIk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;add pubsub 
+&lt;a href=&#34;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://curiosum.dev/blog/elixir-phoenix-liveview-messenger-part-3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;add email to pow: 
+&lt;a href=&#34;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/oliverandrich/learn-elixir-and-phoenix-add-authentication-55kl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-1/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/phoenix-authentication-with-pow-part-2/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

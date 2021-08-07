@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-05-30T01:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-05-30T01:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:57:00&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -687,8 +687,10 @@
     
     
       
+          Last updated on
+      
     
-    Sun, May 30, 2021
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -741,81 +743,78 @@
 <h2 id="overview">Overview</h2>
 <p>In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.</p>
 <p>The basic model will then look something like:</p>
-<pre><code>                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-</code></pre>
-<p>┌───────────┐          ┌───────────┐                 │
+<pre><code>                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘</p>
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+</code></pre>
 <h2 id="rails-app-and-first-models">Rails app and first Models</h2>
-<pre><code>┌────────────┐             ┌───────────┐
-│            │╲          1 │           │
-│  Business  │─○──────────┼│  Person   │
-│-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘
+<pre><code>    ┌────────────┐             ┌───────────┐
+    │            │╲          1 │           │
+    │  Business  │─○──────────┼│  Person   │
+    │-legal_name │╱0..*        │-full_name │
+    └────────────┘             └───────────┘
 </code></pre>
 <p>We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]</p>
 <h2 id="polymorphic-sti---sometime-called-inverse-polymorphic">Polymorphic (STI) - sometime called inverse polymorphic</h2>
-<pre><code>               ┌─────────────┐
-               │   Contact   │
-               │  relations* │
-               │+display_name│
-               └─────────────┘
-                      ┼
-                      │
-      ┌───────────────┴────────────┐
-      │                            │
-     ╱│╲                          ╱│╲
-┌─────────────┐             ┌─────────────┐
-│  Business   │╲            │    Person   │
-│ -legal_name │─○──────────┼│ -full_name  │
-│+display_name│╱            │+display_name│
-└─────────────┘             └─────────────┘
+<pre><code>                   ┌─────────────┐
+                   │   Contact   │
+                   │  relations* │
+                   │+display_name│
+                   └─────────────┘
+                          ┼
+                          │
+          ┌───────────────┴────────────┐
+          │                            │
+         ╱│╲                          ╱│╲
+    ┌─────────────┐             ┌─────────────┐
+    │  Business   │╲            │    Person   │
+    │ -legal_name │─○──────────┼│ -full_name  │
+    │+display_name│╱            │+display_name│
+    └─────────────┘             └─────────────┘
+  + array: supplier, reseller, customer, sales-rep
+  * virtual attribute (public method)
 </code></pre>
-<ul>
-<li>array: supplier, reseller, customer, sales-rep</li>
-</ul>
-<ul>
-<li>virtual attribute (public method)</li>
-</ul>
 <p>We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]</p>
 <h2 id="polymorphic-modeling">Polymorphic Modeling</h2>
 <p>Is a model that can be associated with several different models - serving a similar purpose in all cases.  For example perhaps we would like to leave remarks on our interactions with various other business partners as shown below.</p>
-<p>┌───────────┐          ┌───────────┐
+<pre><code>┌───────────┐          ┌───────────┐
 │           │╲         │           │
 │ Business  │─○───────┼│  Person   │
 │           │╱         │           │
 └───────────┘          └───────────┘
-╲│╱                    ╲│╱
-│                      │
-│                      │
-│                      ○
-│                      ┼
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘</p>
+     ╲│╱                    ╲│╱
+      │                      │
+      │                      │
+      │                      ○
+      │                      ┼
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+</code></pre>
 <p>A Remark could be either associated with either a person or a business - this is called polymorphism.  For ubiquitous things like comments, pictures, etc. this is a common approach.</p>
 <p>The standard rails way - is convenient (only uses 2 columns for any number of models), but lacks a foreign key so the DB can&rsquo;t ensure Data integrity.  For this reason, many other frameworks do not encourage this approach.  So we will use an approach accepted by all frameworks.</p>
 <h3 id="models-and-relationships">Models and relationships</h3>
@@ -969,16 +968,23 @@ end
 <p>Lets check the seed with:</p>
 <pre><code class="language-bash">bin/rails db:seed
 </code></pre>
-<h2 id="n1-checks--forms">N+1 checks &amp; Forms</h2>
+<p>Cool that works!</p>
+<p>lets snapshot:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;polymorphic remark relations created&quot;
+</code></pre>
+<h3 id="views">Views</h3>
 <p><strong>Comming soon &hellip;</strong></p>
 <p>Assuming this works, let&rsquo;s see the &ldquo;/people&rdquo; page:</p>
 <pre><code class="language-bash">bin/rails s
 open localhost:3000/businesses/
 </code></pre>
+<h3 id="n1-checks">N+1 checks</h3>
 <p>Great - lets snapshot:</p>
 <pre><code class="language-bash">git add .
 git commit -m &quot;created an agnostic polymorphic model with data integrity enforced&quot;
 </code></pre>
+<h3 id="input-forms--building-new-info">Input Forms (&amp; Building new Info)</h3>
 
     </div>
 
@@ -1336,7 +1342,7 @@ git commit -m &quot;created an agnostic polymorphic model with data integrity en
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

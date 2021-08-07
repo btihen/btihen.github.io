@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2020-07-04T13:06:29&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-07-06T13:06:29&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T13:06:29&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -684,7 +684,7 @@
           Last updated on
       
     
-    Mon, Jul 6, 2020
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -742,8 +742,9 @@
 </ul>
 <h2 id="getting-started---create-an-app">Getting Started - create an app</h2>
 <p>find the most recent phoenix version:
-<a href="https://github.com/phoenixframework/phoenix/releases">https://github.com/phoenixframework/phoenix/releases</a></p>
-<pre><code>mix archive.install hex phx_new 1.5.3
+
+<a href="https://github.com/phoenixframework/phoenix/releases" target="_blank" rel="noopener">https://github.com/phoenixframework/phoenix/releases</a></p>
+<pre><code class="language-bash">mix archive.install hex phx_new 1.5.3
 mix phx.new feenix_intro
 cd feenix_intro
 mix ecto.create
@@ -751,21 +752,22 @@ mix ecto.create
 <p>test with: <code>mix phx.server</code> and go to <code>http://localhost:4000</code></p>
 <p>Ideally you see a the Phoenix Start Page.</p>
 <p>Let&rsquo;s create a git snapshot</p>
-<pre><code>git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;init&quot;
+<pre><code class="language-bash">git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;init&quot;
 </code></pre>
 <h2 id="create-contexts">Create Contexts</h2>
 <p><strong>Context helps us create areas of code isolation and creates an API for other contexts to use</strong></p>
 <p>In our case we will need a Blogs and Accounts (better would have been Authors) context</p>
-<p>Blogs will have the posts and comments and Accounts will have the user and login credentials and user relationships (why not)?  To see the full documentation on Contexts see: <a href="https://hexdocs.pm/phoenix/contexts.html">https://hexdocs.pm/phoenix/contexts.html</a></p>
+<p>Blogs will have the posts and comments and Accounts will have the user and login credentials and user relationships (why not)?  To see the full documentation on Contexts see: 
+<a href="https://hexdocs.pm/phoenix/contexts.html" target="_blank" rel="noopener">https://hexdocs.pm/phoenix/contexts.html</a></p>
 <p>We will generate two resources and Contexts (and add more later) - lets start with users who will post their blogs (users will be within the Accounts context and posts will be within the Blogs context):</p>
-<pre><code>mix phx.gen.html Accounts User users name:string email:string username:string:unique
+<pre><code class="language-bash">mix phx.gen.html Accounts User users name:string email:string username:string:unique
 mix phx.gen.html Blogs Post posts title:string body:text user_id:references:users
 </code></pre>
 <p>Notice we can generate unique fields with <code>:unique</code></p>
 <p>And we can generate relationships (foriegn keys) with <code>references</code></p>
 <p>Now that we have generated our code - we need to make a few updates:</p>
 <p>First: we need to update our routes in the scope area to look like:</p>
-<pre><code># lib/ideas_web/router.ex
+<pre><code class="language-elixir"># lib/ideas_web/router.ex
   scope &quot;/&quot;, FeenixIntroWeb do
     pipe_through :browser
 
@@ -778,7 +780,7 @@ mix phx.gen.html Blogs Post posts title:string body:text user_id:references:user
 <h2 id="define-the-has_many-relationship">Define the has_many relationship</h2>
 <p>Before we migrate we need to define the relationships:</p>
 <p>so we update the users with a has_many relationship to posts</p>
-<pre><code># lib/feenix_intro/accounts/user.ex
+<pre><code class="language-elixir"># lib/feenix_intro/accounts/user.ex
 defmodule FeenixIntro.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
@@ -808,7 +810,7 @@ end
 <p>If you skip the alias, then <code>has_many</code> needs to be written as: <code>has_many(:posts, FeenixIntro.Blogs.Post)</code></p>
 <h2 id="define-the-belongs_to-relationship">Define the belongs_to relationship</h2>
 <p><strong>IMPORTANT:</strong> replace the <code>field :user_id, :id</code> with <code>belongs_to(:user, User)</code> &ndash; you CAN&rsquo;T have both!</p>
-<pre><code># lib/feenix_intro/blogs/post.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs/post.ex
 defmodule FeenixIntro.Blogs.Post do
   use Ecto.Schema
   import Ecto.Changeset
@@ -838,7 +840,7 @@ end
 <p>NOTE: <code>@required_fields [:user_id, :title, :body]</code> isn&rsquo;t required, but as things change defining a constant that can be reused can be convient.</p>
 <h2 id="auto-delete-sub-resources">Auto delete sub-resources</h2>
 <p>To be sure we don&rsquo;t have unreferenced blogs if a user gets deleted we need to change our Blog migration to:</p>
-<pre><code># priv/repo/migrations/20200704152318_create_posts.exs
+<pre><code class="language-elixir"># priv/repo/migrations/20200704152318_create_posts.exs
 defmodule FeenixIntro.Repo.Migrations.CreatePosts do
   use Ecto.Migration
 
@@ -859,11 +861,11 @@ defmodule FeenixIntro.Repo.Migrations.CreatePosts do
 end
 </code></pre>
 <p>Now it should be safe to migrate using:</p>
-<pre><code>mix ecto.migrate
+<pre><code class="language-bash">mix ecto.migrate
 </code></pre>
 <h2 id="seed-data">Seed Data</h2>
 <p>Let&rsquo;s create seed data so that one we know how to do that and two have some data to test before we get all our views and forms working:</p>
-<pre><code># priv/repo/seeds.exs
+<pre><code class="language-elixir"># priv/repo/seeds.exs
 
 # Script for populating the database. You can run it as:
 #
@@ -888,11 +890,11 @@ Repo.insert!(%Post{ user_id: dog.id, title: &quot;Walk&quot;, body: &quot;oh coo
 Repo.insert!(%Post{ user_id: dog.id, title: &quot;Dinner&quot;, body: &quot;YES!&quot; })
 </code></pre>
 <p>now as the comments state run:</p>
-<pre><code>mix run priv/repo/seeds.exs
+<pre><code class="language-bash">mix run priv/repo/seeds.exs
 </code></pre>
 <h2 id="testing">Testing</h2>
 <p>run:</p>
-<pre><code>mix phx.server
+<pre><code class="language-bash">mix phx.server
 # or if you prefer:
 # iex -S mix phx.server
 </code></pre>
@@ -910,7 +912,7 @@ Repo.insert!(%Post{ user_id: dog.id, title: &quot;Dinner&quot;, body: &quot;YES!
 <p>Normally, this would be done with session info to autoselect the authenticated author, but that is for another day.  In this case, we will demonstrate how to load and pass a collection and use that to populate a dropdown entry.</p>
 <p>In the controller we must load users and add the user_id to the post form:
 whe we look in the Accounts API we see: <code>list_users()</code></p>
-<pre><code># lib/feenix_intro_web/controllers/post_controller.ex
+<pre><code class="language-elixir"># lib/feenix_intro_web/controllers/post_controller.ex
   # ...
   # add the accounts context alias
   alias FeenixIntro.Accounts
@@ -938,7 +940,7 @@ whe we look in the Accounts API we see: <code>list_users()</code></p>
 # ...
 </code></pre>
 <p>Now we need to adapt the form to give us a choice of users:</p>
-<pre><code># lib/feenix_intro_web/templates/post/form.html.eex
+<pre><code class="language-elixir"># lib/feenix_intro_web/templates/post/form.html.eex
 &lt;%= form_for @changeset, @action, fn f -&gt; %&gt;
   &lt;%= if @changeset.action do %&gt;
     &lt;div class=&quot;alert alert-danger&quot;&gt;
@@ -952,13 +954,13 @@ whe we look in the Accounts API we see: <code>list_users()</code></p>
   # ...
 </code></pre>
 <p>Assuming you can create posts now, lets make another git snapshot:</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;users and posts resources can be created&quot;
 </code></pre>
 <h2 id="display-the-author-of-post-with-preloads">Display the Author of Post (with Preloads)</h2>
 <p>lets display the Blog author - that&rsquo;s often interesting to others.
 We can do this with preloading in our Blog context:</p>
-<pre><code># lib/feenix_intro/blogs.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs.ex
   # change this line:
   # def list_posts, do: Repo.all(Post)
   def list_posts do
@@ -968,7 +970,7 @@ We can do this with preloading in our Blog context:</p>
   end
 </code></pre>
 <p>and also our get_post</p>
-<pre><code># lib/feenix_intro/blogs.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs.ex
   # change:
   # def get_post!(id), do: Repo.get!(Post, id)
   # into:
@@ -979,7 +981,7 @@ We can do this with preloading in our Blog context:</p>
   end
 </code></pre>
 <p>now we can update our index and show page to display the author&rsquo;s name at the top of the page:</p>
-<pre><code># lib/feenix_intro_web/templates/post/show.html.eex
+<pre><code class="language-elixir"># lib/feenix_intro_web/templates/post/show.html.eex
 &lt;h1&gt;Show Post&lt;/h1&gt;
 
 &lt;ul&gt;
@@ -991,7 +993,7 @@ We can do this with preloading in our Blog context:</p>
 </code></pre>
 <p>and in the index too:</p>
 <pre><code># lib/feenix_intro_web/templates/post/index.html.eex
-# ...
+# ...elixir
 &lt;%= for post &lt;- @posts do %&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;%= post.user.name %&gt;&lt;/td&gt;
@@ -1004,14 +1006,20 @@ We can do this with preloading in our Blog context:</p>
 git commit -m &quot;authors names are displayed now with preloading&quot;
 </code></pre>
 <h2 id="source-code">Source code</h2>
-<p><a href="https://github.com/btihen/PhoenixIntro">https://github.com/btihen/PhoenixIntro</a></p>
+<p>
+<a href="https://github.com/btihen/PhoenixIntro" target="_blank" rel="noopener">https://github.com/btihen/PhoenixIntro</a></p>
 <h2 id="helpful-resources-used">Helpful Resources used:</h2>
 <ul>
-<li><a href="https://elixircasts.io/phoenix-contexts">https://elixircasts.io/phoenix-contexts</a></li>
-<li><a href="https://github.com/conradwt/zero-to-graphql-using-phoenix">https://github.com/conradwt/zero-to-graphql-using-phoenix</a></li>
-<li><a href="https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e">https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e</a></li>
-<li><a href="https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n">https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n</a></li>
-<li><a href="https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549">https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549</a></li>
+<li>
+<a href="https://elixircasts.io/phoenix-contexts" target="_blank" rel="noopener">https://elixircasts.io/phoenix-contexts</a></li>
+<li>
+<a href="https://github.com/conradwt/zero-to-graphql-using-phoenix" target="_blank" rel="noopener">https://github.com/conradwt/zero-to-graphql-using-phoenix</a></li>
+<li>
+<a href="https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e" target="_blank" rel="noopener">https://medium.com/@damonvjanis/ecto-preloads-in-phoenix-contexts-167d11e5405e</a></li>
+<li>
+<a href="https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n" target="_blank" rel="noopener">https://dev.to/joseph_lozano/setting-up-a-new-phoenix-1-5-project-with-phoenix-liveview-309n</a></li>
+<li>
+<a href="https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549" target="_blank" rel="noopener">https://medium.com/velotio-perspectives/creating-graphql-apis-using-elixir-phoenix-and-absinthe-486ff38f2549</a></li>
 </ul>
 
     </div>
@@ -1372,7 +1380,7 @@ git commit -m &quot;authors names are displayed now with preloading&quot;
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

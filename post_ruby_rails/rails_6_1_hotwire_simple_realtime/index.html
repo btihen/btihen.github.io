@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-02-28T18:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-22T18:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:57:00&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -692,7 +692,7 @@
           Last updated on
       
     
-    Mon, Mar 22, 2021
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -729,7 +729,7 @@
 
 <div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 518px;">
   <div style="position: relative">
-    <img src="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="/post_ruby_rails/rails_6_1_hotwire_simple_realtime/featured_hu3e170c5491bb8789d6da17280d9e859c_408203_720x0_resize_lanczos_3.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -750,14 +750,15 @@
 <h2 id="basic-setup">Basic Setup</h2>
 <p>We will be starting with a basic Tweet Simulator it looks something like:</p>
 <p><img src="tweet_index_1st_starting_point.png" alt="tweet_index_1st"></p>
-<p>The starting code base can be found at: <a href="https://github.com/btihen/tweet_simulator_rails">https://github.com/btihen/tweet_simulator_rails</a></p>
+<p>The starting code base can be found at: 
+<a href="https://github.com/btihen/tweet_simulator_rails" target="_blank" rel="noopener">https://github.com/btihen/tweet_simulator_rails</a></p>
 <p>The steps to re-create this code can be found at: 
 <a href="/post_ruby_rails/rails_tweet_single_page_reloads/">Tweets - A Single Page Rails App (using reloads)</a></p>
 <p>The actual Tweet Hotwire code from this article can be found at:</p>
 <h2 id="install-and-configure-hotwire">Install and configure Hotwire</h2>
 <h3 id="install-hotwire">Install Hotwire</h3>
 <p>To use hotwire - we need to install it:</p>
-<pre><code>bundle add hotwire-rails
+<pre><code class="language-bash">bundle add hotwire-rails
 bin/rails hotwire:install
 </code></pre>
 <p>The hotwire package is smart enough to install via webpack if that&rsquo;s installed or in the asset pipeline if no webpacker is installed.  This project uses webpack (but it shouldn&rsquo;t matter).</p>
@@ -770,7 +771,7 @@ bin/rails hotwire:install
 <li>Configure Redis to work with ActionCable (Rails Websockets)</li>
 </ul>
 <p>and the output should look something like:</p>
-<pre><code>Appending Stimulus setup code to
+<pre><code class="language-bash">Appending Stimulus setup code to
       append  app/javascript/packs/application.js
 Creating controllers directory
       create  app/javascript/controllers
@@ -812,12 +813,12 @@ Turbo successfully installed ⚡️
 <li>Stimulus is installed</li>
 </ol>
 <p>If you have problems you can experiment try adding one or more of the following:</p>
-<pre><code>  &lt;%= yield :head %&gt;
+<pre><code class="language-ruby">  &lt;%= yield :head %&gt;
   &lt;%= turbo_include_tags %&gt;
   &lt;%= stimulus_include_tags %&gt;
 </code></pre>
 <p>In particular, I found the top two helpful - but this is a new technology - and it is still evolving.  In the end the <code>app/views/layouts/application.html.erb</code> might need to look like:</p>
-<pre><code>&lt;!DOCTYPE html&gt;
+<pre><code class="language-ruby">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 
 &lt;head&gt;
@@ -841,7 +842,7 @@ Turbo successfully installed ⚡️
 &lt;/html&gt;
 </code></pre>
 <p>Check the app is still working and make a git snapshot.</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;install and configure hotwire-rails&quot;
 </code></pre>
 <h2 id="using-hotwire">Using Hotwire</h2>
@@ -849,7 +850,7 @@ git commit -m &quot;install and configure hotwire-rails&quot;
 <h3 id="broadcast-new-tweets-to-all-clients">Broadcast New Tweets to all Clients</h3>
 <p>To broadcast changes to a client we need to modify the model and add the broadcast command.   A Broadcast &ldquo;tweets&rdquo; sends changes to the turbo_stream (websocket channel) with the same name.
 To add the new tweets to the top of the &ldquo;tweets&rdquo; page (frame) we need to use the <code>broadcast_prepend_to</code> instead of the <code>broadcast_append_to</code> (which puts new entries at the bottom)</p>
-<pre><code># app/models/tweet.rb
+<pre><code class="language-ruby"># app/models/tweet.rb
 class Tweet &lt; ApplicationRecord
   validates :body, presence: true
 
@@ -860,7 +861,7 @@ end
 </code></pre>
 <p>In order for this model broadcast to work we need to create a place to send it.  We do this in the view via a stream with the command <code>&lt;%= turbo_stream_from &quot;tweets&quot; %&gt;</code> we also need to tell this <code>stream</code> where to update &ndash; we do this with the turbo tag of the same name: <code>&lt;%= turbo_frame_tag &quot;tweets&quot; do %&gt;</code></p>
 <p>So lets update our index page :</p>
-<pre><code># app/views/tweets/index.html.erb
+<pre><code class="language-ruby"># app/views/tweets/index.html.erb
 &lt;!-- connects to the backend broadcast (via a channel) --&gt;
 &lt;%= turbo_stream_from &quot;tweets&quot; %&gt;
 
@@ -870,7 +871,7 @@ end
 &lt;% end %&gt;
 </code></pre>
 <p>In order to see our new frames lets update our css to make them visible - lets add a border to our turbo-frames:</p>
-<pre><code># app/assets/stylesheets/tweets.scss
+<pre><code class="language-css"># app/assets/stylesheets/tweets.scss
 turbo-frame {
   display: block;
   border: 1px solid green
@@ -881,7 +882,7 @@ turbo-frame {
 <p>You can see in the left window we created a new tweet and it automatically appeared in the right window!  HOW COOL IS THAT!</p>
 <p>Notice that the &ldquo;blue&rdquo; turbo-frame is around all the displayed tweets.</p>
 <p>Lets also take a quick look at the logs - from this transaction:</p>
-<pre><code>Started POST &quot;/tweets&quot; for 127.0.0.1 at 2021-02-28 21:12:59 +0100
+<pre><code class="language-bash">Started POST &quot;/tweets&quot; for 127.0.0.1 at 2021-02-28 21:12:59 +0100
 Processing by TweetsController#create as TURBO_STREAM
   Parameters: {&quot;authenticity_token&quot;=&gt;&quot;[FILTERED]&quot;, &quot;tweet&quot;=&gt;{&quot;body&quot;=&gt;&quot;Fourth Tweet&quot;}, &quot;commit&quot;=&gt;&quot;Create Tweet&quot;}
   TRANSACTION (1.6ms)  BEGIN
@@ -894,7 +895,6 @@ Processing by TweetsController#create as TURBO_STREAM
 [ActionCable] Broadcasting to tweets: &quot;&lt;turbo-stream action=\&quot;prepend\&quot; target=\&quot;tweets\&quot;&gt;&lt;template&gt;&lt;div class=\&quot;card card-body\&quot;&gt;\n  &lt;div&gt;Fourth Tweet&lt;/div&gt;\n\n  &lt;div class=\&quot;mt-2\&quot;&gt;\n    &lt;a class=\&quot;btn btn-sm btn-outline-success\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/like\&quot;&gt;Like (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-sm btn-outline-info\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/retweet\&quot;&gt;Retweet (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-sm btn-outline-primary\&quot; href=\&quot;/tweets/7/edit\&quot;&gt;Edit&lt;/a&gt;\n\n    &lt;a data-confirm=\&quot;Are you sure?\&quot; class=\&quot;btn btn-sm btn-outline-danger\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;delete\&quot; href=\&quot;/tweets/7\&quot;&gt;Destroy&lt;/a&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n&lt;/template&gt;&lt;/turbo-stream&gt;&quot;
 Redirected to http://localhost:3000/tweets
 Completed 302 Found in 105ms (ActiveRecord: 64.1ms | Allocations: 5636)
-
 
 Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;prepend\&quot; target=\&quot;tweets\&quot;&gt;&lt;template&gt;&lt;div class=\&quot;card card-body\&quot;&gt;\n  &lt;div&gt;Fourth Tweet&lt;/div&gt;\n\n  &lt;div class=\&quot;mt-2\&quot;&gt;\n    &lt;a class=\&quot;btn btn-sm btn-outline-success\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/like\&quot;&gt;Like (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-s... (via streamed from tweets)
 Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;prepend\&quot; target=\&quot;tweets\&quot;&gt;&lt;template&gt;&lt;div class=\&quot;card card-body\&quot;&gt;\n  &lt;div&gt;Fourth Tweet&lt;/div&gt;\n\n  &lt;div class=\&quot;mt-2\&quot;&gt;\n    &lt;a class=\&quot;btn btn-sm btn-outline-success\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/like\&quot;&gt;Like (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-s... (via streamed from tweets)
@@ -912,22 +912,22 @@ Processing by TweetsController#index as TURBO_STREAM
 Completed 200 OK in 80ms (Views: 34.9ms | ActiveRecord: 41.8ms | Allocations: 7831)
 </code></pre>
 <p>There is a bunch of interesting information, but for now I just want to point out the only thing sent was the new html to display:</p>
-<pre><code>[ActionCable] Broadcasting to tweets: &quot;&lt;turbo-stream action=\&quot;prepend\&quot; target=\&quot;tweets\&quot;&gt;&lt;template&gt;&lt;div class=\&quot;card card-body\&quot;&gt;\n  &lt;div&gt;Fourth Tweet&lt;/div&gt;\n\n  &lt;div class=\&quot;mt-2\&quot;&gt;\n    &lt;a class=\&quot;btn btn-sm btn-outline-success\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/like\&quot;&gt;Like (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-sm btn-outline-info\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/retweet\&quot;&gt;Retweet (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-sm btn-outline-primary\&quot; href=\&quot;/tweets/7/edit\&quot;&gt;Edit&lt;/a&gt;\n\n    &lt;a data-confirm=\&quot;Are you sure?\&quot; class=\&quot;btn btn-sm btn-outline-danger\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;delete\&quot; href=\&quot;/tweets/7\&quot;&gt;Destroy&lt;/a&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n&lt;/template&gt;&lt;/turbo-stream&gt;&quot;
+<pre><code class="language-bash">[ActionCable] Broadcasting to tweets: &quot;&lt;turbo-stream action=\&quot;prepend\&quot; target=\&quot;tweets\&quot;&gt;&lt;template&gt;&lt;div class=\&quot;card card-body\&quot;&gt;\n  &lt;div&gt;Fourth Tweet&lt;/div&gt;\n\n  &lt;div class=\&quot;mt-2\&quot;&gt;\n    &lt;a class=\&quot;btn btn-sm btn-outline-success\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/like\&quot;&gt;Like (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-sm btn-outline-info\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;post\&quot; href=\&quot;/tweets/7/retweet\&quot;&gt;Retweet (0)&lt;/a&gt;\n\n    &lt;a class=\&quot;btn btn-sm btn-outline-primary\&quot; href=\&quot;/tweets/7/edit\&quot;&gt;Edit&lt;/a&gt;\n\n    &lt;a data-confirm=\&quot;Are you sure?\&quot; class=\&quot;btn btn-sm btn-outline-danger\&quot; rel=\&quot;nofollow\&quot; data-method=\&quot;delete\&quot; href=\&quot;/tweets/7\&quot;&gt;Destroy&lt;/a&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n&lt;/template&gt;&lt;/turbo-stream&gt;&quot;
 Redirected to http://localhost:3000/tweets
 </code></pre>
 <p>Using websockets to send html to the parts of the webpage that need to be updated is very efficient.</p>
 <p>Since the broadcast is at the model level, we can even create a new tweet on the cli and all our web-clients will update:</p>
-<pre><code>bin/rails c
+<pre><code class="language-bash">bin/rails c
 Tweet.create(body: &quot;CLI tweet appears&quot;)
 </code></pre>
 <p><img src="tweet_index_3rd_broadcast_new_cli.png" alt="tweet_index_3rd"></p>
 <p>Lets make a snapshot:</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;new tweets are broadcast to all clients&quot;
 </code></pre>
 <h3 id="broadcast-deleted-tweets-to-all-clients">Broadcast Deleted Tweets to all Clients</h3>
 <p>we need to add another broadcast to the model:</p>
-<pre><code># app/models/tweet.rb
+<pre><code class="language-ruby"># app/models/tweet.rb
 class Tweet &lt; ApplicationRecord
   validates :body, presence: true
 
@@ -938,7 +938,7 @@ class Tweet &lt; ApplicationRecord
 end
 </code></pre>
 <p>But for this to work we will need to create frames around every tweet so we can find and delete the individual tweet to do this we will at a tag to our <code>_tweet</code> partial.</p>
-<pre><code># app/views/tweets/_tweet.html.erb
+<pre><code class="language-ruby"># app/views/tweets/_tweet.html.erb
 &lt;!-- this tag with `tweet` instead of 'tweets' identifies an individual tweet --&gt;
 &lt;%= turbo_frame_tag tweet do %&gt;
 &lt;div class=&quot;card card-body&quot;&gt;
@@ -970,11 +970,11 @@ end
 <p>In the above image you can see we are deleting the 3rd tweet - in the middle of the tweets.  And of course it works in both our web-clients because of the new broadcast and tags we added.</p>
 <p><img src="tweet_index_5th_deleted.png" alt="tweet_index_5th"></p>
 <p>Looking at the logs we see that we only send the information that is changing to each client:</p>
-<pre><code>Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;remove\&quot; target=\&quot;tweet_6\&quot;&gt;&lt;/turbo-stream&gt;&quot; (via streamed from tweets)
+<pre><code class="language-bash">Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;remove\&quot; target=\&quot;tweet_6\&quot;&gt;&lt;/turbo-stream&gt;&quot; (via streamed from tweets)
 Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;remove\&quot; target=\&quot;tweet_6\&quot;&gt;&lt;/turbo-stream&gt;&quot; (via streamed from tweets)
 </code></pre>
 <p>here is the full transaction:</p>
-<pre><code>Started DELETE &quot;/tweets/6&quot; for 127.0.0.1 at 2021-02-28 21:45:44 +0100
+<pre><code class="language-bash">Started DELETE &quot;/tweets/6&quot; for 127.0.0.1 at 2021-02-28 21:45:44 +0100
 Processing by TweetsController#destroy as TURBO_STREAM
   Parameters: {&quot;authenticity_token&quot;=&gt;&quot;[FILTERED]&quot;, &quot;id&quot;=&gt;&quot;6&quot;}
   Tweet Load (5.5ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;id&quot; = $1 LIMIT $2  [[&quot;id&quot;, 6], [&quot;LIMIT&quot;, 1]]
@@ -988,7 +988,6 @@ Processing by TweetsController#destroy as TURBO_STREAM
 [ActionCable] Broadcasting to tweets: &quot;&lt;turbo-stream action=\&quot;remove\&quot; target=\&quot;tweet_6\&quot;&gt;&lt;/turbo-stream&gt;&quot;
 Redirected to http://localhost:3000/tweets
 Completed 302 Found in 234ms (ActiveRecord: 66.0ms | Allocations: 6664)
-
 
 Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;remove\&quot; target=\&quot;tweet_6\&quot;&gt;&lt;/turbo-stream&gt;&quot; (via streamed from tweets)
 Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;remove\&quot; target=\&quot;tweet_6\&quot;&gt;&lt;/turbo-stream&gt;&quot; (via streamed from tweets)
@@ -1006,7 +1005,7 @@ Processing by TweetsController#index as TURBO_STREAM
 Completed 200 OK in 31ms (Views: 26.6ms | ActiveRecord: 1.6ms | Allocations: 7918)
 </code></pre>
 <p>Let&rsquo;s take another snapshot:</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;broadcast deleted tweets via hotwire&quot;
 </code></pre>
 <h3 id="edit--updates-to-all-clients">Edit / Updates to all clients!</h3>
@@ -1015,7 +1014,7 @@ git commit -m &quot;broadcast deleted tweets via hotwire&quot;
 <p>Lets start by testing the create form as is with validation errors - if we enter a blank message we should get an error.</p>
 <p><img src="tweet_index_6th_no_frame_validations.png" alt="tweet_index_6th_no_frame_validations"></p>
 <p>Now lets put this form in a turbo-frame - since we will need this in a form for edit - lets start with the easy case - new / create - where the form will always be in the same location. Ideally, the <code>turbo_stream_from</code> definition is before the first <code>turbo_frame_tag</code>.  Now your index view will look something like:</p>
-<pre><code># app/views/tweets/index.html.erb
+<pre><code class="language-ruby"># app/views/tweets/index.html.erb
 &lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
 
 &lt;!-- connects to the backend broadcast (via a channel) --&gt;
@@ -1038,7 +1037,7 @@ git commit -m &quot;broadcast deleted tweets via hotwire&quot;
 &lt;% end %&gt;
 </code></pre>
 <p>Log file - from the log file we see we are still reloading the page see the line: <code>Tweet Load (83.9ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; ORDER BY &quot;tweets&quot;.&quot;created_at&quot;</code>:</p>
-<pre><code>Started POST &quot;/tweets&quot; for 127.0.0.1 at 2021-03-01 20:55:34 +0100
+<pre><code class="language-bash">Started POST &quot;/tweets&quot; for 127.0.0.1 at 2021-03-01 20:55:34 +0100
 Processing by TweetsController#create as TURBO_STREAM
   Parameters: {&quot;authenticity_token&quot;=&gt;&quot;[FILTERED]&quot;, &quot;tweet&quot;=&gt;{&quot;body&quot;=&gt;&quot;&quot;}, &quot;commit&quot;=&gt;&quot;Create Tweet&quot;}
   Rendering layout layouts/application.html.erb
@@ -1053,7 +1052,7 @@ Processing by TweetsController#create as TURBO_STREAM
 Completed 422 Unprocessable Entity in 125ms (Views: 35.9ms | ActiveRecord: 83.9ms | Allocations: 9244)
 </code></pre>
 <p>To fix this we will need the <code>form</code> to have a tag id - to do this we can update the form with <code>&lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;</code> - also:</p>
-<pre><code>&lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;
+<pre><code class="language-ruby">&lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;
 &lt;% if tweet.errors.any? %&gt;
 &lt;div id=&quot;error_explanation&quot;&gt;
   &lt;h2&gt;&lt;%= pluralize(tweet.errors.count, &quot;error&quot;) %&gt; prohibited this tweet from being saved:&lt;/h2&gt;
@@ -1077,7 +1076,7 @@ Completed 422 Unprocessable Entity in 125ms (Views: 35.9ms | ActiveRecord: 83.9m
 &lt;% end %&gt;
 </code></pre>
 <p>But even still we need to the controller how to use the turbo_stream.  There are several ways (with and without a template).  We will start without a tempate (actually the template info is inline) using: <code>format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: &quot;tweets/form&quot;, locals: { tweet: @tweet}) }</code>.  Not the create controller should look like:</p>
-<pre><code># app/controllers/tweets_controller.rb
+<pre><code class="language-ruby"># app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
 
@@ -1097,7 +1096,7 @@ Completed 422 Unprocessable Entity in 125ms (Views: 35.9ms | ActiveRecord: 83.9m
 <p>Now when we create an invalid message we should see (notice the turbo-frame outline):
 <img src="tweet_index_7th_w_frame_validation.png" alt="tweet_index_7th_w_frame_validation"></p>
 <p>When we look at the logs we can confirm we are using the TURBO_STREAM for both directions and NOT reloading the page (no <code>LOAD</code> in the log):</p>
-<pre><code>Started POST &quot;/tweets&quot; for 127.0.0.1 at 2021-03-01 21:22:13 +0100
+<pre><code class="language-bash">Started POST &quot;/tweets&quot; for 127.0.0.1 at 2021-03-01 21:22:13 +0100
 Processing by TweetsController#create as TURBO_STREAM
   Parameters: {&quot;authenticity_token&quot;=&gt;&quot;[FILTERED]&quot;, &quot;tweet&quot;=&gt;{&quot;body&quot;=&gt;&quot;&quot;}, &quot;commit&quot;=&gt;&quot;Create Tweet&quot;}
   Rendered tweets/_form.html.erb (Duration: 3.0ms | Allocations: 1373)
@@ -1105,7 +1104,7 @@ Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 2641)
 </code></pre>
 <p>Now that validation errors work again - lets be sure that we can still create a new tweet.</p>
 <p>Assuming all works - lets take a quick snapshot:</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;new tweet form is hooked into turbo-stream and validations still work&quot;
 </code></pre>
 <p>?????
@@ -1114,7 +1113,7 @@ Turbo - is clever enough to figure out the routing in the default case and will 
 <h4 id="in-place-edit">In-Place Edit</h4>
 <p>In oder to do an in-place edit we will need yet another type of broadcast <code>after_update_commit { broadcast_replace_to &quot;tweets&quot; }</code>
 so our new model will now look like:</p>
-<pre><code># app/models/tweet.rb
+<pre><code class="language-ruby"># app/models/tweet.rb
 class Tweet &lt; ApplicationRecord
   validates :body, presence: true
 
@@ -1128,7 +1127,7 @@ end
 <p>Now would hope it would all work, but when we click on Edit, the item disappears (and re-appears on reload).
 <img src="tweet_index_8th_broken_edit.png" alt="tweet_index_8th_broken_edit"></p>
 <p>Lets look at the logs:</p>
-<pre><code>Started GET &quot;/tweets/11/edit&quot; for 127.0.0.1 at 2021-03-03 20:10:53 +0100
+<pre><code class="language-bash">Started GET &quot;/tweets/11/edit&quot; for 127.0.0.1 at 2021-03-03 20:10:53 +0100
 Processing by TweetsController#edit as HTML
   Parameters: {&quot;id&quot;=&gt;&quot;11&quot;}
   Tweet Load (0.7ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;id&quot; = $1 LIMIT $2  [[&quot;id&quot;, 11], [&quot;LIMIT&quot;, 1]]
@@ -1140,7 +1139,7 @@ Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.7ms | Allocations: 2104)
 </code></pre>
 <p>We see that it loads the tweet and sends it to the edit.html.erb page (which loads the form partial), but we don&rsquo;t see anything but the index page (minus the tweet we wanted to edit).  Unfortunately, Hotwire, doesn&rsquo;t provide an error, it just doesn&rsquo;t find a location to render the edit on our index (since the edit link is within a stream tag) and just replaces our dom_id with nothing.  Here is where Hotwire could provide much better feedback.</p>
 <p>In any case, the fix is straightforward, we need to tell Rails what in the edit page goes into the index page so we can do that with another frame_tag: <code>&lt;%= turbo_frame_tag dom_id(@tweet) do %&gt;</code> Now the edit.html.erb page should look like:</p>
-<pre><code># app/views/tweets/edit.html.erb
+<pre><code class="language-ruby"># app/views/tweets/edit.html.erb
 &lt;h1&gt;Editing Tweet&lt;/h1&gt;
 
 &lt;%= turbo_frame_tag dom_id(@tweet) do %&gt;
@@ -1153,7 +1152,7 @@ Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.7ms | Allocations: 2104)
 <p>NOTE: We don&rsquo;t need to fix the form partial since we did that in the previous <code>new</code> step with by adding a dom_id tag to the form with: <code>&lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;</code>.</p>
 <p><img src="tweet_index_9th_in_place_wo_css.png" alt="tweet_index_9th_in_place_wo_css"></p>
 <p>We might notice that the edit page lacks formatting (the form is squished up against the left of our frame).  This is because our tweet partial has a card div but that is lacking when replace the dom_id with the form &ndash; we can easily fix this by adding the CSS to our edit page:</p>
-<pre><code># app/views/tweets/edit.html.erb
+<pre><code class="language-ruby"># app/views/tweets/edit.html.erb
 &lt;h1&gt;Editing Tweet&lt;/h1&gt;
 
 &lt;%= turbo_frame_tag dom_id(@tweet) do %&gt;
@@ -1169,7 +1168,7 @@ Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.7ms | Allocations: 2104)
 <img src="tweet_index_10th_in_place_edit.png" alt="tweet_index_10th_in_place_edit"></p>
 <p>Now when we actually do an edit we see it all works as expected.  From the logs we see
 it loads the tweet from the db, then the the edit page which loads the frame (this time it actually places it into the dom_id we provided, but unfortunately, we can&rsquo;t see that from the logs)!  And we can see that when we submit the edit &ndash; the tweet model sends out the html patch send to both windows we have open.</p>
-<pre><code>Started GET &quot;/tweets/11/edit&quot; for 127.0.0.1 at 2021-03-03 20:34:56 +0100
+<pre><code class="language-bash">Started GET &quot;/tweets/11/edit&quot; for 127.0.0.1 at 2021-03-03 20:34:56 +0100
 Processing by TweetsController#edit as HTML
   Parameters: {&quot;id&quot;=&gt;&quot;11&quot;}
   Tweet Load (1.0ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;id&quot; = $1 LIMIT $2  [[&quot;id&quot;, 11], [&quot;LIMIT&quot;, 1]]
@@ -1199,7 +1198,7 @@ Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;replace\
 Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;replace\&quot; target=\&quot;tweet_11\&quot;&gt;&lt;template&gt;&lt;!-- this tag with `tweet` instead of 'tweets' identifies an individual tweet --&gt;\n&lt;turbo-frame id=\&quot;tweet_11\&quot;&gt;\n\n&lt;div class=\&quot;card card-body\&quot;&gt;\n  &lt;div&gt;jump! how high?&lt;/div&gt;\n\n  &lt;div class=\&quot;mt-2\&quot;&gt;\n    &lt;a class=\&quot;btn btn-sm btn... (via streamed from tweets)
 </code></pre>
 <p>Lets add a <code>cancel</code> button to the form so we don&rsquo;t need to reload the page to stop editing - we can do that with a show link <code>&lt;%= link_to &quot;Cancel&quot;, @tweet, class: &quot;btn btn-sm btn-outline-danger&quot; %&gt;</code> - so our form would now look like:</p>
-<pre><code># app/views/tweets/_form.html.erb
+<pre><code class="language-ruby"># app/views/tweets/_form.html.erb
 &lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&gt;
 &lt;% if tweet.errors.any? %&gt;
 &lt;div id=&quot;error_explanation&quot;&gt;
@@ -1225,7 +1224,7 @@ Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;replace\
 &lt;% end %&gt;
 </code></pre>
 <p>Unfortunately, now when we hit <code>cancel</code> - the tweet disappears &ndash; because @tweet points to the show page and our current show page has no turbo_frame with a <code>dom_id</code>. We can fix this by putting our show page (formatted like the tweet partial wrapped in a frame tag with a dom_id) - like:</p>
-<pre><code># app/views/tweets/show.html.erb
+<pre><code class="language-ruby"># app/views/tweets/show.html.erb
 &lt;%= turbo_frame_tag dom_id(@tweet) do %&gt;
 
 &lt;div class=&quot;card card-body&quot;&gt;
@@ -1254,7 +1253,7 @@ Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;replace\
 &lt;% end %&gt;
 </code></pre>
 <p>However, this is a bit silly since this is basically the same as our partial and we have two places to change if we want to adjust our tweet layout &ndash; so we can fix this by using the tweet partial:</p>
-<pre><code># app/views/tweets/show.html.erb
+<pre><code class="language-ruby"># app/views/tweets/show.html.erb
 &lt;%= turbo_frame_tag dom_id(@tweet) do %&gt;
   &lt;%= render @tweet %&gt;
 &lt;% end %&gt;
@@ -1264,7 +1263,7 @@ Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;replace\
 <p>This is because the tweet partial also has a dom_id - and show will process whatever it finds &ndash; but only sends whatever is marked by the dom_id.</p>
 <p>This was a little tricky to notice at first without the HTML inspector &ndash; since in show I used the explicit dom_id: <code>&lt;%= turbo_frame_tag @tweet do %&gt;</code> and in the tweet partial I used the implicit dom_id tag: <code>&lt;%= turbo_frame_tag tweet do %&gt;</code>.  Unfortunately, for now Rails Turbo provides does not yet provide warnings when you render the same dom_id twice.</p>
 <p>In any case, now it may be clear that the the proper solution is that show should now read like:</p>
-<pre><code># app/views/tweets/show.html.erb
+<pre><code class="language-ruby"># app/views/tweets/show.html.erb
 &lt;%= render @tweet %&gt;
 </code></pre>
 <p>Now when you inspect the HTML you will only see one dom_id for each tweet and since turbo only replaces items with the correct tags and ids - it renders the tweet partial now.  This is all a bit tricky to debug, hopefully, with time more errors or logging will be added - but for now, I suggest adding <code>&lt;!-- --&gt;</code> HTML comments with the name of the file inside each turbo tag to ease debugging &ndash; at least until everything works as wished.</p>
@@ -1272,7 +1271,7 @@ Turbo::StreamsChannel transmitting &quot;&lt;turbo-stream action=\&quot;replace\
 <img src="tweet_index_12_edit_w_validations.png" alt="tweet_index_12_edit_w_validations">
 because the form now has a dom_id and the validation errors are sent there.</p>
 <p>If some other route is happening another way to fix this would be to add <code>format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: &quot;tweets/form&quot;, locals: { tweet: @tweet}) }</code> to the controller update method:</p>
-<pre><code># app/controllers/tweets_controller.rb
+<pre><code class="language-ruby"># app/controllers/tweets_controller.rb
 def update
     respond_to do |format|
       if @tweet.update(tweet_params)
@@ -1288,7 +1287,7 @@ def update
 </code></pre>
 <p>OK - ideally all functionality in the edit form is now working well!</p>
 <p>Time for another snapshot:</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;turbo frame now allows in-place edit and cancel edit without reloading&quot;
 </code></pre>
 <h3 id="likes-and-retweet">Likes and Retweet</h3>
@@ -1296,17 +1295,28 @@ git commit -m &quot;turbo frame now allows in-place edit and cancel edit without
 <h2 id="resources">Resources</h2>
 <p>I am particularly fond of the GoRails videos.</p>
 <ul>
-<li><a href="https://hotwire.dev/">https://hotwire.dev/</a></li>
-<li><a href="https://turbo.hotwire.dev/">https://turbo.hotwire.dev/</a></li>
-<li><a href="https://github.com/hotwired/hotwire-rails">https://github.com/hotwired/hotwire-rails</a></li>
-<li><a href="https://www.youtube.com/watch?v=NtTfYfWAzw0">https://www.youtube.com/watch?v=NtTfYfWAzw0</a></li>
-<li><a href="https://www.youtube.com/watch?v=77GvSdc2Pf8">https://www.youtube.com/watch?v=77GvSdc2Pf8</a></li>
-<li><a href="https://www.youtube.com/watch?v=NtTfYfWAzw0">https://www.youtube.com/watch?v=NtTfYfWAzw0</a></li>
-<li><a href="https://www.youtube.com/watch?v=MRv4XGu6QkY">https://www.youtube.com/watch?v=MRv4XGu6QkY</a></li>
-<li><a href="https://gorails.com/episodes/hotwire-rails?autoplay=1">https://gorails.com/episodes/hotwire-rails?autoplay=1</a></li>
-<li><a href="https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/">https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/</a></li>
-<li><a href="https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/">https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/</a></li>
-<li><a href="https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87">https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87</a></li>
+<li>
+<a href="https://hotwire.dev/" target="_blank" rel="noopener">https://hotwire.dev/</a></li>
+<li>
+<a href="https://turbo.hotwire.dev/" target="_blank" rel="noopener">https://turbo.hotwire.dev/</a></li>
+<li>
+<a href="https://github.com/hotwired/hotwire-rails" target="_blank" rel="noopener">https://github.com/hotwired/hotwire-rails</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=NtTfYfWAzw0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NtTfYfWAzw0</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=77GvSdc2Pf8" target="_blank" rel="noopener">https://www.youtube.com/watch?v=77GvSdc2Pf8</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=NtTfYfWAzw0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NtTfYfWAzw0</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=MRv4XGu6QkY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MRv4XGu6QkY</a></li>
+<li>
+<a href="https://gorails.com/episodes/hotwire-rails?autoplay=1" target="_blank" rel="noopener">https://gorails.com/episodes/hotwire-rails?autoplay=1</a></li>
+<li>
+<a href="https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/" target="_blank" rel="noopener">https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/</a></li>
+<li>
+<a href="https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/" target="_blank" rel="noopener">https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/</a></li>
+<li>
+<a href="https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87" target="_blank" rel="noopener">https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87</a></li>
 </ul>
 
     </div>
@@ -1663,7 +1673,7 @@ git commit -m &quot;turbo frame now allows in-place edit and cancel edit without
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

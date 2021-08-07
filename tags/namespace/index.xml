@@ -19,32 +19,32 @@
       <guid>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</guid>
       <description>&lt;h2 id=&#34;configure-devise-for-multiple-types-of-accounts&#34;&gt;Configure devise (for multiple types of accounts)&lt;/h2&gt;
 &lt;p&gt;install the devise engine:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails generate devise:install
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails generate devise:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now follow the basic setup config &amp;ndash; add to &lt;code&gt;config/environments/development.rb&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;add notifications to the layout for devise in &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; just above &lt;code&gt;&amp;lt;%= yeild %&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 &amp;lt;p class=&amp;quot;alert&amp;quot;&amp;gt;&amp;lt;%= alert %&amp;gt;&amp;lt;/p&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now create one or more models for devise:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g devise:views
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g devise:views
 rails generate devise user
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;update the routes to put the login in separate routes in &lt;code&gt;config/routes.rb&lt;/code&gt; - make the routes look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  devise_for :users,  path: &#39;users&#39;  # http://localhost:3000/users/sign_in
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  devise_for :users,  path: &#39;users&#39;  # http://localhost:3000/users/sign_in
   devise_for :admins, path: &#39;admins&#39; # http://localhost:3000/admins/sign_in
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;turn on scoped views (since login forms can be different) in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.scoped_views = true
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;config.scoped_views = true
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the scoped views: (instead of: rails g devise:views) do:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g devise:views users/devise
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g devise:views users/devise
 rails g devise:views admins/devise
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now we should open these migrations and uncomment any added fields we use - I generally like to use most of the fields:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# frozen_string_literal: true
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# frozen_string_literal: true
 
 class DeviseCreateAdmins &amp;lt; ActiveRecord::Migration[6.0]
   def change
@@ -89,7 +89,7 @@ class DeviseCreateAdmins &amp;lt; ActiveRecord::Migration[6.0]
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and adjust the &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;admin&lt;/code&gt; models too and turn on the features we want or need. We will go into detail later, for now I will just add trackable to the models:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class User &amp;lt; ApplicationRecord
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :trackable,
@@ -97,14 +97,14 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and of course migrate too.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails db:migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create custome controllers for each sessions - this also allows the users to have different fields and features:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails generate devise:controllers users/devise
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails generate devise:controllers users/devise
 rails generate devise:controllers admins/devise
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;configure the routes to point to these new controllers:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  # http://localhost:3000/users/sign_in
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  # http://localhost:3000/users/sign_in
   devise_for :users,  path: &#39;users&#39;,
                       controllers: {
                         sessions:      &#39;users/devise/sessions&#39;,
@@ -120,7 +120,7 @@ rails generate devise:controllers admins/devise
                       }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now the routes should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ bin/rails routes
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ bin/rails routes
                      Prefix Verb   URI Pattern                        Controller#Action
            new_user_session GET    /users/sign_in(.:format)           users/sessions#new
                user_session POST   /users/sign_in(.:format)           users/sessions#create
@@ -154,11 +154,11 @@ rails generate devise:controllers admins/devise
                             POST   /admins(.:format)                  admin/registrations#create
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;lets make logged in home pages (for the user and admin)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
 rails g controller admins/home index --no-helper --no-assets --no-controller-specs --no-view-specs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now lets update our routes to ponit to these pages if the user is logged in add the following belos the deivse_for commands&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Rails.application.routes.draw do
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
   # http://localhost:3000/admins/sign_in
   devise_for :admins, path: &#39;admins&#39;,
                       controllers: {
@@ -217,7 +217,7 @@ end
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;now-lets-make-applicationcontrollers-for-each-namespace--enforce-authentication&#34;&gt;now lets make ApplicationControllers for each namespace &amp;amp; enforce authentication&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;touch app/controllers/admins/application_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;touch app/controllers/admins/application_controller.rb
 cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/admins/application_controller.rb
 class Admins::ApplicationController &amp;lt; ApplicationController
   before_action :authenticate_admin!
@@ -266,7 +266,7 @@ EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;now-we-will-inhert-from-these-new-controllers-and-enforce-limits&#34;&gt;now we will inhert from these new controllers and enforce limits&lt;/h1&gt;
 &lt;p&gt;now lets require these pages to have authenticated the correct user type:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/admins/home_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/admins/home_controller.rb
 class Admins::HomeController &amp;lt; Admins::ApplicationController
   def index
   end
@@ -286,7 +286,7 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;now-prevent-student-and-admin-accounts-from-cross-visits-during-testing-or-whatever&#34;&gt;Now prevent student and admin accounts from cross visits (during testing, or whatever)&lt;/h2&gt;
 &lt;p&gt;create this new file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch app/controllers/concerns/accessible.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;touch app/controllers/concerns/accessible.rb
 cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/concerns/accessible.rb
 module Accessible
   extend ActiveSupport::Concern
@@ -317,7 +317,7 @@ EOF
 &lt;p&gt;Now add &lt;code&gt;include Accessible&lt;/code&gt; in the appropriate controllers:&lt;/p&gt;
 &lt;p&gt;Note:
 You must skip_before_action for the destroy action in each SessionsController to prevent the redirect to happen before the sign out occurs.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# eg. ../controllers/admins/sessions_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# eg. ../controllers/admins/sessions_controller.rb
 class Admins::SessionsController &amp;lt; Devise::SessionsController
  include Accessible
  skip_before_action :check_user, only: :destroy
@@ -366,8 +366,9 @@ class Patrons::RegistrationsController &amp;lt; Devise::RegistrationsController
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;now-lets-give-the-patron-account-a-usernames&#34;&gt;now lets give the patron account a usernames&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails generate migration add_username_to_patrons username:string:uniq
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails generate migration add_username_to_patrons username:string:uniq
 rails generate migration add_umdzes_name_to_umdzes fullname:string
 rails generate migration add_admins_name_to_admins fullname:string
 
@@ -390,11 +391,10 @@ class AddFullnameToAdmins &amp;lt; ActiveRecord::Migration[6.0]
     add_column :admins, :admins_name, :string, null: false
   end
 end
-
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;update-the-models&#34;&gt;update the models&lt;/h2&gt;
 &lt;p&gt;now we need to go to the models and make the following updates:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/admin.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/admin.rb
 class Admin &amp;lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -446,9 +446,11 @@ end
 &lt;p&gt;now we can safely migrate &lt;code&gt;bundle exec rails db:migrate&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;lets-test-our-logins&#34;&gt;lets test our logins&lt;/h2&gt;
 &lt;p&gt;lets create some common feature test code:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&#34;&gt;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&lt;/a&gt;
-&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/support/features/session_helpers.rb
+&lt;p&gt;
+&lt;a href=&#34;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&lt;/a&gt;
+
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/support/features/session_helpers.rb
 module Features
   module SessionHelpers
     # def patron_sign_up(username:, password:)
@@ -503,13 +505,13 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We are not allowing registrations, so that code is commented out.  However, we see we must configure our factories for this code to work.&lt;/p&gt;
 &lt;p&gt;Lets tell rspec how to access this code in feature tests:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/support/features.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/support/features.rb
 RSpec.configure do |config|
   config.include Features::SessionHelpers, type: :feature
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;lets-create-test-for-our-devise-model-factories&#34;&gt;Lets create test for our devise model factories:&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# spec/models/patron_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/models/patron_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe User, type: :model do
@@ -552,10 +554,10 @@ RSpec.describe Admin, type: :model do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;be sure these fail - run:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rspec spec/models/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we need to configure the factories so all is working:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/factories/patrons.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/factories/patrons.rb
 FactoryBot.define do
   factory :user do
     sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
@@ -592,15 +594,20 @@ end
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;be sure these pass now - run:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rspec spec/models/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we are ready to test devise and our restricted access to the users home page:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.madetech.com/blog/feature-testing-with-rspec&#34;&gt;https://www.madetech.com/blog/feature-testing-with-rspec&lt;/a&gt;
-&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;
-&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&lt;/a&gt;
-&lt;a href=&#34;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&#34;&gt;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&lt;/a&gt;
-&lt;a href=&#34;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&#34;&gt;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/features/users/user_signup_spec.rb
+&lt;p&gt;
+&lt;a href=&#34;https://www.madetech.com/blog/feature-testing-with-rspec&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.madetech.com/blog/feature-testing-with-rspec&lt;/a&gt;
+
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;
+
+&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&lt;/a&gt;
+
+&lt;a href=&#34;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&lt;/a&gt;
+
+&lt;a href=&#34;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/features/users/user_signup_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Users Home Page&#39;, type: :feature do
@@ -660,7 +667,7 @@ RSpec.describe &#39;Users Home Page&#39;, type: :feature do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and test to be sure admin can log in too:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/features/admins/admin_login_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/features/admins/admin_login_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Users Login&#39;, type: :feature do
@@ -716,7 +723,7 @@ RSpec.describe &#39;Admins Home&#39;, type: :feature do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;before we wrap up - we need to fix our request specs - now that we added login restrictions:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/requests/users/home_request_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/requests/users/home_request_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &amp;quot;Patron::Homes&amp;quot;, type: :request do
@@ -865,7 +872,7 @@ RSpec.describe &amp;quot;Admins::Dashboards&amp;quot;, type: :request do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;run the tests and be sure all is green - if so, now is a good time to make a commit!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;rspec and devise configured and tests green&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 </description>

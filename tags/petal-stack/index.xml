@@ -20,24 +20,27 @@
       <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
 &lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://thinkingelixir.com/install-elixir-using-asdf/&#34;&gt;https://thinkingelixir.com/install-elixir-using-asdf/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thinkingelixir.com/install-elixir-using-asdf/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thinkingelixir.com/install-elixir-using-asdf/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;On a Mac I used Homebrew:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;brew install asdf
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install asdf
 echo -e &#39;\n. $(brew --prefix asdf)/asdf.sh&#39; &amp;gt;&amp;gt; ~/.bash_profile
 echo -e &#39;\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash&#39; &amp;gt;&amp;gt; ~/.bash_profile
 source ~/.bash_profile  # (or open a new terminal)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now you can install asdf software packages:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;asdf plugin-add erlang
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf plugin-add erlang
 asdf plugin-add elixir
 asdf plugin-add nodejs
 asdf plugin-add Postgres
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now you need to install the desired versions (usually the newest) - currently:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;asdf list all erlang
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf list all erlang
 asdf install erlang 23.3.1
 
 # note the elixir version otp must match the erlang version!
@@ -55,15 +58,16 @@ asdf list all Postgres
 asdf install Postgres 13.2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;get-the-newest-phoenix-hex-package&#34;&gt;Get the newest Phoenix Hex Package&lt;/h2&gt;
-&lt;p&gt;Once you have established you have the requrements - the download the newest version of Phoenix (go to: &lt;a href=&#34;https://hexdocs.pm/phoenix/installation.html#phoenix&#34;&gt;https://hexdocs.pm/phoenix/installation.html#phoenix&lt;/a&gt; to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix archive.install hex phx_new 1.5.8
+&lt;p&gt;Once you have established you have the requrements - the download the newest version of Phoenix (go to: 
+&lt;a href=&#34;https://hexdocs.pm/phoenix/installation.html#phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/phoenix/installation.html#phoenix&lt;/a&gt; to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix archive.install hex phx_new 1.5.8
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create--config-a-project&#34;&gt;create / config a project&lt;/h2&gt;
 &lt;p&gt;First we will creat the folder / project location&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir fenix
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir fenix
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we will tell it which software to use:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch fenix/.tool-versions
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch fenix/.tool-versions
 cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;fenix/.tool-versions
 erlang 23.3.1
 elixir 1.11.4-otp-23
@@ -72,32 +76,35 @@ nodejs lts-Fermium
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create-a-new-phoenix-project&#34;&gt;Create a new Phoenix Project&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now you can simply do:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix phx.new fenix --live
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix phx.new fenix --live
 cd fenix
 mix ecto.create
 mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;assuming all is good lets configure git:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git init
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git init
 git add .
 git commit -m &amp;quot;initial Phoneix install with LiveView&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install--test-alpine-js&#34;&gt;install &amp;amp; test Alpine JS&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
-&lt;a href=&#34;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&#34;&gt;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd assets
+&lt;p&gt;
+&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
+
+&lt;a href=&#34;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd assets
 npm install alpinejs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now change &lt;code&gt;app.js&lt;/code&gt; is to require our new setup:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# assets/js/app.js
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# assets/js/app.js
 // .. after the app.scss import add:
 import Alpine from &amp;quot;alpinejs&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;still in &lt;code&gt;assets/js/app.js&lt;/code&gt; find&lt;code&gt;:&lt;/code&gt;let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {params: {_csrf_token: csrfToken}})`&lt;/p&gt;
 &lt;p&gt;and change to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;let liveSocket =
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;let liveSocket =
     new LiveSocket(&amp;quot;/live&amp;quot;,
                     Socket,
                     { params: {_csrf_token: csrfToken},
@@ -109,7 +116,7 @@ import Alpine from &amp;quot;alpinejs&amp;quot;;
                   )
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;TEST by adding to the end of: &lt;code&gt;lib/fenix_web/live/page_live.html.leex&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;section&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;&amp;lt;section&amp;gt;
   &amp;lt;h2&amp;gt;Alpine JS Installed&amp;lt;/h2&amp;gt;
   &amp;lt;div x-data=&amp;quot;{name:&#39;&#39;}&amp;quot;&amp;gt;
     &amp;lt;label for=&amp;quot;name&amp;quot;&amp;gt;Name:&amp;lt;/label&amp;gt;
@@ -122,14 +129,16 @@ import Alpine from &amp;quot;alpinejs&amp;quot;;
 &lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;when typing the name should appear below!&lt;/p&gt;
 &lt;p&gt;let&amp;rsquo;s snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;phoenix with alpine js&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;integrating-tailwind-into-phoenix&#34;&gt;Integrating Tailwind into phoenix&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;
-&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;
+
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This source gives several options - here we install with &lt;code&gt;postcss-import&lt;/code&gt; (for components from the beginning):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd assets
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;cd assets
 npm install tailwindcss postcss autoprefixer postcss-loader@4.2  postcss-import --save-dev
 
 touch postcss.config.js
@@ -144,7 +153,7 @@ module.exports = {
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now open: &lt;code&gt;assets/webpack.config.js&lt;/code&gt; and find:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;{
 	test: /\.[s]?css$/,
 	use: [
 		MiniCssExtractPlugin.loader,
@@ -154,7 +163,7 @@ EOF
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;change too (add &lt;code&gt;&#39;postcss-loader&#39;&lt;/code&gt; between &lt;code&gt;&#39;css-loader&#39;&lt;/code&gt; &amp;amp; &lt;code&gt;&#39;sass-loader&#39;&lt;/code&gt;):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;{
 	test: /\.[s]?css$/,
 	use: [
 		MiniCssExtractPlugin.loader,
@@ -165,10 +174,10 @@ EOF
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now initialize tailwind config with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npx tailwindcss init
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npx tailwindcss init
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;this creates the file &lt;code&gt;tailwind.config.js&lt;/code&gt; we will replace the &lt;code&gt;purge: [],&lt;/code&gt; section with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;purge: [
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;purge: [
     &#39;../lib/**/*.ex&#39;,
     &#39;../lib/**/*.leex&#39;,
     &#39;../lib/**/*.eex&#39;,
@@ -176,7 +185,7 @@ EOF
   ],
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now the fill will look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;module.exports = {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;module.exports = {
   purge: [
     &#39;../lib/**/*.ex&#39;,
     &#39;../lib/**/*.leex&#39;,
@@ -194,23 +203,23 @@ EOF
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now in &lt;code&gt;assets/package.json&lt;/code&gt; find:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  &amp;quot;scripts&amp;quot;: {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  &amp;quot;scripts&amp;quot;: {
     &amp;quot;deploy&amp;quot;: &amp;quot;webpack --mode production&amp;quot;,
     &amp;quot;watch&amp;quot;: &amp;quot;webpack --mode development --watch&amp;quot;
   },
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and change this to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  &amp;quot;scripts&amp;quot;: {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  &amp;quot;scripts&amp;quot;: {
     &amp;quot;deploy&amp;quot;: &amp;quot;NODE_ENV=production webpack --mode production&amp;quot;,
     &amp;quot;watch&amp;quot;: &amp;quot;webpack --mode development --watch&amp;quot;
   },
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;we will create a file for our custom styles the &lt;code&gt;assets/css/custom-style.css&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# assuming you are still in the assets directory on the cli
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# assuming you are still in the assets directory on the cli
 touch css/custom-styles.css
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let&amp;rsquo;s also create our a custom component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# assuming you are still in the assets directory on the cli
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;# assuming you are still in the assets directory on the cli
 mkdir css/components
 touch css/components/buttons.css
 cat &amp;lt;&amp;lt;EOF &amp;gt; css/components/buttons.css
@@ -225,7 +234,7 @@ cat &amp;lt;&amp;lt;EOF &amp;gt; css/components/buttons.css
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now will will configure Phoenix to load Tailwind, our custom-styles and our custom-components &amp;ndash; DO THIS AT THE TOP OF the file &lt;code&gt;assets/css/app.scss&lt;/code&gt; (@imports must be before all else):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* Import tailwind - with postcss-import installed */
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/* Import tailwind - with postcss-import installed */
 @import &amp;quot;tailwindcss/base&amp;quot;;
 @import &amp;quot;tailwindcss/components&amp;quot;;
 @import &amp;quot;tailwindcss/utilities&amp;quot;;
@@ -240,7 +249,7 @@ EOF
 @import &amp;quot;./phoenix.css&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;add a test html from tailwind to the end of: &lt;code&gt;lib/fenix_web/live/page_live.html.leex&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;section class=&amp;quot;grid grid-cols-1 gap-4&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;&amp;lt;section class=&amp;quot;grid grid-cols-1 gap-4&amp;quot;&amp;gt;
   &amp;lt;div&amp;gt;
     &amp;lt;h2 class=&amp;quot;text-red-500 text-5xl font-bold text-center&amp;quot;&amp;gt;Tailwind CSS with AlpineJS&amp;lt;/h2&amp;gt;
     &amp;lt;p class=&amp;quot;mt-5 font-bold text-center&amp;quot;&amp;gt;Red Title with Colored Counter Buttons&amp;lt;/p&amp;gt;
@@ -254,18 +263,25 @@ EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when we start the server with &lt;code&gt;mix phx.server&lt;/code&gt; we should have a centered / red title and colored buttons on our counter.&lt;/p&gt;
 &lt;p&gt;now lets snapshot our PETAL setup:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;Tailwind installed&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=o4Prej0wIZA&#34;&gt;https://www.youtube.com/watch?v=o4Prej0wIZA&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.pthompson.org/alpine-js-and-liveview&#34;&gt;http://blog.pthompson.org/alpine-js-and-liveview&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&#34;&gt;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&#34;&gt;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=o4Prej0wIZA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=o4Prej0wIZA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://blog.pthompson.org/alpine-js-and-liveview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.pthompson.org/alpine-js-and-liveview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

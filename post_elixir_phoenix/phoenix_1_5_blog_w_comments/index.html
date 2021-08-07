@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2020-07-10T09:43:51&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-07-10T09:43:51&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:43:51&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -681,8 +681,10 @@
     
     
       
+          Last updated on
+      
     
-    Fri, Jul 10, 2020
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -727,7 +729,8 @@
 
     <div class="article-style">
       <h2 id="purpose">Purpose</h2>
-<p>This article builds on the existing article: <a href="https://btihen.me/post_tech/phoenix_1_5_blog_intro/">https://btihen.me/post_tech/phoenix_1_5_blog_intro/</a> and adds nested relationships and has_many_through.</p>
+<p>This article builds on the existing article: 
+<a href="https://btihen.me/post_tech/phoenix_1_5_blog_intro/" target="_blank" rel="noopener">https://btihen.me/post_tech/phoenix_1_5_blog_intro/</a> and adds nested relationships and has_many_through.</p>
 <h2 id="now-lets-create-comments-a-has-many-through-for-users">now lets create comments (a has many through for users)</h2>
 <p>we will use <code>mix phx.gen.context</code> this time since we will use the posts page to add comments.  We will use the context generator since we don&rsquo;t need any views or templates generated.  Answer <code>Y</code> to the question about the context already existing.  We could create to API files within the Context before the one file gets too large, but we will skip that.</p>
 <pre><code>mix phx.gen.context Blogs Comment comments message:text post_id:references:posts  user_id:references:users
@@ -735,7 +738,7 @@
 <h2 id="update-relationships">Update Relationships</h2>
 <p>We need to create the relationships and update the migration to delete comments when post is deleted:</p>
 <p>Now lets create the relationship between posts and comments:</p>
-<pre><code># lib/feenix_intro/blogs/comment.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs/comment.ex
 efmodule FeenixIntro.Blogs.Comment do
   use Ecto.Schema
   import Ecto.Changeset
@@ -765,7 +768,7 @@ efmodule FeenixIntro.Blogs.Comment do
   end
 </code></pre>
 <p>Now lets update posts relationship to comments:</p>
-<pre><code># lib/feenix_intro/blogs/post.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs/post.ex
   # ...
   alias FeenixIntro.Blogs.Comment
   # ...
@@ -778,7 +781,7 @@ efmodule FeenixIntro.Blogs.Comment do
 <p>We could do the same <code>has_many</code> relationship with users - but its not needed.  It is unlikely we would want to look-up all a user&rsquo;s comments outside the context of a Blog.</p>
 <h2 id="update-migration-to-delete-sub-resource-when-top-resource-is-deleted">Update Migration to delete sub-resource when top-resource is deleted</h2>
 <p>To create the rails equivalent of dependent_delete we change the migration to the following:</p>
-<pre><code># priv/repo/migrations/20200704161651_create_comments.exs
+<pre><code class="language-elixir"># priv/repo/migrations/20200704161651_create_comments.exs
       # ...
       # replce
       # add :post_id, references(:posts, on_delete: :nothing)
@@ -794,7 +797,7 @@ efmodule FeenixIntro.Blogs.Comment do
 <h2 id="testing">Testing</h2>
 <p><strong>Start simple with the seed file</strong></p>
 <p>Lets add a comment to our prebuild posts:</p>
-<pre><code># priv/repo/seeds.exs
+<pre><code class="language-elixir"># priv/repo/seeds.exs
 # ...
 # add the alias to keep things short
 alias FeenixIntro.Blogs.Comment
@@ -819,7 +822,7 @@ git commit -m &quot;Comments added as a resource and relationship to Posts estab
 <h2 id="preload-comments-within-get_post">Preload comments within get_post</h2>
 <p>To show the comments within a post we will need to preload the comments &ndash; this is done by adding <code>Repo.preload(:comments)</code> to our function: <code>def get_post!(id)</code> &ndash; however, we will also want to display the comment&rsquo;s author &ndash; so we need to do a nested preload with: <code>Repo.preload([comments: [:user]])</code></p>
 <p>So now this function looks like:</p>
-<pre><code># lib/feenix_intro/blogs.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs.ex
 def get_post!(id) do
     Post
     |&gt; Repo.get!(id)
@@ -828,7 +831,7 @@ def get_post!(id) do
   end
 </code></pre>
 <p>This can actually be shortened to (this will be helpful later):</p>
-<pre><code>lib/feenix_intro/blogs.ex
+<pre><code class="language-elixir">lib/feenix_intro/blogs.ex
 def get_post!(id) do
     Post
     |&gt; Repo.get!(id)
@@ -837,7 +840,7 @@ def get_post!(id) do
 </code></pre>
 <h2 id="display-the-comments-within-the-post-show">Display the comments within the Post show</h2>
 <p>Now that we have updated the get_post! to preload comments we can display the comments too by adding to the end of our post&rsquo;s - show template:</p>
-<pre><code># lib/feenix_intro_web/templates/post/show.html.eex
+<pre><code class="language-elixir"># lib/feenix_intro_web/templates/post/show.html.eex
 
 # ...
 &lt;table&gt;
@@ -867,7 +870,7 @@ git commit -m &quot;display comments and comment author on post show page&quot;
 </code></pre>
 <h2 id="creating-comments-as-a-nested-resource">Creating Comments (as a nested resource)</h2>
 <p>Since we have added comments within the Blogs context and they are associated with a post - it makes sense to create and display comments as a nested resource.  To set this up lets change our routes file:</p>
-<pre><code># lib/feenix_intro_web/router.ex
+<pre><code class="language-elixir"># lib/feenix_intro_web/router.ex
 # ...
   scope &quot;/&quot;, FeenixIntroWeb do
     pipe_through :browser
@@ -887,7 +890,7 @@ git commit -m &quot;display comments and comment author on post show page&quot;
 <p>This means we will be able to create a comment only within the context of an existing post (seems reasonable) &ndash; more actions can be added later such as <code>edit</code> or <code>delete</code> possibly.</p>
 <p>This also means we need to display our comments within the context of existing posts (the best place for this is the <code>show</code> - where all the details of the post are shown).</p>
 <p>Let&rsquo;s create the controller we just defined - we will need to make a new file:</p>
-<pre><code># lib/feenix_intro_web/controllers/comment_controller.ex
+<pre><code class="language-elixir"># lib/feenix_intro_web/controllers/comment_controller.ex
 defmodule FeenixIntroWeb.CommentController do
   use FeenixIntroWeb, :controller
 
@@ -916,7 +919,7 @@ end
 </code></pre>
 <p>Note: at the moment we don&rsquo;t handle errors, and allow those to be fixed.  We will get to that in a second step.</p>
 <p>We need to update the function <code>create_comment</code> in order to work as a nested resource:</p>
-<pre><code>#  @doc &quot;&quot;&quot;
+<pre><code class="language-elixir">#  @doc &quot;&quot;&quot;
   Creates a comment.
 
   ## Examples
@@ -950,7 +953,7 @@ end
   end
 </code></pre>
 <p>In order to create a new Comment <strong>form</strong> the <code>show</code> function will need to borrow from a typical <code>new</code> function and send and empty struct (changeset) for the form &ndash; lets start by updating the PostController show function:</p>
-<pre><code># lib/feenix_intro_web/controllers/post_controller.ex
+<pre><code class="language-elixir"># lib/feenix_intro_web/controllers/post_controller.ex
   # ...
   alias FeenixIntro.Blogs.Comment
 
@@ -967,7 +970,7 @@ end
   end
 </code></pre>
 <p>Now that we have an empty changeset for the form - we can add the form to the show page with:</p>
-<pre><code># lib/feenix_intro_web/templates/post/show.html.eex
+<pre><code class="language-elixir"># lib/feenix_intro_web/templates/post/show.html.eex
 # ...
 &lt;h3&gt;Add a Comment&lt;/h3&gt;
 &lt;%= form_for @comment_changeset, Routes.post_comment_path(@conn, :create, @post), fn form -&gt; %&gt;
@@ -994,10 +997,11 @@ git commit -m &quot;comment creation as a nested resource within posts&quot;
 <h2 id="handle-input-errors">Handle Input Errors</h2>
 <p>Prevent empty strings:</p>
 <ul>
-<li><a href="https://stackoverflow.com/questions/32784008/phoenix-render-template-of-other-folder">https://stackoverflow.com/questions/32784008/phoenix-render-template-of-other-folder</a></li>
+<li>
+<a href="https://stackoverflow.com/questions/32784008/phoenix-render-template-of-other-folder" target="_blank" rel="noopener">https://stackoverflow.com/questions/32784008/phoenix-render-template-of-other-folder</a></li>
 </ul>
 <p>lets add a minimum message legth to comments:</p>
-<pre><code># lib/feenix_intro/blogs/comment.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs/comment.ex
   def changeset(comment, attrs) do
     comment
     |&gt; cast(attrs, @required_fields)
@@ -1007,7 +1011,7 @@ git commit -m &quot;comment creation as a nested resource within posts&quot;
 
 </code></pre>
 <p>Now, change the controller to prep the data just like a post <code>show</code> and send the changeset - with the errors. <code>|&gt; put_view(FeenixIntroWeb.PostView)</code> is how we redirect to other external views as of Phoenix 1.5.1:</p>
-<pre><code># lib/feenix_intro_web/controllers/comment_controller.ex
+<pre><code class="language-elixir"># lib/feenix_intro_web/controllers/comment_controller.ex
   # add the alias
   alias FeenixIntro.Accounts
 
@@ -1038,7 +1042,7 @@ git commit -m &quot;handle comment creation errors&quot;
 <h2 id="flexible-preloading">Flexible preloading</h2>
 <p>You may have noticed the pre-loading is hard-coded &ndash; in this case it is ok, but might not always be good.  Here is a flexible alternative:</p>
 <p>We can update / replace the following functions with the following:</p>
-<pre><code># lib/feenix_intro/blogs.ex
+<pre><code class="language-elixir"># lib/feenix_intro/blogs.ex
   def list_posts(opts \\ [:user]) do
     preloads = Keyword.get(opts, :preloads, [])
     Post
@@ -1061,7 +1065,7 @@ git commit -m &quot;handle comment creation errors&quot;
   end
 </code></pre>
 <p>And now we can change our show post controller to look like - so that we can use this flexibility:</p>
-<pre><code># lib/feenix_intro_web/controllers/post_controller.ex
+<pre><code class="language-elixir"># lib/feenix_intro_web/controllers/post_controller.ex
   # ...
 
   def index(conn, _params) do
@@ -1449,7 +1453,7 @@ git commit -m &quot;handle comment creation errors&quot;
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

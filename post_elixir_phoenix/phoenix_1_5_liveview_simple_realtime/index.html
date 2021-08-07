@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-04-10T17:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-04-10T17:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:01:53&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -689,8 +689,10 @@
     
     
       
+          Last updated on
+      
     
-    Sat, Apr 10, 2021
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -731,7 +733,7 @@
 
 <div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 388px;">
   <div style="position: relative">
-    <img src="/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/featured_hub691a1f5cd7fd394549d4e35411f6e49_244009_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/featured_hub691a1f5cd7fd394549d4e35411f6e49_244009_720x0_resize_lanczos_3.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -743,13 +745,14 @@
     <div class="article-style">
       <p>Here is a quick example of how to create a very simple &ldquo;real-time&rdquo;-&ldquo;single-page-app&rdquo; using phoenix-liveview.  This provides the same functionality to as 
 <a href="post_ruby_rails/rails_6_1_hotwire_simple_realtime">Realtime Rails with Hotwire</a> - in order to compare.</p>
-<p>The repo can be found here: <a href="https://github.com/btihen/live-tweets">https://github.com/btihen/live-tweets</a></p>
+<p>The repo can be found here: 
+<a href="https://github.com/btihen/live-tweets" target="_blank" rel="noopener">https://github.com/btihen/live-tweets</a></p>
 <h2 id="create--config-a-project">create / config a project</h2>
 <p>First we will creat the folder / project location</p>
-<pre><code>mkdir tweets
+<pre><code class="language-bash">mkdir tweets
 </code></pre>
 <p>Now we will tell it which software to use:</p>
-<pre><code>touch tweets/.tool-versions
+<pre><code class="language-bash">touch tweets/.tool-versions
 cat &lt;&lt;EOF &gt;&gt;tweets/.tool-versions
 erlang 23.3.1
 elixir 1.11.4-otp-23
@@ -758,7 +761,8 @@ Postgres 13.2
 EOF
 </code></pre>
 <h2 id="create-a-new-phoenix-project">Create a new Phoenix Project</h2>
-<p><a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></p>
+<p>
+<a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58" target="_blank" rel="noopener">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></p>
 <p>Now you can simply do:</p>
 <pre><code>mix phx.new tweets --live
 </code></pre>
@@ -783,13 +787,14 @@ mix phx.server
 git add .
 git commit -m &quot;initial setup commit&quot;
 </code></pre>
-<p>This code commit can be seen at: <a href="https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe">https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe</a></p>
+<p>This code commit can be seen at: 
+<a href="https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe" target="_blank" rel="noopener">https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe</a></p>
 <h2 id="create-our-tweet-model">create our tweet model</h2>
 <p>Create this with the generator (notice we are using <code>mix phx.gen.live</code> not <code>mix phx.gen.html</code>):</p>
 <pre><code>mix phx.gen.live Messages Post posts body:text
 </code></pre>
 <p>Change migration to require data - add <code>null: false</code> to our field so it now looks like:</p>
-<pre><code># priv/repo/migrations/20210418084643_create_posts.exs
+<pre><code class="language-elixir"># priv/repo/migrations/20210418084643_create_posts.exs
 defmodule Tweets.Repo.Migrations.CreatePosts do
   use Ecto.Migration
 
@@ -804,15 +809,14 @@ defmodule Tweets.Repo.Migrations.CreatePosts do
 end
 </code></pre>
 <p>Now lets update the routes as described by the generator - in <code>lib/tweets_web/router.ex</code> so the section that looks like:</p>
-<pre><code>
-  scope &quot;/&quot;, TweetsWeb do
+<pre><code class="language-elixir">  scope &quot;/&quot;, TweetsWeb do
     pipe_through :browser
 
     live &quot;/&quot;, PageLive, :index
   end
 </code></pre>
 <p>should be change to:</p>
-<pre><code>  scope &quot;/&quot;, TweetsWeb do
+<pre><code class="language-elixir">  scope &quot;/&quot;, TweetsWeb do
     pipe_through :browser
 
     # live &quot;/&quot;, PageLive, :index
@@ -826,14 +830,14 @@ end
   end
 </code></pre>
 <p>Now check our field <code>body</code> is required in validations &ndash; in our changeset.  We see <code>validate_required([:body])</code> in the file: <code>lib/tweets/messages/post.ex</code> - so we are all set.</p>
-<pre><code>  def changeset(post, attrs) do
+<pre><code class="language-elixir">  def changeset(post, attrs) do
     post
     |&gt; cast(attrs, [:body])
     |&gt; validate_required([:body])
   end
 </code></pre>
 <p>So it time to migrate &amp; test:</p>
-<pre><code>mix ecto.migrate
+<pre><code class="language-bash">mix ecto.migrate
 mix test
 </code></pre>
 <p>Hmm - the tests generator and html use different html standards: to make the tests pass test that phoenix returns <code>can&amp;#39;t be blank</code> instead of <code>can&amp;apos;t be blank</code> in <code>test/tweets_web/live/post_live_test.exs</code></p>
@@ -842,20 +846,20 @@ mix test
 <pre><code>mix phx.server
 </code></pre>
 <p>It works, but we want to list the most recent tweets at the top of the page &ndash; let&rsquo;s investigate &ndash; open <code>lib/tweets_web/live/post_live/index.ex</code> we see in the <code>mount</code> command:</p>
-<pre><code># lib/tweets_web/live/post_live/index.ex
+<pre><code class="language-elixir"># lib/tweets_web/live/post_live/index.ex
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :posts, list_posts())}
   end
 </code></pre>
 <p>It uses <code>list_posts()</code> to get the list - so let&rsquo;s change this function.</p>
 <p>Open: <code>lib/tweets/messages.ex</code> and change:</p>
-<pre><code># lib/tweets/messages.ex
+<pre><code class="language-elixir"># lib/tweets/messages.ex
   def list_posts do
     Repo.all(Post)
   end
 </code></pre>
 <p>to</p>
-<pre><code># lib/tweets/messages.ex
+<pre><code class="language-elixir"># lib/tweets/messages.ex
  def list_posts do
     Post
       |&gt; order_by(desc: :inserted_at)
@@ -863,12 +867,13 @@ mix test
   end
 </code></pre>
 <p>Cool now our SPA works like we want &ndash; but it isn&rsquo;t real-time between two users / browsers.</p>
-<p>This code can be seen at: <a href="https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6">https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6</a></p>
+<p>This code can be seen at: 
+<a href="https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6" target="_blank" rel="noopener">https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6</a></p>
 <h2 id="broadcast-changes-with-pubsub">Broadcast changes with Pubsub</h2>
 <p>Phoenix uses Websockets to do <code>real-time</code> communication.  In our &ldquo;context&rdquo; we will create our <code>channel</code> - the pipeline that the socket uses to send information back and forth to various &ldquo;subscribers&rdquo; - viewers of our page.</p>
 <h3 id="setup-the-messages-channel">Setup the &ldquo;Messages&rdquo; Channel</h3>
 <p>We go into: <code>lib/tweets/messages.ex</code> and at the top of the file add the Broadcast Setup:</p>
-<pre><code># lib/tweets/messages.ex
+<pre><code class="language-elixir"># lib/tweets/messages.ex
 defmodule Tweets.Messages do
   @moduledoc &quot;&quot;&quot;
   The Messages context.
@@ -904,7 +909,7 @@ defmodule Tweets.Messages do
 <p>We have two <code>notify_subscribers</code> because we will call these after we do our DB actions - writing to the DB could fail or succeed.  If we have success then we will update all subscribers and the last line tuple passes the results of the interaction back to the actual user.   (Of course we don&rsquo;t need to notify when the DB transaction fails, we only need to pass the message back to the user).</p>
 <h3 id="subscribing-to-the-messages-channel">Subscribing to the &lsquo;Messages&rsquo; Channel</h3>
 <p>Now that we have <code>notify_subscribers</code> that broadcasts <code>Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})</code> we need a way to subscribe to this channel and receive these messages in all our index pages.</p>
-<pre><code># lib/tweets_web/live/post_live/index.ex
+<pre><code class="language-elixir"># lib/tweets_web/live/post_live/index.ex
 defmodule TweetsWeb.PostLive.Index do
   use TweetsWeb, :live_view
 
@@ -930,7 +935,7 @@ defmodule TweetsWeb.PostLive.Index do
 <h3 id="sending-messages-to-the-channel">Sending Messages to the Channel</h3>
 <p>So now to activate our changes - we need to send to the channel via <code>notify_subscribers</code> when we successfully change something in the Messages &ldquo;post&rdquo; context.  To do this we will make small changes to the create_post, update_post and delete_post functions.  We will add <code>notify_subscribers({status, post}, &quot;posts-changed&quot;)</code> to the end of each function.  Since we only defined one event <code>&quot;posts-changed&quot;</code> in our index page <code>handle_info</code> function &ndash; we will hard-code that into our <code>notify_subscribers</code> call</p>
 <p>So our simple DB calls in Messages currently looks like:</p>
-<pre><code># lib/tweets/messages.ex
+<pre><code class="language-elixir"># lib/tweets/messages.ex
   def create_post(attrs \\ %{}) do
     %Post{}
       |&gt; Post.changeset(attrs)
@@ -948,7 +953,7 @@ defmodule TweetsWeb.PostLive.Index do
   end
 </code></pre>
 <p>Now becomes:</p>
-<pre><code># lib/tweets/messages.ex
+<pre><code class="language-elixir"># lib/tweets/messages.ex
   def create_post(attrs \\ %{}) do
     {status, post} = %Post{}
                       |&gt; Post.changeset(attrs)
@@ -982,7 +987,8 @@ defmodule TweetsWeb.PostLive.Index do
 git add .
 git commit -m &quot;add realtime broadcast to all users&quot;
 </code></pre>
-<p>This code can be seen at: <a href="https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac">https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac</a></p>
+<p>This code can be seen at: 
+<a href="https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac" target="_blank" rel="noopener">https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac</a></p>
 <h2 id="summary">Summary</h2>
 <p>In my mind this is far simpler to setup as a single page app - using the LiveView generator and a little more work to add broadcasting than in Rails.  Converting a Standard Phoenix HTML page to LiveView however is considerably more difficult than Converting a Standard Rails page to Hotwire.  I also find adding advanced features much more straight-forward in LiveView - as you write the event_handlers in you liveview pages and it is very clear what is happening.  In rails you need to know what is happening without being able to see the code.  I also like that LiveView - when it can&rsquo;t find an event - you get lots of errors.  This is very helpful.</p>
 
@@ -1338,7 +1344,7 @@ git commit -m &quot;add realtime broadcast to all users&quot;
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

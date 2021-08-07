@@ -216,8 +216,8 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/">
 
@@ -246,7 +246,7 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
     
       <meta property="article:published_time" content="2020-09-10T02:46:07&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-09T01:46:07&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:46:07&#43;02:00">
   
 
   
@@ -318,7 +318,7 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -331,7 +331,7 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -690,7 +690,7 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
           Last updated on
       
     
-    Tue, Mar 9, 2021
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -754,22 +754,28 @@ Unfortunately, with Rails its a bit tricky to install and configure with Rails S
 <p>In the end, I feel like its easier / better to use tailwindcss with AlpineJS since that is how it evolved and lots of Internet resources are available for that.</p>
 <h2 id="install-tailwind-css-20">Install Tailwind CSS 2.0</h2>
 <h3 id="tailwind-css-20-install">Tailwind CSS 2.0 Install</h3>
-<p><a href="https://tailwindcss.com/docs">https://tailwindcss.com/docs</a></p>
+<p>
+<a href="https://tailwindcss.com/docs" target="_blank" rel="noopener">https://tailwindcss.com/docs</a></p>
 <p>Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) &ndash; with or without upgrading webpacker the following should work:</p>
-<pre><code>yarn add tailwindcss@latest postcss@latest autoprefixer@latest
+<pre><code class="language-bash">yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
 # if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
 # yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 </code></pre>
-<p>now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!</p>
-<pre><code>yarn add alpinejs
+<p>now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus play well together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!</p>
+<pre><code class="language-bash">yarn add alpinejs
 yarn add alpine-turbo-drive-adapter
 </code></pre>
+<p>If you see something like:</p>
+<pre><code class="language-bash">arn add aplinejs
+error An unexpected error occurred: “https://registry.yarnpkg.com/aplinejs: Not found”.
+</code></pre>
+<p>then check the spelling of the package(s).</p>
 <p>Now create the tailwind config file</p>
-<pre><code>npx tailwindcss init
+<pre><code class="language-bash">npx tailwindcss init
 </code></pre>
 <p>now config tailwind:</p>
-<pre><code># tailwind.config.js
+<pre><code class="language-javascript">// tailwind.config.js
 module.exports = {
   purge: [
     './app/**/*/*.html.erb',
@@ -792,7 +798,7 @@ module.exports = {
 }
 </code></pre>
 <p>tell <code>postcss.config.js</code> about tailwind:</p>
-<pre><code>/* postcss.config.js */
+<pre><code class="language-javascript">/* postcss.config.js */
 module.exports = {
   plugins: [
     require(&quot;tailwindcss&quot;)(&quot;./tailwind.config.js&quot;),
@@ -808,7 +814,7 @@ module.exports = {
 }
 </code></pre>
 <p>create application.scss</p>
-<pre><code>mkdir app/javascript/stylesheets
+<pre><code class="language-bash">mkdir app/javascript/stylesheets
 touch app/javascript/stylesheets/application.scss
 cat &lt;&lt;EOF &gt;app/javascript/stylesheets/application.scss
 /* app/javascript/stylesheets/application.scss */
@@ -820,7 +826,7 @@ cat &lt;&lt;EOF &gt;app/javascript/stylesheets/application.scss
 EOF
 </code></pre>
 <p>import tailwind into <code>application.js</code></p>
-<pre><code>/* app/javascript/packs/application.js */
+<pre><code class="language-javascript">/* app/javascript/packs/application.js */
 import Rails from &quot;@rails/ujs&quot;
 import &quot;@hotwired/turbo-rails&quot;
 import * as ActiveStorage from &quot;@rails/activestorage&quot;
@@ -841,9 +847,10 @@ import &quot;controllers&quot;
 require(&quot;trix&quot;)
 require(&quot;@rails/actiontext&quot;)
 </code></pre>
-<p>It&rsquo;s great to get samples from <a href="https://tailwindui.com">https://tailwindui.com</a> (&amp; other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.</p>
+<p>It&rsquo;s great to get samples from 
+<a href="https://tailwindui.com" target="_blank" rel="noopener">https://tailwindui.com</a> (&amp; other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.</p>
 <p>create a navbar:</p>
-<pre><code>touch app/views/layouts/_navbar.html.erb
+<pre><code class="language-bash">touch app/views/layouts/_navbar.html.erb
 cat &lt;&lt;EOF &gt;app/views/layouts/_navbar.html.erb
 &lt;nav x-data=&quot;{ open: false }&quot; class=&quot;bg-gray-800&quot;&gt;
   &lt;!-- NavBar here --&gt;
@@ -851,7 +858,7 @@ cat &lt;&lt;EOF &gt;app/views/layouts/_navbar.html.erb
 EOF
 </code></pre>
 <p>Create a footer:</p>
-<pre><code>&lt;!-- app/views/layouts/_footer.html.erb --&gt;
+<pre><code class="language-ruby">&lt;!-- app/views/layouts/_footer.html.erb --&gt;
 &lt;footer class=&quot;bg-gray-50&quot; aria-labelledby=&quot;footerHeading&quot;&gt;
   &lt;h2 id=&quot;footerHeading&quot; class=&quot;sr-only&quot;&gt;Company&lt;/h2&gt;
   &lt;div class=&quot;max-w-md mx-auto pt-12 px-4 sm:max-w-7xl sm:px-6 lg:pt-16 lg:px-8&quot;&gt;
@@ -867,11 +874,11 @@ EOF
 &lt;/footer&gt;
 </code></pre>
 <p>Update the landing page:</p>
-<pre><code>&lt;!-- app/views/landing/index.html.erb --&gt;
+<pre><code class="language-ruby">&lt;!-- app/views/landing/index.html.erb --&gt;
 &lt;!-- landing page here --&gt;
 </code></pre>
 <p><code>application.html.erb</code> needs to import the javascript stylesheet and the navbar</p>
-<pre><code>&lt;!-- app/views/layouts/application.html.erb --&gt;
+<pre><code class="language-ruby">&lt;!-- app/views/layouts/application.html.erb --&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -914,59 +921,67 @@ EOF
 &lt;/html&gt;
 </code></pre>
 <p>You may need to want rails with both (to increase reload speed after changes &ndash; but <code>bin/rails s</code> is enough):</p>
-<pre><code>bin/rails s
+<pre><code class="language-bash">bin/rails s
 # runnding the following in a separate window tends to speed CSS / JS recompilation
 ./bin/webpack-dev-server
 </code></pre>
 <h2 id="install-tailwind-svg-icons">Install Tailwind SVG Icons</h2>
 <p>You can embed the Icon directly into the View - downloading from:</p>
-<p><a href="https://heroicons.dev/">https://heroicons.dev/</a>
-<a href="https://heroicons.com/">https://heroicons.com/</a></p>
+<p>
+<a href="https://heroicons.dev/" target="_blank" rel="noopener">https://heroicons.dev/</a>
+
+<a href="https://heroicons.com/" target="_blank" rel="noopener">https://heroicons.com/</a></p>
 <p>However, you can also use a gem and add flexibility:</p>
-<p><a href="https://github.com/bharget/heroicon">https://github.com/bharget/heroicon</a></p>
+<p>
+<a href="https://github.com/bharget/heroicon" target="_blank" rel="noopener">https://github.com/bharget/heroicon</a></p>
 <p>In gemfile</p>
-<pre><code>gem &quot;heroicon&quot;
+<pre><code class="language-ruby">gem &quot;heroicon&quot;
 </code></pre>
 <p>From CLI:</p>
-<pre><code>bundle
+<pre><code class="language-bash">bundle
 rails g heroicon:install
 </code></pre>
 <p>Usage:</p>
-<pre><code>&lt;%= heroicon &quot;search&quot; %&gt;
+<pre><code class="language-ruby">&lt;%= heroicon &quot;search&quot; %&gt;
 &lt;%= heroicon &quot;search&quot;, variant: :outline %&gt;
 &lt;%= heroicon &quot;search&quot;, options: { class: &quot;text-primary-500&quot; } %&gt;
 </code></pre>
 <p>or
-<a href="https://github.com/andrewjmead/rails_heroicons/">https://github.com/andrewjmead/rails_heroicons/</a></p>
+
+<a href="https://github.com/andrewjmead/rails_heroicons/" target="_blank" rel="noopener">https://github.com/andrewjmead/rails_heroicons/</a></p>
 <p>Gemfile</p>
-<pre><code>gem 'rails_heroicons', '~&gt; 1.0.1'
+<pre><code class="language-ruby">gem 'rails_heroicons', '~&gt; 1.0.1'
 </code></pre>
 <p>CLI</p>
-<pre><code>bundle
+<pre><code class="language-bash">bundle
 gem install rails_heroicons
 </code></pre>
 <p>Usage:</p>
-<pre><code>&lt;%= heroicon('user') %&gt;
+<pre><code class="language-ruby">&lt;%= heroicon('user') %&gt;
 &lt;%= heroicon('user', class_name: 'icon icon-large') %&gt;
 &lt;%= heroicon('user', style: :outline, class_name: 'icon icon-large') %&gt;
 </code></pre>
 <p>The classes magically update the SVG embedded using:</p>
 <h3 id="use-svg-images--icons-in-rails----heroicons-or-zondicons">USE SVG Images / Icons in Rails &ndash; HeroIcons or ZondIcons</h3>
 <p>Downloaded SVG images in Rails:
-<a href="https://heroicons.com/">https://heroicons.com/</a>
-<a href="https://heroicons.dev/">https://heroicons.dev/</a>
-<a href="http://www.zondicons.com/icons.html">http://www.zondicons.com/icons.html</a></p>
+
+<a href="https://heroicons.com/" target="_blank" rel="noopener">https://heroicons.com/</a>
+
+<a href="https://heroicons.dev/" target="_blank" rel="noopener">https://heroicons.dev/</a>
+
+<a href="http://www.zondicons.com/icons.html" target="_blank" rel="noopener">http://www.zondicons.com/icons.html</a></p>
 <p>OR download the Icons and use the gem:
-<a href="https://github.com/jamesmartin/inline_svg">https://github.com/jamesmartin/inline_svg</a></p>
+
+<a href="https://github.com/jamesmartin/inline_svg" target="_blank" rel="noopener">https://github.com/jamesmartin/inline_svg</a></p>
 <p>Gemfile:</p>
-<pre><code>gem 'inline_svg'
+<pre><code class="language-ruby">gem 'inline_svg'
 </code></pre>
 <p>CLI:</p>
-<pre><code>bundle
+<pre><code class="language-bash">bundle
 gem install inline_svg
 </code></pre>
 <p>USAGE:</p>
-<pre><code># Sprockets
+<pre><code class="language-ruby"># Sprockets
 inline_svg_tag(file_name, options={})
 
 # Webpacker
@@ -974,10 +989,13 @@ inline_svg_pack_tag(file_name, options={})
 </code></pre>
 <p>OR without gem:</p>
 <p>you can embed the SVG directly into rails using:
-<a href="https://dev.to/hslzr/using-inline-svgs-with-rails-3khb">https://dev.to/hslzr/using-inline-svgs-with-rails-3khb</a></p>
+
+<a href="https://dev.to/hslzr/using-inline-svgs-with-rails-3khb" target="_blank" rel="noopener">https://dev.to/hslzr/using-inline-svgs-with-rails-3khb</a></p>
 <h2 id="reference-articles">Reference Articles</h2>
-<p><a href="https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d">https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d</a>
-<a href="https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails">https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails</a></p>
+<p>
+<a href="https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d" target="_blank" rel="noopener">https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d</a>
+
+<a href="https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails" target="_blank" rel="noopener">https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails</a></p>
 
     </div>
 
@@ -1333,7 +1351,7 @@ inline_svg_pack_tag(file_name, options={})
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

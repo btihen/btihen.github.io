@@ -32,81 +32,78 @@
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+&lt;pre&gt;&lt;code&gt;                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘&lt;/p&gt;
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rails-app-and-first-models&#34;&gt;Rails app and first Models&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
-│            │╲          1 │           │
-│  Business  │─○──────────┼│  Person   │
-│-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘
+&lt;pre&gt;&lt;code&gt;    ┌────────────┐             ┌───────────┐
+    │            │╲          1 │           │
+    │  Business  │─○──────────┼│  Person   │
+    │-legal_name │╱0..*        │-full_name │
+    └────────────┘             └───────────┘
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;               ┌─────────────┐
-               │   Contact   │
-               │  relations* │
-               │+display_name│
-               └─────────────┘
-                      ┼
-                      │
-      ┌───────────────┴────────────┐
-      │                            │
-     ╱│╲                          ╱│╲
-┌─────────────┐             ┌─────────────┐
-│  Business   │╲            │    Person   │
-│ -legal_name │─○──────────┼│ -full_name  │
-│+display_name│╱            │+display_name│
-└─────────────┘             └─────────────┘
+&lt;pre&gt;&lt;code&gt;                   ┌─────────────┐
+                   │   Contact   │
+                   │  relations* │
+                   │+display_name│
+                   └─────────────┘
+                          ┼
+                          │
+          ┌───────────────┴────────────┐
+          │                            │
+         ╱│╲                          ╱│╲
+    ┌─────────────┐             ┌─────────────┐
+    │  Business   │╲            │    Person   │
+    │ -legal_name │─○──────────┼│ -full_name  │
+    │+display_name│╱            │+display_name│
+    └─────────────┘             └─────────────┘
+  + array: supplier, reseller, customer, sales-rep
+  * virtual attribute (public method)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;array: supplier, reseller, customer, sales-rep&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-&lt;li&gt;virtual attribute (public method)&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-modeling&#34;&gt;Polymorphic Modeling&lt;/h2&gt;
 &lt;p&gt;Is a model that can be associated with several different models - serving a similar purpose in all cases.  For example perhaps we would like to leave remarks on our interactions with various other business partners as shown below.&lt;/p&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐
+&lt;pre&gt;&lt;code&gt;┌───────────┐          ┌───────────┐
 │           │╲         │           │
 │ Business  │─○───────┼│  Person   │
 │           │╱         │           │
 └───────────┘          └───────────┘
-╲│╱                    ╲│╱
-│                      │
-│                      │
-│                      ○
-│                      ┼
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘&lt;/p&gt;
+     ╲│╱                    ╲│╱
+      │                      │
+      │                      │
+      │                      ○
+      │                      ┼
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A Remark could be either associated with either a person or a business - this is called polymorphism.  For ubiquitous things like comments, pictures, etc. this is a common approach.&lt;/p&gt;
 &lt;p&gt;The standard rails way - is convenient (only uses 2 columns for any number of models), but lacks a foreign key so the DB can&amp;rsquo;t ensure Data integrity.  For this reason, many other frameworks do not encourage this approach.  So we will use an approach accepted by all frameworks.&lt;/p&gt;
 &lt;h3 id=&#34;models-and-relationships&#34;&gt;Models and relationships&lt;/h3&gt;
@@ -260,16 +257,23 @@ end
 &lt;p&gt;Lets check the seed with:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;n1-checks--forms&#34;&gt;N+1 checks &amp;amp; Forms&lt;/h2&gt;
+&lt;p&gt;Cool that works!&lt;/p&gt;
+&lt;p&gt;lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;polymorphic remark relations created&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;views&#34;&gt;Views&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Comming soon &amp;hellip;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Assuming this works, let&amp;rsquo;s see the &amp;ldquo;/people&amp;rdquo; page:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
 open localhost:3000/businesses/
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;n1-checks&#34;&gt;N+1 checks&lt;/h3&gt;
 &lt;p&gt;Great - lets snapshot:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;created an agnostic polymorphic model with data integrity enforced&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;input-forms--building-new-info&#34;&gt;Input Forms (&amp;amp; Building new Info)&lt;/h3&gt;
 </description>
     </item>
     
@@ -284,66 +288,62 @@ git commit -m &amp;quot;created an agnostic polymorphic model with data integrit
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+&lt;pre&gt;&lt;code&gt;                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;             Created with Monodraw
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+
+                 Created with Monodraw
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rails-app-and-first-models&#34;&gt;Rails app and first Models&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
-│            │╲          1 │           │
-│  Business  │─○──────────┼│  Person   │
-│-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘
+&lt;pre&gt;&lt;code&gt;    ┌────────────┐             ┌───────────┐
+    │            │╲          1 │           │
+    │  Business  │─○──────────┼│  Person   │
+    │-legal_name │╱0..*        │-full_name │
+    └────────────┘             └───────────┘
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We discussed / explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
 &lt;p&gt;In this article we will build this structure (a replacement for Rails STI).  Many frameworks will only use columns that can be identified as foreign keys to ensure DB integrity - therefore, we will build this using DB structures that are supported by Rails, Lucky and Phoenix and probably most frameworks.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;               ┌─────────────┐
-               │   Contact   │
-               │  relations* │
-               │+display_name│
-               └─────────────┘
-                      ┼
-                      │
-      ┌───────────────┴────────────┐
-      │                            │
-     ╱│╲                          ╱│╲
-┌─────────────┐             ┌─────────────┐
-│  Business   │╲            │    Person   │
-│ -legal_name │─○──────────┼│ -full_name  │
-│+display_name│╱            │+display_name│
-└─────────────┘             └─────────────┘
+&lt;pre&gt;&lt;code&gt;                   ┌─────────────┐
+                   │   Contact   │
+                   │  relations* │
+                   │+display_name│
+                   └─────────────┘
+                          ┼
+                          │
+          ┌───────────────┴────────────┐
+          │                            │
+         ╱│╲                          ╱│╲
+    ┌─────────────┐             ┌─────────────┐
+    │  Business   │╲            │    Person   │
+    │ -legal_name │─○──────────┼│ -full_name  │
+    │+display_name│╱            │+display_name│
+    └─────────────┘             └─────────────┘
+  + array: supplier, reseller, customer, sales-rep
+  * virtual attribute (public method)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;array: supplier, reseller, customer, sales-rep&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-&lt;li&gt;virtual attribute (public method)&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;A contact could be either a person or a business - but must be one or the other.&lt;/p&gt;
 &lt;h3 id=&#34;migration-and-relationships&#34;&gt;Migration and Relationships&lt;/h3&gt;
 &lt;p&gt;Rails doesn&amp;rsquo;t have a built-in array migration, so we use string and then we change the migration:&lt;/p&gt;
@@ -649,10 +649,14 @@ end
 &lt;p&gt;I usually use an input model (for more flexibility), but for now I will use nested_params.
 A few articles on nested params and nested fields:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=PYYwjTlcoa4&#34;&gt;https://www.youtube.com/watch?v=PYYwjTlcoa4&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&#34;&gt;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&#34;&gt;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&#34;&gt;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=PYYwjTlcoa4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=PYYwjTlcoa4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To start we will tell the contacts model that it can create nested models with do by adding:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  accepts_nested_attributes_for :business
@@ -957,33 +961,33 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+&lt;pre&gt;&lt;code&gt;                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘
-Created with Monodraw&lt;/p&gt;
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+                    Created with Monodraw
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create-a-default-rails-app&#34;&gt;Create a default Rails app&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new rails_poly
 cd rails_poly
@@ -995,11 +999,12 @@ git commit -m &amp;quot;initial commit&amp;quot;
 &lt;h2 id=&#34;starting-simple---optional-relations&#34;&gt;Starting Simple - optional relations&lt;/h2&gt;
 &lt;h3 id=&#34;build-businesses&#34;&gt;Build Businesses&lt;/h3&gt;
 &lt;p&gt;Lets start with the simple relationship between businesses and people:&lt;/p&gt;
-&lt;p&gt;┌────────────┐             ┌───────────┐
+&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
 │            │╲          1 │           │
 │  Business  │─○──────────┼│  Person   │
 │-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘&lt;/p&gt;
+└────────────┘             └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For expedience, I&amp;rsquo;ll use scaffolds:&lt;/p&gt;
 &lt;p&gt;Generating a simple business model.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Business legal_name
@@ -1365,7 +1370,7 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;prepare-our-code&#34;&gt;Prepare our code&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s remove the extra Tweet.new load in the controller&amp;rsquo;s index method:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def index
     @tweets = Tweet.all.order(created_at: :desc)
     # @tweet = Tweet.new # no longer needed
@@ -1374,7 +1379,7 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;p&gt;now if we try our code we get a null value error (for course).&lt;/p&gt;
 &lt;p&gt;So to fix this we need to load the data back in (and restructure our index page a bit).&lt;/p&gt;
 &lt;p&gt;Turbo works well if you use the normal templates - so in this case we will use the &lt;code&gt;new&lt;/code&gt; template on the home page to call the new form and get its own data:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
 &amp;lt;%= turbo_stream_from &amp;quot;tweets&amp;quot; %&amp;gt;
 
@@ -1390,7 +1395,7 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Notice the new template is using the dom_id &amp;ldquo;new-tweet&amp;rdquo; and not &amp;ldquo;new_tweet&amp;rdquo;. Also note that this tag has a &lt;code&gt;src:&lt;/code&gt; - that is where it is getting its data source (&amp;amp; view to use) - in this case the &lt;code&gt;new_tweet_path&lt;/code&gt; routes to &lt;code&gt;tweets_controller#new&lt;/code&gt; and that calls the &lt;code&gt;veiw&lt;/code&gt; template.  The final thing to note is the &lt;code&gt;target&lt;/code&gt; - this tells the turbo_tag to look / act outside the contraints of its frame (otherwise we couldn&amp;rsquo;t reach the controller).&lt;/p&gt;
 &lt;p&gt;Currently this won&amp;rsquo;t work yet - we need to create a &lt;strong&gt;matching tag&lt;/strong&gt; &amp;ndash; including the &lt;code&gt;target&lt;/code&gt; in the &lt;code&gt;new&lt;/code&gt; template.  So our updated &lt;code&gt;new&lt;/code&gt; template now looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; app/views/tweets/new.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt; app/views/tweets/new.html.erb
 &amp;lt;h1&amp;gt;New Tweet&amp;lt;/h1&amp;gt;
 
 &amp;lt;%= turbo_frame_tag &amp;quot;new-tweet&amp;quot;, target: &amp;quot;_top&amp;quot; do %&amp;gt;
@@ -1400,7 +1405,8 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;p&gt;Now we should have a new form that uses the standard rails data flow within the index - just like the display and edit of individual tweets also uses show and edit templates too.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:
-&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_lazy_load_data&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -1417,7 +1423,7 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;add-jquery-to-bootstrap-setup&#34;&gt;Add jQuery to Bootstrap Setup&lt;/h2&gt;
 &lt;p&gt;First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &amp;lt;body&amp;gt; in the &lt;code&gt;application.html.erb&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layouts/application.html.erb
 &amp;lt;body&amp;gt;
   &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
   &amp;lt;%= yield %&amp;gt;
@@ -1427,7 +1433,7 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;add-modal-to-index&#34;&gt;Add Modal to Index&lt;/h2&gt;
 &lt;p&gt;So we will start by replacing the new-form with a button that toggles the modal.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
 &amp;lt;%= turbo_stream_from &amp;quot;tweets&amp;quot; %&amp;gt;
 
@@ -1440,7 +1446,7 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So now lets make a partial that has the modal toggle button and the associated html to enable the modal to function (this code is basically copied from the Bootstrap website):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_modal_new.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_modal_new.html.erb
 &amp;lt;%= link_to &amp;quot;#&amp;quot;, class: &#39;btn btn-sm btn-outline-primary&#39;, data: { toggle: &amp;quot;modal&amp;quot;, target: &amp;quot;#tweetModal&amp;quot; } do %&amp;gt;
 New Tweet
 &amp;lt;% end %&amp;gt;
@@ -1454,7 +1460,7 @@ New Tweet
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Notice we have a partial for the form still - this is because we have to point turbo at a dom_id within a partial (without doing this we can&amp;rsquo;t get validation errors back into this form).  This is a mix of the Bootstrap example code placed within the rails form.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#  app/views/tweets/_modal_form.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;#  app/views/tweets/_modal_form.html.erb
 &amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;
 
   &amp;lt;div class=&amp;quot;modal-header&amp;quot;&amp;gt;
@@ -1504,7 +1510,7 @@ New Tweet
 &lt;p&gt;&lt;img src=&#34;misplaced_validation_errors_on_create.png&#34; alt=&#34;validation errors in wrong form&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;fix-validation-errors&#34;&gt;Fix validation errors&lt;/h2&gt;
 &lt;p&gt;We fix this like this like a normal form - we change how the controller uses turbo_stream. So instead of pointing to the partial: &amp;ldquo;tweets/form&amp;rdquo; we need to point to &amp;ldquo;tweets/modal_form&amp;rdquo; (the new partial with the form).&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
     respond_to do |format|
@@ -1525,12 +1531,12 @@ New Tweet
 &lt;p&gt;Now all our tests should work.&lt;/p&gt;
 &lt;h2 id=&#34;using-turbo-templates&#34;&gt;Using turbo templates&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s refactor - for future flexibility.  We&amp;rsquo;ll create the template.  Since we are using the &lt;code&gt;create&lt;/code&gt; method within the controller - we&amp;rsquo;ll call the file: &lt;code&gt;create.turbo_stream.html.erb&lt;/code&gt; - notice, unsurprisingly it looks what&amp;rsquo;s in the controller.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/create.turbo_stream.erb
 &amp;lt;!--             action  dom_id           partial with the dom_id        actual data --&amp;gt;
 &amp;lt;%= turbo_stream.replace @tweet, partial: &amp;quot;tweets/modal_form&amp;quot;, locals: { tweet: @tweet } %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we can make the controller look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
     respond_to do |format|
@@ -1548,9 +1554,11 @@ New Tweet
 &lt;p&gt;Using the template allows us the flexibilty to make multiple dynamic changes to the page on a create.  This is demonstrated in the post describing using Flash messages with Hotwire.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:
-&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_modal_new_tweet&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The important commit is:
-&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commit/0c37fb6071b31d13f4cf3ce2499326893724e131&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -1568,7 +1576,7 @@ New Tweet
 &lt;h2 id=&#34;stimulusjs-to-clear-forms&#34;&gt;StimulusJS to clear forms&lt;/h2&gt;
 &lt;p&gt;To enable Flash Messages our create/controller looked like - which seems a little messy - in &lt;code&gt;create&lt;/code&gt; (happy-path) we handle all the updates via the create.turbo_stream.erb template and with validation errors we explicity (in the controller - handle the validation errors)&lt;/p&gt;
 &lt;p&gt;So lets start by disabling the code we no longer need in the template:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/create.turbo_stream.erb
 &amp;lt;%# turbo_stream.replace &amp;quot;tweet-form&amp;quot;, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: Tweet.new } %&amp;gt;
 &amp;lt;%# to send a message to the notice partial %&amp;gt;
 &amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet was successfully created.&amp;quot;} %&amp;gt;
@@ -1578,7 +1586,7 @@ New Tweet
 &lt;h2 id=&#34;add-a-stimulusjs-controller&#34;&gt;Add a StimulusJS controller&lt;/h2&gt;
 &lt;p&gt;We don&amp;rsquo;t need to add / install or configure StimulusJS since Hotwire already handles this.&lt;/p&gt;
 &lt;p&gt;So let&amp;rsquo;s create the JS file to clear the form - its quite simple we will just use:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// app/javascript/controllers/reset_form_controller.js
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// app/javascript/controllers/reset_form_controller.js
 import { Controller } from &amp;quot;stimulus&amp;quot;
 
 export default class extends Controller {
@@ -1588,7 +1596,7 @@ export default class extends Controller {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In order to tie this to the form we need to go into the form and add the &lt;code&gt;data:&lt;/code&gt; info &amp;ndash; so now our form should start with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_form.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_form.html.erb
 &amp;lt;%= form_with(model: tweet, id: dom_id(tweet),
               data: {controller: &amp;quot;reset-form&amp;quot;, action: &amp;quot;turbo:submit-end-&amp;gt;reset-form#reset&amp;quot;}
             ) do |form| %&amp;gt;
@@ -1597,7 +1605,8 @@ export default class extends Controller {
 &lt;p&gt;Fairly straight-forward, but it helps to be aware of the syntax and the differences between Ruby and Javascript.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:
-&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_with_stimulus&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -1614,24 +1623,24 @@ export default class extends Controller {
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;flash-messages-in-partial&#34;&gt;Flash Messages in Partial&lt;/h2&gt;
 &lt;p&gt;Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates &amp;ndash; so let&amp;rsquo;s prepare &lt;code&gt;application.html.erb&lt;/code&gt; so that flash messages use partials.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layouts/application.html.erb
 &amp;lt;body&amp;gt;
   &amp;lt;%= render &amp;quot;shared/notice&amp;quot;, notice: notice %&amp;gt;
   &amp;lt;%= yield %&amp;gt;
 &amp;lt;/body&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and of course we need a partials for notices now (we will keep it very simple):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/shared/_notice.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/shared/_notice.html.erb
 &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now we will create a turbo template to handle the flash on create:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/create.turbo_stream.erb
 &amp;lt;%# to send a message to the notice partial %&amp;gt;
 &amp;lt;!--            action   dom_id         partial with dom_id   data to send in the notice --&amp;gt;
 &amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet created.&amp;quot;} %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In order for the controller and turbo_stream to handle this non-standard action we need to update the create method in the controller with the instructions &lt;code&gt;format.turbo_stream&lt;/code&gt; on a successful create:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
 def create
     @tweet = Tweet.new(tweet_params)
 
@@ -1653,7 +1662,7 @@ def create
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when we test everything works great, except our form no longer clears. We can fix that by adding a second action to the create template (we will send a Tweet.new - there are other approaches too - covered in 
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs&#34;&gt;Hotwire and StimulusJS&lt;/a&gt;)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/create.turbo_stream.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/create.turbo_stream.erb
 &amp;lt;%# clear form on create - without using JavaScript - by replacing the old Tweet info with Tweet.new %&amp;gt;
 &amp;lt;%= turbo_stream.replace &amp;quot;tweet-form&amp;quot;, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: Tweet.new } %&amp;gt;
 &amp;lt;%# to send a message to the notice partial %&amp;gt;
@@ -1662,19 +1671,19 @@ def create
 &lt;h2 id=&#34;refactor&#34;&gt;Refactor&lt;/h2&gt;
 &lt;p&gt;You might have noticed, that we have moved most of our turbo_steam template to the template file, but not the replace for validation errors &amp;ndash; since we already have a &lt;code&gt;replace&lt;/code&gt; command in our template - we will need to leave our specific instructions in the errors as is &amp;ndash; until we clear the form with JS.&lt;/p&gt;
 &lt;p&gt;NOTE: now that we are consolidating our template info it might be tempting to add the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- to prepend on create - disabled to avoid double vision when broadcasting --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- to prepend on create - disabled to avoid double vision when broadcasting --&amp;gt;
 &amp;lt;%#%   stream_action   dom_id_target, render_partial,       send_local_variables   %&amp;gt;
 &amp;lt;%= turbo_stream.prepend &amp;quot;tweets&amp;quot;, partial: &amp;quot;tweets/tweet&amp;quot;, locals: { tweet: @tweet } %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;but don&amp;rsquo;t add the default happy path instructions to the template when a model already has a broadcast after hook - if you add this instruction the person creating a new tweet will see two!&lt;/p&gt;
 &lt;h2 id=&#34;flash-after-we-update&#34;&gt;Flash after we update&lt;/h2&gt;
 &lt;p&gt;This is now very straight forward we simply add &lt;code&gt;format.turbo_stream&lt;/code&gt; to our save and create an &lt;code&gt;update.turbo_stream.erb&lt;/code&gt; template&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/update.turbo_stream.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/update.turbo_stream.erb
 &amp;lt;%# to send a message to the notice partial %&amp;gt;
 &amp;lt;%= turbo_stream.append &amp;quot;notice&amp;quot;, partial: &amp;quot;shared/notice&amp;quot;, locals: {notice: &amp;quot;Tweet was successfully created.&amp;quot;} %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And now we can tell the controller to use that:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#  app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;#  app/controllers/tweets_controller.rb
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
@@ -1691,7 +1700,8 @@ def create
 &lt;p&gt;We don&amp;rsquo;t have to clear the form on update since the &lt;code&gt;edit&lt;/code&gt; template is replaced with the &lt;code&gt;show&lt;/code&gt; template already.  So we are done.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:
-&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_hotwire_tweets/commits/hotwire_flash_messages&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -1711,14 +1721,15 @@ def create
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;We will be starting with a basic Tweet Simulator it looks something like:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_1st_starting_point.png&#34; alt=&#34;tweet_index_1st&#34;&gt;&lt;/p&gt;
-&lt;p&gt;The starting code base can be found at: &lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The starting code base can be found at: 
+&lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The steps to re-create this code can be found at: 
 &lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_tweet_single_page_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The actual Tweet Hotwire code from this article can be found at:&lt;/p&gt;
 &lt;h2 id=&#34;install-and-configure-hotwire&#34;&gt;Install and configure Hotwire&lt;/h2&gt;
 &lt;h3 id=&#34;install-hotwire&#34;&gt;Install Hotwire&lt;/h3&gt;
 &lt;p&gt;To use hotwire - we need to install it:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle add hotwire-rails
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle add hotwire-rails
 bin/rails hotwire:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The hotwire package is smart enough to install via webpack if that&amp;rsquo;s installed or in the asset pipeline if no webpacker is installed.  This project uses webpack (but it shouldn&amp;rsquo;t matter).&lt;/p&gt;
@@ -1731,7 +1742,7 @@ bin/rails hotwire:install
 &lt;li&gt;Configure Redis to work with ActionCable (Rails Websockets)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;and the output should look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Appending Stimulus setup code to
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Appending Stimulus setup code to
       append  app/javascript/packs/application.js
 Creating controllers directory
       create  app/javascript/controllers
@@ -1773,12 +1784,12 @@ Turbo successfully installed ⚡️
 &lt;li&gt;Stimulus is installed&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;If you have problems you can experiment try adding one or more of the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  &amp;lt;%= yield :head %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  &amp;lt;%= yield :head %&amp;gt;
   &amp;lt;%= turbo_include_tags %&amp;gt;
   &amp;lt;%= stimulus_include_tags %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In particular, I found the top two helpful - but this is a new technology - and it is still evolving.  In the end the &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; might need to look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
 &amp;lt;head&amp;gt;
@@ -1802,7 +1813,7 @@ Turbo successfully installed ⚡️
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Check the app is still working and make a git snapshot.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;install and configure hotwire-rails&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;using-hotwire&#34;&gt;Using Hotwire&lt;/h2&gt;
@@ -1810,7 +1821,7 @@ git commit -m &amp;quot;install and configure hotwire-rails&amp;quot;
 &lt;h3 id=&#34;broadcast-new-tweets-to-all-clients&#34;&gt;Broadcast New Tweets to all Clients&lt;/h3&gt;
 &lt;p&gt;To broadcast changes to a client we need to modify the model and add the broadcast command.   A Broadcast &amp;ldquo;tweets&amp;rdquo; sends changes to the turbo_stream (websocket channel) with the same name.
 To add the new tweets to the top of the &amp;ldquo;tweets&amp;rdquo; page (frame) we need to use the &lt;code&gt;broadcast_prepend_to&lt;/code&gt; instead of the &lt;code&gt;broadcast_append_to&lt;/code&gt; (which puts new entries at the bottom)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/tweet.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/tweet.rb
 class Tweet &amp;lt; ApplicationRecord
   validates :body, presence: true
 
@@ -1821,7 +1832,7 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In order for this model broadcast to work we need to create a place to send it.  We do this in the view via a stream with the command &lt;code&gt;&amp;lt;%= turbo_stream_from &amp;quot;tweets&amp;quot; %&amp;gt;&lt;/code&gt; we also need to tell this &lt;code&gt;stream&lt;/code&gt; where to update &amp;ndash; we do this with the turbo tag of the same name: &lt;code&gt;&amp;lt;%= turbo_frame_tag &amp;quot;tweets&amp;quot; do %&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;So lets update our index page :&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;!-- connects to the backend broadcast (via a channel) --&amp;gt;
 &amp;lt;%= turbo_stream_from &amp;quot;tweets&amp;quot; %&amp;gt;
 
@@ -1831,7 +1842,7 @@ end
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In order to see our new frames lets update our css to make them visible - lets add a border to our turbo-frames:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/assets/stylesheets/tweets.scss
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;# app/assets/stylesheets/tweets.scss
 turbo-frame {
   display: block;
   border: 1px solid green
@@ -1842,7 +1853,7 @@ turbo-frame {
 &lt;p&gt;You can see in the left window we created a new tweet and it automatically appeared in the right window!  HOW COOL IS THAT!&lt;/p&gt;
 &lt;p&gt;Notice that the &amp;ldquo;blue&amp;rdquo; turbo-frame is around all the displayed tweets.&lt;/p&gt;
 &lt;p&gt;Lets also take a quick look at the logs - from this transaction:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Started POST &amp;quot;/tweets&amp;quot; for 127.0.0.1 at 2021-02-28 21:12:59 +0100
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Started POST &amp;quot;/tweets&amp;quot; for 127.0.0.1 at 2021-02-28 21:12:59 +0100
 Processing by TweetsController#create as TURBO_STREAM
   Parameters: {&amp;quot;authenticity_token&amp;quot;=&amp;gt;&amp;quot;[FILTERED]&amp;quot;, &amp;quot;tweet&amp;quot;=&amp;gt;{&amp;quot;body&amp;quot;=&amp;gt;&amp;quot;Fourth Tweet&amp;quot;}, &amp;quot;commit&amp;quot;=&amp;gt;&amp;quot;Create Tweet&amp;quot;}
   TRANSACTION (1.6ms)  BEGIN
@@ -1855,7 +1866,6 @@ Processing by TweetsController#create as TURBO_STREAM
 [ActionCable] Broadcasting to tweets: &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;prepend\&amp;quot; target=\&amp;quot;tweets\&amp;quot;&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=\&amp;quot;card card-body\&amp;quot;&amp;gt;\n  &amp;lt;div&amp;gt;Fourth Tweet&amp;lt;/div&amp;gt;\n\n  &amp;lt;div class=\&amp;quot;mt-2\&amp;quot;&amp;gt;\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-success\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/like\&amp;quot;&amp;gt;Like (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-info\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/retweet\&amp;quot;&amp;gt;Retweet (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-primary\&amp;quot; href=\&amp;quot;/tweets/7/edit\&amp;quot;&amp;gt;Edit&amp;lt;/a&amp;gt;\n\n    &amp;lt;a data-confirm=\&amp;quot;Are you sure?\&amp;quot; class=\&amp;quot;btn btn-sm btn-outline-danger\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;delete\&amp;quot; href=\&amp;quot;/tweets/7\&amp;quot;&amp;gt;Destroy&amp;lt;/a&amp;gt;\n  &amp;lt;/div&amp;gt;\n&amp;lt;/div&amp;gt;\n&amp;lt;/template&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot;
 Redirected to http://localhost:3000/tweets
 Completed 302 Found in 105ms (ActiveRecord: 64.1ms | Allocations: 5636)
-
 
 Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;prepend\&amp;quot; target=\&amp;quot;tweets\&amp;quot;&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=\&amp;quot;card card-body\&amp;quot;&amp;gt;\n  &amp;lt;div&amp;gt;Fourth Tweet&amp;lt;/div&amp;gt;\n\n  &amp;lt;div class=\&amp;quot;mt-2\&amp;quot;&amp;gt;\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-success\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/like\&amp;quot;&amp;gt;Like (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-s... (via streamed from tweets)
 Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;prepend\&amp;quot; target=\&amp;quot;tweets\&amp;quot;&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=\&amp;quot;card card-body\&amp;quot;&amp;gt;\n  &amp;lt;div&amp;gt;Fourth Tweet&amp;lt;/div&amp;gt;\n\n  &amp;lt;div class=\&amp;quot;mt-2\&amp;quot;&amp;gt;\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-success\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/like\&amp;quot;&amp;gt;Like (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-s... (via streamed from tweets)
@@ -1873,22 +1883,22 @@ Processing by TweetsController#index as TURBO_STREAM
 Completed 200 OK in 80ms (Views: 34.9ms | ActiveRecord: 41.8ms | Allocations: 7831)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There is a bunch of interesting information, but for now I just want to point out the only thing sent was the new html to display:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[ActionCable] Broadcasting to tweets: &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;prepend\&amp;quot; target=\&amp;quot;tweets\&amp;quot;&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=\&amp;quot;card card-body\&amp;quot;&amp;gt;\n  &amp;lt;div&amp;gt;Fourth Tweet&amp;lt;/div&amp;gt;\n\n  &amp;lt;div class=\&amp;quot;mt-2\&amp;quot;&amp;gt;\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-success\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/like\&amp;quot;&amp;gt;Like (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-info\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/retweet\&amp;quot;&amp;gt;Retweet (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-primary\&amp;quot; href=\&amp;quot;/tweets/7/edit\&amp;quot;&amp;gt;Edit&amp;lt;/a&amp;gt;\n\n    &amp;lt;a data-confirm=\&amp;quot;Are you sure?\&amp;quot; class=\&amp;quot;btn btn-sm btn-outline-danger\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;delete\&amp;quot; href=\&amp;quot;/tweets/7\&amp;quot;&amp;gt;Destroy&amp;lt;/a&amp;gt;\n  &amp;lt;/div&amp;gt;\n&amp;lt;/div&amp;gt;\n&amp;lt;/template&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[ActionCable] Broadcasting to tweets: &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;prepend\&amp;quot; target=\&amp;quot;tweets\&amp;quot;&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=\&amp;quot;card card-body\&amp;quot;&amp;gt;\n  &amp;lt;div&amp;gt;Fourth Tweet&amp;lt;/div&amp;gt;\n\n  &amp;lt;div class=\&amp;quot;mt-2\&amp;quot;&amp;gt;\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-success\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/like\&amp;quot;&amp;gt;Like (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-info\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;post\&amp;quot; href=\&amp;quot;/tweets/7/retweet\&amp;quot;&amp;gt;Retweet (0)&amp;lt;/a&amp;gt;\n\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn-outline-primary\&amp;quot; href=\&amp;quot;/tweets/7/edit\&amp;quot;&amp;gt;Edit&amp;lt;/a&amp;gt;\n\n    &amp;lt;a data-confirm=\&amp;quot;Are you sure?\&amp;quot; class=\&amp;quot;btn btn-sm btn-outline-danger\&amp;quot; rel=\&amp;quot;nofollow\&amp;quot; data-method=\&amp;quot;delete\&amp;quot; href=\&amp;quot;/tweets/7\&amp;quot;&amp;gt;Destroy&amp;lt;/a&amp;gt;\n  &amp;lt;/div&amp;gt;\n&amp;lt;/div&amp;gt;\n&amp;lt;/template&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot;
 Redirected to http://localhost:3000/tweets
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Using websockets to send html to the parts of the webpage that need to be updated is very efficient.&lt;/p&gt;
 &lt;p&gt;Since the broadcast is at the model level, we can even create a new tweet on the cli and all our web-clients will update:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails c
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails c
 Tweet.create(body: &amp;quot;CLI tweet appears&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_3rd_broadcast_new_cli.png&#34; alt=&#34;tweet_index_3rd&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Lets make a snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;new tweets are broadcast to all clients&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;broadcast-deleted-tweets-to-all-clients&#34;&gt;Broadcast Deleted Tweets to all Clients&lt;/h3&gt;
 &lt;p&gt;we need to add another broadcast to the model:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/tweet.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/tweet.rb
 class Tweet &amp;lt; ApplicationRecord
   validates :body, presence: true
 
@@ -1899,7 +1909,7 @@ class Tweet &amp;lt; ApplicationRecord
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;But for this to work we will need to create frames around every tweet so we can find and delete the individual tweet to do this we will at a tag to our &lt;code&gt;_tweet&lt;/code&gt; partial.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_tweet.html.erb
 &amp;lt;!-- this tag with `tweet` instead of &#39;tweets&#39; identifies an individual tweet --&amp;gt;
 &amp;lt;%= turbo_frame_tag tweet do %&amp;gt;
 &amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
@@ -1931,11 +1941,11 @@ end
 &lt;p&gt;In the above image you can see we are deleting the 3rd tweet - in the middle of the tweets.  And of course it works in both our web-clients because of the new broadcast and tags we added.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_5th_deleted.png&#34; alt=&#34;tweet_index_5th&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Looking at the logs we see that we only send the information that is changing to each client:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;remove\&amp;quot; target=\&amp;quot;tweet_6\&amp;quot;&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot; (via streamed from tweets)
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;remove\&amp;quot; target=\&amp;quot;tweet_6\&amp;quot;&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot; (via streamed from tweets)
 Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;remove\&amp;quot; target=\&amp;quot;tweet_6\&amp;quot;&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot; (via streamed from tweets)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;here is the full transaction:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Started DELETE &amp;quot;/tweets/6&amp;quot; for 127.0.0.1 at 2021-02-28 21:45:44 +0100
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Started DELETE &amp;quot;/tweets/6&amp;quot; for 127.0.0.1 at 2021-02-28 21:45:44 +0100
 Processing by TweetsController#destroy as TURBO_STREAM
   Parameters: {&amp;quot;authenticity_token&amp;quot;=&amp;gt;&amp;quot;[FILTERED]&amp;quot;, &amp;quot;id&amp;quot;=&amp;gt;&amp;quot;6&amp;quot;}
   Tweet Load (5.5ms)  SELECT &amp;quot;tweets&amp;quot;.* FROM &amp;quot;tweets&amp;quot; WHERE &amp;quot;tweets&amp;quot;.&amp;quot;id&amp;quot; = $1 LIMIT $2  [[&amp;quot;id&amp;quot;, 6], [&amp;quot;LIMIT&amp;quot;, 1]]
@@ -1949,7 +1959,6 @@ Processing by TweetsController#destroy as TURBO_STREAM
 [ActionCable] Broadcasting to tweets: &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;remove\&amp;quot; target=\&amp;quot;tweet_6\&amp;quot;&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot;
 Redirected to http://localhost:3000/tweets
 Completed 302 Found in 234ms (ActiveRecord: 66.0ms | Allocations: 6664)
-
 
 Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;remove\&amp;quot; target=\&amp;quot;tweet_6\&amp;quot;&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot; (via streamed from tweets)
 Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;remove\&amp;quot; target=\&amp;quot;tweet_6\&amp;quot;&amp;gt;&amp;lt;/turbo-stream&amp;gt;&amp;quot; (via streamed from tweets)
@@ -1967,7 +1976,7 @@ Processing by TweetsController#index as TURBO_STREAM
 Completed 200 OK in 31ms (Views: 26.6ms | ActiveRecord: 1.6ms | Allocations: 7918)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let&amp;rsquo;s take another snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;broadcast deleted tweets via hotwire&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;edit--updates-to-all-clients&#34;&gt;Edit / Updates to all clients!&lt;/h3&gt;
@@ -1976,7 +1985,7 @@ git commit -m &amp;quot;broadcast deleted tweets via hotwire&amp;quot;
 &lt;p&gt;Lets start by testing the create form as is with validation errors - if we enter a blank message we should get an error.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_6th_no_frame_validations.png&#34; alt=&#34;tweet_index_6th_no_frame_validations&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Now lets put this form in a turbo-frame - since we will need this in a form for edit - lets start with the easy case - new / create - where the form will always be in the same location. Ideally, the &lt;code&gt;turbo_stream_from&lt;/code&gt; definition is before the first &lt;code&gt;turbo_frame_tag&lt;/code&gt;.  Now your index view will look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 
 &amp;lt;!-- connects to the backend broadcast (via a channel) --&amp;gt;
@@ -1999,7 +2008,7 @@ git commit -m &amp;quot;broadcast deleted tweets via hotwire&amp;quot;
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Log file - from the log file we see we are still reloading the page see the line: &lt;code&gt;Tweet Load (83.9ms)  SELECT &amp;quot;tweets&amp;quot;.* FROM &amp;quot;tweets&amp;quot; ORDER BY &amp;quot;tweets&amp;quot;.&amp;quot;created_at&amp;quot;&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Started POST &amp;quot;/tweets&amp;quot; for 127.0.0.1 at 2021-03-01 20:55:34 +0100
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Started POST &amp;quot;/tweets&amp;quot; for 127.0.0.1 at 2021-03-01 20:55:34 +0100
 Processing by TweetsController#create as TURBO_STREAM
   Parameters: {&amp;quot;authenticity_token&amp;quot;=&amp;gt;&amp;quot;[FILTERED]&amp;quot;, &amp;quot;tweet&amp;quot;=&amp;gt;{&amp;quot;body&amp;quot;=&amp;gt;&amp;quot;&amp;quot;}, &amp;quot;commit&amp;quot;=&amp;gt;&amp;quot;Create Tweet&amp;quot;}
   Rendering layout layouts/application.html.erb
@@ -2014,7 +2023,7 @@ Processing by TweetsController#create as TURBO_STREAM
 Completed 422 Unprocessable Entity in 125ms (Views: 35.9ms | ActiveRecord: 83.9ms | Allocations: 9244)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To fix this we will need the &lt;code&gt;form&lt;/code&gt; to have a tag id - to do this we can update the form with &lt;code&gt;&amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;&lt;/code&gt; - also:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;
 &amp;lt;% if tweet.errors.any? %&amp;gt;
 &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
   &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(tweet.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this tweet from being saved:&amp;lt;/h2&amp;gt;
@@ -2038,7 +2047,7 @@ Completed 422 Unprocessable Entity in 125ms (Views: 35.9ms | ActiveRecord: 83.9m
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;But even still we need to the controller how to use the turbo_stream.  There are several ways (with and without a template).  We will start without a tempate (actually the template info is inline) using: &lt;code&gt;format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: @tweet}) }&lt;/code&gt;.  Not the create controller should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
 
@@ -2058,7 +2067,7 @@ Completed 422 Unprocessable Entity in 125ms (Views: 35.9ms | ActiveRecord: 83.9m
 &lt;p&gt;Now when we create an invalid message we should see (notice the turbo-frame outline):
 &lt;img src=&#34;tweet_index_7th_w_frame_validation.png&#34; alt=&#34;tweet_index_7th_w_frame_validation&#34;&gt;&lt;/p&gt;
 &lt;p&gt;When we look at the logs we can confirm we are using the TURBO_STREAM for both directions and NOT reloading the page (no &lt;code&gt;LOAD&lt;/code&gt; in the log):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Started POST &amp;quot;/tweets&amp;quot; for 127.0.0.1 at 2021-03-01 21:22:13 +0100
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Started POST &amp;quot;/tweets&amp;quot; for 127.0.0.1 at 2021-03-01 21:22:13 +0100
 Processing by TweetsController#create as TURBO_STREAM
   Parameters: {&amp;quot;authenticity_token&amp;quot;=&amp;gt;&amp;quot;[FILTERED]&amp;quot;, &amp;quot;tweet&amp;quot;=&amp;gt;{&amp;quot;body&amp;quot;=&amp;gt;&amp;quot;&amp;quot;}, &amp;quot;commit&amp;quot;=&amp;gt;&amp;quot;Create Tweet&amp;quot;}
   Rendered tweets/_form.html.erb (Duration: 3.0ms | Allocations: 1373)
@@ -2066,7 +2075,7 @@ Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 2641)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now that validation errors work again - lets be sure that we can still create a new tweet.&lt;/p&gt;
 &lt;p&gt;Assuming all works - lets take a quick snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;new tweet form is hooked into turbo-stream and validations still work&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;?????
@@ -2075,7 +2084,7 @@ Turbo - is clever enough to figure out the routing in the default case and will 
 &lt;h4 id=&#34;in-place-edit&#34;&gt;In-Place Edit&lt;/h4&gt;
 &lt;p&gt;In oder to do an in-place edit we will need yet another type of broadcast &lt;code&gt;after_update_commit { broadcast_replace_to &amp;quot;tweets&amp;quot; }&lt;/code&gt;
 so our new model will now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/tweet.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/tweet.rb
 class Tweet &amp;lt; ApplicationRecord
   validates :body, presence: true
 
@@ -2089,7 +2098,7 @@ end
 &lt;p&gt;Now would hope it would all work, but when we click on Edit, the item disappears (and re-appears on reload).
 &lt;img src=&#34;tweet_index_8th_broken_edit.png&#34; alt=&#34;tweet_index_8th_broken_edit&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Lets look at the logs:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Started GET &amp;quot;/tweets/11/edit&amp;quot; for 127.0.0.1 at 2021-03-03 20:10:53 +0100
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Started GET &amp;quot;/tweets/11/edit&amp;quot; for 127.0.0.1 at 2021-03-03 20:10:53 +0100
 Processing by TweetsController#edit as HTML
   Parameters: {&amp;quot;id&amp;quot;=&amp;gt;&amp;quot;11&amp;quot;}
   Tweet Load (0.7ms)  SELECT &amp;quot;tweets&amp;quot;.* FROM &amp;quot;tweets&amp;quot; WHERE &amp;quot;tweets&amp;quot;.&amp;quot;id&amp;quot; = $1 LIMIT $2  [[&amp;quot;id&amp;quot;, 11], [&amp;quot;LIMIT&amp;quot;, 1]]
@@ -2101,7 +2110,7 @@ Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.7ms | Allocations: 2104)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We see that it loads the tweet and sends it to the edit.html.erb page (which loads the form partial), but we don&amp;rsquo;t see anything but the index page (minus the tweet we wanted to edit).  Unfortunately, Hotwire, doesn&amp;rsquo;t provide an error, it just doesn&amp;rsquo;t find a location to render the edit on our index (since the edit link is within a stream tag) and just replaces our dom_id with nothing.  Here is where Hotwire could provide much better feedback.&lt;/p&gt;
 &lt;p&gt;In any case, the fix is straightforward, we need to tell Rails what in the edit page goes into the index page so we can do that with another frame_tag: &lt;code&gt;&amp;lt;%= turbo_frame_tag dom_id(@tweet) do %&amp;gt;&lt;/code&gt; Now the edit.html.erb page should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/edit.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/edit.html.erb
 &amp;lt;h1&amp;gt;Editing Tweet&amp;lt;/h1&amp;gt;
 
 &amp;lt;%= turbo_frame_tag dom_id(@tweet) do %&amp;gt;
@@ -2114,7 +2123,7 @@ Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.7ms | Allocations: 2104)
 &lt;p&gt;NOTE: We don&amp;rsquo;t need to fix the form partial since we did that in the previous &lt;code&gt;new&lt;/code&gt; step with by adding a dom_id tag to the form with: &lt;code&gt;&amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_9th_in_place_wo_css.png&#34; alt=&#34;tweet_index_9th_in_place_wo_css&#34;&gt;&lt;/p&gt;
 &lt;p&gt;We might notice that the edit page lacks formatting (the form is squished up against the left of our frame).  This is because our tweet partial has a card div but that is lacking when replace the dom_id with the form &amp;ndash; we can easily fix this by adding the CSS to our edit page:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/edit.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/edit.html.erb
 &amp;lt;h1&amp;gt;Editing Tweet&amp;lt;/h1&amp;gt;
 
 &amp;lt;%= turbo_frame_tag dom_id(@tweet) do %&amp;gt;
@@ -2130,7 +2139,7 @@ Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.7ms | Allocations: 2104)
 &lt;img src=&#34;tweet_index_10th_in_place_edit.png&#34; alt=&#34;tweet_index_10th_in_place_edit&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Now when we actually do an edit we see it all works as expected.  From the logs we see
 it loads the tweet from the db, then the the edit page which loads the frame (this time it actually places it into the dom_id we provided, but unfortunately, we can&amp;rsquo;t see that from the logs)!  And we can see that when we submit the edit &amp;ndash; the tweet model sends out the html patch send to both windows we have open.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Started GET &amp;quot;/tweets/11/edit&amp;quot; for 127.0.0.1 at 2021-03-03 20:34:56 +0100
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Started GET &amp;quot;/tweets/11/edit&amp;quot; for 127.0.0.1 at 2021-03-03 20:34:56 +0100
 Processing by TweetsController#edit as HTML
   Parameters: {&amp;quot;id&amp;quot;=&amp;gt;&amp;quot;11&amp;quot;}
   Tweet Load (1.0ms)  SELECT &amp;quot;tweets&amp;quot;.* FROM &amp;quot;tweets&amp;quot; WHERE &amp;quot;tweets&amp;quot;.&amp;quot;id&amp;quot; = $1 LIMIT $2  [[&amp;quot;id&amp;quot;, 11], [&amp;quot;LIMIT&amp;quot;, 1]]
@@ -2160,7 +2169,7 @@ Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;q
 Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;quot;replace\&amp;quot; target=\&amp;quot;tweet_11\&amp;quot;&amp;gt;&amp;lt;template&amp;gt;&amp;lt;!-- this tag with `tweet` instead of &#39;tweets&#39; identifies an individual tweet --&amp;gt;\n&amp;lt;turbo-frame id=\&amp;quot;tweet_11\&amp;quot;&amp;gt;\n\n&amp;lt;div class=\&amp;quot;card card-body\&amp;quot;&amp;gt;\n  &amp;lt;div&amp;gt;jump! how high?&amp;lt;/div&amp;gt;\n\n  &amp;lt;div class=\&amp;quot;mt-2\&amp;quot;&amp;gt;\n    &amp;lt;a class=\&amp;quot;btn btn-sm btn... (via streamed from tweets)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets add a &lt;code&gt;cancel&lt;/code&gt; button to the form so we don&amp;rsquo;t need to reload the page to stop editing - we can do that with a show link &lt;code&gt;&amp;lt;%= link_to &amp;quot;Cancel&amp;quot;, @tweet, class: &amp;quot;btn btn-sm btn-outline-danger&amp;quot; %&amp;gt;&lt;/code&gt; - so our form would now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_form.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_form.html.erb
 &amp;lt;%= form_with(model: tweet, id: dom_id(tweet)) do |form| %&amp;gt;
 &amp;lt;% if tweet.errors.any? %&amp;gt;
 &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
@@ -2186,7 +2195,7 @@ Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;q
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Unfortunately, now when we hit &lt;code&gt;cancel&lt;/code&gt; - the tweet disappears &amp;ndash; because @tweet points to the show page and our current show page has no turbo_frame with a &lt;code&gt;dom_id&lt;/code&gt;. We can fix this by putting our show page (formatted like the tweet partial wrapped in a frame tag with a dom_id) - like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/show.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/show.html.erb
 &amp;lt;%= turbo_frame_tag dom_id(@tweet) do %&amp;gt;
 
 &amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
@@ -2215,7 +2224,7 @@ Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;q
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;However, this is a bit silly since this is basically the same as our partial and we have two places to change if we want to adjust our tweet layout &amp;ndash; so we can fix this by using the tweet partial:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/show.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/show.html.erb
 &amp;lt;%= turbo_frame_tag dom_id(@tweet) do %&amp;gt;
   &amp;lt;%= render @tweet %&amp;gt;
 &amp;lt;% end %&amp;gt;
@@ -2225,7 +2234,7 @@ Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;q
 &lt;p&gt;This is because the tweet partial also has a dom_id - and show will process whatever it finds &amp;ndash; but only sends whatever is marked by the dom_id.&lt;/p&gt;
 &lt;p&gt;This was a little tricky to notice at first without the HTML inspector &amp;ndash; since in show I used the explicit dom_id: &lt;code&gt;&amp;lt;%= turbo_frame_tag @tweet do %&amp;gt;&lt;/code&gt; and in the tweet partial I used the implicit dom_id tag: &lt;code&gt;&amp;lt;%= turbo_frame_tag tweet do %&amp;gt;&lt;/code&gt;.  Unfortunately, for now Rails Turbo provides does not yet provide warnings when you render the same dom_id twice.&lt;/p&gt;
 &lt;p&gt;In any case, now it may be clear that the the proper solution is that show should now read like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/show.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/show.html.erb
 &amp;lt;%= render @tweet %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when you inspect the HTML you will only see one dom_id for each tweet and since turbo only replaces items with the correct tags and ids - it renders the tweet partial now.  This is all a bit tricky to debug, hopefully, with time more errors or logging will be added - but for now, I suggest adding &lt;code&gt;&amp;lt;!-- --&amp;gt;&lt;/code&gt; HTML comments with the name of the file inside each turbo tag to ease debugging &amp;ndash; at least until everything works as wished.&lt;/p&gt;
@@ -2233,7 +2242,7 @@ Turbo::StreamsChannel transmitting &amp;quot;&amp;lt;turbo-stream action=\&amp;q
 &lt;img src=&#34;tweet_index_12_edit_w_validations.png&#34; alt=&#34;tweet_index_12_edit_w_validations&#34;&gt;
 because the form now has a dom_id and the validation errors are sent there.&lt;/p&gt;
 &lt;p&gt;If some other route is happening another way to fix this would be to add &lt;code&gt;format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: @tweet}) }&lt;/code&gt; to the controller update method:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
 def update
     respond_to do |format|
       if @tweet.update(tweet_params)
@@ -2249,7 +2258,7 @@ def update
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;OK - ideally all functionality in the edit form is now working well!&lt;/p&gt;
 &lt;p&gt;Time for another snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;turbo frame now allows in-place edit and cancel edit without reloading&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;likes-and-retweet&#34;&gt;Likes and Retweet&lt;/h3&gt;
@@ -2257,17 +2266,28 @@ git commit -m &amp;quot;turbo frame now allows in-place edit and cancel edit wit
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;I am particularly fond of the GoRails videos.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://hotwire.dev/&#34;&gt;https://hotwire.dev/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://turbo.hotwire.dev/&#34;&gt;https://turbo.hotwire.dev/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/hotwired/hotwire-rails&#34;&gt;https://github.com/hotwired/hotwire-rails&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=NtTfYfWAzw0&#34;&gt;https://www.youtube.com/watch?v=NtTfYfWAzw0&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=77GvSdc2Pf8&#34;&gt;https://www.youtube.com/watch?v=77GvSdc2Pf8&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=NtTfYfWAzw0&#34;&gt;https://www.youtube.com/watch?v=NtTfYfWAzw0&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MRv4XGu6QkY&#34;&gt;https://www.youtube.com/watch?v=MRv4XGu6QkY&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gorails.com/episodes/hotwire-rails?autoplay=1&#34;&gt;https://gorails.com/episodes/hotwire-rails?autoplay=1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/&#34;&gt;https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/&#34;&gt;https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87&#34;&gt;https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hotwire.dev/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://turbo.hotwire.dev/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/hotwired/hotwire-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/hotwired/hotwire-rails&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=NtTfYfWAzw0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=NtTfYfWAzw0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=77GvSdc2Pf8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=77GvSdc2Pf8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=NtTfYfWAzw0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=NtTfYfWAzw0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=MRv4XGu6QkY&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=MRv4XGu6QkY&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://gorails.com/episodes/hotwire-rails?autoplay=1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gorails.com/episodes/hotwire-rails?autoplay=1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://robrace.dev/build-a-twitter-clone-with-rails-hotwire/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.cloud66.com/taking-rails-to-the-next-level-with-hotwire/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://betterprogramming.pub/hotwire-actiontext-and-rails-6-be025dce7d87&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -2283,11 +2303,12 @@ git commit -m &amp;quot;turbo frame now allows in-place edit and cancel edit wit
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt; allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;
-&lt;p&gt;This code can be found at: &lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This code can be found at: 
+&lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;h3 id=&#34;create-the-project&#34;&gt;Create the project&lt;/h3&gt;
 &lt;p&gt;We&amp;rsquo;ll skip Turbolinks since Turbo replaces Turbolinks and also installs Stimulus&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new tweets -d postgresql -T --skip-turbolinks --skip-spring
 cd tweets
 git add .
 git commit -m &amp;quot;initial commit after creation&amp;quot;
@@ -2296,10 +2317,10 @@ git commit -m &amp;quot;initial commit after creation&amp;quot;
 &lt;h3 id=&#34;create-a-traditional-rails-tweet-clone&#34;&gt;Create a Traditional Rails Tweet Clone&lt;/h3&gt;
 &lt;h4 id=&#34;tweet-model&#34;&gt;Tweet Model&lt;/h4&gt;
 &lt;p&gt;We&amp;rsquo;ll scaffold the model to get all the parts we need&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails g scaffold tweet body:text likes:integer retweets:integer
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g scaffold tweet body:text likes:integer retweets:integer
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We&amp;rsquo;ll update the migration to prevent blanks - make the migration file look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# db/migrate/yyyymmddHHMMSS_create_tweets.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/yyyymmddHHMMSS_create_tweets.rb
 class CreateTweets &amp;lt; ActiveRecord::Migration[6.1]
   def change
     create_table :tweets do |t|
@@ -2313,28 +2334,28 @@ class CreateTweets &amp;lt; ActiveRecord::Migration[6.1]
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we should be able to successfully create and migrate out database&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails db:create
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:create
 bin/rails db:migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Given the Database restrictions we&amp;rsquo;ll add validations to the model. So now it should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/tweet.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/tweet.rb
 class Tweet &amp;lt; ApplicationRecord
   validates :body, presence: true
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets also point the root route at our tweets resource - so now it should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/routes.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
 Rails.application.routes.draw do
   resources :tweets
   root to: &amp;quot;tweets#index&amp;quot;
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets start up rails and be sure everything works so far:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails s
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;go to &lt;code&gt;http://localhost:3000&lt;/code&gt; and make and edit and delete some tweets.&lt;/p&gt;
 &lt;p&gt;Assuming it works lets commit these changes.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&#34;lets-make-this-useable-more-like-a-single-page-app&#34;&gt;Let&amp;rsquo;s make this useable (more like a single page app)&lt;/h4&gt;
@@ -2350,7 +2371,7 @@ git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
 &lt;p&gt;As mentioned users shouldn&amp;rsquo;t choose their likes and retweets:
 &lt;img src=&#34;tweet_form_1st.png&#34; alt=&#34;tweet_form_1st&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Now lets remove likes and retweets from our form:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_form.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_form.html.erb
 &amp;lt;%= form_with(model: tweet) do |form| %&amp;gt;
   &amp;lt;% if tweet.errors.any? %&amp;gt;
     &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
@@ -2379,7 +2400,7 @@ git commit -m &amp;quot;created tweet scaffold, validations and routes&amp;quot;
 &lt;p&gt;If you made several tweets you&amp;rsquo;ll notice that the tweets are in oldest to newest.
 &lt;img src=&#34;tweet_index_1st_oldest.png&#34; alt=&#34;tweet_index_1st&#34;&gt;&lt;/p&gt;
 &lt;p&gt;We&amp;rsquo;ll fix that with the index controller sort order:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
 class TweetsController &amp;lt; ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
 
@@ -2392,7 +2413,7 @@ end
 &lt;p&gt;&lt;img src=&#34;tweet_index_2nd_newest.png&#34; alt=&#34;tweet_index_2nd&#34;&gt;&lt;/p&gt;
 &lt;p&gt;now tweets should be newest to oldest&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s put our create tweet at the top of our index page&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
@@ -2405,7 +2426,7 @@ end
 &lt;p&gt;now when we check out index page again &amp;ndash; oops, we get an error:
 &lt;img src=&#34;tweet_index_3rd_error.png&#34; alt=&#34;tweet_index_3rd_error&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;errors&lt;/code&gt; is null because the new instance isn&amp;rsquo;t available we need to add a new tweet to our index page from the controller:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
 class TweetsController &amp;lt; ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
 
@@ -2423,7 +2444,7 @@ class TweetsController &amp;lt; ApplicationController
 &lt;p&gt;with:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;format.html { redirect_to tweets_url, notice: &amp;quot;Tweet was successfully created.&amp;quot; }&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;We will have the same problem with update &amp;ndash; so let&amp;rsquo;s fix them both.  Now the controller should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/tweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
   def create
     @tweet = Tweet.new(tweet_params)
 
@@ -2454,7 +2475,7 @@ class TweetsController &amp;lt; ApplicationController
 &lt;img src=&#34;tweet_index_5th_after_create.png&#34; alt=&#34;tweet_index_5th&#34;&gt;&lt;/p&gt;
 &lt;p&gt;OK we are almost there, but we still have rows of tables and not a nice tweet feed look.&lt;/p&gt;
 &lt;p&gt;Lets add Bootstrap CSS for some modest beauty (you can copy this file or use the below link to get the newest Bootstrap CSS)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/layout/application.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layout/application.html.erb
 &amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
@@ -2477,9 +2498,11 @@ class TweetsController &amp;lt; ApplicationController
 
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;you can get the newest bootstrap link from: &lt;a href=&#34;https://getbootstrap.com/docs/&#34;&gt;https://getbootstrap.com/docs/&lt;/a&gt; or &lt;a href=&#34;https://www.bootstrapcdn.com/&#34;&gt;https://www.bootstrapcdn.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;you can get the newest bootstrap link from: 
+&lt;a href=&#34;https://getbootstrap.com/docs/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://getbootstrap.com/docs/&lt;/a&gt; or 
+&lt;a href=&#34;https://www.bootstrapcdn.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bootstrapcdn.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now lets make a partial reformat our feed with bootstrap:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_tweet.html.erb
 &amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
   &amp;lt;div&amp;gt;&amp;lt;%= tweet.body %&amp;gt;&amp;lt;/div&amp;gt;
 
@@ -2498,7 +2521,7 @@ class TweetsController &amp;lt; ApplicationController
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets integrate the tweet partial into the index page:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/index.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/index.html.erb
 &amp;lt;p id=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 
 &amp;lt;h1&amp;gt;Tweets&amp;lt;/h1&amp;gt;
@@ -2518,7 +2541,7 @@ git commit -m &amp;quot;tweet app mostly from the index page&amp;quot;
 &lt;h4 id=&#34;activate-likes-and-retweets&#34;&gt;Activate likes and retweets&lt;/h4&gt;
 &lt;p&gt;To finish this simple app lets activate Likes and Retweets - we will do this with new controllers since this is an independent action from our tweet itself.  We will use the &lt;code&gt;create&lt;/code&gt; since we are &lt;code&gt;creating&lt;/code&gt; a like or a retweet.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s build the like controller - we will redirect back to the index where we want to stay:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/likes_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/likes_controller.rb
 class LikesController &amp;lt; ApplicationController
   before_action :set_tweet
 
@@ -2535,7 +2558,7 @@ class LikesController &amp;lt; ApplicationController
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And now the retweet controller:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/retweets_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/retweets_controller.rb
 class RetweetsController &amp;lt; ApplicationController
   before_action :set_tweet
 
@@ -2552,7 +2575,7 @@ class RetweetsController &amp;lt; ApplicationController
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These controllers are dependent on the tweet so they are subroutes of a tweet - so lets update our routes to be:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/routes.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
 Rails.application.routes.draw do
   resources :tweets do
     resource :like, only: [:create]
@@ -2562,7 +2585,7 @@ Rails.application.routes.draw do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets add the connection to controller in our front-end with buttons.  Note we need to use the &lt;code&gt;method: :post&lt;/code&gt; for our like and retweet &lt;code&gt;create&lt;/code&gt; because these are normally &lt;code&gt;posted&lt;/code&gt; by the &lt;code&gt;edit&lt;/code&gt; form.  In this case we want to bypass a form and just update.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/tweets/_tweet.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/_tweet.html.erb
 &amp;lt;div class=&amp;quot;card card-body&amp;quot;&amp;gt;
   &amp;lt;div&amp;gt;&amp;lt;%= tweet.body %&amp;gt;&amp;lt;/div&amp;gt;
 
@@ -2587,7 +2610,7 @@ end
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Test that everything works as expected!  Assuming it works - we will take another snapshot.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on index page&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_7th_likes_retweets.png&#34; alt=&#34;tweet_index_7th&#34;&gt;&lt;/p&gt;
@@ -2604,12 +2627,15 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
 &lt;p&gt;Taken from:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;create-the-project&#34;&gt;create the project:&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# -T - skips tests;              I like rspec
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -T - skips tests;              I like rspec
 # -d postgresql;                 I like postgresql best for the db
 # --skip-spring --skip-listen;   Spring caches and doesn&#39;t notice all changes (even after rails restart)
 #                                I have lost several hours not realizing Spring wasn&#39;t seeing my changes
@@ -2623,7 +2649,7 @@ cd calendar
 # rails app:update:bin
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;update-the-readme-and-initialize-git&#34;&gt;update the README and initialize Git&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;initial commit&amp;quot;
 git remote add origin git@gitlab.com:btihen/calendar.git
 git push -u origin master
@@ -2631,7 +2657,7 @@ git push -u origin master
 &lt;h2 id=&#34;add-extra-gems-for-this-project&#34;&gt;Add extra Gems for this project&lt;/h2&gt;
 &lt;p&gt;add rspec, devise, factory_bot and stimulus_reflex&lt;/p&gt;
 &lt;p&gt;Execute the following command (or add to the Gemfile)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt; Gemfile
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt; Gemfile
 # Project Gems
 ##############
 
@@ -2692,7 +2718,7 @@ EOF
 &lt;p&gt;to install all the new gems and create a &lt;code&gt;Gemfile.lock&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;install-activestorage-and-actiontext&#34;&gt;Install ActiveStorage and ActionText&lt;/h2&gt;
 &lt;p&gt;run the following commands:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# bundle exec rails webpacker:install
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# bundle exec rails webpacker:install
 # bundle exec rails webpacker:install:stimulus
 bundle exec rails active_storage:install
 bundle exec rails action_text:install
@@ -2702,7 +2728,7 @@ bin/rails g rspec:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rspec-config-files&#34;&gt;Rspec: Config Files&lt;/h2&gt;
 &lt;h3 id=&#34;create-needed-folders-for-our-config&#34;&gt;Create needed folders for our config&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;mkdir spec/features
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir spec/features
 
 # a place to put test helper code
 mkdir spec/support
@@ -2714,7 +2740,7 @@ mkdir spec/support/features
 &lt;li&gt;To load Test helper code add: &lt;code&gt;Dir[Rails.root.join(&amp;quot;spec/support/**/*.rb&amp;quot;)].each { |file| require file }&lt;/code&gt; below &lt;code&gt;require &#39;capybara/rspec&#39;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;just after the ActiveRecord config and before RSpec.configure block add:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;Capybara.register_driver :selenium_chrome do |app|
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 Capybara.javascript_driver = :selenium_chrome
@@ -2722,7 +2748,7 @@ Capybara.javascript_driver = :selenium_chrome
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Add the FactoryBot config in the section with:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;RSpec.configure do |config|
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;RSpec.configure do |config|
   # ...
 
   # support for Factory Bot
@@ -2738,7 +2764,7 @@ end
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;finally at the end of the file add support for shoulda matchers with:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;Shoulda::Matchers.configure do |config|
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
@@ -2746,7 +2772,7 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;NOW &lt;code&gt;spec/rails_helper.rb&lt;/code&gt; should look like (its long, sometimes the full context is clearer):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# This file is copied to spec/ when you run &#39;rails generate rspec:install&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# This file is copied to spec/ when you run &#39;rails generate rspec:install&#39;
 require &#39;spec_helper&#39;
 ENV[&#39;RAILS_ENV&#39;] ||= &#39;test&#39;
 require File.expand_path(&#39;../config/environment&#39;, __dir__)
@@ -2832,23 +2858,23 @@ end
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Generate a page&lt;/strong&gt; &amp;ndash; I don&amp;rsquo;t (generally) use helpers nor contoller or view specs - so I&amp;rsquo;ll create the landing page using the following generator:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;Update Routes&lt;/strong&gt; &lt;code&gt;config/routes.rb&lt;/code&gt; with:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;  get &#39;landing/index&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  get &#39;landing/index&#39;
   root to: &amp;quot;landing#index&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;&lt;strong&gt;Add Hidden Test Content&lt;/strong&gt; to simplify testing add:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Request test:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;# spec/requests/landing_request_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/requests/landing_request_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &amp;quot;Landings&amp;quot;, type: :request do
@@ -2866,7 +2892,7 @@ end
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Feature Test (to be sure they are working too)&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;# spec/features/landing_page_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/features/landing_page_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Landing Page Works without a login&#39;, type: :feature do
@@ -2879,7 +2905,7 @@ RSpec.describe &#39;Landing Page Works without a login&#39;, type: :feature do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Test and commit&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rake db:migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rake db:migrate
 bundle exec rspec
 git add .
 git commit -m &amp;quot;rspec: unit and feature tests configured and landing page works&amp;quot;
@@ -2887,7 +2913,7 @@ git push
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;config-hotwire&#34;&gt;Config Hotwire&lt;/h3&gt;
 &lt;p&gt;Ensure the  In the end the &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
 &amp;lt;head&amp;gt;
@@ -2916,16 +2942,16 @@ git push
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;devise--user-config&#34;&gt;Devise / User Config&lt;/h3&gt;
 &lt;p&gt;Configure dev email for devise:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/environments/development.rb:
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/environments/development.rb:
   config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the user and migration&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g devise user
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g devise user
 # if you will make a custom login (probably needed to look nice)
 # rails g devise:views
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Adjust the migration:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class DeviseCreateUsers &amp;lt; ActiveRecord::Migration[6.1]
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class DeviseCreateUsers &amp;lt; ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       ## Database authenticatable
@@ -2968,14 +2994,14 @@ git push
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Route file should now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Rails.application.routes.draw do
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
   devise_for :users
   get &#39;landing/index&#39;
   root to: &amp;quot;landing#index&amp;quot;
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We will update the user model with password complexity validation:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class User &amp;lt; ApplicationRecord
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -2992,7 +3018,7 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the user Factory (which also uses Faker):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/factories/users.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/factories/users.rb
 FactoryBot.define do
   factory :user do
     email       { Faker::Internet.safe_email }  # probably need to add index for uniqueness
@@ -3005,7 +3031,7 @@ FactoryBot.define do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the user spec (uses FactoryBot &amp;amp; Shoulda):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/models/user_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/models/user_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe User, type: :model do
@@ -3048,7 +3074,7 @@ RSpec.describe User, type: :model do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;test-setup-and-commit-when-green&#34;&gt;Test setup and commit when green:&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;rake db:migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rake db:migrate
 bundle exec rspec
 git add .
 git commit -m &amp;quot;devise configured, FactoryBot, Faker and Shoulda working&amp;quot;
@@ -3057,7 +3083,7 @@ git push
 &lt;h2 id=&#34;create-user-landing--profile-page-autoredirect&#34;&gt;create user landing / profile page (autoredirect)&lt;/h2&gt;
 &lt;h2 id=&#34;test-restricted-logins&#34;&gt;Test restricted logins&lt;/h2&gt;
 &lt;p&gt;a basic login feature test might look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;require &#39;rails_helper&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Users Login&#39;, type: :feature do
   let(:user)  { FactoryBot.create :user }
@@ -3074,11 +3100,12 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install-fonts--icons&#34;&gt;Install Fonts / Icons&lt;/h2&gt;
 &lt;h3 id=&#34;fontawesome-good-with-bulma&#34;&gt;Fontawesome (Good with Bulma)&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&#34;&gt;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add @fortawesome/fontawesome-free
+&lt;p&gt;
+&lt;a href=&#34;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add @fortawesome/fontawesome-free
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;update application.scss&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$fa-font-path: &#39;@fortawesome/fontawesome-free/webfonts&#39;;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;$fa-font-path: &#39;@fortawesome/fontawesome-free/webfonts&#39;;
 @import &#39;@fortawesome/fontawesome-free/scss/fontawesome&#39;;
 @import &#39;@fortawesome/fontawesome-free/scss/solid&#39;;
 @import &#39;@fortawesome/fontawesome-free/scss/regular&#39;;
@@ -3086,11 +3113,11 @@ end
 @import &#39;@fortawesome/fontawesome-free/scss/v4-shims&#39;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;update application.js&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import &amp;quot;@fortawesome/fontawesome-free/js/all&amp;quot;;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;import &amp;quot;@fortawesome/fontawesome-free/js/all&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;or via cdn: vhttps://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
 add to &lt;code&gt;application.html.erb&lt;/code&gt; ()&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1&amp;quot;&amp;gt;
 &amp;lt;link rel=&amp;quot;stylesheet&amp;quot;
       href=&amp;quot;https://pro.fontawesome.com/releases/v5.10.0/css/all.css&amp;quot;
       integrity=&amp;quot;sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p&amp;quot;
@@ -3098,29 +3125,32 @@ add to &lt;code&gt;application.html.erb&lt;/code&gt; ()&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install-bulma-a-css-framework-if-desired&#34;&gt;Install BULMA: a CSS Framework (if desired)&lt;/h2&gt;
 &lt;p&gt;Bulma is a relatively new CSS framework. It feels like a light, streamlined alternative to Bootstrap. Bulma doesn’t include any JavaScript at all. This means some stuff just won’t work out of the box. For example, the burger menu won’t toggle without a little JavaScript help. We’ll get to that later.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add bulma
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add bulma
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Open app/javascript/packs/application.js and add the following to the top:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import &#39;../styles&#39;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;import &#39;../styles&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create app/javascript/styles.scss:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@import &#39;~bulma/bulma&#39;;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@import &#39;~bulma/bulma&#39;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;customize bulma by adding to the top of &lt;code&gt;styles.scss&lt;/code&gt; file: &lt;a href=&#34;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&#34;&gt;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@import &amp;quot;~bulma/sass/utilities/initial-variables.sass&amp;quot;;
+&lt;p&gt;customize bulma by adding to the top of &lt;code&gt;styles.scss&lt;/code&gt; file: 
+&lt;a href=&#34;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@import &amp;quot;~bulma/sass/utilities/initial-variables.sass&amp;quot;;
 $navbar-breakpoint: $tablet;
 @import &amp;quot;~bulma/bulma.sass&amp;quot;;
 @import &#39;~bulma/bulma&#39;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;choices are: $desktop (default 960px), $tablet (769px), $widescreen (1152px), $fullhd (1344px)
-variable defaults: &lt;a href=&#34;https://bulma.io/documentation/customize/variables/&#34;&gt;https://bulma.io/documentation/customize/variables/&lt;/a&gt;
-variables that can be set: &lt;a href=&#34;https://bulma-customizer.bstash.io&#34;&gt;https://bulma-customizer.bstash.io&lt;/a&gt;&lt;/p&gt;
+variable defaults: 
+&lt;a href=&#34;https://bulma.io/documentation/customize/variables/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bulma.io/documentation/customize/variables/&lt;/a&gt;
+variables that can be set: 
+&lt;a href=&#34;https://bulma-customizer.bstash.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bulma-customizer.bstash.io&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;a-sample-bulma-navbar&#34;&gt;A sample Bulma navbar&lt;/h3&gt;
 &lt;p&gt;Open app/views/layouts/application.html.erb and add the following just above the yield line:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= render &#39;layouts/navbar&#39; %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= render &#39;layouts/navbar&#39; %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create app/views/layouts/_navbar.html.erb:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
   &amp;lt;nav class=&amp;quot;navbar&amp;quot;&amp;gt;
     &amp;lt;div class=&amp;quot;navbar-brand&amp;quot;&amp;gt;
       &amp;lt;a class=&amp;quot;navbar-item&amp;quot; href=&amp;quot;#&amp;quot;&amp;gt;
@@ -3157,7 +3187,7 @@ variables that can be set: &lt;a href=&#34;https://bulma-customizer.bstash.io&#3
 &lt;p&gt;Create a Stimulus controller
 To keep this example simple, we’re going to create a single controller which we’ll attach to the body tag in the main layout. This controller will be responsible for rendering the Font Awesome icons (as described in a previous post) as well as handling our Bulma burger menu.&lt;/p&gt;
 &lt;p&gt;Create app/javascript/controllers/main_controller.js:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import fontawesome from &#39;@fortawesome/fontawesome&#39;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;import fontawesome from &#39;@fortawesome/fontawesome&#39;
 import icons from &#39;@fortawesome/fontawesome-free-regular&#39;
 import { Controller } from &#39;stimulus&#39;
 export default class extends Controller {
@@ -3195,10 +3225,10 @@ export default class extends Controller {
 &lt;p&gt;Connect the controller
 Now we want to connect the body tag to our controller using an HTML5 data attribute.&lt;/p&gt;
 &lt;p&gt;Open &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; and add the following attribute to the &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; tag.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;body data-controller=&amp;quot;main&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;body data-controller=&amp;quot;main&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now it should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layouts/application.html.erb
 &amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
@@ -3225,10 +3255,12 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
 
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&#34;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&#34;&gt;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;discourgaged---no-longer-necessary&#34;&gt;Discourgaged - no longer necessary:&lt;/h3&gt;
 &lt;p&gt;If you plan to user database_cleaner &amp;ndash; then also see this article to finish your config:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&#34;&gt;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -3239,32 +3271,32 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
       <guid>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</guid>
       <description>&lt;h2 id=&#34;configure-devise-for-multiple-types-of-accounts&#34;&gt;Configure devise (for multiple types of accounts)&lt;/h2&gt;
 &lt;p&gt;install the devise engine:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails generate devise:install
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails generate devise:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now follow the basic setup config &amp;ndash; add to &lt;code&gt;config/environments/development.rb&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;add notifications to the layout for devise in &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; just above &lt;code&gt;&amp;lt;%= yeild %&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
 &amp;lt;p class=&amp;quot;alert&amp;quot;&amp;gt;&amp;lt;%= alert %&amp;gt;&amp;lt;/p&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now create one or more models for devise:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g devise:views
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g devise:views
 rails generate devise user
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;update the routes to put the login in separate routes in &lt;code&gt;config/routes.rb&lt;/code&gt; - make the routes look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  devise_for :users,  path: &#39;users&#39;  # http://localhost:3000/users/sign_in
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  devise_for :users,  path: &#39;users&#39;  # http://localhost:3000/users/sign_in
   devise_for :admins, path: &#39;admins&#39; # http://localhost:3000/admins/sign_in
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;turn on scoped views (since login forms can be different) in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.scoped_views = true
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;config.scoped_views = true
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the scoped views: (instead of: rails g devise:views) do:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g devise:views users/devise
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g devise:views users/devise
 rails g devise:views admins/devise
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now we should open these migrations and uncomment any added fields we use - I generally like to use most of the fields:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# frozen_string_literal: true
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# frozen_string_literal: true
 
 class DeviseCreateAdmins &amp;lt; ActiveRecord::Migration[6.0]
   def change
@@ -3309,7 +3341,7 @@ class DeviseCreateAdmins &amp;lt; ActiveRecord::Migration[6.0]
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and adjust the &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;admin&lt;/code&gt; models too and turn on the features we want or need. We will go into detail later, for now I will just add trackable to the models:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class User &amp;lt; ApplicationRecord
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :trackable,
@@ -3317,14 +3349,14 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and of course migrate too.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails db:migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create custome controllers for each sessions - this also allows the users to have different fields and features:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails generate devise:controllers users/devise
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails generate devise:controllers users/devise
 rails generate devise:controllers admins/devise
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;configure the routes to point to these new controllers:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  # http://localhost:3000/users/sign_in
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  # http://localhost:3000/users/sign_in
   devise_for :users,  path: &#39;users&#39;,
                       controllers: {
                         sessions:      &#39;users/devise/sessions&#39;,
@@ -3340,7 +3372,7 @@ rails generate devise:controllers admins/devise
                       }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now the routes should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ bin/rails routes
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ bin/rails routes
                      Prefix Verb   URI Pattern                        Controller#Action
            new_user_session GET    /users/sign_in(.:format)           users/sessions#new
                user_session POST   /users/sign_in(.:format)           users/sessions#create
@@ -3374,11 +3406,11 @@ rails generate devise:controllers admins/devise
                             POST   /admins(.:format)                  admin/registrations#create
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;lets make logged in home pages (for the user and admin)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g controller users/home index --no-helper --no-assets --no-controller-specs --no-view-specs
 rails g controller admins/home index --no-helper --no-assets --no-controller-specs --no-view-specs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now lets update our routes to ponit to these pages if the user is logged in add the following belos the deivse_for commands&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Rails.application.routes.draw do
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
   # http://localhost:3000/admins/sign_in
   devise_for :admins, path: &#39;admins&#39;,
                       controllers: {
@@ -3437,7 +3469,7 @@ end
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;now-lets-make-applicationcontrollers-for-each-namespace--enforce-authentication&#34;&gt;now lets make ApplicationControllers for each namespace &amp;amp; enforce authentication&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;touch app/controllers/admins/application_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;touch app/controllers/admins/application_controller.rb
 cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/admins/application_controller.rb
 class Admins::ApplicationController &amp;lt; ApplicationController
   before_action :authenticate_admin!
@@ -3486,7 +3518,7 @@ EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;now-we-will-inhert-from-these-new-controllers-and-enforce-limits&#34;&gt;now we will inhert from these new controllers and enforce limits&lt;/h1&gt;
 &lt;p&gt;now lets require these pages to have authenticated the correct user type:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/controllers/admins/home_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/admins/home_controller.rb
 class Admins::HomeController &amp;lt; Admins::ApplicationController
   def index
   end
@@ -3506,7 +3538,7 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;now-prevent-student-and-admin-accounts-from-cross-visits-during-testing-or-whatever&#34;&gt;Now prevent student and admin accounts from cross visits (during testing, or whatever)&lt;/h2&gt;
 &lt;p&gt;create this new file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch app/controllers/concerns/accessible.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;touch app/controllers/concerns/accessible.rb
 cat &amp;lt;&amp;lt; EOF &amp;gt; app/controllers/concerns/accessible.rb
 module Accessible
   extend ActiveSupport::Concern
@@ -3537,7 +3569,7 @@ EOF
 &lt;p&gt;Now add &lt;code&gt;include Accessible&lt;/code&gt; in the appropriate controllers:&lt;/p&gt;
 &lt;p&gt;Note:
 You must skip_before_action for the destroy action in each SessionsController to prevent the redirect to happen before the sign out occurs.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# eg. ../controllers/admins/sessions_controller.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# eg. ../controllers/admins/sessions_controller.rb
 class Admins::SessionsController &amp;lt; Devise::SessionsController
  include Accessible
  skip_before_action :check_user, only: :destroy
@@ -3586,8 +3618,9 @@ class Patrons::RegistrationsController &amp;lt; Devise::RegistrationsController
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;now-lets-give-the-patron-account-a-usernames&#34;&gt;now lets give the patron account a usernames&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails generate migration add_username_to_patrons username:string:uniq
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To%3A-Allow-users-to-sign-in-with-something-other-than-their-email-address&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails generate migration add_username_to_patrons username:string:uniq
 rails generate migration add_umdzes_name_to_umdzes fullname:string
 rails generate migration add_admins_name_to_admins fullname:string
 
@@ -3610,11 +3643,10 @@ class AddFullnameToAdmins &amp;lt; ActiveRecord::Migration[6.0]
     add_column :admins, :admins_name, :string, null: false
   end
 end
-
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;update-the-models&#34;&gt;update the models&lt;/h2&gt;
 &lt;p&gt;now we need to go to the models and make the following updates:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/models/admin.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/admin.rb
 class Admin &amp;lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -3666,9 +3698,11 @@ end
 &lt;p&gt;now we can safely migrate &lt;code&gt;bundle exec rails db:migrate&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;lets-test-our-logins&#34;&gt;lets test our logins&lt;/h2&gt;
 &lt;p&gt;lets create some common feature test code:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&#34;&gt;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&lt;/a&gt;
-&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/support/features/session_helpers.rb
+&lt;p&gt;
+&lt;a href=&#34;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://forum.upcase.com/t/rspec-support-vs-helpers/4986&lt;/a&gt;
+
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/support/features/session_helpers.rb
 module Features
   module SessionHelpers
     # def patron_sign_up(username:, password:)
@@ -3723,13 +3757,13 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We are not allowing registrations, so that code is commented out.  However, we see we must configure our factories for this code to work.&lt;/p&gt;
 &lt;p&gt;Lets tell rspec how to access this code in feature tests:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/support/features.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/support/features.rb
 RSpec.configure do |config|
   config.include Features::SessionHelpers, type: :feature
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;lets-create-test-for-our-devise-model-factories&#34;&gt;Lets create test for our devise model factories:&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# spec/models/patron_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/models/patron_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe User, type: :model do
@@ -3772,10 +3806,10 @@ RSpec.describe Admin, type: :model do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;be sure these fail - run:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rspec spec/models/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we need to configure the factories so all is working:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/factories/patrons.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/factories/patrons.rb
 FactoryBot.define do
   factory :user do
     sequence(:email)      { |n| &amp;quot;#{Faker::Internet.email}&amp;quot;.split(&#39;@&#39;).join(&amp;quot;#{n}@&amp;quot;) }
@@ -3812,15 +3846,20 @@ end
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;be sure these pass now - run:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rspec spec/models/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rspec spec/models/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we are ready to test devise and our restricted access to the users home page:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.madetech.com/blog/feature-testing-with-rspec&#34;&gt;https://www.madetech.com/blog/feature-testing-with-rspec&lt;/a&gt;
-&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;
-&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&lt;/a&gt;
-&lt;a href=&#34;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&#34;&gt;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&lt;/a&gt;
-&lt;a href=&#34;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&#34;&gt;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/features/users/user_signup_spec.rb
+&lt;p&gt;
+&lt;a href=&#34;https://www.madetech.com/blog/feature-testing-with-rspec&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.madetech.com/blog/feature-testing-with-rspec&lt;/a&gt;
+
+&lt;a href=&#34;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thoughtbot.com/blog/rspec-integration-tests-with-capybara&lt;/a&gt;
+
+&lt;a href=&#34;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/heartcombo/devise/wiki/How-To:-Test-with-Capybara&lt;/a&gt;
+
+&lt;a href=&#34;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://radavis.github.io/sign-in-out-test-helpers-for-and-devise-and-capybara/&lt;/a&gt;
+
+&lt;a href=&#34;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.vanderpol.net/2014/10/07/rspec-integration-tests-devise-user-registration/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/features/users/user_signup_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Users Home Page&#39;, type: :feature do
@@ -3880,7 +3919,7 @@ RSpec.describe &#39;Users Home Page&#39;, type: :feature do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and test to be sure admin can log in too:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/features/admins/admin_login_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/features/admins/admin_login_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Users Login&#39;, type: :feature do
@@ -3936,7 +3975,7 @@ RSpec.describe &#39;Admins Home&#39;, type: :feature do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;before we wrap up - we need to fix our request specs - now that we added login restrictions:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/requests/users/home_request_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/requests/users/home_request_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &amp;quot;Patron::Homes&amp;quot;, type: :request do
@@ -4085,7 +4124,7 @@ RSpec.describe &amp;quot;Admins::Dashboards&amp;quot;, type: :request do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;run the tests and be sure all is green - if so, now is a good time to make a commit!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;rspec and devise configured and tests green&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 </description>

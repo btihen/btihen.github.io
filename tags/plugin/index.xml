@@ -19,7 +19,8 @@
       <guid>https://btihen.me/post_tech_notes/codium_plugins/</guid>
       <description>&lt;p&gt;Need to point Codium to MS extions?  Do the following:&lt;/p&gt;
 &lt;h3 id=&#34;like-codium-but-need-a-ms-code-plugin&#34;&gt;&lt;strong&gt;Like Codium but need a MS Code Plugin?&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&#34;&gt;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/37143536/no-extensions-found-when-running-visual-studio-code-from-source&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;open:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;vim /Applications/VSCodium.app/Contents/Resources/app/product.json&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;This can be fixed by adding following to product.json:&lt;/p&gt;

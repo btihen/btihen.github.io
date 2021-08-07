@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_tech_notes/hugo_academic_website_steps/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2020-05-16T10:39:21&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-05-23T10:39:21&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:39:21&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -684,7 +684,7 @@
           Last updated on
       
     
-    Sat, May 23, 2020
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -729,12 +729,12 @@
 
     <div class="article-style">
       <h3 id="step-0-install-hugo">step 0: install hugo</h3>
-<pre><code>brew install hugo
+<pre><code class="language-bash">brew install hugo
 </code></pre>
 <h3 id="step-1-create-a-public-username_website-repo">step 1: create a <strong>public</strong> <code>username_website</code> repo</h3>
 <p>I&rsquo;ll assume your github account is <code>username</code> I think this repo needs to be publicly readable (not 100% sure)</p>
 <h3 id="step-2-clone-the-academic-hugo-locally">step 2: clone the academic hugo locally</h3>
-<pre><code>git clone https://github.com/sourcethemes/academic-kickstart.git username_website
+<pre><code class="language-bash">git clone https://github.com/sourcethemes/academic-kickstart.git username_website
 cd academic_website
 git submodule update --init --recursive  # without this the site won't start correctly
 </code></pre>
@@ -747,7 +747,7 @@ git submodule update --init --recursive  # without this the site won't start cor
 <h3 id="step-4-point-this-repo-to-your-username_website-repo">step 4: point this repo to your <code>username_website</code> repo</h3>
 <p>I have found the easiest way to overwrite the source <code>origin</code> repo is to do this by hand.</p>
 <p>Currently your <code>.git/config</code> file will currently look like (notice the url referencing: <code>git://github.com/sourcethemes/academic-kickstart.git</code> - this is what we need to update):</p>
-<pre><code>[core]
+<pre><code class="language-toml">[core]
 	repositoryformatversion = 0
 	filemode = true
 	bare = false
@@ -762,10 +762,10 @@ git submodule update --init --recursive  # without this the site won't start cor
 	merge = refs/heads/master
 </code></pre>
 <p>change the origin url by hand or by using sed:</p>
-<pre><code>sed -i.bak -e 's/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/' .git/config
+<pre><code class="language-bash">sed -i.bak -e 's/https:\/\/github.com\/sourcethemes\/academic-kickstart.git/git@github.com:username\/username_website.git/' .git/config
 </code></pre>
 <p>when your <code>.git/config</code> file is correct it will look like:</p>
-<pre><code>[core]
+<pre><code class="language-toml">[core]
 	repositoryformatversion = 0
 	filemode = true
 	bare = false
@@ -780,7 +780,7 @@ git submodule update --init --recursive  # without this the site won't start cor
 	merge = refs/heads/master
 </code></pre>
 <p>now you can push this local repo to your github repo using:</p>
-<pre><code>git push -u origin --all
+<pre><code class="language-bash">git push -u origin --all
 # git init
 # git add .
 # git commit -m &quot;Initial commit&quot;
@@ -791,7 +791,8 @@ git submodule update --init --recursive  # without this the site won't start cor
 <p>in <code>config/_default/config.toml</code></p>
 <p>find the <code>title</code> attribute and set it to <code>username</code> (or whatever is appropriate)</p>
 <h4 id="5b-pick-a-themes">5B: Pick a themes</h4>
-<p>from <a href="https://sourcethemes.com/academic/themes/">https://sourcethemes.com/academic/themes/</a></p>
+<p>from 
+<a href="https://sourcethemes.com/academic/themes/" target="_blank" rel="noopener">https://sourcethemes.com/academic/themes/</a></p>
 <p>in <code>config/_default/config.toml</code></p>
 <p>find the <code>theme</code> attribute and set it to your favorite theme color (or leave it as is)</p>
 <h4 id="5c-site-logo--favicon">5C: site logo &amp; favicon</h4>
@@ -804,7 +805,7 @@ git submodule update --init --recursive  # without this the site won't start cor
 <h4 id="5d-menu-items">5D: menu items</h4>
 <p>in <code>config/_default/menus.toml</code></p>
 <p>remove any items you won&rsquo;t use.  In my case this file now looks like:</p>
-<pre><code>[[main]]
+<pre><code class="language-toml">[[main]]
   name = &quot;Posts&quot;
   url = &quot;#posts&quot;
   weight = 20
@@ -856,14 +857,14 @@ git submodule update --init --recursive  # without this the site won't start cor
 </ul>
 <h4 id="7a-about-page">7A: <code>about</code> page</h4>
 <p>I prefer to use the <code>about</code> page when it is a person&rsquo;s site and the <code>people</code> page when the site is about a group effort.  So in this case:</p>
-<pre><code>hugo new --kind authors authors/author_name
+<pre><code class="language-bash">hugo new --kind authors authors/author_name
 </code></pre>
 <p><strong><code>content/home/about.md</code></strong></p>
 <ul>
 <li>change the title to whatever you like: biography, about, etc&hellip;</li>
 <li>change the variable <code>author</code> to match the name you used to generate you profile above, ie:</li>
 </ul>
-<pre><code>author = &quot;author_name&quot;
+<pre><code class="language-yml">author = &quot;author_name&quot;
 </code></pre>
 <p><strong><code>content/authors/author_name/_index.md</code></strong></p>
 <ul>
@@ -879,31 +880,31 @@ git submodule update --init --recursive  # without this the site won't start cor
 <ul>
 <li>Mark the <code>active</code> variable as <code>false</code>:</li>
 </ul>
-<pre><code>active=false
+<pre><code class="language-yaml">active=false
 </code></pre>
 <p><strong>enable <code>content/home/people.md</code></strong></p>
 <ul>
 <li>set <code>active=true</code></li>
 <li>create sub-group names:</li>
 </ul>
-<pre><code>[content]
+<pre><code class="language-toml">[content]
   user_groups = [&quot;Educators&quot;, &quot;Researchers&quot;]
 </code></pre>
 <p>or alternatively, use an empty string to create a team without sub-teams:</p>
-<pre><code>[content]
+<pre><code class="language-toml">[content]
   user_groups = [&quot;&quot;]
 </code></pre>
 <p><strong>Create the people (authors)</strong></p>
-<pre><code>hugo new --kind authors authors/person_name
+<pre><code class="language-bash">hugo new --kind authors authors/person_name
 </code></pre>
 <p><strong><code>content/authors/person_name/_index.md</code></strong></p>
 <ul>
 <li>add one (or more) <code>user_group</code> to the person&rsquo;s profile using the <code>user_groups</code> variable:</li>
 </ul>
-<pre><code>user_groups = [&quot;Educators&quot;]
+<pre><code class="language-toml">user_groups = [&quot;Educators&quot;]
 </code></pre>
 <p>if you used an empty string in <code>people.md</code> add:</p>
-<pre><code>user_groups = [&quot;&quot;]
+<pre><code class="language-toml">user_groups = [&quot;&quot;]
 </code></pre>
 <ul>
 <li>Edit this file so that the information is accurate</li>
@@ -920,7 +921,7 @@ git submodule update --init --recursive  # without this the site won't start cor
 <h4 id="8b-git-snapshot">8B: git snapshot</h4>
 <p><strong>(DO NOT YET GENERATE your website)</strong></p>
 <p>Create your git snapshot (very important at this point since the next steps are tricky)</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;First draft of homepage&quot;
 git push
 </code></pre>
@@ -930,31 +931,31 @@ git push
 <p>NOW go to github repo <strong>settings</strong> and click on <strong>manage access</strong> and be sure you have permission to at administer (or at least write to this repo) &ndash; probably not so click the <strong><code>invite teams or people</code></strong> button and add yourself as an admin (an other as needed).</p>
 <h4 id="8d-clone-usernamegithubio-to-public-within-your-hugo-project">8D: clone <strong><code>username.github.io</code></strong> to public (within your Hugo project)</h4>
 <p>now go back into your website code (root folder) and type:</p>
-<pre><code>git clone https://github.com/username/username.github.io.git public
+<pre><code class="language-bash">git clone https://github.com/username/username.github.io.git public
 </code></pre>
 <p>if you see: <code>warning: You appear to have cloned an empty repository.</code> &ndash; go back to the repo and create a README file!</p>
 <h4 id="8e-check-your-permissions">8E: check your permissions</h4>
 <p>enter you public folder and create an <code>index.html</code> file and put in very simple html code: <code>&lt;h1&gt;Hello username.github.io&lt;/h1&gt;</code></p>
-<pre><code>cd public
+<pre><code class="language-bash">cd public
 touch index.html
 echo '&lt;h1&gt;Hello username.github.io&lt;/h1&gt;' &gt;&gt; index.html
 </code></pre>
 <p>now check this in and push it to github.</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;test webpage&quot;
 git push
 </code></pre>
 <p>At this point you should see a bunch of message and toward the end you should see a line with:</p>
-<pre><code>To github.com:username/username.github.io.git
+<pre><code class="language-bash">To github.com:username/username.github.io.git
 </code></pre>
 <p>If instead you get the error:</p>
-<pre><code>remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
+<pre><code class="language-bash">remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
 fatal: unable to access 'https://github.com/peakchallenges/peakchallenges.github.io.git/': The requested URL returned error: 403
 </code></pre>
 <p>go back and check your site permissions.</p>
 <p>If site permissions aren&rsquo;t a problem do the following:</p>
 <p>re-create your website repo <code>username.github.io.git</code> outside the webcode project.</p>
-<pre><code>git clone git@github.com:username/username.github.io.git
+<pre><code class="language-bash">git clone git@github.com:username/username.github.io.git
 cd username.github.io
 echo '&lt;h1&gt;Hello username.github.io - v1&lt;/h1&gt;' &gt;&gt; index.html
 git add index.html
@@ -974,22 +975,22 @@ git push
 <h3 id="step-9-configure-public-as-a-submodule">step 9: configure <code>public</code> as a <strong>submodule</strong></h3>
 <p>Now add the username.github.io repo as a submodule to your website code repo using.  This allows nested projects without confusing git.</p>
 <p>First be sure you are in the hugo root and not the public folder and type:</p>
-<pre><code>cd public
+<pre><code class="language-bash">cd public
 git submodule add -b master https://github.com/username/username.github.io.git public`
 </code></pre>
 <p>now in <code>.git/modules</code> you might see a folder called <code>public</code> (with a bunch of stuff in it) if not simply edit your <code>.git/config</code> so that after:</p>
-<pre><code>[submodule &quot;themes/academic&quot;]
+<pre><code class="language-toml">[submodule &quot;themes/academic&quot;]
   path = themes/academic
   url = https://github.com/gcushen/hugo-academic.git
 </code></pre>
 <p>you see:</p>
-<pre><code>[submodule &quot;public&quot;]
+<pre><code class="language-toml">[submodule &quot;public&quot;]
   path = public
   url = https://github.com/username/username.github.io.git
   branch = master
 </code></pre>
 <p>You can add it by hand or with:</p>
-<pre><code>cat &lt;&lt;&quot;EOF&quot; &gt;&gt; git/config
+<pre><code class="language-toml">cat &lt;&lt;&quot;EOF&quot; &gt;&gt; git/config
 [submodule &quot;public&quot;]
   path = public
   url = https://github.com/username/username.github.io.git
@@ -998,7 +999,7 @@ EOF
 </code></pre>
 <h3 id="step-10-publish-your-new-hugo-webpage">step 10: publish your new Hugo webpage:</h3>
 <p>Now to publish the Hugo site you prepared do the following:</p>
-<pre><code>hugo -d public
+<pre><code class="language-bash">hugo -d public
 cd public
 git add .
 git commit -m &quot;first webpage content&quot;
@@ -1363,7 +1364,7 @@ cd ..
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

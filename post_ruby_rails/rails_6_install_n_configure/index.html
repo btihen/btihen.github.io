@@ -215,8 +215,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
   <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_install_n_configure/">
 
@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2020-09-10T01:46:07&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-03-21T01:46:07&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-07T01:46:07&#43;02:00">
   
 
   
@@ -316,7 +316,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -329,7 +329,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_2.png" alt="btihen"></a>
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
     </div>
     
 
@@ -682,7 +682,7 @@
           Last updated on
       
     
-    Sun, Mar 21, 2021
+    Sat, Aug 7, 2021
   </span>
   
 
@@ -731,12 +731,15 @@
 <h1 id="rails-setup">Rails Setup</h1>
 <p>Taken from:</p>
 <ul>
-<li><a href="https://gist.github.com/alxndr/7569551">https://gist.github.com/alxndr/7569551</a></li>
-<li><a href="https://www.codewithjason.com/rails-integration-tests-rspec-capybara/">https://www.codewithjason.com/rails-integration-tests-rspec-capybara/</a></li>
-<li><a href="https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68">https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68</a></li>
+<li>
+<a href="https://gist.github.com/alxndr/7569551" target="_blank" rel="noopener">https://gist.github.com/alxndr/7569551</a></li>
+<li>
+<a href="https://www.codewithjason.com/rails-integration-tests-rspec-capybara/" target="_blank" rel="noopener">https://www.codewithjason.com/rails-integration-tests-rspec-capybara/</a></li>
+<li>
+<a href="https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68" target="_blank" rel="noopener">https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68</a></li>
 </ul>
 <h2 id="create-the-project">create the project:</h2>
-<pre><code># -T - skips tests;              I like rspec
+<pre><code class="language-bash"># -T - skips tests;              I like rspec
 # -d postgresql;                 I like postgresql best for the db
 # --skip-spring --skip-listen;   Spring caches and doesn't notice all changes (even after rails restart)
 #                                I have lost several hours not realizing Spring wasn't seeing my changes
@@ -750,7 +753,7 @@ cd calendar
 # rails app:update:bin
 </code></pre>
 <h2 id="update-the-readme-and-initialize-git">update the README and initialize Git</h2>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -m &quot;initial commit&quot;
 git remote add origin git@gitlab.com:btihen/calendar.git
 git push -u origin master
@@ -758,7 +761,7 @@ git push -u origin master
 <h2 id="add-extra-gems-for-this-project">Add extra Gems for this project</h2>
 <p>add rspec, devise, factory_bot and stimulus_reflex</p>
 <p>Execute the following command (or add to the Gemfile)</p>
-<pre><code>cat &lt;&lt;EOF &gt;&gt; Gemfile
+<pre><code class="language-ruby">cat &lt;&lt;EOF &gt;&gt; Gemfile
 # Project Gems
 ##############
 
@@ -819,7 +822,7 @@ EOF
 <p>to install all the new gems and create a <code>Gemfile.lock</code></p>
 <h2 id="install-activestorage-and-actiontext">Install ActiveStorage and ActionText</h2>
 <p>run the following commands:</p>
-<pre><code># bundle exec rails webpacker:install
+<pre><code class="language-bash"># bundle exec rails webpacker:install
 # bundle exec rails webpacker:install:stimulus
 bundle exec rails active_storage:install
 bundle exec rails action_text:install
@@ -829,7 +832,7 @@ bin/rails g rspec:install
 </code></pre>
 <h2 id="rspec-config-files">Rspec: Config Files</h2>
 <h3 id="create-needed-folders-for-our-config">Create needed folders for our config</h3>
-<pre><code>mkdir spec/features
+<pre><code class="language-bash">mkdir spec/features
 
 # a place to put test helper code
 mkdir spec/support
@@ -841,7 +844,7 @@ mkdir spec/support/features
 <li>To load Test helper code add: <code>Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each { |file| require file }</code> below <code>require 'capybara/rspec'</code></li>
 <li>just after the ActiveRecord config and before RSpec.configure block add:</li>
 </ol>
-<pre><code>Capybara.register_driver :selenium_chrome do |app|
+<pre><code class="language-ruby">Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 Capybara.javascript_driver = :selenium_chrome
@@ -849,7 +852,7 @@ Capybara.javascript_driver = :selenium_chrome
 <ol start="4">
 <li>Add the FactoryBot config in the section with:</li>
 </ol>
-<pre><code>RSpec.configure do |config|
+<pre><code class="language-ruby">RSpec.configure do |config|
   # ...
 
   # support for Factory Bot
@@ -865,7 +868,7 @@ end
 <ol start="5">
 <li>finally at the end of the file add support for shoulda matchers with:</li>
 </ol>
-<pre><code>Shoulda::Matchers.configure do |config|
+<pre><code class="language-ruby">Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
@@ -873,7 +876,7 @@ end
 end
 </code></pre>
 <p>NOW <code>spec/rails_helper.rb</code> should look like (its long, sometimes the full context is clearer):</p>
-<pre><code># This file is copied to spec/ when you run 'rails generate rspec:install'
+<pre><code class="language-ruby"># This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
@@ -959,23 +962,23 @@ end
 <ol>
 <li><strong>Generate a page</strong> &ndash; I don&rsquo;t (generally) use helpers nor contoller or view specs - so I&rsquo;ll create the landing page using the following generator:</li>
 </ol>
-<pre><code>rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
+<pre><code class="language-bash">rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
 </code></pre>
 <ol start="2">
 <li><strong>Update Routes</strong> <code>config/routes.rb</code> with:</li>
 </ol>
-<pre><code>  get 'landing/index'
+<pre><code class="language-ruby">  get 'landing/index'
   root to: &quot;landing#index&quot;
 </code></pre>
 <ol start="3">
 <li><strong>Add Hidden Test Content</strong> to simplify testing add:</li>
 </ol>
-<pre><code>&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;
+<pre><code class="language-ruby">&lt;p hidden id='landing_index'&gt;Landing Index&lt;/p&gt;
 </code></pre>
 <ol start="4">
 <li>Request test:</li>
 </ol>
-<pre><code># spec/requests/landing_request_spec.rb
+<pre><code class="language-ruby"># spec/requests/landing_request_spec.rb
 require 'rails_helper'
 
 RSpec.describe &quot;Landings&quot;, type: :request do
@@ -993,7 +996,7 @@ end
 <ol start="5">
 <li>Feature Test (to be sure they are working too)</li>
 </ol>
-<pre><code># spec/features/landing_page_spec.rb
+<pre><code class="language-ruby"># spec/features/landing_page_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Landing Page Works without a login', type: :feature do
@@ -1006,7 +1009,7 @@ RSpec.describe 'Landing Page Works without a login', type: :feature do
 end
 </code></pre>
 <p>Test and commit</p>
-<pre><code>rake db:migrate
+<pre><code class="language-bash">rake db:migrate
 bundle exec rspec
 git add .
 git commit -m &quot;rspec: unit and feature tests configured and landing page works&quot;
@@ -1014,7 +1017,7 @@ git push
 </code></pre>
 <h3 id="config-hotwire">Config Hotwire</h3>
 <p>Ensure the  In the end the <code>app/views/layouts/application.html.erb</code> looks like:</p>
-<pre><code>&lt;!DOCTYPE html&gt;
+<pre><code class="language-ruby">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 
 &lt;head&gt;
@@ -1043,16 +1046,16 @@ git push
 </code></pre>
 <h3 id="devise--user-config">Devise / User Config</h3>
 <p>Configure dev email for devise:</p>
-<pre><code># config/environments/development.rb:
+<pre><code class="language-ruby"># config/environments/development.rb:
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 </code></pre>
 <p>Create the user and migration</p>
-<pre><code>rails g devise user
+<pre><code class="language-bash">rails g devise user
 # if you will make a custom login (probably needed to look nice)
 # rails g devise:views
 </code></pre>
 <p>Adjust the migration:</p>
-<pre><code>class DeviseCreateUsers &lt; ActiveRecord::Migration[6.1]
+<pre><code class="language-ruby">class DeviseCreateUsers &lt; ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       ## Database authenticatable
@@ -1095,14 +1098,14 @@ git push
 end
 </code></pre>
 <p>Route file should now look like:</p>
-<pre><code>Rails.application.routes.draw do
+<pre><code class="language-ruby">Rails.application.routes.draw do
   devise_for :users
   get 'landing/index'
   root to: &quot;landing#index&quot;
 end
 </code></pre>
 <p>We will update the user model with password complexity validation:</p>
-<pre><code>class User &lt; ApplicationRecord
+<pre><code class="language-ruby">class User &lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -1119,7 +1122,7 @@ end
 end
 </code></pre>
 <p>Create the user Factory (which also uses Faker):</p>
-<pre><code># spec/factories/users.rb
+<pre><code class="language-ruby"># spec/factories/users.rb
 FactoryBot.define do
   factory :user do
     email       { Faker::Internet.safe_email }  # probably need to add index for uniqueness
@@ -1132,7 +1135,7 @@ FactoryBot.define do
 end
 </code></pre>
 <p>Create the user spec (uses FactoryBot &amp; Shoulda):</p>
-<pre><code># spec/models/user_spec.rb
+<pre><code class="language-ruby"># spec/models/user_spec.rb
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -1175,7 +1178,7 @@ RSpec.describe User, type: :model do
 end
 </code></pre>
 <h3 id="test-setup-and-commit-when-green">Test setup and commit when green:</h3>
-<pre><code>rake db:migrate
+<pre><code class="language-bash">rake db:migrate
 bundle exec rspec
 git add .
 git commit -m &quot;devise configured, FactoryBot, Faker and Shoulda working&quot;
@@ -1184,7 +1187,7 @@ git push
 <h2 id="create-user-landing--profile-page-autoredirect">create user landing / profile page (autoredirect)</h2>
 <h2 id="test-restricted-logins">Test restricted logins</h2>
 <p>a basic login feature test might look like:</p>
-<pre><code>require 'rails_helper'
+<pre><code class="language-ruby">require 'rails_helper'
 
 RSpec.describe 'Users Login', type: :feature do
   let(:user)  { FactoryBot.create :user }
@@ -1201,11 +1204,12 @@ end
 </code></pre>
 <h2 id="install-fonts--icons">Install Fonts / Icons</h2>
 <h3 id="fontawesome-good-with-bulma">Fontawesome (Good with Bulma)</h3>
-<p><a href="https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d">https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d</a></p>
-<pre><code>yarn add @fortawesome/fontawesome-free
+<p>
+<a href="https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d" target="_blank" rel="noopener">https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d</a></p>
+<pre><code class="language-bash">yarn add @fortawesome/fontawesome-free
 </code></pre>
 <p>update application.scss</p>
-<pre><code>$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+<pre><code class="language-css">$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 @import '@fortawesome/fontawesome-free/scss/solid';
 @import '@fortawesome/fontawesome-free/scss/regular';
@@ -1213,11 +1217,11 @@ end
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
 </code></pre>
 <p>update application.js</p>
-<pre><code>import &quot;@fortawesome/fontawesome-free/js/all&quot;;
+<pre><code class="language-css">import &quot;@fortawesome/fontawesome-free/js/all&quot;;
 </code></pre>
 <p>or via cdn: vhttps://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
 add to <code>application.html.erb</code> ()</p>
-<pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+<pre><code class="language-html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot;
       href=&quot;https://pro.fontawesome.com/releases/v5.10.0/css/all.css&quot;
       integrity=&quot;sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p&quot;
@@ -1225,29 +1229,32 @@ add to <code>application.html.erb</code> ()</p>
 </code></pre>
 <h2 id="install-bulma-a-css-framework-if-desired">Install BULMA: a CSS Framework (if desired)</h2>
 <p>Bulma is a relatively new CSS framework. It feels like a light, streamlined alternative to Bootstrap. Bulma doesn’t include any JavaScript at all. This means some stuff just won’t work out of the box. For example, the burger menu won’t toggle without a little JavaScript help. We’ll get to that later.</p>
-<pre><code>yarn add bulma
+<pre><code class="language-bash">yarn add bulma
 </code></pre>
 <p>Open app/javascript/packs/application.js and add the following to the top:</p>
-<pre><code>import '../styles'
+<pre><code class="language-javascript">import '../styles'
 </code></pre>
 <p>Create app/javascript/styles.scss:</p>
-<pre><code>@import '~bulma/bulma';
+<pre><code class="language-css">@import '~bulma/bulma';
 </code></pre>
-<p>customize bulma by adding to the top of <code>styles.scss</code> file: <a href="https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint">https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint</a></p>
-<pre><code>@import &quot;~bulma/sass/utilities/initial-variables.sass&quot;;
+<p>customize bulma by adding to the top of <code>styles.scss</code> file: 
+<a href="https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint" target="_blank" rel="noopener">https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint</a></p>
+<pre><code class="language-css">@import &quot;~bulma/sass/utilities/initial-variables.sass&quot;;
 $navbar-breakpoint: $tablet;
 @import &quot;~bulma/bulma.sass&quot;;
 @import '~bulma/bulma';
 </code></pre>
 <p>choices are: $desktop (default 960px), $tablet (769px), $widescreen (1152px), $fullhd (1344px)
-variable defaults: <a href="https://bulma.io/documentation/customize/variables/">https://bulma.io/documentation/customize/variables/</a>
-variables that can be set: <a href="https://bulma-customizer.bstash.io">https://bulma-customizer.bstash.io</a></p>
+variable defaults: 
+<a href="https://bulma.io/documentation/customize/variables/" target="_blank" rel="noopener">https://bulma.io/documentation/customize/variables/</a>
+variables that can be set: 
+<a href="https://bulma-customizer.bstash.io" target="_blank" rel="noopener">https://bulma-customizer.bstash.io</a></p>
 <h3 id="a-sample-bulma-navbar">A sample Bulma navbar</h3>
 <p>Open app/views/layouts/application.html.erb and add the following just above the yield line:</p>
-<pre><code>&lt;%= render 'layouts/navbar' %&gt;
+<pre><code class="language-ruby">&lt;%= render 'layouts/navbar' %&gt;
 </code></pre>
 <p>Create app/views/layouts/_navbar.html.erb:</p>
-<pre><code>&lt;div class=&quot;container&quot;&gt;
+<pre><code class="language-ruby">&lt;div class=&quot;container&quot;&gt;
   &lt;nav class=&quot;navbar&quot;&gt;
     &lt;div class=&quot;navbar-brand&quot;&gt;
       &lt;a class=&quot;navbar-item&quot; href=&quot;#&quot;&gt;
@@ -1284,7 +1291,7 @@ variables that can be set: <a href="https://bulma-customizer.bstash.io">https://
 <p>Create a Stimulus controller
 To keep this example simple, we’re going to create a single controller which we’ll attach to the body tag in the main layout. This controller will be responsible for rendering the Font Awesome icons (as described in a previous post) as well as handling our Bulma burger menu.</p>
 <p>Create app/javascript/controllers/main_controller.js:</p>
-<pre><code>import fontawesome from '@fortawesome/fontawesome'
+<pre><code class="language-javascript">import fontawesome from '@fortawesome/fontawesome'
 import icons from '@fortawesome/fontawesome-free-regular'
 import { Controller } from 'stimulus'
 export default class extends Controller {
@@ -1322,10 +1329,10 @@ export default class extends Controller {
 <p>Connect the controller
 Now we want to connect the body tag to our controller using an HTML5 data attribute.</p>
 <p>Open <code>app/views/layouts/application.html.erb</code> and add the following attribute to the <code>&lt;body&gt;</code> tag.</p>
-<pre><code>&lt;body data-controller=&quot;main&quot;&gt;
+<pre><code class="language-html">&lt;body data-controller=&quot;main&quot;&gt;
 </code></pre>
 <p>Now it should look like:</p>
-<pre><code># app/views/layouts/application.html.erb
+<pre><code class="language-ruby"># app/views/layouts/application.html.erb
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 
@@ -1352,10 +1359,12 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
 
 &lt;/html&gt;
 </code></pre>
-<p><a href="https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html">https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html</a></p>
+<p>
+<a href="https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html" target="_blank" rel="noopener">https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html</a></p>
 <h3 id="discourgaged---no-longer-necessary">Discourgaged - no longer necessary:</h3>
 <p>If you plan to user database_cleaner &ndash; then also see this article to finish your config:</p>
-<p><a href="https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9">https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9</a></p>
+<p>
+<a href="https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9" target="_blank" rel="noopener">https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9</a></p>
 
     </div>
 
@@ -1711,7 +1720,7 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
 
     
 

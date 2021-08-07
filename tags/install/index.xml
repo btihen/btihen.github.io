@@ -30,22 +30,28 @@
 &lt;p&gt;In the end, I feel like its easier / better to use tailwindcss with AlpineJS since that is how it evolved and lots of Internet resources are available for that.&lt;/p&gt;
 &lt;h2 id=&#34;install-tailwind-css-20&#34;&gt;Install Tailwind CSS 2.0&lt;/h2&gt;
 &lt;h3 id=&#34;tailwind-css-20-install&#34;&gt;Tailwind CSS 2.0 Install&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://tailwindcss.com/docs&#34;&gt;https://tailwindcss.com/docs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://tailwindcss.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://tailwindcss.com/docs&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Start by installing the tailwindcss compatible with postcss7 (necessary until rails-webpacker updates to postcss8) &amp;ndash; with or without upgrading webpacker the following should work:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add tailwindcss@latest postcss@latest autoprefixer@latest
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add tailwindcss@latest postcss@latest autoprefixer@latest
 
 # if you get this error: Error: PostCSS plugin tailwindcss requires PostCSS 8. use:
 # yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus playwell together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add alpinejs
+&lt;p&gt;now install AlpineJS (its easier to use AlpineJS with tailwind but Stimulus works too - just need to do it all yourself - alpine and stimulus play well together in Rails).  Add alpine turbo drive adapter so that the AlpineJS effects work even AFTER clicking on a link!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add alpinejs
 yarn add alpine-turbo-drive-adapter
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you see something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;arn add aplinejs
+error An unexpected error occurred: “https://registry.yarnpkg.com/aplinejs: Not found”.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then check the spelling of the package(s).&lt;/p&gt;
 &lt;p&gt;Now create the tailwind config file&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npx tailwindcss init
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npx tailwindcss init
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now config tailwind:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# tailwind.config.js
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// tailwind.config.js
 module.exports = {
   purge: [
     &#39;./app/**/*/*.html.erb&#39;,
@@ -68,7 +74,7 @@ module.exports = {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;tell &lt;code&gt;postcss.config.js&lt;/code&gt; about tailwind:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* postcss.config.js */
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/* postcss.config.js */
 module.exports = {
   plugins: [
     require(&amp;quot;tailwindcss&amp;quot;)(&amp;quot;./tailwind.config.js&amp;quot;),
@@ -84,7 +90,7 @@ module.exports = {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;create application.scss&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir app/javascript/stylesheets
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/javascript/stylesheets
 touch app/javascript/stylesheets/application.scss
 cat &amp;lt;&amp;lt;EOF &amp;gt;app/javascript/stylesheets/application.scss
 /* app/javascript/stylesheets/application.scss */
@@ -96,7 +102,7 @@ cat &amp;lt;&amp;lt;EOF &amp;gt;app/javascript/stylesheets/application.scss
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;import tailwind into &lt;code&gt;application.js&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* app/javascript/packs/application.js */
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/* app/javascript/packs/application.js */
 import Rails from &amp;quot;@rails/ujs&amp;quot;
 import &amp;quot;@hotwired/turbo-rails&amp;quot;
 import * as ActiveStorage from &amp;quot;@rails/activestorage&amp;quot;
@@ -117,9 +123,10 @@ import &amp;quot;controllers&amp;quot;
 require(&amp;quot;trix&amp;quot;)
 require(&amp;quot;@rails/actiontext&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It&amp;rsquo;s great to get samples from &lt;a href=&#34;https://tailwindui.com&#34;&gt;https://tailwindui.com&lt;/a&gt; (&amp;amp; other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s great to get samples from 
+&lt;a href=&#34;https://tailwindui.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://tailwindui.com&lt;/a&gt; (&amp;amp; other places) - USE THE INSPECTOR to copy the HTML (this will copy the AlpineJS settings too) - the standard copy HTML button requires you to add the JS on your own.&lt;/p&gt;
 &lt;p&gt;create a navbar:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch app/views/layouts/_navbar.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch app/views/layouts/_navbar.html.erb
 cat &amp;lt;&amp;lt;EOF &amp;gt;app/views/layouts/_navbar.html.erb
 &amp;lt;nav x-data=&amp;quot;{ open: false }&amp;quot; class=&amp;quot;bg-gray-800&amp;quot;&amp;gt;
   &amp;lt;!-- NavBar here --&amp;gt;
@@ -127,7 +134,7 @@ cat &amp;lt;&amp;lt;EOF &amp;gt;app/views/layouts/_navbar.html.erb
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create a footer:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- app/views/layouts/_footer.html.erb --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- app/views/layouts/_footer.html.erb --&amp;gt;
 &amp;lt;footer class=&amp;quot;bg-gray-50&amp;quot; aria-labelledby=&amp;quot;footerHeading&amp;quot;&amp;gt;
   &amp;lt;h2 id=&amp;quot;footerHeading&amp;quot; class=&amp;quot;sr-only&amp;quot;&amp;gt;Company&amp;lt;/h2&amp;gt;
   &amp;lt;div class=&amp;quot;max-w-md mx-auto pt-12 px-4 sm:max-w-7xl sm:px-6 lg:pt-16 lg:px-8&amp;quot;&amp;gt;
@@ -143,11 +150,11 @@ EOF
 &amp;lt;/footer&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Update the landing page:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- app/views/landing/index.html.erb --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- app/views/landing/index.html.erb --&amp;gt;
 &amp;lt;!-- landing page here --&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;application.html.erb&lt;/code&gt; needs to import the javascript stylesheet and the navbar&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!-- app/views/layouts/application.html.erb --&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!-- app/views/layouts/application.html.erb --&amp;gt;
 &amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
@@ -190,59 +197,67 @@ EOF
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You may need to want rails with both (to increase reload speed after changes &amp;ndash; but &lt;code&gt;bin/rails s&lt;/code&gt; is enough):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bin/rails s
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
 # runnding the following in a separate window tends to speed CSS / JS recompilation
 ./bin/webpack-dev-server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install-tailwind-svg-icons&#34;&gt;Install Tailwind SVG Icons&lt;/h2&gt;
 &lt;p&gt;You can embed the Icon directly into the View - downloading from:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://heroicons.dev/&#34;&gt;https://heroicons.dev/&lt;/a&gt;
-&lt;a href=&#34;https://heroicons.com/&#34;&gt;https://heroicons.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://heroicons.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.dev/&lt;/a&gt;
+
+&lt;a href=&#34;https://heroicons.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;However, you can also use a gem and add flexibility:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/bharget/heroicon&#34;&gt;https://github.com/bharget/heroicon&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/bharget/heroicon&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bharget/heroicon&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In gemfile&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gem &amp;quot;heroicon&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;gem &amp;quot;heroicon&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;From CLI:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle
 rails g heroicon:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Usage:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= heroicon &amp;quot;search&amp;quot; %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= heroicon &amp;quot;search&amp;quot; %&amp;gt;
 &amp;lt;%= heroicon &amp;quot;search&amp;quot;, variant: :outline %&amp;gt;
 &amp;lt;%= heroicon &amp;quot;search&amp;quot;, options: { class: &amp;quot;text-primary-500&amp;quot; } %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;or
-&lt;a href=&#34;https://github.com/andrewjmead/rails_heroicons/&#34;&gt;https://github.com/andrewjmead/rails_heroicons/&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/andrewjmead/rails_heroicons/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/andrewjmead/rails_heroicons/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Gemfile&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gem &#39;rails_heroicons&#39;, &#39;~&amp;gt; 1.0.1&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;gem &#39;rails_heroicons&#39;, &#39;~&amp;gt; 1.0.1&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;CLI&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle
 gem install rails_heroicons
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Usage:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= heroicon(&#39;user&#39;) %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= heroicon(&#39;user&#39;) %&amp;gt;
 &amp;lt;%= heroicon(&#39;user&#39;, class_name: &#39;icon icon-large&#39;) %&amp;gt;
 &amp;lt;%= heroicon(&#39;user&#39;, style: :outline, class_name: &#39;icon icon-large&#39;) %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The classes magically update the SVG embedded using:&lt;/p&gt;
 &lt;h3 id=&#34;use-svg-images--icons-in-rails----heroicons-or-zondicons&#34;&gt;USE SVG Images / Icons in Rails &amp;ndash; HeroIcons or ZondIcons&lt;/h3&gt;
 &lt;p&gt;Downloaded SVG images in Rails:
-&lt;a href=&#34;https://heroicons.com/&#34;&gt;https://heroicons.com/&lt;/a&gt;
-&lt;a href=&#34;https://heroicons.dev/&#34;&gt;https://heroicons.dev/&lt;/a&gt;
-&lt;a href=&#34;http://www.zondicons.com/icons.html&#34;&gt;http://www.zondicons.com/icons.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://heroicons.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.com/&lt;/a&gt;
+
+&lt;a href=&#34;https://heroicons.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.dev/&lt;/a&gt;
+
+&lt;a href=&#34;http://www.zondicons.com/icons.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.zondicons.com/icons.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;OR download the Icons and use the gem:
-&lt;a href=&#34;https://github.com/jamesmartin/inline_svg&#34;&gt;https://github.com/jamesmartin/inline_svg&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://github.com/jamesmartin/inline_svg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/jamesmartin/inline_svg&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Gemfile:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gem &#39;inline_svg&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;gem &#39;inline_svg&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;CLI:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bundle
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle
 gem install inline_svg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;USAGE:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Sprockets
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# Sprockets
 inline_svg_tag(file_name, options={})
 
 # Webpacker
@@ -250,10 +265,13 @@ inline_svg_pack_tag(file_name, options={})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;OR without gem:&lt;/p&gt;
 &lt;p&gt;you can embed the SVG directly into rails using:
-&lt;a href=&#34;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&#34;&gt;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&lt;/a&gt;&lt;/p&gt;
+
+&lt;a href=&#34;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/hslzr/using-inline-svgs-with-rails-3khb&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;reference-articles&#34;&gt;Reference Articles&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&#34;&gt;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&lt;/a&gt;
-&lt;a href=&#34;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&#34;&gt;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://davidteren.medium.com/tailwindcss-2-0-with-rails-6-1-postcss-8-0-9645e235892d&lt;/a&gt;
+
+&lt;a href=&#34;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://web-crunch.com/posts/how-to-install-tailwind-css-2-using-ruby-on-rails&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -267,12 +285,15 @@ inline_svg_pack_tag(file_name, options={})
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
 &lt;p&gt;Taken from:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://gist.github.com/alxndr/7569551&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gist.github.com/alxndr/7569551&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.codewithjason.com/rails-integration-tests-rspec-capybara/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hackernoon.com/how-to-build-awesome-integration-tests-with-capybara-j9333y68&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;create-the-project&#34;&gt;create the project:&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# -T - skips tests;              I like rspec
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -T - skips tests;              I like rspec
 # -d postgresql;                 I like postgresql best for the db
 # --skip-spring --skip-listen;   Spring caches and doesn&#39;t notice all changes (even after rails restart)
 #                                I have lost several hours not realizing Spring wasn&#39;t seeing my changes
@@ -286,7 +307,7 @@ cd calendar
 # rails app:update:bin
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;update-the-readme-and-initialize-git&#34;&gt;update the README and initialize Git&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;initial commit&amp;quot;
 git remote add origin git@gitlab.com:btihen/calendar.git
 git push -u origin master
@@ -294,7 +315,7 @@ git push -u origin master
 &lt;h2 id=&#34;add-extra-gems-for-this-project&#34;&gt;Add extra Gems for this project&lt;/h2&gt;
 &lt;p&gt;add rspec, devise, factory_bot and stimulus_reflex&lt;/p&gt;
 &lt;p&gt;Execute the following command (or add to the Gemfile)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt; Gemfile
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt; Gemfile
 # Project Gems
 ##############
 
@@ -355,7 +376,7 @@ EOF
 &lt;p&gt;to install all the new gems and create a &lt;code&gt;Gemfile.lock&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;install-activestorage-and-actiontext&#34;&gt;Install ActiveStorage and ActionText&lt;/h2&gt;
 &lt;p&gt;run the following commands:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# bundle exec rails webpacker:install
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# bundle exec rails webpacker:install
 # bundle exec rails webpacker:install:stimulus
 bundle exec rails active_storage:install
 bundle exec rails action_text:install
@@ -365,7 +386,7 @@ bin/rails g rspec:install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rspec-config-files&#34;&gt;Rspec: Config Files&lt;/h2&gt;
 &lt;h3 id=&#34;create-needed-folders-for-our-config&#34;&gt;Create needed folders for our config&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;mkdir spec/features
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir spec/features
 
 # a place to put test helper code
 mkdir spec/support
@@ -377,7 +398,7 @@ mkdir spec/support/features
 &lt;li&gt;To load Test helper code add: &lt;code&gt;Dir[Rails.root.join(&amp;quot;spec/support/**/*.rb&amp;quot;)].each { |file| require file }&lt;/code&gt; below &lt;code&gt;require &#39;capybara/rspec&#39;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;just after the ActiveRecord config and before RSpec.configure block add:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;Capybara.register_driver :selenium_chrome do |app|
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 Capybara.javascript_driver = :selenium_chrome
@@ -385,7 +406,7 @@ Capybara.javascript_driver = :selenium_chrome
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Add the FactoryBot config in the section with:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;RSpec.configure do |config|
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;RSpec.configure do |config|
   # ...
 
   # support for Factory Bot
@@ -401,7 +422,7 @@ end
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;finally at the end of the file add support for shoulda matchers with:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;Shoulda::Matchers.configure do |config|
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
@@ -409,7 +430,7 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;NOW &lt;code&gt;spec/rails_helper.rb&lt;/code&gt; should look like (its long, sometimes the full context is clearer):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# This file is copied to spec/ when you run &#39;rails generate rspec:install&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# This file is copied to spec/ when you run &#39;rails generate rspec:install&#39;
 require &#39;spec_helper&#39;
 ENV[&#39;RAILS_ENV&#39;] ||= &#39;test&#39;
 require File.expand_path(&#39;../config/environment&#39;, __dir__)
@@ -495,23 +516,23 @@ end
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Generate a page&lt;/strong&gt; &amp;ndash; I don&amp;rsquo;t (generally) use helpers nor contoller or view specs - so I&amp;rsquo;ll create the landing page using the following generator:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g controller Landing index --no-helper --no-assets --no-controller-specs --no-view-specs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;Update Routes&lt;/strong&gt; &lt;code&gt;config/routes.rb&lt;/code&gt; with:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;  get &#39;landing/index&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  get &#39;landing/index&#39;
   root to: &amp;quot;landing#index&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;&lt;strong&gt;Add Hidden Test Content&lt;/strong&gt; to simplify testing add:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;p hidden id=&#39;landing_index&#39;&amp;gt;Landing Index&amp;lt;/p&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Request test:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;# spec/requests/landing_request_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/requests/landing_request_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &amp;quot;Landings&amp;quot;, type: :request do
@@ -529,7 +550,7 @@ end
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Feature Test (to be sure they are working too)&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;# spec/features/landing_page_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/features/landing_page_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Landing Page Works without a login&#39;, type: :feature do
@@ -542,7 +563,7 @@ RSpec.describe &#39;Landing Page Works without a login&#39;, type: :feature do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Test and commit&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rake db:migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rake db:migrate
 bundle exec rspec
 git add .
 git commit -m &amp;quot;rspec: unit and feature tests configured and landing page works&amp;quot;
@@ -550,7 +571,7 @@ git push
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;config-hotwire&#34;&gt;Config Hotwire&lt;/h3&gt;
 &lt;p&gt;Ensure the  In the end the &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
 &amp;lt;head&amp;gt;
@@ -579,16 +600,16 @@ git push
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;devise--user-config&#34;&gt;Devise / User Config&lt;/h3&gt;
 &lt;p&gt;Configure dev email for devise:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/environments/development.rb:
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/environments/development.rb:
   config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the user and migration&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rails g devise user
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g devise user
 # if you will make a custom login (probably needed to look nice)
 # rails g devise:views
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Adjust the migration:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class DeviseCreateUsers &amp;lt; ActiveRecord::Migration[6.1]
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class DeviseCreateUsers &amp;lt; ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       ## Database authenticatable
@@ -631,14 +652,14 @@ git push
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Route file should now look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Rails.application.routes.draw do
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
   devise_for :users
   get &#39;landing/index&#39;
   root to: &amp;quot;landing#index&amp;quot;
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We will update the user model with password complexity validation:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class User &amp;lt; ApplicationRecord
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -655,7 +676,7 @@ end
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the user Factory (which also uses Faker):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/factories/users.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/factories/users.rb
 FactoryBot.define do
   factory :user do
     email       { Faker::Internet.safe_email }  # probably need to add index for uniqueness
@@ -668,7 +689,7 @@ FactoryBot.define do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create the user spec (uses FactoryBot &amp;amp; Shoulda):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# spec/models/user_spec.rb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# spec/models/user_spec.rb
 require &#39;rails_helper&#39;
 
 RSpec.describe User, type: :model do
@@ -711,7 +732,7 @@ RSpec.describe User, type: :model do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;test-setup-and-commit-when-green&#34;&gt;Test setup and commit when green:&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;rake db:migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rake db:migrate
 bundle exec rspec
 git add .
 git commit -m &amp;quot;devise configured, FactoryBot, Faker and Shoulda working&amp;quot;
@@ -720,7 +741,7 @@ git push
 &lt;h2 id=&#34;create-user-landing--profile-page-autoredirect&#34;&gt;create user landing / profile page (autoredirect)&lt;/h2&gt;
 &lt;h2 id=&#34;test-restricted-logins&#34;&gt;Test restricted logins&lt;/h2&gt;
 &lt;p&gt;a basic login feature test might look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;require &#39;rails_helper&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Users Login&#39;, type: :feature do
   let(:user)  { FactoryBot.create :user }
@@ -737,11 +758,12 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install-fonts--icons&#34;&gt;Install Fonts / Icons&lt;/h2&gt;
 &lt;h3 id=&#34;fontawesome-good-with-bulma&#34;&gt;Fontawesome (Good with Bulma)&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&#34;&gt;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add @fortawesome/fontawesome-free
+&lt;p&gt;
+&lt;a href=&#34;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://kelishrestha.medium.com/how-to-install-font-awesome-with-yarn-in-rails-6-0-c2506543c13d&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add @fortawesome/fontawesome-free
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;update application.scss&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$fa-font-path: &#39;@fortawesome/fontawesome-free/webfonts&#39;;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;$fa-font-path: &#39;@fortawesome/fontawesome-free/webfonts&#39;;
 @import &#39;@fortawesome/fontawesome-free/scss/fontawesome&#39;;
 @import &#39;@fortawesome/fontawesome-free/scss/solid&#39;;
 @import &#39;@fortawesome/fontawesome-free/scss/regular&#39;;
@@ -749,11 +771,11 @@ end
 @import &#39;@fortawesome/fontawesome-free/scss/v4-shims&#39;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;update application.js&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import &amp;quot;@fortawesome/fontawesome-free/js/all&amp;quot;;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;import &amp;quot;@fortawesome/fontawesome-free/js/all&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;or via cdn: vhttps://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
 add to &lt;code&gt;application.html.erb&lt;/code&gt; ()&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1&amp;quot;&amp;gt;
 &amp;lt;link rel=&amp;quot;stylesheet&amp;quot;
       href=&amp;quot;https://pro.fontawesome.com/releases/v5.10.0/css/all.css&amp;quot;
       integrity=&amp;quot;sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p&amp;quot;
@@ -761,29 +783,32 @@ add to &lt;code&gt;application.html.erb&lt;/code&gt; ()&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install-bulma-a-css-framework-if-desired&#34;&gt;Install BULMA: a CSS Framework (if desired)&lt;/h2&gt;
 &lt;p&gt;Bulma is a relatively new CSS framework. It feels like a light, streamlined alternative to Bootstrap. Bulma doesn’t include any JavaScript at all. This means some stuff just won’t work out of the box. For example, the burger menu won’t toggle without a little JavaScript help. We’ll get to that later.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yarn add bulma
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add bulma
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Open app/javascript/packs/application.js and add the following to the top:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import &#39;../styles&#39;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;import &#39;../styles&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create app/javascript/styles.scss:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@import &#39;~bulma/bulma&#39;;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@import &#39;~bulma/bulma&#39;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;customize bulma by adding to the top of &lt;code&gt;styles.scss&lt;/code&gt; file: &lt;a href=&#34;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&#34;&gt;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@import &amp;quot;~bulma/sass/utilities/initial-variables.sass&amp;quot;;
+&lt;p&gt;customize bulma by adding to the top of &lt;code&gt;styles.scss&lt;/code&gt; file: 
+&lt;a href=&#34;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/48809328/bulma-navbar-breakpoint&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@import &amp;quot;~bulma/sass/utilities/initial-variables.sass&amp;quot;;
 $navbar-breakpoint: $tablet;
 @import &amp;quot;~bulma/bulma.sass&amp;quot;;
 @import &#39;~bulma/bulma&#39;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;choices are: $desktop (default 960px), $tablet (769px), $widescreen (1152px), $fullhd (1344px)
-variable defaults: &lt;a href=&#34;https://bulma.io/documentation/customize/variables/&#34;&gt;https://bulma.io/documentation/customize/variables/&lt;/a&gt;
-variables that can be set: &lt;a href=&#34;https://bulma-customizer.bstash.io&#34;&gt;https://bulma-customizer.bstash.io&lt;/a&gt;&lt;/p&gt;
+variable defaults: 
+&lt;a href=&#34;https://bulma.io/documentation/customize/variables/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bulma.io/documentation/customize/variables/&lt;/a&gt;
+variables that can be set: 
+&lt;a href=&#34;https://bulma-customizer.bstash.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bulma-customizer.bstash.io&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;a-sample-bulma-navbar&#34;&gt;A sample Bulma navbar&lt;/h3&gt;
 &lt;p&gt;Open app/views/layouts/application.html.erb and add the following just above the yield line:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;%= render &#39;layouts/navbar&#39; %&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;%= render &#39;layouts/navbar&#39; %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create app/views/layouts/_navbar.html.erb:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
   &amp;lt;nav class=&amp;quot;navbar&amp;quot;&amp;gt;
     &amp;lt;div class=&amp;quot;navbar-brand&amp;quot;&amp;gt;
       &amp;lt;a class=&amp;quot;navbar-item&amp;quot; href=&amp;quot;#&amp;quot;&amp;gt;
@@ -820,7 +845,7 @@ variables that can be set: &lt;a href=&#34;https://bulma-customizer.bstash.io&#3
 &lt;p&gt;Create a Stimulus controller
 To keep this example simple, we’re going to create a single controller which we’ll attach to the body tag in the main layout. This controller will be responsible for rendering the Font Awesome icons (as described in a previous post) as well as handling our Bulma burger menu.&lt;/p&gt;
 &lt;p&gt;Create app/javascript/controllers/main_controller.js:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import fontawesome from &#39;@fortawesome/fontawesome&#39;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;import fontawesome from &#39;@fortawesome/fontawesome&#39;
 import icons from &#39;@fortawesome/fontawesome-free-regular&#39;
 import { Controller } from &#39;stimulus&#39;
 export default class extends Controller {
@@ -858,10 +883,10 @@ export default class extends Controller {
 &lt;p&gt;Connect the controller
 Now we want to connect the body tag to our controller using an HTML5 data attribute.&lt;/p&gt;
 &lt;p&gt;Open &lt;code&gt;app/views/layouts/application.html.erb&lt;/code&gt; and add the following attribute to the &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; tag.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;body data-controller=&amp;quot;main&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;body data-controller=&amp;quot;main&amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now it should look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# app/views/layouts/application.html.erb
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layouts/application.html.erb
 &amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 
@@ -888,10 +913,12 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
 
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&#34;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&#34;&gt;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blackninjadojo.com/css/bulma/2019/02/27/how-to-create-a-layout-for-your-rails-application-using-bulma.html&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;discourgaged---no-longer-necessary&#34;&gt;Discourgaged - no longer necessary:&lt;/h3&gt;
 &lt;p&gt;If you plan to user database_cleaner &amp;ndash; then also see this article to finish your config:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&#34;&gt;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://medium.com/@amliving/my-rails-rspec-set-up-6451269847f9&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

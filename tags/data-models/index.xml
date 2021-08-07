@@ -23,81 +23,78 @@
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+&lt;pre&gt;&lt;code&gt;                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘&lt;/p&gt;
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rails-app-and-first-models&#34;&gt;Rails app and first Models&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
-│            │╲          1 │           │
-│  Business  │─○──────────┼│  Person   │
-│-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘
+&lt;pre&gt;&lt;code&gt;    ┌────────────┐             ┌───────────┐
+    │            │╲          1 │           │
+    │  Business  │─○──────────┼│  Person   │
+    │-legal_name │╱0..*        │-full_name │
+    └────────────┘             └───────────┘
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We discussed/explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;               ┌─────────────┐
-               │   Contact   │
-               │  relations* │
-               │+display_name│
-               └─────────────┘
-                      ┼
-                      │
-      ┌───────────────┴────────────┐
-      │                            │
-     ╱│╲                          ╱│╲
-┌─────────────┐             ┌─────────────┐
-│  Business   │╲            │    Person   │
-│ -legal_name │─○──────────┼│ -full_name  │
-│+display_name│╱            │+display_name│
-└─────────────┘             └─────────────┘
+&lt;pre&gt;&lt;code&gt;                   ┌─────────────┐
+                   │   Contact   │
+                   │  relations* │
+                   │+display_name│
+                   └─────────────┘
+                          ┼
+                          │
+          ┌───────────────┴────────────┐
+          │                            │
+         ╱│╲                          ╱│╲
+    ┌─────────────┐             ┌─────────────┐
+    │  Business   │╲            │    Person   │
+    │ -legal_name │─○──────────┼│ -full_name  │
+    │+display_name│╱            │+display_name│
+    └─────────────┘             └─────────────┘
+  + array: supplier, reseller, customer, sales-rep
+  * virtual attribute (public method)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;array: supplier, reseller, customer, sales-rep&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-&lt;li&gt;virtual attribute (public method)&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;We disucssed/explained this in (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-modeling&#34;&gt;Polymorphic Modeling&lt;/h2&gt;
 &lt;p&gt;Is a model that can be associated with several different models - serving a similar purpose in all cases.  For example perhaps we would like to leave remarks on our interactions with various other business partners as shown below.&lt;/p&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐
+&lt;pre&gt;&lt;code&gt;┌───────────┐          ┌───────────┐
 │           │╲         │           │
 │ Business  │─○───────┼│  Person   │
 │           │╱         │           │
 └───────────┘          └───────────┘
-╲│╱                    ╲│╱
-│                      │
-│                      │
-│                      ○
-│                      ┼
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘&lt;/p&gt;
+     ╲│╱                    ╲│╱
+      │                      │
+      │                      │
+      │                      ○
+      │                      ┼
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A Remark could be either associated with either a person or a business - this is called polymorphism.  For ubiquitous things like comments, pictures, etc. this is a common approach.&lt;/p&gt;
 &lt;p&gt;The standard rails way - is convenient (only uses 2 columns for any number of models), but lacks a foreign key so the DB can&amp;rsquo;t ensure Data integrity.  For this reason, many other frameworks do not encourage this approach.  So we will use an approach accepted by all frameworks.&lt;/p&gt;
 &lt;h3 id=&#34;models-and-relationships&#34;&gt;Models and relationships&lt;/h3&gt;
@@ -251,16 +248,23 @@ end
 &lt;p&gt;Lets check the seed with:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;n1-checks--forms&#34;&gt;N+1 checks &amp;amp; Forms&lt;/h2&gt;
+&lt;p&gt;Cool that works!&lt;/p&gt;
+&lt;p&gt;lets snapshot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;polymorphic remark relations created&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;views&#34;&gt;Views&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Comming soon &amp;hellip;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Assuming this works, let&amp;rsquo;s see the &amp;ldquo;/people&amp;rdquo; page:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
 open localhost:3000/businesses/
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;n1-checks&#34;&gt;N+1 checks&lt;/h3&gt;
 &lt;p&gt;Great - lets snapshot:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;created an agnostic polymorphic model with data integrity enforced&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;input-forms--building-new-info&#34;&gt;Input Forms (&amp;amp; Building new Info)&lt;/h3&gt;
 </description>
     </item>
     
@@ -275,66 +279,62 @@ git commit -m &amp;quot;created an agnostic polymorphic model with data integrit
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+&lt;pre&gt;&lt;code&gt;                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;             Created with Monodraw
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+
+                 Created with Monodraw
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rails-app-and-first-models&#34;&gt;Rails app and first Models&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
-│            │╲          1 │           │
-│  Business  │─○──────────┼│  Person   │
-│-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘
+&lt;pre&gt;&lt;code&gt;    ┌────────────┐             ┌───────────┐
+    │            │╲          1 │           │
+    │  Business  │─○──────────┼│  Person   │
+    │-legal_name │╱0..*        │-full_name │
+    └────────────┘             └───────────┘
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We discussed / explained in (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
 &lt;h2 id=&#34;polymorphic-sti---sometime-called-inverse-polymorphic&#34;&gt;Polymorphic (STI) - sometime called inverse polymorphic&lt;/h2&gt;
 &lt;p&gt;In this article we will build this structure (a replacement for Rails STI).  Many frameworks will only use columns that can be identified as foreign keys to ensure DB integrity - therefore, we will build this using DB structures that are supported by Rails, Lucky and Phoenix and probably most frameworks.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;               ┌─────────────┐
-               │   Contact   │
-               │  relations* │
-               │+display_name│
-               └─────────────┘
-                      ┼
-                      │
-      ┌───────────────┴────────────┐
-      │                            │
-     ╱│╲                          ╱│╲
-┌─────────────┐             ┌─────────────┐
-│  Business   │╲            │    Person   │
-│ -legal_name │─○──────────┼│ -full_name  │
-│+display_name│╱            │+display_name│
-└─────────────┘             └─────────────┘
+&lt;pre&gt;&lt;code&gt;                   ┌─────────────┐
+                   │   Contact   │
+                   │  relations* │
+                   │+display_name│
+                   └─────────────┘
+                          ┼
+                          │
+          ┌───────────────┴────────────┐
+          │                            │
+         ╱│╲                          ╱│╲
+    ┌─────────────┐             ┌─────────────┐
+    │  Business   │╲            │    Person   │
+    │ -legal_name │─○──────────┼│ -full_name  │
+    │+display_name│╱            │+display_name│
+    └─────────────┘             └─────────────┘
+  + array: supplier, reseller, customer, sales-rep
+  * virtual attribute (public method)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;array: supplier, reseller, customer, sales-rep&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-&lt;li&gt;virtual attribute (public method)&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;A contact could be either a person or a business - but must be one or the other.&lt;/p&gt;
 &lt;h3 id=&#34;migration-and-relationships&#34;&gt;Migration and Relationships&lt;/h3&gt;
 &lt;p&gt;Rails doesn&amp;rsquo;t have a built-in array migration, so we use string and then we change the migration:&lt;/p&gt;
@@ -640,10 +640,14 @@ end
 &lt;p&gt;I usually use an input model (for more flexibility), but for now I will use nested_params.
 A few articles on nested params and nested fields:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=PYYwjTlcoa4&#34;&gt;https://www.youtube.com/watch?v=PYYwjTlcoa4&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&#34;&gt;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&#34;&gt;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&#34;&gt;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=PYYwjTlcoa4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=PYYwjTlcoa4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.pluralsight.com/guides/ruby-on-rails-nested-attributes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://levelup.gitconnected.com/rails-nested-forms-in-three-steps-5580f0ad0e&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://levelup.gitconnected.com/handling-nested-attributes-with-a-has-many-through-association-with-rails-api-f91729547ea5&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To start we will tell the contacts model that it can create nested models with do by adding:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  accepts_nested_attributes_for :business
@@ -948,33 +952,33 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;In this case, I want to model a contact list of businesses and people.  Some people will be associated with a company.  Additionally, we will track transactions with each person and business.&lt;/p&gt;
 &lt;p&gt;The basic model will then look something like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                   ┌───────────┐           ┌───────────┐
-                   │           │╲         ╱│           │
-  ┌──────────────○┼│  Contact  │───────────│UserContact│
-  │                │           │╱         ╲│           │
-  │                └───────────┘           └───────────┘
-  │                      ┼                      ╲│╱
-  │                      ○                       │
-  │                      │                       │
-  │                      │                       │
- ╱│╲                    ╱│╲                      │
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;┌───────────┐          ┌───────────┐                 │
+&lt;pre&gt;&lt;code&gt;                       ┌───────────┐           ┌───────────┐
+                       │           │╲         ╱│           │
+      ┌──────────────○┼│  Contact  │───────────│UserContact│
+      │                │           │╱         ╲│           │
+      │                └───────────┘           └───────────┘
+      │                      ┼                      ╲│╱
+      │                      ○                       │
+      │                      │                       │
+      │                      │                       │
+     ╱│╲                    ╱│╲                      │
+┌───────────┐          ┌───────────┐                 │
 │           │╲         │           │                 │
 │ Business  │─○───────┼│  Person   │                 │
 │           │╱         │           │                 │
 └───────────┘          └───────────┘                 │
-╲│╱                    ╲│╱                      │
-│                      │                       │
-│                      │                       │
-│                      ○                       │
-│                      ┼                      ╱│╲
-│                ┌───────────┐           ┌───────────┐
-│                │           │          ╱│           │
-└──────────────○┼│  Remark   │┼──────────│   User    │
-│           │          ╲│           │
-└───────────┘           └───────────┘
-Created with Monodraw&lt;/p&gt;
+     ╲│╱                    ╲│╱                      │
+      │                      │                       │
+      │                      │                       │
+      │                      ○                       │
+      │                      ┼                      ╱│╲
+      │                ┌───────────┐           ┌───────────┐
+      │                │           │          ╱│           │
+      └──────────────○┼│  Remark   │┼──────────│   User    │
+                       │           │          ╲│           │
+                       └───────────┘           └───────────┘
+                    Created with Monodraw
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create-a-default-rails-app&#34;&gt;Create a default Rails app&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new rails_poly
 cd rails_poly
@@ -986,11 +990,12 @@ git commit -m &amp;quot;initial commit&amp;quot;
 &lt;h2 id=&#34;starting-simple---optional-relations&#34;&gt;Starting Simple - optional relations&lt;/h2&gt;
 &lt;h3 id=&#34;build-businesses&#34;&gt;Build Businesses&lt;/h3&gt;
 &lt;p&gt;Lets start with the simple relationship between businesses and people:&lt;/p&gt;
-&lt;p&gt;┌────────────┐             ┌───────────┐
+&lt;pre&gt;&lt;code&gt;┌────────────┐             ┌───────────┐
 │            │╲          1 │           │
 │  Business  │─○──────────┼│  Person   │
 │-legal_name │╱0..*        │-full_name │
-└────────────┘             └───────────┘&lt;/p&gt;
+└────────────┘             └───────────┘
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For expedience, I&amp;rsquo;ll use scaffolds:&lt;/p&gt;
 &lt;p&gt;Generating a simple business model.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Business legal_name

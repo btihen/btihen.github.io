@@ -19,13 +19,14 @@
       <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
       <description>&lt;p&gt;Here is a quick example of how to create a very simple &amp;ldquo;real-time&amp;rdquo;-&amp;ldquo;single-page-app&amp;rdquo; using phoenix-liveview.  This provides the same functionality to as 
 &lt;a href=&#34;post_ruby_rails/rails_6_1_hotwire_simple_realtime&#34;&gt;Realtime Rails with Hotwire&lt;/a&gt; - in order to compare.&lt;/p&gt;
-&lt;p&gt;The repo can be found here: &lt;a href=&#34;https://github.com/btihen/live-tweets&#34;&gt;https://github.com/btihen/live-tweets&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The repo can be found here: 
+&lt;a href=&#34;https://github.com/btihen/live-tweets&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/live-tweets&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create--config-a-project&#34;&gt;create / config a project&lt;/h2&gt;
 &lt;p&gt;First we will creat the folder / project location&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir tweets
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir tweets
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we will tell it which software to use:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch tweets/.tool-versions
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch tweets/.tool-versions
 cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;tweets/.tool-versions
 erlang 23.3.1
 elixir 1.11.4-otp-23
@@ -34,7 +35,8 @@ Postgres 13.2
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create-a-new-phoenix-project&#34;&gt;Create a new Phoenix Project&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now you can simply do:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mix phx.new tweets --live
 &lt;/code&gt;&lt;/pre&gt;
@@ -59,13 +61,14 @@ mix phx.server
 git add .
 git commit -m &amp;quot;initial setup commit&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This code commit can be seen at: &lt;a href=&#34;https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe&#34;&gt;https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This code commit can be seen at: 
+&lt;a href=&#34;https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/live-tweets/commit/2eb9016371db3210eaf3a1cb35e4066e3b67bdbe&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;create-our-tweet-model&#34;&gt;create our tweet model&lt;/h2&gt;
 &lt;p&gt;Create this with the generator (notice we are using &lt;code&gt;mix phx.gen.live&lt;/code&gt; not &lt;code&gt;mix phx.gen.html&lt;/code&gt;):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mix phx.gen.live Messages Post posts body:text
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Change migration to require data - add &lt;code&gt;null: false&lt;/code&gt; to our field so it now looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# priv/repo/migrations/20210418084643_create_posts.exs
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# priv/repo/migrations/20210418084643_create_posts.exs
 defmodule Tweets.Repo.Migrations.CreatePosts do
   use Ecto.Migration
 
@@ -80,15 +83,14 @@ defmodule Tweets.Repo.Migrations.CreatePosts do
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now lets update the routes as described by the generator - in &lt;code&gt;lib/tweets_web/router.ex&lt;/code&gt; so the section that looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
-  scope &amp;quot;/&amp;quot;, TweetsWeb do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  scope &amp;quot;/&amp;quot;, TweetsWeb do
     pipe_through :browser
 
     live &amp;quot;/&amp;quot;, PageLive, :index
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;should be change to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  scope &amp;quot;/&amp;quot;, TweetsWeb do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  scope &amp;quot;/&amp;quot;, TweetsWeb do
     pipe_through :browser
 
     # live &amp;quot;/&amp;quot;, PageLive, :index
@@ -102,14 +104,14 @@ end
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now check our field &lt;code&gt;body&lt;/code&gt; is required in validations &amp;ndash; in our changeset.  We see &lt;code&gt;validate_required([:body])&lt;/code&gt; in the file: &lt;code&gt;lib/tweets/messages/post.ex&lt;/code&gt; - so we are all set.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  def changeset(post, attrs) do
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  def changeset(post, attrs) do
     post
     |&amp;gt; cast(attrs, [:body])
     |&amp;gt; validate_required([:body])
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So it time to migrate &amp;amp; test:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix ecto.migrate
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix ecto.migrate
 mix test
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Hmm - the tests generator and html use different html standards: to make the tests pass test that phoenix returns &lt;code&gt;can&amp;amp;#39;t be blank&lt;/code&gt; instead of &lt;code&gt;can&amp;amp;apos;t be blank&lt;/code&gt; in &lt;code&gt;test/tweets_web/live/post_live_test.exs&lt;/code&gt;&lt;/p&gt;
@@ -118,20 +120,20 @@ mix test
 &lt;pre&gt;&lt;code&gt;mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It works, but we want to list the most recent tweets at the top of the page &amp;ndash; let&amp;rsquo;s investigate &amp;ndash; open &lt;code&gt;lib/tweets_web/live/post_live/index.ex&lt;/code&gt; we see in the &lt;code&gt;mount&lt;/code&gt; command:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets_web/live/post_live/index.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets_web/live/post_live/index.ex
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :posts, list_posts())}
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It uses &lt;code&gt;list_posts()&lt;/code&gt; to get the list - so let&amp;rsquo;s change this function.&lt;/p&gt;
 &lt;p&gt;Open: &lt;code&gt;lib/tweets/messages.ex&lt;/code&gt; and change:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets/messages.ex
   def list_posts do
     Repo.all(Post)
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets/messages.ex
  def list_posts do
     Post
       |&amp;gt; order_by(desc: :inserted_at)
@@ -139,12 +141,13 @@ mix test
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Cool now our SPA works like we want &amp;ndash; but it isn&amp;rsquo;t real-time between two users / browsers.&lt;/p&gt;
-&lt;p&gt;This code can be seen at: &lt;a href=&#34;https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6&#34;&gt;https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This code can be seen at: 
+&lt;a href=&#34;https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/live-tweets/commit/3f432d7c06d974f9c2349937a35e391dedeb2ad6&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;broadcast-changes-with-pubsub&#34;&gt;Broadcast changes with Pubsub&lt;/h2&gt;
 &lt;p&gt;Phoenix uses Websockets to do &lt;code&gt;real-time&lt;/code&gt; communication.  In our &amp;ldquo;context&amp;rdquo; we will create our &lt;code&gt;channel&lt;/code&gt; - the pipeline that the socket uses to send information back and forth to various &amp;ldquo;subscribers&amp;rdquo; - viewers of our page.&lt;/p&gt;
 &lt;h3 id=&#34;setup-the-messages-channel&#34;&gt;Setup the &amp;ldquo;Messages&amp;rdquo; Channel&lt;/h3&gt;
 &lt;p&gt;We go into: &lt;code&gt;lib/tweets/messages.ex&lt;/code&gt; and at the top of the file add the Broadcast Setup:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets/messages.ex
 defmodule Tweets.Messages do
   @moduledoc &amp;quot;&amp;quot;&amp;quot;
   The Messages context.
@@ -180,7 +183,7 @@ defmodule Tweets.Messages do
 &lt;p&gt;We have two &lt;code&gt;notify_subscribers&lt;/code&gt; because we will call these after we do our DB actions - writing to the DB could fail or succeed.  If we have success then we will update all subscribers and the last line tuple passes the results of the interaction back to the actual user.   (Of course we don&amp;rsquo;t need to notify when the DB transaction fails, we only need to pass the message back to the user).&lt;/p&gt;
 &lt;h3 id=&#34;subscribing-to-the-messages-channel&#34;&gt;Subscribing to the &amp;lsquo;Messages&amp;rsquo; Channel&lt;/h3&gt;
 &lt;p&gt;Now that we have &lt;code&gt;notify_subscribers&lt;/code&gt; that broadcasts &lt;code&gt;Phoenix.PubSub.broadcast(Tweets.PubSub, @topic, {__MODULE__, event, posts})&lt;/code&gt; we need a way to subscribe to this channel and receive these messages in all our index pages.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets_web/live/post_live/index.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets_web/live/post_live/index.ex
 defmodule TweetsWeb.PostLive.Index do
   use TweetsWeb, :live_view
 
@@ -206,7 +209,7 @@ defmodule TweetsWeb.PostLive.Index do
 &lt;h3 id=&#34;sending-messages-to-the-channel&#34;&gt;Sending Messages to the Channel&lt;/h3&gt;
 &lt;p&gt;So now to activate our changes - we need to send to the channel via &lt;code&gt;notify_subscribers&lt;/code&gt; when we successfully change something in the Messages &amp;ldquo;post&amp;rdquo; context.  To do this we will make small changes to the create_post, update_post and delete_post functions.  We will add &lt;code&gt;notify_subscribers({status, post}, &amp;quot;posts-changed&amp;quot;)&lt;/code&gt; to the end of each function.  Since we only defined one event &lt;code&gt;&amp;quot;posts-changed&amp;quot;&lt;/code&gt; in our index page &lt;code&gt;handle_info&lt;/code&gt; function &amp;ndash; we will hard-code that into our &lt;code&gt;notify_subscribers&lt;/code&gt; call&lt;/p&gt;
 &lt;p&gt;So our simple DB calls in Messages currently looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets/messages.ex
   def create_post(attrs \\ %{}) do
     %Post{}
       |&amp;gt; Post.changeset(attrs)
@@ -224,7 +227,7 @@ defmodule TweetsWeb.PostLive.Index do
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now becomes:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# lib/tweets/messages.ex
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;# lib/tweets/messages.ex
   def create_post(attrs \\ %{}) do
     {status, post} = %Post{}
                       |&amp;gt; Post.changeset(attrs)
@@ -258,7 +261,8 @@ defmodule TweetsWeb.PostLive.Index do
 git add .
 git commit -m &amp;quot;add realtime broadcast to all users&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This code can be seen at: &lt;a href=&#34;https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac&#34;&gt;https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This code can be seen at: 
+&lt;a href=&#34;https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/live-tweets/commit/32c179e05cae68c5a2a6d49f54bf5a8dcf4d4dac&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
 &lt;p&gt;In my mind this is far simpler to setup as a single page app - using the LiveView generator and a little more work to add broadcasting than in Rails.  Converting a Standard Phoenix HTML page to LiveView however is considerably more difficult than Converting a Standard Rails page to Hotwire.  I also find adding advanced features much more straight-forward in LiveView - as you write the event_handlers in you liveview pages and it is very clear what is happening.  In rails you need to know what is happening without being able to see the code.  I also like that LiveView - when it can&amp;rsquo;t find an event - you get lots of errors.  This is very helpful.&lt;/p&gt;
 </description>
@@ -272,24 +276,27 @@ git commit -m &amp;quot;add realtime broadcast to all users&amp;quot;
       <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
 &lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://thinkingelixir.com/install-elixir-using-asdf/&#34;&gt;https://thinkingelixir.com/install-elixir-using-asdf/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thinkingelixir.com/install-elixir-using-asdf/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thinkingelixir.com/install-elixir-using-asdf/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;On a Mac I used Homebrew:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;brew install asdf
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install asdf
 echo -e &#39;\n. $(brew --prefix asdf)/asdf.sh&#39; &amp;gt;&amp;gt; ~/.bash_profile
 echo -e &#39;\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash&#39; &amp;gt;&amp;gt; ~/.bash_profile
 source ~/.bash_profile  # (or open a new terminal)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now you can install asdf software packages:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;asdf plugin-add erlang
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf plugin-add erlang
 asdf plugin-add elixir
 asdf plugin-add nodejs
 asdf plugin-add Postgres
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now you need to install the desired versions (usually the newest) - currently:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;asdf list all erlang
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf list all erlang
 asdf install erlang 23.3.1
 
 # note the elixir version otp must match the erlang version!
@@ -307,15 +314,16 @@ asdf list all Postgres
 asdf install Postgres 13.2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;get-the-newest-phoenix-hex-package&#34;&gt;Get the newest Phoenix Hex Package&lt;/h2&gt;
-&lt;p&gt;Once you have established you have the requrements - the download the newest version of Phoenix (go to: &lt;a href=&#34;https://hexdocs.pm/phoenix/installation.html#phoenix&#34;&gt;https://hexdocs.pm/phoenix/installation.html#phoenix&lt;/a&gt; to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix archive.install hex phx_new 1.5.8
+&lt;p&gt;Once you have established you have the requrements - the download the newest version of Phoenix (go to: 
+&lt;a href=&#34;https://hexdocs.pm/phoenix/installation.html#phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/phoenix/installation.html#phoenix&lt;/a&gt; to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix archive.install hex phx_new 1.5.8
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create--config-a-project&#34;&gt;create / config a project&lt;/h2&gt;
 &lt;p&gt;First we will creat the folder / project location&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir fenix
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir fenix
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we will tell it which software to use:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;touch fenix/.tool-versions
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch fenix/.tool-versions
 cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;fenix/.tool-versions
 erlang 23.3.1
 elixir 1.11.4-otp-23
@@ -324,32 +332,35 @@ nodejs lts-Fermium
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;create-a-new-phoenix-project&#34;&gt;Create a new Phoenix Project&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now you can simply do:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mix phx.new fenix --live
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix phx.new fenix --live
 cd fenix
 mix ecto.create
 mix phx.server
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;assuming all is good lets configure git:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git init
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git init
 git add .
 git commit -m &amp;quot;initial Phoneix install with LiveView&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;install--test-alpine-js&#34;&gt;install &amp;amp; test Alpine JS&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
-&lt;a href=&#34;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&#34;&gt;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd assets
+&lt;p&gt;
+&lt;a href=&#34;https://underjord.io/getting-started-with-petal.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://underjord.io/getting-started-with-petal.html&lt;/a&gt;
+
+&lt;a href=&#34;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dockyard.com/blog/2020/12/21/optimizing-user-experience-with-liveview&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd assets
 npm install alpinejs
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now change &lt;code&gt;app.js&lt;/code&gt; is to require our new setup:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# assets/js/app.js
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# assets/js/app.js
 // .. after the app.scss import add:
 import Alpine from &amp;quot;alpinejs&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;still in &lt;code&gt;assets/js/app.js&lt;/code&gt; find&lt;code&gt;:&lt;/code&gt;let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {params: {_csrf_token: csrfToken}})`&lt;/p&gt;
 &lt;p&gt;and change to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;let liveSocket =
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;let liveSocket =
     new LiveSocket(&amp;quot;/live&amp;quot;,
                     Socket,
                     { params: {_csrf_token: csrfToken},
@@ -361,7 +372,7 @@ import Alpine from &amp;quot;alpinejs&amp;quot;;
                   )
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;TEST by adding to the end of: &lt;code&gt;lib/fenix_web/live/page_live.html.leex&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;section&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;&amp;lt;section&amp;gt;
   &amp;lt;h2&amp;gt;Alpine JS Installed&amp;lt;/h2&amp;gt;
   &amp;lt;div x-data=&amp;quot;{name:&#39;&#39;}&amp;quot;&amp;gt;
     &amp;lt;label for=&amp;quot;name&amp;quot;&amp;gt;Name:&amp;lt;/label&amp;gt;
@@ -374,14 +385,16 @@ import Alpine from &amp;quot;alpinejs&amp;quot;;
 &lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;when typing the name should appear below!&lt;/p&gt;
 &lt;p&gt;let&amp;rsquo;s snapshot:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;phoenix with alpine js&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;integrating-tailwind-into-phoenix&#34;&gt;Integrating Tailwind into phoenix&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;
-&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;
+
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This source gives several options - here we install with &lt;code&gt;postcss-import&lt;/code&gt; (for components from the beginning):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd assets
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;cd assets
 npm install tailwindcss postcss autoprefixer postcss-loader@4.2  postcss-import --save-dev
 
 touch postcss.config.js
@@ -396,7 +409,7 @@ module.exports = {
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now open: &lt;code&gt;assets/webpack.config.js&lt;/code&gt; and find:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;{
 	test: /\.[s]?css$/,
 	use: [
 		MiniCssExtractPlugin.loader,
@@ -406,7 +419,7 @@ EOF
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;change too (add &lt;code&gt;&#39;postcss-loader&#39;&lt;/code&gt; between &lt;code&gt;&#39;css-loader&#39;&lt;/code&gt; &amp;amp; &lt;code&gt;&#39;sass-loader&#39;&lt;/code&gt;):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;{
 	test: /\.[s]?css$/,
 	use: [
 		MiniCssExtractPlugin.loader,
@@ -417,10 +430,10 @@ EOF
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now initialize tailwind config with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npx tailwindcss init
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npx tailwindcss init
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;this creates the file &lt;code&gt;tailwind.config.js&lt;/code&gt; we will replace the &lt;code&gt;purge: [],&lt;/code&gt; section with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;purge: [
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;purge: [
     &#39;../lib/**/*.ex&#39;,
     &#39;../lib/**/*.leex&#39;,
     &#39;../lib/**/*.eex&#39;,
@@ -428,7 +441,7 @@ EOF
   ],
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now the fill will look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;module.exports = {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;module.exports = {
   purge: [
     &#39;../lib/**/*.ex&#39;,
     &#39;../lib/**/*.leex&#39;,
@@ -446,23 +459,23 @@ EOF
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now in &lt;code&gt;assets/package.json&lt;/code&gt; find:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  &amp;quot;scripts&amp;quot;: {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  &amp;quot;scripts&amp;quot;: {
     &amp;quot;deploy&amp;quot;: &amp;quot;webpack --mode production&amp;quot;,
     &amp;quot;watch&amp;quot;: &amp;quot;webpack --mode development --watch&amp;quot;
   },
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and change this to:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  &amp;quot;scripts&amp;quot;: {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  &amp;quot;scripts&amp;quot;: {
     &amp;quot;deploy&amp;quot;: &amp;quot;NODE_ENV=production webpack --mode production&amp;quot;,
     &amp;quot;watch&amp;quot;: &amp;quot;webpack --mode development --watch&amp;quot;
   },
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;we will create a file for our custom styles the &lt;code&gt;assets/css/custom-style.css&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# assuming you are still in the assets directory on the cli
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# assuming you are still in the assets directory on the cli
 touch css/custom-styles.css
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let&amp;rsquo;s also create our a custom component (we will make buttons for a counter to be sure tailwind and aplineJS are playing well together):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# assuming you are still in the assets directory on the cli
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;# assuming you are still in the assets directory on the cli
 mkdir css/components
 touch css/components/buttons.css
 cat &amp;lt;&amp;lt;EOF &amp;gt; css/components/buttons.css
@@ -477,7 +490,7 @@ cat &amp;lt;&amp;lt;EOF &amp;gt; css/components/buttons.css
 EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now will will configure Phoenix to load Tailwind, our custom-styles and our custom-components &amp;ndash; DO THIS AT THE TOP OF the file &lt;code&gt;assets/css/app.scss&lt;/code&gt; (@imports must be before all else):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* Import tailwind - with postcss-import installed */
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/* Import tailwind - with postcss-import installed */
 @import &amp;quot;tailwindcss/base&amp;quot;;
 @import &amp;quot;tailwindcss/components&amp;quot;;
 @import &amp;quot;tailwindcss/utilities&amp;quot;;
@@ -492,7 +505,7 @@ EOF
 @import &amp;quot;./phoenix.css&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;add a test html from tailwind to the end of: &lt;code&gt;lib/fenix_web/live/page_live.html.leex&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;section class=&amp;quot;grid grid-cols-1 gap-4&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;&amp;lt;section class=&amp;quot;grid grid-cols-1 gap-4&amp;quot;&amp;gt;
   &amp;lt;div&amp;gt;
     &amp;lt;h2 class=&amp;quot;text-red-500 text-5xl font-bold text-center&amp;quot;&amp;gt;Tailwind CSS with AlpineJS&amp;lt;/h2&amp;gt;
     &amp;lt;p class=&amp;quot;mt-5 font-bold text-center&amp;quot;&amp;gt;Red Title with Colored Counter Buttons&amp;lt;/p&amp;gt;
@@ -506,18 +519,25 @@ EOF
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when we start the server with &lt;code&gt;mix phx.server&lt;/code&gt; we should have a centered / red title and colored buttons on our counter.&lt;/p&gt;
 &lt;p&gt;now lets snapshot our PETAL setup:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git add .
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
 git commit -m &amp;quot;Tailwind installed&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=o4Prej0wIZA&#34;&gt;https://www.youtube.com/watch?v=o4Prej0wIZA&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.pthompson.org/alpine-js-and-liveview&#34;&gt;http://blog.pthompson.org/alpine-js-and-liveview&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&#34;&gt;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&#34;&gt;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=o4Prej0wIZA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=o4Prej0wIZA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://blog.pthompson.org/alpine-js-and-liveview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.pthompson.org/alpine-js-and-liveview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -529,12 +549,15 @@ git commit -m &amp;quot;Tailwind installed&amp;quot;
       <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;amp;feature=youtu.be&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=MZvmYaFkNJI&amp;feature=youtu.be&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;which is very cool.  I wanted to learn more and found this Phoenix 1.4 tutorial:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=2bipVjOcvdI&#34;&gt;https://www.youtube.com/watch?v=2bipVjOcvdI&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&#34;&gt;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=2bipVjOcvdI&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=2bipVjOcvdI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dennisbeatty.com/2019/03/19/how-to-create-a-counter-with-phoenix-live-view.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;and decided to translate that into Phoenix 1.5. This is what follows.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Since I am just learning the Phoenix Framework and will need to refer to this for my self to remember how to do basic things &amp;ndash; I&amp;rsquo;ve documented every little detail.&lt;/p&gt;
@@ -555,133 +578,67 @@ git init &amp;amp;&amp;amp; git add -A &amp;amp;&amp;amp; git commit -m &amp;quo
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;step-2---simple-counter-page-using-liveview&#34;&gt;Step 2 - simple counter page using LiveView&lt;/h3&gt;
 &lt;p&gt;Make a counter_live folder &amp;amp; an index.ex file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir lib/counter_web/live/counter_live
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;mkdir lib/counter_web/live/counter_live
 touch lib/counter_web/live/counter_live/index.ex
+cat &amp;lt;&amp;lt;EOF &amp;gt; lib/counter_web/live/counter_live/index.ex
+# lib/counter_web/live/counter_live/index.ex
+defmodule CounterWeb.CounterLive.Index do
+  use CounterWeb, :live_view
+
+  # since we don&#39;t have a db to pull from we initialize on mount
+  @impl true
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, :val, 0)}
+  end
+
+  def render(assigns) do
+    ~L&amp;quot;&amp;quot;&amp;quot;
+    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+    &amp;lt;/p&amp;gt;
+
+    &amp;lt;div&amp;gt;
+      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+      &amp;lt;button phx-click=&amp;quot;dec&amp;quot;&amp;gt;-&amp;lt;/button&amp;gt;
+      &amp;lt;button phx-click=&amp;quot;inc&amp;quot;&amp;gt;+&amp;lt;/button&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div&amp;gt;
+      &amp;lt;button phx-click=&amp;quot;clear&amp;quot;&amp;gt;clear&amp;lt;/button&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;p&amp;gt;
+      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+    &amp;lt;/p&amp;gt;
+    &amp;quot;&amp;quot;&amp;quot;
+  end
+
+  # event handler for &amp;lt;button phx-click=&amp;quot;inc&amp;quot;&amp;gt;
+  def handle_event(&amp;quot;inc&amp;quot;, _, socket) do
+    {:noreply, update(socket, :val, &amp;amp;(&amp;amp;1 + 1))}
+  end
+
+  # event handler for &amp;lt;button phx-click=&amp;quot;dec&amp;quot;&amp;gt;
+  def handle_event(&amp;quot;dec&amp;quot;, _, socket) do
+    {:noreply, update(socket, :val, &amp;amp;(&amp;amp;1 - 1))}
+  end
+
+  # event handler for &amp;lt;button phx-click=&amp;quot;clear&amp;quot;&amp;gt;
+  def handle_event(&amp;quot;clear&amp;quot;, _, socket) do
+    {:noreply, update(socket, :val, &amp;amp;(&amp;amp;1 - &amp;amp;1))}
+    # {:noreply, update(socket, :val, 0)} # very slow - why?
+  end
+
+end
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Add the following contents:
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;32
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;33
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;34
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;35
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;36
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;37
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;38
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;39
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;40
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;41
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;42
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;43
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;44
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;45
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;46
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;47
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;48
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;49
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+&lt;p&gt;Now update the routers (so we can get to the new webpage &amp;ndash; now our app should work:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;  scope &amp;quot;/&amp;quot;, CounterWeb do
+    pipe_through :browser
 
-  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;inc&amp;#34;&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;dec&amp;#34;&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;# event handler for &amp;lt;button phx-click=&amp;#34;clear&amp;#34;&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
-    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Now update the routers (so we can get to the new webpage &amp;ndash; now our app should work:
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  scope &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    pipe_through &lt;span style=&#34;color:#e6db74&#34;&gt;:browser&lt;/span&gt;
-
-    &lt;span style=&#34;color:#75715e&#34;&gt;# live &amp;#34;/&amp;#34;, PageLive, :index        # remove this line&lt;/span&gt;
-    live &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterLive.Index&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# add this line&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;
+    # live &amp;quot;/&amp;quot;, PageLive, :index        # remove this line
+    live &amp;quot;/&amp;quot;, CounterLive.Index, :index # add this line
+  end
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Start pheonix:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;mix phx.server&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Go to:&lt;/p&gt;
@@ -697,42 +654,23 @@ git commit -m &amp;quot;counter with live update&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We see that PageLive test fails.  This is because we replaced this behavior with &lt;code&gt;CounterLive&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;To fix this we will create a &lt;strong&gt;CounterLive&lt;/strong&gt; test and delete &lt;strong&gt;PageLive&lt;/strong&gt; test.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rm test/counter_web/live/page_live_text.exs
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;rm test/counter_web/live/page_live_text.exs
 touch test/counter_web/live/counter_live_text.exs
+cat &amp;lt;&amp;lt;EOF &amp;gt; test/counter_web/live/counter_live_text.exs
+# test/counter_web/live/counter_live_text.exs
+defmodule CounterWeb.CounterLiveTest do
+  use CounterWeb.ConnCase
+
+  import CounterWeb.CounterLive.Index
+
+  test &amp;quot;disconnected and connected render&amp;quot;, %{conn: conn} do
+    {:ok, page_live, disconnected_html} = live(conn, &amp;quot;/&amp;quot;)
+    assert disconnected_html =~ &amp;quot;Live Counter&amp;quot;
+    assert render(page_live) =~ &amp;quot;Live Counter&amp;quot;
+  end
+
+end
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is the code for our new test: it basically just checks to be sure our Title is on the page:
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# test/counter_web/live/counter_live_text.exs&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLiveTest&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.ConnCase&lt;/span&gt;
-
-  &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt;
-
-  test &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;disconnected and connected render&amp;#34;&lt;/span&gt;, %{&lt;span style=&#34;color:#e6db74&#34;&gt;conn&lt;/span&gt;: conn} &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, page_live, disconnected_html} &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; live(conn, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;)
-    assert disconnected_html &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
-    assert render(page_live) &lt;span style=&#34;color:#f92672&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Live Counter&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Now we can test again: &lt;code&gt;mix test&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Now that works, lets take another git snapshot:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git add .
@@ -742,7 +680,7 @@ git commit -m &amp;quot;counter with live update&amp;quot;
 &lt;p&gt;Create a template file (helpful for complex html pages, but simple to create):&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;touch lib/counter_web/live/counter_live/index.html.leex&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Now just copy the html (from the render method into this file):&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-linenos=table,linenostart=1&#34; data-lang=&#34;linenos=table,linenostart=1&#34;&gt;# lib/counter_web/live/counter_live/index.html.leex
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-linenos=table,linenostart=1&#34; data-lang=&#34;linenos=table,linenostart=1&#34;&gt;# lib/counter_web/live/counter_live/index.html.leex
 &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
 &amp;lt;p&amp;gt;
   &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
@@ -763,7 +701,7 @@ git commit -m &amp;quot;counter with live update&amp;quot;
 &lt;p&gt;Now point &lt;code&gt;lib/counter_web/live/counter_live/index.ex&lt;/code&gt; to this file by replacing render with an apply command:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
 &lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
@@ -775,7 +713,7 @@ git commit -m &amp;quot;counter with live update&amp;quot;
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
   &lt;span style=&#34;color:#66d9ef&#34;&gt;defp&lt;/span&gt; apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
     socket
   &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
@@ -803,7 +741,7 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;p&gt;So this file will now look like:
 &lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
 &lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
@@ -836,7 +774,7 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
 
@@ -880,7 +818,7 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;p&gt;Now the template file looks like a normal template file again (focused on formating):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
 &lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
@@ -908,7 +846,7 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
 
