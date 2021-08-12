@@ -5,12 +5,223 @@
     <link>https://btihen.me/categories/crystal-language/</link>
       <atom:link href="https://btihen.me/categories/crystal-language/index.xml" rel="self" type="application/rss+xml" />
     <description>Crystal Language</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 02 May 2021 01:01:53 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 12 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Crystal Language</title>
       <link>https://btihen.me/categories/crystal-language/</link>
     </image>
+    
+    <item>
+      <title>Lucky Framework Upgrade</title>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</link>
+      <pubDate>Wed, 12 May 2021 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</guid>
+      <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.&lt;/p&gt;
+&lt;h2 id=&#34;upgrading&#34;&gt;Upgrading&lt;/h2&gt;
+&lt;p&gt;First lets be sure we have a recent crystal version:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf install crystal 1.1.1
+asdf global crystal 1.1.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Second to be safe-side, I lets upgrade the lucky-cli:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/luckyframework/lucky_cli
+cd lucky_cli
+git checkout v0.28.0  # note this does not match the lucky-framework version (0.27.2)!
+shards install
+crystal build src/lucky.cr
+cp lucky /usr/local/bin
+cd ..
+lucky -v  # hopefully responds with: 0.28.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets be sure we update &lt;code&gt;.tools-available&lt;/code&gt; in the lucky project folder:&lt;/p&gt;
+&lt;p&gt;Then (in the project folder - type:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd animals  # my lucky-project
+asdf local crystal 1.1.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets check the shards file - my current file looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# shard.yml
+name: animals
+version: 0.1.0
+
+targets:
+  animals:
+    main: src/animals.cr
+
+crystal: 0.36.1
+
+dependencies:
+  lucky:
+    github: luckyframework/lucky
+    version: ~&amp;gt; 0.27.0
+  authentic:
+    github: luckyframework/authentic
+    version: ~&amp;gt; 0.7.3
+  carbon:
+    github: luckyframework/carbon
+    version: ~&amp;gt; 0.1.4
+  dotenv:
+    github: gdotdesign/cr-dotenv
+    version: ~&amp;gt; 1.0.0
+  lucky_task:
+    github: luckyframework/lucky_task
+    version: ~&amp;gt; 0.1.0
+  jwt:
+    github: crystal-community/jwt
+    version: ~&amp;gt; 1.5.0
+development_dependencies:
+  lucky_flow:
+    github: luckyframework/lucky_flow
+    version: ~&amp;gt; 0.7.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So we need to update the crystal version.&lt;/p&gt;
+&lt;p&gt;Now lets updated the shards.
+Go into the project folder and type:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;shards update
+shards list   # be sure we have lucky 0.28.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;hmm - lucky framework didn&amp;rsquo;t upgrade to 0.28.0 &amp;ndash; lets try (probably shards works like ruby bundler - pinned versions need to be named in the update):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;shards update lucky
+shards list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;hmm - lucky framework didn&amp;rsquo;t upgrade to 0.28.0 - lets lets update the &lt;code&gt;shards&lt;/code&gt; file to:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# shard.yml
+name: animals
+version: 0.1.0
+
+targets:
+  animals:
+    main: src/animals.cr
+
+crystal: 1.1.1
+
+dependencies:
+  lucky:
+    github: luckyframework/lucky
+    version: ~&amp;gt; 0.28.0
+  authentic:
+    github: luckyframework/authentic
+  carbon:
+    github: luckyframework/carbon
+  dotenv:
+    github: gdotdesign/cr-dotenv
+  lucky_task:
+    github: luckyframework/lucky_task
+  jwt:
+    github: crystal-community/jwt
+development_dependencies:
+  lucky_flow:
+    github: luckyframework/lucky_flow
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;OK - leys try again!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;shards update lucky
+shards list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cool - it worked!&lt;/p&gt;
+&lt;p&gt;Now lets see if your site still works&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;crystal spec
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and start up the project with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;lucky dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;while we are at it we should update the yarn / node packages too.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn upgrade
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lucky Language Inflections - 0.28.0</title>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</link>
+      <pubDate>Wed, 12 May 2021 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</guid>
+      <description>&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;It is helpful to be able to configure your cli-tasks to work the same as lucky.
+In lucky you can configure the application&amp;rsquo;s behavior / settings in the &lt;code&gt;config&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;For example, Lucky by default will pluralize &lt;code&gt;staff&lt;/code&gt; as &lt;code&gt;staffs&lt;/code&gt; - which is ok if you are talking about shepherd staffs - but not employees.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;As of Lucky 0.28.0 &lt;code&gt;wordsmith&lt;/code&gt; works well with configuration - adding your own settings.  You simple create an &lt;code&gt;inflector.cr&lt;/code&gt; file in the &lt;code&gt;config&lt;/code&gt; folder.  Here is an example config:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/inflector.cr
+# `staff` as in employees - not walking sticks:
+Wordsmith::Inflector.inflections.uncountable(&amp;quot;staff&amp;quot;)
+Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when we test our new lucky config with &lt;code&gt;lucky exec&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;lucky exec
+# then when vim or nano opens you can enter something like:
+require &amp;quot;../../src/app.cr&amp;quot;
+include Lucky::TextHelpers
+pp pluralize(2, &amp;quot;staff&amp;quot;)
+pp pluralize(2, &amp;quot;person&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you will get the expected:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;2 staff&amp;quot;
+&amp;quot;2 persons&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;problem&#34;&gt;Problem&lt;/h2&gt;
+&lt;p&gt;However, currently, the settings is only used by the lucky application and not the lucky generators (gen.tasks) - which are pre-compiled.  They are pre-compiled on install - BEFORE you even create a config file. Thus the generators generate files that are incompatible with Lucky&amp;rsquo;s configured behavior.&lt;/p&gt;
+&lt;p&gt;This is what happens - it generates &lt;code&gt;staffs&lt;/code&gt; files and routes :(&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;lucky gen.resource.browser Staff name:String
+
+Created CreateStaffs::V20210811201213 in ./db/migrations/20210811201213_create_staffs.cr
+Generated Staff in ./src/models/staff.cr
+Generated SaveStaff in ./src/operations/save_staff.cr
+Generated DeleteStaff in ./src/operations/delete_staff.cr
+Generated StaffQuery in ./src/queries/staff_query.cr
+Generated Staffs::Index in ./src/actions/staffs/index.cr
+Generated Staffs::Show in ./src/actions/staffs/show.cr
+Generated Staffs::New in ./src/actions/staffs/new.cr
+Generated Staffs::Create in ./src/actions/staffs/create.cr
+Generated Staffs::Edit in ./src/actions/staffs/edit.cr
+Generated Staffs::Update in ./src/actions/staffs/update.cr
+Generated Staffs::Delete in ./src/actions/staffs/delete.cr
+Generated Staffs::IndexPage in ./src/pages/staffs/index_page.cr
+Generated Staffs::ShowPage in ./src/pages/staffs/show_page.cr
+Generated Staffs::NewPage in ./src/pages/staffs/new_page.cr
+Generated Staffs::EditPage in ./src/pages/staffs/edit_page.cr
+Generated Staffs::FormFields in ./src/components/staffs/form_fields.cr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;(Lucky contributors are considering more elegant solutions)&lt;/p&gt;
+&lt;p&gt;With guidance from the lucky team we found a clumsy solution.  Once we understood that the tasks were pre-compiled automatically.  I was able to read how the script worked and noticed it responds to a &lt;code&gt;skip pre-compile&lt;/code&gt; env_var and so we were able to solve it with the following procedure:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# clean up repo of gen.tasks that were problematic
+# git clean -fd
+
+# remove previously compiled shards
+rm -rf lib &amp;amp;&amp;amp; rm -rf bin
+
+# after trashing all the shard - safest to be sure they are intact (or even updated)
+SKIP_LUCKY_TASK_PRECOMPILATION=true shards install # or shards update
+
+# re-run the setup
+SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now with the first task it will compile the task (a bit slow), but it uses your config file!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Staff name:String
+
+compiling ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we finally get the expected results when we run the task!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Created CreateStaff::V20210812185142 in ./db/migrations/20210812185142_create_staff.cr
+Generated Staff in ./src/models/staff.cr
+Generated SaveStaff in ./src/operations/save_staff.cr
+Generated DeleteStaff in ./src/operations/delete_staff.cr
+Generated StaffQuery in ./src/queries/staff_query.cr
+Generated Staff::Index in ./src/actions/staff/index.cr
+Generated Staff::Show in ./src/actions/staff/show.cr
+Generated Staff::New in ./src/actions/staff/new.cr
+Generated Staff::Create in ./src/actions/staff/create.cr
+Generated Staff::Edit in ./src/actions/staff/edit.cr
+Generated Staff::Update in ./src/actions/staff/update.cr
+Generated Staff::Delete in ./src/actions/staff/delete.cr
+Generated Staff::IndexPage in ./src/pages/staff/index_page.cr
+Generated Staff::ShowPage in ./src/pages/staff/show_page.cr
+Generated Staff::NewPage in ./src/pages/staff/new_page.cr
+Generated Staff::EditPage in ./src/pages/staff/edit_page.cr
+Generated Staff::FormFields in ./src/components/staff/form_fields.cr
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Lucky Framework with Crystal Language</title>
@@ -143,7 +354,7 @@ lucky dev
 git commit -m &amp;quot;initial commit after create&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;quick-lucky-test-tip&#34;&gt;Quick Lucky Test Tip&lt;/h2&gt;
-&lt;p&gt;Lets quickly test our new config wiht &lt;code&gt;lucky exec&lt;/code&gt; - type:&lt;/p&gt;
+&lt;p&gt;Lets quickly test our new config with &lt;code&gt;lucky exec&lt;/code&gt; - type:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;lucky exec
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:&lt;/p&gt;
@@ -807,34 +1018,64 @@ Lets make the new TailwindUI menu bar have the dynamic features.&lt;/p&gt;
 &lt;a href=&#34;https://github.com/bmulvihill/dispatch&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;InMemory-JobQueue&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;language-inflections&#34;&gt;Language Inflections&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s make a little silly Human and Pets database/webpage:&lt;/p&gt;
-&lt;p&gt;The simplest way to generate is with: &lt;code&gt;lucky gen.resource.browser&lt;/code&gt; its basically the same as &lt;code&gt;rails g scaffold&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;So lets get started:&lt;/p&gt;
+&lt;p&gt;Lucky 0.27.0 has problems using &lt;code&gt;config/inflector.cr&lt;/code&gt; settings (fixed in Lucky 0.28.0).  However, both versions have problems with loading these language configs into the pre-compiled lucky tasks.&lt;/p&gt;
+&lt;p&gt;THere&amp;rsquo;s what happens (do a git snapshot):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Human name:String
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;OOPS - that generated the plural of &lt;code&gt;Human&lt;/code&gt; as &lt;code&gt;Humen&lt;/code&gt; instead of &lt;code&gt;Humans&lt;/code&gt;!&lt;/p&gt;
-&lt;p&gt;lets clear all our incorrect files and fix this:&lt;/p&gt;
+&lt;p&gt;lets clear all our incorrect files and fix this (if you did a git snapshot previously):&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git clean -fd
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now let&amp;rsquo;s create a new config file for inflections &lt;code&gt;config/inflect.cr&lt;/code&gt; and enter:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# this probably isn&#39;t necessary for very long - but for now it is needed.
+&lt;p&gt;Now let&amp;rsquo;s create a new config file for inflections &lt;code&gt;config/inflector.cr&lt;/code&gt; and enter:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/inflector.cr
+require &amp;quot;wordsmith&amp;quot;
+
+# `staff` as in employees - not walking sticks:
+Wordsmith::Inflector.inflections.uncountable(&amp;quot;staff&amp;quot;)
 Wordsmith::Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
-
-# I like using persons (also a dictionary word) over people, to do this we need
-# - first we have to remove the original setting by doing:
-Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
-# - now we can override the original with our preference
 Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
-
-# if using `staff` as in human staff - then also add staff to uncountable:
-Wordsmith::Inflector.inflections.uncountable(%w(staff))
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when we test our new lucky config with &lt;code&gt;lucky exec&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;lucky exec
+# then when vim or nano opens you can enter something like:
+require &amp;quot;../../src/app.cr&amp;quot;
+include Lucky::TextHelpers
+pp pluralize(2, &amp;quot;staff&amp;quot;)
+pp pluralize(2, &amp;quot;person&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you will get the expected:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;2 staff&amp;quot;
+&amp;quot;2 persons&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Given the tasks are pre-compiled do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# clean up repo of gen.tasks that were problematic
+# git clean -fd
+
+# remove previously compiled shards
+rm -rf lib &amp;amp;&amp;amp; rm -rf bin
+
+# after trashing all the shard - safest to be sure they are intact (or even updated)
+SKIP_LUCKY_TASK_PRECOMPILATION=true shards install # or shards update
+
+# re-run the setup
+SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now with the first task it will compile the task (a bit slow), but it uses your config file!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Staff name:String
+
+compiling ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Sweet - this works for human - but not people - which is already defined in wordsmith.  The fix for this is to copy the entire wordsmith inflector file, adjust it to your needs and put it in &lt;code&gt;config/inflector.cr&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# config/inflector.cr
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/inflector.cr
+require &amp;quot;wordsmith&amp;quot;
+
 module Wordsmith
+  # its important to clear all existing settings
   Inflector.inflections.clear
 
+  # make adjustments as needed to the original file
   Inflector.inflections.plural(/$/, &amp;quot;s&amp;quot;)
   Inflector.inflections.plural(/s$/i, &amp;quot;s&amp;quot;)
 
@@ -842,12 +1083,17 @@ module Wordsmith
 
   Inflector.inflections.irregular(&amp;quot;human&amp;quot;, &amp;quot;humans&amp;quot;)
   Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+
+  # added staff to the list
+  Inflector.inflections.uncountable(%w(equipment information rice money species series fish sheep jeans police staff))
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rm -rf lib &amp;amp;&amp;amp; rm -rf bin &amp;amp;&amp;amp; shards update
+&lt;pre&gt;&lt;code&gt;rm -rf lib &amp;amp;&amp;amp; rm -rf bin
+SKIP_LUCKY_TASK_PRECOMPILATION=true shards install
+SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can try to create a new Resource again.&lt;/p&gt;
+&lt;p&gt;Now we can try to create a new Resource again.  In Lucky 0.28.0 this config has gotten better, but the pre-compiled tasks still create confusion.&lt;/p&gt;
 </description>
     </item>
     

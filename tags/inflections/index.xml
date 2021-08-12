@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>inflections | btihen</title>
+    <link>https://btihen.me/tags/inflections/</link>
+      <atom:link href="https://btihen.me/tags/inflections/index.xml" rel="self" type="application/rss+xml" />
+    <description>inflections</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 12 May 2021 01:01:53 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>inflections</title>
+      <link>https://btihen.me/tags/inflections/</link>
+    </image>
+    
+    <item>
+      <title>Lucky Language Inflections - 0.28.0</title>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</link>
+      <pubDate>Wed, 12 May 2021 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</guid>
+      <description>&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;It is helpful to be able to configure your cli-tasks to work the same as lucky.
+In lucky you can configure the application&amp;rsquo;s behavior / settings in the &lt;code&gt;config&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;For example, Lucky by default will pluralize &lt;code&gt;staff&lt;/code&gt; as &lt;code&gt;staffs&lt;/code&gt; - which is ok if you are talking about shepherd staffs - but not employees.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;As of Lucky 0.28.0 &lt;code&gt;wordsmith&lt;/code&gt; works well with configuration - adding your own settings.  You simple create an &lt;code&gt;inflector.cr&lt;/code&gt; file in the &lt;code&gt;config&lt;/code&gt; folder.  Here is an example config:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/inflector.cr
+# `staff` as in employees - not walking sticks:
+Wordsmith::Inflector.inflections.uncountable(&amp;quot;staff&amp;quot;)
+Wordsmith::Inflector.inflections.irregular(&amp;quot;person&amp;quot;, &amp;quot;persons&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when we test our new lucky config with &lt;code&gt;lucky exec&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;lucky exec
+# then when vim or nano opens you can enter something like:
+require &amp;quot;../../src/app.cr&amp;quot;
+include Lucky::TextHelpers
+pp pluralize(2, &amp;quot;staff&amp;quot;)
+pp pluralize(2, &amp;quot;person&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you will get the expected:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;2 staff&amp;quot;
+&amp;quot;2 persons&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;problem&#34;&gt;Problem&lt;/h2&gt;
+&lt;p&gt;However, currently, the settings is only used by the lucky application and not the lucky generators (gen.tasks) - which are pre-compiled.  They are pre-compiled on install - BEFORE you even create a config file. Thus the generators generate files that are incompatible with Lucky&amp;rsquo;s configured behavior.&lt;/p&gt;
+&lt;p&gt;This is what happens - it generates &lt;code&gt;staffs&lt;/code&gt; files and routes :(&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;lucky gen.resource.browser Staff name:String
+
+Created CreateStaffs::V20210811201213 in ./db/migrations/20210811201213_create_staffs.cr
+Generated Staff in ./src/models/staff.cr
+Generated SaveStaff in ./src/operations/save_staff.cr
+Generated DeleteStaff in ./src/operations/delete_staff.cr
+Generated StaffQuery in ./src/queries/staff_query.cr
+Generated Staffs::Index in ./src/actions/staffs/index.cr
+Generated Staffs::Show in ./src/actions/staffs/show.cr
+Generated Staffs::New in ./src/actions/staffs/new.cr
+Generated Staffs::Create in ./src/actions/staffs/create.cr
+Generated Staffs::Edit in ./src/actions/staffs/edit.cr
+Generated Staffs::Update in ./src/actions/staffs/update.cr
+Generated Staffs::Delete in ./src/actions/staffs/delete.cr
+Generated Staffs::IndexPage in ./src/pages/staffs/index_page.cr
+Generated Staffs::ShowPage in ./src/pages/staffs/show_page.cr
+Generated Staffs::NewPage in ./src/pages/staffs/new_page.cr
+Generated Staffs::EditPage in ./src/pages/staffs/edit_page.cr
+Generated Staffs::FormFields in ./src/components/staffs/form_fields.cr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;(Lucky contributors are considering more elegant solutions)&lt;/p&gt;
+&lt;p&gt;With guidance from the lucky team we found a clumsy solution.  Once we understood that the tasks were pre-compiled automatically.  I was able to read how the script worked and noticed it responds to a &lt;code&gt;skip pre-compile&lt;/code&gt; env_var and so we were able to solve it with the following procedure:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# clean up repo of gen.tasks that were problematic
+# git clean -fd
+
+# remove previously compiled shards
+rm -rf lib &amp;amp;&amp;amp; rm -rf bin
+
+# after trashing all the shard - safest to be sure they are intact (or even updated)
+SKIP_LUCKY_TASK_PRECOMPILATION=true shards install # or shards update
+
+# re-run the setup
+SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now with the first task it will compile the task (a bit slow), but it uses your config file!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lucky gen.resource.browser Staff name:String
+
+compiling ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we finally get the expected results when we run the task!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Created CreateStaff::V20210812185142 in ./db/migrations/20210812185142_create_staff.cr
+Generated Staff in ./src/models/staff.cr
+Generated SaveStaff in ./src/operations/save_staff.cr
+Generated DeleteStaff in ./src/operations/delete_staff.cr
+Generated StaffQuery in ./src/queries/staff_query.cr
+Generated Staff::Index in ./src/actions/staff/index.cr
+Generated Staff::Show in ./src/actions/staff/show.cr
+Generated Staff::New in ./src/actions/staff/new.cr
+Generated Staff::Create in ./src/actions/staff/create.cr
+Generated Staff::Edit in ./src/actions/staff/edit.cr
+Generated Staff::Update in ./src/actions/staff/update.cr
+Generated Staff::Delete in ./src/actions/staff/delete.cr
+Generated Staff::IndexPage in ./src/pages/staff/index_page.cr
+Generated Staff::ShowPage in ./src/pages/staff/show_page.cr
+Generated Staff::NewPage in ./src/pages/staff/new_page.cr
+Generated Staff::EditPage in ./src/pages/staff/edit_page.cr
+Generated Staff::FormFields in ./src/components/staff/form_fields.cr
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

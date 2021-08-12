@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2021-05-02T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-08-07T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-12T01:01:53&#43;02:00">
   
 
   
@@ -684,7 +684,7 @@
           Last updated on
       
     
-    Sat, Aug 7, 2021
+    Thu, Aug 12, 2021
   </span>
   
 
@@ -854,7 +854,7 @@ lucky dev
 git commit -m &quot;initial commit after create&quot;
 </code></pre>
 <h2 id="quick-lucky-test-tip">Quick Lucky Test Tip</h2>
-<p>Lets quickly test our new config wiht <code>lucky exec</code> - type:</p>
+<p>Lets quickly test our new config with <code>lucky exec</code> - type:</p>
 <pre><code class="language-bash">lucky exec
 </code></pre>
 <p>This gives you an edit in your cli and you can type a small amount of code and it will be compiles and print you the results - ie:</p>
@@ -1518,34 +1518,64 @@ Lets make the new TailwindUI menu bar have the dynamic features.</p>
 <a href="https://github.com/bmulvihill/dispatch" target="_blank" rel="noopener">InMemory-JobQueue</a></li>
 </ul>
 <h2 id="language-inflections">Language Inflections</h2>
-<p>Let&rsquo;s make a little silly Human and Pets database/webpage:</p>
-<p>The simplest way to generate is with: <code>lucky gen.resource.browser</code> its basically the same as <code>rails g scaffold</code></p>
-<p>So lets get started:</p>
+<p>Lucky 0.27.0 has problems using <code>config/inflector.cr</code> settings (fixed in Lucky 0.28.0).  However, both versions have problems with loading these language configs into the pre-compiled lucky tasks.</p>
+<p>THere&rsquo;s what happens (do a git snapshot):</p>
 <pre><code>lucky gen.resource.browser Human name:String
 </code></pre>
 <p>OOPS - that generated the plural of <code>Human</code> as <code>Humen</code> instead of <code>Humans</code>!</p>
-<p>lets clear all our incorrect files and fix this:</p>
+<p>lets clear all our incorrect files and fix this (if you did a git snapshot previously):</p>
 <pre><code>git clean -fd
 </code></pre>
-<p>Now let&rsquo;s create a new config file for inflections <code>config/inflect.cr</code> and enter:</p>
-<pre><code># this probably isn't necessary for very long - but for now it is needed.
+<p>Now let&rsquo;s create a new config file for inflections <code>config/inflector.cr</code> and enter:</p>
+<pre><code class="language-ruby"># config/inflector.cr
+require &quot;wordsmith&quot;
+
+# `staff` as in employees - not walking sticks:
+Wordsmith::Inflector.inflections.uncountable(&quot;staff&quot;)
 Wordsmith::Inflector.inflections.irregular(&quot;human&quot;, &quot;humans&quot;)
-
-# I like using persons (also a dictionary word) over people, to do this we need
-# - first we have to remove the original setting by doing:
-Wordsmith::Inflector.inflections.plurals.delete(/(p)erson$/i)
-# - now we can override the original with our preference
 Wordsmith::Inflector.inflections.irregular(&quot;person&quot;, &quot;persons&quot;)
-
-# if using `staff` as in human staff - then also add staff to uncountable:
-Wordsmith::Inflector.inflections.uncountable(%w(staff))
 </code></pre>
+<p>when we test our new lucky config with <code>lucky exec</code>:</p>
+<pre><code class="language-ruby">lucky exec
+# then when vim or nano opens you can enter something like:
+require &quot;../../src/app.cr&quot;
+include Lucky::TextHelpers
+pp pluralize(2, &quot;staff&quot;)
+pp pluralize(2, &quot;person&quot;)
+</code></pre>
+<p>you will get the expected:</p>
+<pre><code>&quot;2 staff&quot;
+&quot;2 persons&quot;
+</code></pre>
+<p>Given the tasks are pre-compiled do the following:</p>
+<pre><code class="language-bash"># clean up repo of gen.tasks that were problematic
+# git clean -fd
+
+# remove previously compiled shards
+rm -rf lib &amp;&amp; rm -rf bin
+
+# after trashing all the shard - safest to be sure they are intact (or even updated)
+SKIP_LUCKY_TASK_PRECOMPILATION=true shards install # or shards update
+
+# re-run the setup
+SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
+</code></pre>
+<p>Now with the first task it will compile the task (a bit slow), but it uses your config file!</p>
+<pre><code>lucky gen.resource.browser Staff name:String
+
+compiling ...
+</code></pre>
+<p>Sweet - this works for human - but not people - which is already defined in wordsmith.  The fix for this is to copy the entire wordsmith inflector file, adjust it to your needs and put it in <code>config/inflector.cr</code></p>
 <p>
 <a href="https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr" target="_blank" rel="noopener">https://github.com/luckyframework/wordsmith/blob/master/src/wordsmith/inflections.cr</a></p>
-<pre><code># config/inflector.cr
+<pre><code class="language-ruby"># config/inflector.cr
+require &quot;wordsmith&quot;
+
 module Wordsmith
+  # its important to clear all existing settings
   Inflector.inflections.clear
 
+  # make adjustments as needed to the original file
   Inflector.inflections.plural(/$/, &quot;s&quot;)
   Inflector.inflections.plural(/s$/i, &quot;s&quot;)
 
@@ -1553,12 +1583,17 @@ module Wordsmith
 
   Inflector.inflections.irregular(&quot;human&quot;, &quot;humans&quot;)
   Inflector.inflections.irregular(&quot;person&quot;, &quot;persons&quot;)
+
+  # added staff to the list
+  Inflector.inflections.uncountable(%w(equipment information rice money species series fish sheep jeans police staff))
 end
 </code></pre>
 <p>Now if we try again we will have the same problem!  We need to remove our binaries and recompile lucky with our need config!  (I lost a lot of time on this detail)! Do this with:</p>
-<pre><code>rm -rf lib &amp;&amp; rm -rf bin &amp;&amp; shards update
+<pre><code>rm -rf lib &amp;&amp; rm -rf bin
+SKIP_LUCKY_TASK_PRECOMPILATION=true shards install
+SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
 </code></pre>
-<p>Now we can try to create a new Resource again.</p>
+<p>Now we can try to create a new Resource again.  In Lucky 0.28.0 this config has gotten better, but the pre-compiled tasks still create confusion.</p>
 
     </div>
 

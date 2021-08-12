@@ -47,18 +47,39 @@
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/belongs_to/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/btihen/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/rails-5/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/rails-6/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/types/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/virtual-attributes/</loc>
+    <lastmod>2021-08-12T01:11:22+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/belongs_to/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/data-models/</loc>
@@ -79,12 +100,6 @@
     <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/post_ruby_rails/</loc>
-    <lastmod>2021-08-07T01:57:00+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
@@ -94,47 +109,68 @@
     <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/basics/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/categories/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/code/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/components/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/crystal-language/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <loc>https://btihen.me/tags/configuration/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/crystal-language/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/forms/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <loc>https://btihen.me/tags/inflections/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/lucky/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <loc>https://btihen.me/tags/language/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/lucky/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/post_crystal/lucky_0_27_project_basics/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <loc>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_crystal/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/shards/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/upgrade/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/basics/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/components/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/crystal-language/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/forms/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/lucky/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_crystal/lucky_0_27_project_basics/</loc>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/relationships/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/routing/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/web-framework/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
+    <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/authentication/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
@@ -215,9 +251,6 @@
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/html/</loc>
-    <lastmod>2021-08-07T01:57:00+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/rails-6/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</loc>

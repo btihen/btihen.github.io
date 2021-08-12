@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Virtual Attributes | btihen</title>
+    <link>https://btihen.me/tags/virtual-attributes/</link>
+      <atom:link href="https://btihen.me/tags/virtual-attributes/index.xml" rel="self" type="application/rss+xml" />
+    <description>Virtual Attributes</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 12 Aug 2021 01:11:22 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>Virtual Attributes</title>
+      <link>https://btihen.me/tags/virtual-attributes/</link>
+    </image>
+    
+    <item>
+      <title>Squished String Type (Rails 5/6)</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</link>
+      <pubDate>Thu, 12 Aug 2021 01:11:22 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/string.rb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/string.rb&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Lets start by making a sample project (without tests -T):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails new task_cards -T
+cd task_cards
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will use a generator to create the structures we need and just focus clean inputs.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Card title:string description:text
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets make our attribute types that cleanup string inputs (we will put them in the a new folder we will call &lt;code&gt;types&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/types
+touch app/types/string_stripped_type.rb
+touch app/types/text_trimmed_type.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To make a string type that removes leading, trailing and duplicate spaces we will use the squish method.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/types/string_squished_type.rb
+class StringSquishedType &amp;lt; ActiveRecord::Type::String
+  # cast the incomming value for Rails
+  def cast(value)
+    value.to_s.squish
+  end
+
+  # convert the data to what the Database expects
+  def serialize(value)
+    value.to_s
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since text may want to have newlines and other &lt;code&gt;double&lt;/code&gt; spaces we will only remove (&lt;code&gt;trim&lt;/code&gt;) leading and trailing spaces:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/types/text_trimmed_type.rb
+class TextTrimmedType &amp;lt; ActiveRecord::Type::String
+  # cast the incomming value for Rails
+  def cast(value)
+    value.to_s.strip
+  end
+
+  # convert the data to what the Database expects
+  def serialize(value)
+    value.to_s
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To simplify our code we will define short names for our new types &amp;ndash; in the &lt;code&gt;config/initializers&lt;/code&gt; folder we will make a new file called &lt;code&gt;types.rb&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch config/initializers/attribute_types.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To make a string type that removes leading, trailing and duplicate spaces we will use the squish method.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/attribute_types.rb
+ActiveRecord::Type.register(:string_stripped, StringSquishedType)
+ActiveRecord::Type.register(:text_trimmed,    TextTrimmedType)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets add our new virutual data types that we will use in our forms to our model:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/card.rb
+class Card &amp;lt; ApplicationRecord
+  attribute :title_in,       :string_squished
+  # attribute :title_in,       StringSquishedType.new
+  attribute :description_in. :text_trimmed,   default: &#39;--&#39;
+  # attribute :description_in, TextTrimmedType.new, default: &#39;--&#39;
+
+  validate :title_in, presence: true
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/string.rb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/string.rb&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# lib/types/type/string.rb
+# frozen_string_literal: true
+
+module Type
+  # * +squish+ if true, squish value when casting
+  # * +strip+ if true, strip value when casting
+  # * +nilify_blank+ if true, set blank value to nil when casting
+  class String &amp;lt; ActiveModel::Type::String
+
+    def initialize(precision: nil, limit: nil, scale: nil, strip: false, squish: false, nilify_blank: false)
+      @strip = strip
+      @squish = squish
+      @nilify_blank = nilify_blank
+      super(precision: precision, limit: limit, scale: scale)
+    end
+
+    def serialize(value)
+      super(value)
+      apply_options(value)
+    end
+
+    private
+
+      def cast_value(value)
+        value = super(value)
+        apply_options(value)
+      end
+
+      def apply_options(value)
+        return unless value
+
+        if @squish
+          value = value.squish
+        elsif @strip
+          value = value.strip
+        end
+
+        value = nil if @nilify_blank &amp;amp;&amp;amp; value.blank?
+
+        value
+      end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/editor_text.rb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/editor_text.rb&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# lib/types/type/editor_text.rb
+# frozen_string_literal: true
+
+# Strips out empty spaces that are default on Ckeditor 5
+module Type
+  class EditorText &amp;lt; ActiveModel::Type::String
+
+    EMPTY_P_TAG_REGEX = %r{\A(&amp;lt;p[^&amp;gt;]*&amp;gt;(\s|&amp;amp;nbsp;|&amp;lt;/?\s?br\s?/?&amp;gt;)*&amp;lt;/?p&amp;gt;)\1*\z}.freeze
+
+    def serialize(value)
+      super(value)
+      apply_options(value)
+    end
+
+    private
+
+      def cast_value(value)
+        value = super(value)
+        apply_options(value)
+      end
+
+      def apply_options(value)
+        return if value.nil?
+
+        remove_empty_p_tags(value)
+      end
+
+      def remove_empty_p_tags(value)
+        value.match?(EMPTY_P_TAG_REGEX) ? nil : value
+      end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/token.rb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://bitbucket.org/tiu/rails-application-template/src/master/rails/lib/types/type/token.rb&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# lib/types/type/token.rb
+# frozen_string_literal: true
+
+# Represents a user-entered code, like a coupon code, discount code or confirmation number.
+# Avoids ambiguous characters that could cause user confusion or apprehension.
+module Type
+  class Token &amp;lt; ActiveRecord::Type::String
+
+    AMBIGUITIES = [
+      %w[B 8],
+      %w[D O 0],
+      %w[G 6],
+      %w[I 1 l],
+      %w[S 5],
+      %w[Z 2]
+    ].flatten.freeze
+    CHARACTERS = ([*(&#39;A&#39;..&#39;Z&#39;), *(&#39;0&#39;..&#39;9&#39;)] - AMBIGUITIES).freeze
+    LENGTH = 6
+
+    def initialize(precision: nil, limit: nil, scale: nil, length: LENGTH)
+      @length = length
+      super(precision: precision, limit: limit, scale: scale)
+    end
+
+    private
+
+      def cast_value(value)
+        if value == :random
+          random_number
+        elsif value.is_a? ::String
+          value = value.upcase
+          value if value.chars.all? { |c| c.in? CHARACTERS }
+        end
+      end
+
+      def random_number
+        Array.new(@length) { CHARACTERS.sample }.join
+      end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# lib/types/localized_date.rb
+# frozen_string_literal: true
+
+# Convert localized date string to Date object. This takes I18n formatted date strings
+# (e.g. in form text inputs) and casts them back to Date objects when writing the attribute.
+#
+# See ActiveModel::Type::Date for original, which attempts to parse the Date string, causing
+# the months and days swap if input is in &amp;quot;%m/%d/%Y&amp;quot; format.
+#
+class LocalizedDate &amp;lt; ActiveRecord::Type::Date
+
+  # Full specifier is: %&amp;lt;flag&amp;gt;&amp;lt;width&amp;gt;&amp;lt;modifier&amp;gt;&amp;lt;conversion&amp;gt;
+  FORMAT_STRING_EXPR = /(?&amp;lt;=%)(?&amp;lt;flag&amp;gt;[-_0^#])?(?&amp;lt;width&amp;gt;\d)?/.freeze
+
+  def initialize(format: default_format)
+    @format_string = safe_format_string(format)
+  end
+
+  # Deserialize db value using Date::DATE_FORMATS[:db]
+  def deserialize(value)
+    cast_value(value, format: Date::DATE_FORMATS[:db]) unless value.nil?
+  end
+
+  private
+
+    def cast_value(value, format: @format_string)
+      if value.is_a?(::String)
+        return if value.empty?
+
+        Date.strptime(value, format)
+      elsif value.respond_to?(:to_date)
+        value.to_date
+      else
+        value
+      end
+    rescue ArgumentError
+      nil
+    end
+
+    def default_format
+      I18n.translate(&amp;quot;date.formats.default&amp;quot;)
+    end
+
+    # Date.strptime doesn&#39;t support flags and width, so remove them.
+    # See https://ruby-doc.org/stdlib/libdoc/date/rdoc/Date.html#method-c-strptime
+    def safe_format_string(value)
+      value.gsub FORMAT_STRING_EXPR, &#39;&#39;
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/types.rb
+# frozen_string_literal: true
+
+# NOTE: when using custom types with Postgres arrays they must be registered (here) to work.
+# When registered, they become a subtype of ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Array
+# which handles the array bits before invoking your custom type.
+#
+#     attribute :links, :link, array: true          # this works, becoming an array subtype
+#     attribute :links, Type::Link.new, array: true # this acts like a non-array type
+#
+# Next, confirm the type with `MyModel.type_for_attribute(:links)`
+Dir[Rails.root.join(&#39;lib/types/**/*.rb&#39;)].sort.each { |f| require f }
+
+ActiveRecord::Type.register(:localized_date, LocalizedDate)
+ActiveRecord::Type.register(:string, Type::String, override: true)
+ActiveRecord::Type.register(:token, Type::Token)
+
+ActiveModel::Type.register(:localized_date, LocalizedDate)
+ActiveModel::Type.register(:string, Type::String, override: true)
+ActiveModel::Type.register(:token, Type::Token)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;How Rails Transforms Attributes&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s a quick tour of the Rails Attributes API. You can skip this section, but then you won&amp;rsquo;t know how this stuff works. What fun is that?&lt;/p&gt;
+&lt;p&gt;Understanding how Rails handles user input for your attribute will let us override only one method instead of making a more complete custom type. It will also help you write better code, since rails&#39; code is pretty good.&lt;/p&gt;
+&lt;p&gt;Since you didn&amp;rsquo;t mention a model, I&amp;rsquo;ll assume you have a Post with a :publish_date attribute (some would prefer the name :published_on, but I digress).
+What is your type?&lt;/p&gt;
+&lt;p&gt;Find out what type :publish_date is. We don&amp;rsquo;t care that it is an instance of Date, we need to know what type_for_attribute returns:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;This method is the only valid source of information for anything related to the types of a model&#39;s attributes.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ rails c
+&amp;gt; post = Post.where.not(publish_date: nil).first
+&amp;gt; post.publish_date.class
+=&amp;gt; Date
+&amp;gt; Post.type_for_attribute(&#39;publish_date&#39;).type
+=&amp;gt; :date
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we know the &lt;code&gt;:publish_date&lt;/code&gt; attribute is a &lt;code&gt;:date&lt;/code&gt; type. This is defined by &lt;code&gt;ActiveRecord::Type::Date&lt;/code&gt;, which extends &lt;code&gt;ActiveModel::Type::Date&lt;/code&gt; (ActiveRecord Types are here: 
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Type.html%29,&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Type.html),&lt;/a&gt; which extends &lt;code&gt;ActiveModel::Type::Value&lt;/code&gt; (ActiveModel Types are here: 
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;How is user input transformed by &lt;code&gt;ActiveRecord::Type::Date&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;So, when you set &lt;code&gt;:publish_date&lt;/code&gt;, the value is passed to cast, which calls cast_value. Since form input is a String, it will try a &lt;code&gt;fast_string_to_date&lt;/code&gt; then &lt;code&gt;fallback_string_to_date&lt;/code&gt; which uses &lt;code&gt;Date._parse&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;re getting lost, don&amp;rsquo;t worry. You don&amp;rsquo;t need to understand rails&#39; code to customize an attribute.
+Defining a Custom Type&lt;/p&gt;
+&lt;p&gt;Now that we understand how Rails uses the attributes API, we can easily make our own. Just create a custom type to override cast_value to expect localized date strings:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class LocalizedDate &amp;lt; ActiveRecord::Type::Date
+
+  private
+    # Convert localized date string to Date object. This takes I18n formatted date strings
+    # from user input and casts them back to Date objects.
+    def cast_value(value)
+      if value.is_a?(::String)
+        return if value.empty?
+        format = I18n.translate(&amp;quot;date.formats.short&amp;quot;)
+        Date.strptime(value, format) rescue nil
+      elsif value.respond_to?(:to_date)
+        value.to_date
+      else
+        value
+      end
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;See how I just copied rails&#39; code and made a small tweak. Easy. You might want to improve on this with a call to super and move the :short format to an option or constant.&lt;/p&gt;
+&lt;p&gt;Register your type so it can be referenced by a symbol:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/types.rb
+ActiveRecord::Type.register(:localized_date, LocalizedDate)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Override the :publish_date type with your custom type:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/post.rb
+class Post &amp;lt; ApplicationRecord
+  attribute :publish_date, :localized_date
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can use localized values in your form inputs:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/posts/_form.html.erb
+&amp;lt;%= form_for(@post) do |f| %&amp;gt;
+  &amp;lt;%= f.label :publish_date %&amp;gt;
+  &amp;lt;%= f.text_field :publish_date, value: (I18n.localize(value, format: :short) if value.present?) %&amp;gt;
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
