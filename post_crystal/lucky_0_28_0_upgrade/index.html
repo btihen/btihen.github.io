@@ -242,9 +242,9 @@
   <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2021-05-12T01:01:53&#43;02:00">
+      <meta property="article:published_time" content="2021-05-10T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2021-08-12T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2021-08-13T01:01:53&#43;02:00">
   
 
   
@@ -684,7 +684,7 @@
           Last updated on
       
     
-    Thu, Aug 12, 2021
+    Fri, Aug 13, 2021
   </span>
   
 
@@ -730,14 +730,19 @@
     <div class="article-style">
       <h2 id="purpose">Purpose</h2>
 <p>I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.</p>
+<p>The Lucky repo describes the changes to the shards file and the code base too.
+
+<a href="https://github.com/luckyframework/lucky/blob/master/UPGRADE_NOTES.md" target="_blank" rel="noopener">https://github.com/luckyframework/lucky/blob/master/UPGRADE_NOTES.md</a></p>
 <h2 id="upgrading">Upgrading</h2>
 <p>First lets be sure we have a recent crystal version:</p>
 <pre><code class="language-bash">asdf install crystal 1.1.1
 asdf global crystal 1.1.1
 </code></pre>
-<p>Second to be safe-side, I lets upgrade the lucky-cli:</p>
-<pre><code class="language-bash">git clone https://github.com/luckyframework/lucky_cli
+<p>Second, Upgrade the lucky-cli:</p>
+<pre><code class="language-bash"># if you don't already have this
+git clone https://github.com/luckyframework/lucky_cli
 cd lucky_cli
+git fetch
 git checkout v0.28.0  # note this does not match the lucky-framework version (0.27.2)!
 shards install
 crystal build src/lucky.cr
@@ -747,10 +752,10 @@ lucky -v  # hopefully responds with: 0.28.0
 </code></pre>
 <p>Now lets be sure we update <code>.tools-available</code> in the lucky project folder:</p>
 <p>Then (in the project folder - type:</p>
-<pre><code class="language-bash">cd animals  # my lucky-project
+<pre><code class="language-bash">cd project_name  # my lucky-project
 asdf local crystal 1.1.1
 </code></pre>
-<p>now lets check the shards file - my current file looks like:</p>
+<p>Lets lets update the <code>shards</code> file to &ndash; according to the upgrade guide we should use the following settings:</p>
 <pre><code class="language-ruby"># shard.yml
 name: animals
 version: 0.1.0
@@ -759,52 +764,7 @@ targets:
   animals:
     main: src/animals.cr
 
-crystal: 0.36.1
-
-dependencies:
-  lucky:
-    github: luckyframework/lucky
-    version: ~&gt; 0.27.0
-  authentic:
-    github: luckyframework/authentic
-    version: ~&gt; 0.7.3
-  carbon:
-    github: luckyframework/carbon
-    version: ~&gt; 0.1.4
-  dotenv:
-    github: gdotdesign/cr-dotenv
-    version: ~&gt; 1.0.0
-  lucky_task:
-    github: luckyframework/lucky_task
-    version: ~&gt; 0.1.0
-  jwt:
-    github: crystal-community/jwt
-    version: ~&gt; 1.5.0
-development_dependencies:
-  lucky_flow:
-    github: luckyframework/lucky_flow
-    version: ~&gt; 0.7.3
-</code></pre>
-<p>So we need to update the crystal version.</p>
-<p>Now lets updated the shards.
-Go into the project folder and type:</p>
-<pre><code class="language-bash">shards update
-shards list   # be sure we have lucky 0.28.0
-</code></pre>
-<p>hmm - lucky framework didn&rsquo;t upgrade to 0.28.0 &ndash; lets try (probably shards works like ruby bundler - pinned versions need to be named in the update):</p>
-<pre><code class="language-bash">shards update lucky
-shards list
-</code></pre>
-<p>hmm - lucky framework didn&rsquo;t upgrade to 0.28.0 - lets lets update the <code>shards</code> file to:</p>
-<pre><code class="language-ruby"># shard.yml
-name: animals
-version: 0.1.0
-
-targets:
-  animals:
-    main: src/animals.cr
-
-crystal: 1.1.1
+crystal: &gt;= 1.0.0
 
 dependencies:
   lucky:
@@ -812,20 +772,32 @@ dependencies:
     version: ~&gt; 0.28.0
   authentic:
     github: luckyframework/authentic
+    version: ~&gt; 0.8.0
   carbon:
     github: luckyframework/carbon
-  dotenv:
-    github: gdotdesign/cr-dotenv
+    version: ~&gt; 0.2.0
+  # this should be removed
+  # dotenv:
+  #   github: gdotdesign/cr-dotenv
+  #   version: ~&gt; 0.8.0
+  # use this instead - be shure to follow the instructions at (global search and replace is your friend):
+  # https://github.com/luckyframework/lucky/blob/master/UPGRADE_NOTES.md
+  lucky_env:
+    github: luckyframework/lucky_env
+    version: ~&gt; 0.1.3
   lucky_task:
     github: luckyframework/lucky_task
+    # version: ~&gt; 0.8.0
   jwt:
     github: crystal-community/jwt
+    # version: ~&gt; 0.7.3
 development_dependencies:
   lucky_flow:
     github: luckyframework/lucky_flow
+    # version: ~&gt; 0.7.3
 </code></pre>
-<p>OK - leys try again!</p>
-<pre><code class="language-bash">shards update lucky
+<p>Now type:</p>
+<pre><code class="language-bash">shards update
 shards list
 </code></pre>
 <p>Cool - it worked!</p>
