@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HTML | btihen</title>
-    <link>https://btihen.me/tags/html/</link>
-      <atom:link href="https://btihen.me/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/html/</link>
+      <atom:link href="http://localhost:1313/tags/html/index.xml" rel="self" type="application/rss+xml" />
     <description>HTML</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 20 Feb 2021 18:57:00 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>HTML</title>
-      <link>https://btihen.me/tags/html/</link>
+      <link>http://localhost:1313/tags/html/</link>
     </image>
     
     <item>
       <title>Tweets - A Single Page Rails App (using reloads)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
       <pubDate>Sat, 20 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_hotwire_tweet_single_page/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_hotwire_tweet_single_page/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt; allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;

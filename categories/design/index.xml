@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Design | btihen</title>
-    <link>https://btihen.me/categories/design/</link>
-      <atom:link href="https://btihen.me/categories/design/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/categories/design/</link>
+      <atom:link href="http://localhost:1313/categories/design/index.xml" rel="self" type="application/rss+xml" />
     <description>Design</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 01 Nov 2020 01:57:16 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Design</title>
-      <link>https://btihen.me/categories/design/</link>
+      <link>http://localhost:1313/categories/design/</link>
     </image>
     
     <item>
       <title>Web Design Resources</title>
-      <link>https://btihen.me/post_tech_notes/web_design_resources/</link>
+      <link>http://localhost:1313/post_tech_notes/web_design_resources/</link>
       <pubDate>Sun, 01 Nov 2020 01:57:16 +0200</pubDate>
-      <guid>https://btihen.me/post_tech_notes/web_design_resources/</guid>
+      <guid>http://localhost:1313/post_tech_notes/web_design_resources/</guid>
       <description>&lt;h2 id=&#34;thesarus-word-finder&#34;&gt;Thesarus (word finder)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;

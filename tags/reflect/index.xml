@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>reflect | btihen</title>
-    <link>https://btihen.me/tags/reflect/</link>
-      <atom:link href="https://btihen.me/tags/reflect/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/reflect/</link>
+      <atom:link href="http://localhost:1313/tags/reflect/index.xml" rel="self" type="application/rss+xml" />
     <description>reflect</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 24 May 2020 15:16:45 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>reflect</title>
-      <link>https://btihen.me/tags/reflect/</link>
+      <link>http://localhost:1313/tags/reflect/</link>
     </image>
     
     <item>
       <title>Explore, Uplift and Reflect</title>
-      <link>https://btihen.me/post_edu/explore_uplift_reflect/</link>
+      <link>http://localhost:1313/post_edu/explore_uplift_reflect/</link>
       <pubDate>Sun, 24 May 2020 15:16:45 +0200</pubDate>
-      <guid>https://btihen.me/post_edu/explore_uplift_reflect/</guid>
+      <guid>http://localhost:1313/post_edu/explore_uplift_reflect/</guid>
       <description>&lt;p&gt;Basically a mix of having the kids build on their strengths, &lt;strong&gt;exploring&lt;/strong&gt; the doing project based with and goal and within a context of the student&amp;rsquo;s choice.  The project-work uses many agile processes*, one step outside their knowledge/comfort,&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Agility in this context means small-teams that work with small aspects of a bigger objective and build their knowledge / project iteratively and reflect (on demo suggestions (feedback) AND their own learning process) to inform the next iteration and enjoy the exploration of knowledge.&lt;/li&gt;

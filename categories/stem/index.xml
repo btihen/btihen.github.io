@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>stem | btihen</title>
-    <link>https://btihen.me/categories/stem/</link>
-      <atom:link href="https://btihen.me/categories/stem/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/categories/stem/</link>
+      <atom:link href="http://localhost:1313/categories/stem/index.xml" rel="self" type="application/rss+xml" />
     <description>stem</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 25 May 2017 14:10:13 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>stem</title>
-      <link>https://btihen.me/categories/stem/</link>
+      <link>http://localhost:1313/categories/stem/</link>
     </image>
     
     <item>
       <title>Robot Gardener</title>
-      <link>https://btihen.me/publication/las_spotlight_robot_gardener/</link>
+      <link>http://localhost:1313/publication/las_spotlight_robot_gardener/</link>
       <pubDate>Thu, 25 May 2017 14:10:13 +0200</pubDate>
-      <guid>https://btihen.me/publication/las_spotlight_robot_gardener/</guid>
+      <guid>http://localhost:1313/publication/las_spotlight_robot_gardener/</guid>
       <description></description>
     </item>
     

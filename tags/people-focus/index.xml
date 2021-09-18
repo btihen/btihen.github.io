@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>people focus | btihen</title>
-    <link>https://btihen.me/tags/people-focus/</link>
-      <atom:link href="https://btihen.me/tags/people-focus/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/people-focus/</link>
+      <atom:link href="http://localhost:1313/tags/people-focus/index.xml" rel="self" type="application/rss+xml" />
     <description>people focus</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 16 Dec 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>people focus</title>
-      <link>https://btihen.me/tags/people-focus/</link>
+      <link>http://localhost:1313/tags/people-focus/</link>
     </image>
     
     <item>
       <title>Roots of Agile for Education</title>
-      <link>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</link>
+      <link>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</link>
       <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</guid>
+      <guid>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</guid>
       <description></description>
     </item>
     

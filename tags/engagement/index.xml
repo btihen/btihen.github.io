@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>engagement | btihen</title>
-    <link>https://btihen.me/tags/engagement/</link>
-      <atom:link href="https://btihen.me/tags/engagement/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/engagement/</link>
+      <atom:link href="http://localhost:1313/tags/engagement/index.xml" rel="self" type="application/rss+xml" />
     <description>engagement</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 01 Jun 2020 16:57:16 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>engagement</title>
-      <link>https://btihen.me/tags/engagement/</link>
+      <link>http://localhost:1313/tags/engagement/</link>
     </image>
     
     <item>
       <title>Exploration in the Classroom</title>
-      <link>https://btihen.me/post_edu/edgility_btihen_exploration/</link>
+      <link>http://localhost:1313/post_edu/edgility_btihen_exploration/</link>
       <pubDate>Mon, 01 Jun 2020 16:57:16 +0200</pubDate>
-      <guid>https://btihen.me/post_edu/edgility_btihen_exploration/</guid>
+      <guid>http://localhost:1313/post_edu/edgility_btihen_exploration/</guid>
       <description>&lt;p&gt;Fun and a sense of adventure can be crucial to classroom engagement and learning. Cultivating a sense of adventure is similar to encouraging an atmosphere of playfulness and joy of learning. This can be quite straightforward when students are allowed to create their own goals and their own context for the goals within the curriculum. Of course, any good adventure can’t be too easy. It’s the teacher’s job to make sure a project has no obvious, googleable answer.&lt;/p&gt;
 &lt;p&gt;We might worry that making the project hard and beyond what the students know how to do could be unfair or even unjust. This might be true. When students are used to the mindset of getting things right the first time, it is difficult for them to take an idea and ‘play’ with it until something works. This adjustment takes some time, but once they get the hang of it, students enjoy exploring and they learn quickly.&lt;/p&gt;
 &lt;p&gt;Personally, I most enjoy  observing how students learn resilience through ‘playing’ with ideas and trying different options until they find a solution. In fact, in today’s world it may be more important to learn resilience, persistence, and finding the next small workable step in order to progress toward a goal.&lt;/p&gt;
@@ -47,25 +47,25 @@
     
     <item>
       <title>Build Confidence: Exploration and Student Choice</title>
-      <link>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</link>
+      <link>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</link>
       <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</guid>
+      <guid>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
+      <link>http://localhost:1313/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
+      <guid>http://localhost:1313/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Designed to Float your Boat</title>
-      <link>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</link>
+      <link>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</link>
       <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</guid>
+      <guid>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</guid>
       <description>&lt;iframe allowfullscreen allow=&#34;fullscreen&#34; style=&#34;border:none;width:100%;height:326px;&#34; src=&#34;https://issuu.com/ecischools/docs/globalinsights6&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;Student boat (before 3-D printing)
 &lt;img src=&#34;student_katamaran_boat.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;

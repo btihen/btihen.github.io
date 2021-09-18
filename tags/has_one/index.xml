@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>has_one | btihen</title>
-    <link>https://btihen.me/tags/has_one/</link>
-      <atom:link href="https://btihen.me/tags/has_one/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/has_one/</link>
+      <atom:link href="http://localhost:1313/tags/has_one/index.xml" rel="self" type="application/rss+xml" />
     <description>has_one</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 30 May 2021 01:57:00 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>has_one</title>
-      <link>https://btihen.me/tags/has_one/</link>
+      <link>http://localhost:1313/tags/has_one/</link>
     </image>
     
     <item>
       <title>Rails 6.x - Framework Agnostic Associations - part 2</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_3/</link>
       <pubDate>Sun, 30 May 2021 01:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_3/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.&lt;/p&gt;
 &lt;p&gt;This is the second article in the series.  This article builds on (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;
@@ -270,9 +270,9 @@ git commit -m &amp;quot;created an agnostic polymorphic model with data integrit
     
     <item>
       <title>Rails 6.x - Framework Agnostic Associations - part 2</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_2/</link>
       <pubDate>Sat, 29 May 2021 01:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_2/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.&lt;/p&gt;
 &lt;p&gt;This is the second article in the series.  This article builds on (part 1)[post_ruby_rails/rails_6_x_agnostic_associations_1/]&lt;/p&gt;

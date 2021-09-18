@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>project based | btihen</title>
-    <link>https://btihen.me/tags/project-based/</link>
-      <atom:link href="https://btihen.me/tags/project-based/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/project-based/</link>
+      <atom:link href="http://localhost:1313/tags/project-based/index.xml" rel="self" type="application/rss+xml" />
     <description>project based</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 16 Apr 2019 18:04:29 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>project based</title>
-      <link>https://btihen.me/tags/project-based/</link>
+      <link>http://localhost:1313/tags/project-based/</link>
     </image>
     
     <item>
       <title>Getting Agile at School</title>
-      <link>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</link>
+      <link>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</link>
       <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
-      <guid>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</guid>
+      <guid>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</guid>
       <description></description>
     </item>
     

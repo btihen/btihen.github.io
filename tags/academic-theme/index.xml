@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Academic Theme | btihen</title>
-    <link>https://btihen.me/tags/academic-theme/</link>
-      <atom:link href="https://btihen.me/tags/academic-theme/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/academic-theme/</link>
+      <atom:link href="http://localhost:1313/tags/academic-theme/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic Theme</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 23 May 2020 10:39:21 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Academic Theme</title>
-      <link>https://btihen.me/tags/academic-theme/</link>
+      <link>http://localhost:1313/tags/academic-theme/</link>
     </image>
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</link>
+      <link>http://localhost:1313/post_tech_notes/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</guid>
+      <guid>http://localhost:1313/post_tech_notes/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;

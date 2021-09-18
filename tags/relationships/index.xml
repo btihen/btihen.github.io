@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Relationships | btihen</title>
-    <link>https://btihen.me/tags/relationships/</link>
-      <atom:link href="https://btihen.me/tags/relationships/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/relationships/</link>
+      <atom:link href="http://localhost:1313/tags/relationships/index.xml" rel="self" type="application/rss+xml" />
     <description>Relationships</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 02 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Relationships</title>
-      <link>https://btihen.me/tags/relationships/</link>
+      <link>http://localhost:1313/tags/relationships/</link>
     </image>
     
     <item>
       <title>Lucky Framework with Crystal Language</title>
-      <link>https://btihen.me/post_crystal/lucky_0_27_project_basics/</link>
+      <link>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_crystal/lucky_0_27_project_basics/</guid>
+      <guid>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.&lt;/p&gt;
 &lt;p&gt;If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I&amp;rsquo;ll probably switch to Lucky.&lt;/p&gt;
@@ -888,9 +888,9 @@ SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
     
     <item>
       <title>Phoenix 1.5 Blog with Comments</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</link>
+      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</link>
       <pubDate>Fri, 10 Jul 2020 09:43:51 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</guid>
+      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article builds on the existing article: 
 &lt;a href=&#34;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&lt;/a&gt; and adds nested relationships and has_many_through.&lt;/p&gt;
@@ -1264,9 +1264,9 @@ git commit -m &amp;quot;handle comment creation errors&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
+      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
+      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;

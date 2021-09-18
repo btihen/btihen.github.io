@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Agile | btihen</title>
-    <link>https://btihen.me/tags/agile/</link>
-      <atom:link href="https://btihen.me/tags/agile/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/agile/</link>
+      <atom:link href="http://localhost:1313/tags/agile/index.xml" rel="self" type="application/rss+xml" />
     <description>Agile</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 24 May 2020 15:16:45 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Agile</title>
-      <link>https://btihen.me/tags/agile/</link>
+      <link>http://localhost:1313/tags/agile/</link>
     </image>
     
     <item>
       <title>Explore, Uplift and Reflect</title>
-      <link>https://btihen.me/post_edu/explore_uplift_reflect/</link>
+      <link>http://localhost:1313/post_edu/explore_uplift_reflect/</link>
       <pubDate>Sun, 24 May 2020 15:16:45 +0200</pubDate>
-      <guid>https://btihen.me/post_edu/explore_uplift_reflect/</guid>
+      <guid>http://localhost:1313/post_edu/explore_uplift_reflect/</guid>
       <description>&lt;p&gt;Basically a mix of having the kids build on their strengths, &lt;strong&gt;exploring&lt;/strong&gt; the doing project based with and goal and within a context of the student&amp;rsquo;s choice.  The project-work uses many agile processes*, one step outside their knowledge/comfort,&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Agility in this context means small-teams that work with small aspects of a bigger objective and build their knowledge / project iteratively and reflect (on demo suggestions (feedback) AND their own learning process) to inform the next iteration and enjoy the exploration of knowledge.&lt;/li&gt;
@@ -96,9 +96,9 @@ If a state or other external final exam like an AP test is part of the course &a
     
     <item>
       <title>Webinar Agility by Tim Logan</title>
-      <link>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
+      <link>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
+      <guid>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
       <description>&lt;p&gt;Tim Logan posted an interesting educational agility video of his ECIS Webinar and used materials developed my Paul Magnuson &amp;amp; me.  He posted his slide deck on Trello.&lt;/p&gt;
 &lt;p&gt;Tim Logan&amp;rsquo;s video Intro into his Educational Agility webinar for ECIS.
 
@@ -119,65 +119,65 @@ If a state or other external final exam like an AP test is part of the course &a
     
     <item>
       <title>Demos and Feedback in the Classroom</title>
-      <link>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
+      <link>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
+      <guid>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Build Confidence: Exploration and Student Choice</title>
-      <link>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</link>
+      <link>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</link>
       <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</guid>
+      <guid>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pull vs Push: Student Centric</title>
-      <link>https://btihen.me/publication/tieonline_pull_vs_push/</link>
+      <link>http://localhost:1313/publication/tieonline_pull_vs_push/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_pull_vs_push/</guid>
+      <guid>http://localhost:1313/publication/tieonline_pull_vs_push/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
+      <link>http://localhost:1313/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
+      <guid>http://localhost:1313/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Roots of Agile for Education</title>
-      <link>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</link>
+      <link>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</link>
       <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</guid>
+      <guid>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Patient Explanations Lead to Good Things</title>
-      <link>https://btihen.me/publication/las_spotlight_patient_explanations/</link>
+      <link>http://localhost:1313/publication/las_spotlight_patient_explanations/</link>
       <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/las_spotlight_patient_explanations/</guid>
+      <guid>http://localhost:1313/publication/las_spotlight_patient_explanations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Getting Agile at School</title>
-      <link>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</link>
+      <link>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</link>
       <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
-      <guid>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</guid>
+      <guid>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Designed to Float your Boat</title>
-      <link>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</link>
+      <link>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</link>
       <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</guid>
+      <guid>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</guid>
       <description>&lt;iframe allowfullscreen allow=&#34;fullscreen&#34; style=&#34;border:none;width:100%;height:326px;&#34; src=&#34;https://issuu.com/ecischools/docs/globalinsights6&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;Student boat (before 3-D printing)
 &lt;img src=&#34;student_katamaran_boat.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;
@@ -192,25 +192,25 @@ If a state or other external final exam like an AP test is part of the course &a
     
     <item>
       <title>Robot Gardener</title>
-      <link>https://btihen.me/publication/las_spotlight_robot_gardener/</link>
+      <link>http://localhost:1313/publication/las_spotlight_robot_gardener/</link>
       <pubDate>Thu, 25 May 2017 14:10:13 +0200</pubDate>
-      <guid>https://btihen.me/publication/las_spotlight_robot_gardener/</guid>
+      <guid>http://localhost:1313/publication/las_spotlight_robot_gardener/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Introducing EDgility</title>
-      <link>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</link>
+      <link>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</guid>
+      <guid>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Agile in Education at Leysin American School</title>
-      <link>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</link>
+      <link>http://localhost:1313/in_news/agile_in_education_at_las_interview_agile_amped/</link>
       <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</guid>
+      <guid>http://localhost:1313/in_news/agile_in_education_at_las_interview_agile_amped/</guid>
       <description>&lt;p&gt;How would our education system be different using agile principles and values?&lt;/p&gt;
 &lt;p&gt;In this InDepth edition, our conversation focuses around the American School in Leysin, Switzerland, and their experiments over the past 3 yrs in Agile in Education. My guests are Paul Magnuson ( Director of Curriculum &amp;amp; Director of the Middle School) and Bill Tihen ( Director of IT, Teacher, and runs the Makers Space )
 Empowering students, making learning visible, and creating life long learners are goals for Paul and Bill as they lead this movement at Leysin.&lt;/p&gt;
@@ -220,9 +220,9 @@ Empowering students, making learning visible, and creating life long learners ar
     
     <item>
       <title>Agile Classrooms in the Alps</title>
-      <link>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</link>
+      <link>http://localhost:1313/in_news/agile_classrooms_article_agile_classrooms/</link>
       <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</guid>
+      <guid>http://localhost:1313/in_news/agile_classrooms_article_agile_classrooms/</guid>
       <description>&lt;p&gt;To help incorporate Agile into their school, they [Paul Magnuson and Bill Tihen] brought in John Miller, a Certified Scrum Coach and Chief Empowerment Officer of Agile Classrooms, for two days of training. The Scrum Alliance has been a big supporter of John’s commitment to using Scrum to transform the world of education ever since he unveiled the first classroom to use Scrum at the Atlanta Scrum Gathering in 2010. When the Scrum Alliance, the largest Agile organization in the world, heard of Paul and Bill’s desire to implement Scrum for their students, they stepped up to sponsor the event. The Swiss Group of International Schools also co-sponsored the workshop.&lt;/p&gt;
 &lt;p&gt;The Agile Classrooms Workshop&lt;/p&gt;
 </description>

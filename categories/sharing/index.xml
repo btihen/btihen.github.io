@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sharing | btihen</title>
-    <link>https://btihen.me/categories/sharing/</link>
-      <atom:link href="https://btihen.me/categories/sharing/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/categories/sharing/</link>
+      <atom:link href="http://localhost:1313/categories/sharing/index.xml" rel="self" type="application/rss+xml" />
     <description>Sharing</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Sharing</title>
-      <link>https://btihen.me/categories/sharing/</link>
+      <link>http://localhost:1313/categories/sharing/</link>
     </image>
     
     <item>
       <title>Shared Schedule</title>
-      <link>https://btihen.me/projects/mobile_calendar/</link>
+      <link>http://localhost:1313/projects/mobile_calendar/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>https://btihen.me/projects/mobile_calendar/</guid>
+      <guid>http://localhost:1313/projects/mobile_calendar/</guid>
       <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
 </description>
     </item>

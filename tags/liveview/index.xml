@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>LiveView | btihen</title>
-    <link>https://btihen.me/tags/liveview/</link>
-      <atom:link href="https://btihen.me/tags/liveview/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/liveview/</link>
+      <atom:link href="http://localhost:1313/tags/liveview/index.xml" rel="self" type="application/rss+xml" />
     <description>LiveView</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 10 Apr 2021 17:01:53 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>LiveView</title>
-      <link>https://btihen.me/tags/liveview/</link>
+      <link>http://localhost:1313/tags/liveview/</link>
     </image>
     
     <item>
       <title>Phoenix LiveView - Simple Real-Time SPA</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</link>
+      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</link>
       <pubDate>Sat, 10 Apr 2021 17:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
+      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
       <description>&lt;p&gt;Here is a quick example of how to create a very simple &amp;ldquo;real-time&amp;rdquo;-&amp;ldquo;single-page-app&amp;rdquo; using phoenix-liveview.  This provides the same functionality to as 
 &lt;a href=&#34;post_ruby_rails/rails_6_1_hotwire_simple_realtime&#34;&gt;Realtime Rails with Hotwire&lt;/a&gt; - in order to compare.&lt;/p&gt;
 &lt;p&gt;The repo can be found here: 
@@ -270,9 +270,9 @@ git commit -m &amp;quot;add realtime broadcast to all users&amp;quot;
     
     <item>
       <title>Phoenix 1.5 PETAL Stack Setup - w/ asdf</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</link>
+      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</link>
       <pubDate>Sat, 10 Apr 2021 01:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</guid>
+      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</guid>
       <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
 &lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
 &lt;ul&gt;
@@ -544,9 +544,9 @@ git commit -m &amp;quot;Tailwind installed&amp;quot;
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
+      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
+      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;

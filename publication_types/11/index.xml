@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>11 | btihen</title>
-    <link>https://btihen.me/publication_types/11/</link>
-      <atom:link href="https://btihen.me/publication_types/11/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/publication_types/11/</link>
+      <atom:link href="http://localhost:1313/publication_types/11/index.xml" rel="self" type="application/rss+xml" />
     <description>11</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 25 Apr 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>11</title>
-      <link>https://btihen.me/publication_types/11/</link>
+      <link>http://localhost:1313/publication_types/11/</link>
     </image>
     
     <item>
       <title>Webinar Agility by Tim Logan</title>
-      <link>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
+      <link>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
+      <guid>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
       <description>&lt;p&gt;Tim Logan posted an interesting educational agility video of his ECIS Webinar and used materials developed my Paul Magnuson &amp;amp; me.  He posted his slide deck on Trello.&lt;/p&gt;
 &lt;p&gt;Tim Logan&amp;rsquo;s video Intro into his Educational Agility webinar for ECIS.
 
@@ -37,9 +37,9 @@
     
     <item>
       <title>Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School</title>
-      <link>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</link>
+      <link>http://localhost:1313/in_news/agile_in_education_interview_scrum_alliance/</link>
       <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</guid>
+      <guid>http://localhost:1313/in_news/agile_in_education_interview_scrum_alliance/</guid>
       <description>&lt;p&gt;A discussion with Scrum Alliance on the importance of bringing Agile into Educaion and a few important implementation points.&lt;/p&gt;
 
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;

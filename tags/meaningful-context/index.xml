@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>meaningful context | btihen</title>
-    <link>https://btihen.me/tags/meaningful-context/</link>
-      <atom:link href="https://btihen.me/tags/meaningful-context/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/meaningful-context/</link>
+      <atom:link href="http://localhost:1313/tags/meaningful-context/index.xml" rel="self" type="application/rss+xml" />
     <description>meaningful context</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 31 Dec 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>meaningful context</title>
-      <link>https://btihen.me/tags/meaningful-context/</link>
+      <link>http://localhost:1313/tags/meaningful-context/</link>
     </image>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
+      <link>http://localhost:1313/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
+      <guid>http://localhost:1313/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     

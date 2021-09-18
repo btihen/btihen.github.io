@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>initialize | btihen</title>
+    <link>http://localhost:1313/tags/initialize/</link>
+      <atom:link href="http://localhost:1313/tags/initialize/index.xml" rel="self" type="application/rss+xml" />
+    <description>initialize</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:20:00 +0200</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <title>initialize</title>
+      <link>http://localhost:1313/tags/initialize/</link>
+    </image>
+    
+    <item>
+      <title>Rails 7.0alpha2 Test-drive</title>
+      <link>http://localhost:1313/post_ruby_rails/rails_7_0_alpha_test_drive/</link>
+      <pubDate>Sat, 18 Sep 2021 21:20:00 +0200</pubDate>
+      <guid>http://localhost:1313/post_ruby_rails/rails_7_0_alpha_test_drive/</guid>
+      <description>&lt;p&gt;I thought it would be fun to test the new alpha version of rails - but I always forget how to do this without upgrading an existing projects.&lt;/p&gt;
+&lt;h3 id=&#34;discover-the-rails-pre-release-versions&#34;&gt;Discover the Rails Pre-release versions&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem list rails --remote --prerelease -e
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;ndash;remote - checks the rubygems site - not the locally installed versions
+&amp;ndash;prerelease - find pre-release versions
+-e - use an exact match (many packages have rails in the name).&lt;/p&gt;
+&lt;h3 id=&#34;install-the-rails-alpha-gems&#34;&gt;Install the Rails Alpha Gems&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install rails --version 7.0.0.alpha2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;this installs a usable local version of rails&lt;/p&gt;
+&lt;h3 id=&#34;initailize-a-new-rails-project-with-a-specific-version&#34;&gt;Initailize a new Rails project with a specific version&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails _7.0.0.alpha2_ new magic_links
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now continue as normal!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Crystal Language | btihen</title>
-    <link>https://btihen.me/tags/crystal-language/</link>
-      <atom:link href="https://btihen.me/tags/crystal-language/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/crystal-language/</link>
+      <atom:link href="http://localhost:1313/tags/crystal-language/index.xml" rel="self" type="application/rss+xml" />
     <description>Crystal Language</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 02 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Crystal Language</title>
-      <link>https://btihen.me/tags/crystal-language/</link>
+      <link>http://localhost:1313/tags/crystal-language/</link>
     </image>
     
     <item>
       <title>Lucky Framework with Crystal Language</title>
-      <link>https://btihen.me/post_crystal/lucky_0_27_project_basics/</link>
+      <link>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_crystal/lucky_0_27_project_basics/</guid>
+      <guid>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.&lt;/p&gt;
 &lt;p&gt;If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I&amp;rsquo;ll probably switch to Lucky.&lt;/p&gt;

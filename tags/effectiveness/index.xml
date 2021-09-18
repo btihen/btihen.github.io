@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>effectiveness | btihen</title>
-    <link>https://btihen.me/tags/effectiveness/</link>
-      <atom:link href="https://btihen.me/tags/effectiveness/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/effectiveness/</link>
+      <atom:link href="http://localhost:1313/tags/effectiveness/index.xml" rel="self" type="application/rss+xml" />
     <description>effectiveness</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>effectiveness</title>
-      <link>https://btihen.me/tags/effectiveness/</link>
+      <link>http://localhost:1313/tags/effectiveness/</link>
     </image>
     
     <item>
       <title>Pull vs Push: Student Centric</title>
-      <link>https://btihen.me/publication/tieonline_pull_vs_push/</link>
+      <link>http://localhost:1313/publication/tieonline_pull_vs_push/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_pull_vs_push/</guid>
+      <guid>http://localhost:1313/publication/tieonline_pull_vs_push/</guid>
       <description></description>
     </item>
     

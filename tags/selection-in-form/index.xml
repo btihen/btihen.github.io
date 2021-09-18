@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>selection in form | btihen</title>
-    <link>https://btihen.me/tags/selection-in-form/</link>
-      <atom:link href="https://btihen.me/tags/selection-in-form/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/selection-in-form/</link>
+      <atom:link href="http://localhost:1313/tags/selection-in-form/index.xml" rel="self" type="application/rss+xml" />
     <description>selection in form</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 04 Jul 2020 13:06:29 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>selection in form</title>
-      <link>https://btihen.me/tags/selection-in-form/</link>
+      <link>http://localhost:1313/tags/selection-in-form/</link>
     </image>
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
+      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
+      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;

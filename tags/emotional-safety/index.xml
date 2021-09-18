@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>emotional safety | btihen</title>
-    <link>https://btihen.me/tags/emotional-safety/</link>
-      <atom:link href="https://btihen.me/tags/emotional-safety/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/emotional-safety/</link>
+      <atom:link href="http://localhost:1313/tags/emotional-safety/index.xml" rel="self" type="application/rss+xml" />
     <description>emotional safety</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>emotional safety</title>
-      <link>https://btihen.me/tags/emotional-safety/</link>
+      <link>http://localhost:1313/tags/emotional-safety/</link>
     </image>
     
     <item>
       <title>Demos and Feedback in the Classroom</title>
-      <link>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
+      <link>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
+      <guid>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
       <description></description>
     </item>
     

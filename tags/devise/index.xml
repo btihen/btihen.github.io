@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>devise | btihen</title>
-    <link>https://btihen.me/tags/devise/</link>
-      <atom:link href="https://btihen.me/tags/devise/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/devise/</link>
+      <atom:link href="http://localhost:1313/tags/devise/index.xml" rel="self" type="application/rss+xml" />
     <description>devise</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 10 Jul 2020 20:45:51 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>devise</title>
-      <link>https://btihen.me/tags/devise/</link>
+      <link>http://localhost:1313/tags/devise/</link>
     </image>
     
     <item>
       <title>Rails Devise User Model with Roles</title>
-      <link>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_devise_users_namespaced/</link>
       <pubDate>Fri, 10 Jul 2020 20:45:51 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_devise_users_namespaced/</guid>
       <description>&lt;h2 id=&#34;configure-devise-for-multiple-types-of-accounts&#34;&gt;Configure devise (for multiple types of accounts)&lt;/h2&gt;
 &lt;p&gt;install the devise engine:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails generate devise:install

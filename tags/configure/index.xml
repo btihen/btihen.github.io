@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>configure | btihen</title>
-    <link>https://btihen.me/tags/configure/</link>
-      <atom:link href="https://btihen.me/tags/configure/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/configure/</link>
+      <atom:link href="http://localhost:1313/tags/configure/index.xml" rel="self" type="application/rss+xml" />
     <description>configure</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 10 Sep 2020 02:46:07 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>configure</title>
-      <link>https://btihen.me/tags/configure/</link>
+      <link>http://localhost:1313/tags/configure/</link>
     </image>
     
     <item>
       <title>Rails 6.1 with TailwindCSS 2.0 and AlpineJS</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</link>
       <pubDate>Thu, 10 Sep 2020 02:46:07 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
 &lt;p&gt;TailwindCSS is a very flexible CSS framework and makes it easy to customize unique web pages and animations.&lt;/p&gt;
 &lt;p&gt;Unfortunately, with Rails its a bit tricky to install and configure with Rails Standards.&lt;/p&gt;
@@ -277,9 +277,9 @@ inline_svg_pack_tag(file_name, options={})
     
     <item>
       <title>Install and Configure Rails</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_install_n_configure/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_install_n_configure/</link>
       <pubDate>Thu, 10 Sep 2020 01:46:07 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_install_n_configure/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_install_n_configure/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
 &lt;p&gt;To document is mostly for me &amp;ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too.  I will build a little calendar app I use with friends (it&amp;rsquo;s focused on being mobile friendly and easy to use &amp;ndash; not a full featured calendar).&lt;/p&gt;
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;

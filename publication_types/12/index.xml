@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>12 | btihen</title>
-    <link>https://btihen.me/publication_types/12/</link>
-      <atom:link href="https://btihen.me/publication_types/12/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/publication_types/12/</link>
+      <atom:link href="http://localhost:1313/publication_types/12/index.xml" rel="self" type="application/rss+xml" />
     <description>12</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>12</title>
-      <link>https://btihen.me/publication_types/12/</link>
+      <link>http://localhost:1313/publication_types/12/</link>
     </image>
     
     <item>
       <title>Demos and Feedback in the Classroom</title>
-      <link>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
+      <link>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
+      <guid>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Build Confidence: Exploration and Student Choice</title>
-      <link>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</link>
+      <link>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</link>
       <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</guid>
+      <guid>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pull vs Push: Student Centric</title>
-      <link>https://btihen.me/publication/tieonline_pull_vs_push/</link>
+      <link>http://localhost:1313/publication/tieonline_pull_vs_push/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_pull_vs_push/</guid>
+      <guid>http://localhost:1313/publication/tieonline_pull_vs_push/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
+      <link>http://localhost:1313/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
+      <guid>http://localhost:1313/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Roots of Agile for Education</title>
-      <link>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</link>
+      <link>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</link>
       <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</guid>
+      <guid>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</guid>
       <description></description>
     </item>
     

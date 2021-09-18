@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>language | btihen</title>
-    <link>https://btihen.me/tags/language/</link>
-      <atom:link href="https://btihen.me/tags/language/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/language/</link>
+      <atom:link href="http://localhost:1313/tags/language/index.xml" rel="self" type="application/rss+xml" />
     <description>language</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 12 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>language</title>
-      <link>https://btihen.me/tags/language/</link>
+      <link>http://localhost:1313/tags/language/</link>
     </image>
     
     <item>
       <title>Lucky Language Inflections - 0.28.0</title>
-      <link>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</link>
+      <link>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</link>
       <pubDate>Wed, 12 May 2021 01:01:53 +0200</pubDate>
-      <guid>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</guid>
+      <guid>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</guid>
       <description>&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
 &lt;p&gt;It is helpful to be able to configure your cli-tasks to work the same as lucky.
 In lucky you can configure the application&amp;rsquo;s behavior / settings in the &lt;code&gt;config&lt;/code&gt; folder.&lt;/p&gt;

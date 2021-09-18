@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>9 | btihen</title>
-    <link>https://btihen.me/publication_types/9/</link>
-      <atom:link href="https://btihen.me/publication_types/9/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/publication_types/9/</link>
+      <atom:link href="http://localhost:1313/publication_types/9/index.xml" rel="self" type="application/rss+xml" />
     <description>9</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 25 Apr 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>9</title>
-      <link>https://btihen.me/publication_types/9/</link>
+      <link>http://localhost:1313/publication_types/9/</link>
     </image>
     
     <item>
       <title>Webinar Agility by Tim Logan</title>
-      <link>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
+      <link>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
+      <guid>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
       <description>&lt;p&gt;Tim Logan posted an interesting educational agility video of his ECIS Webinar and used materials developed my Paul Magnuson &amp;amp; me.  He posted his slide deck on Trello.&lt;/p&gt;
 &lt;p&gt;Tim Logan&amp;rsquo;s video Intro into his Educational Agility webinar for ECIS.
 
@@ -37,9 +37,9 @@
     
     <item>
       <title>Agile Classrooms in the Alps</title>
-      <link>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</link>
+      <link>http://localhost:1313/in_news/agile_classrooms_article_agile_classrooms/</link>
       <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
-      <guid>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</guid>
+      <guid>http://localhost:1313/in_news/agile_classrooms_article_agile_classrooms/</guid>
       <description>&lt;p&gt;To help incorporate Agile into their school, they [Paul Magnuson and Bill Tihen] brought in John Miller, a Certified Scrum Coach and Chief Empowerment Officer of Agile Classrooms, for two days of training. The Scrum Alliance has been a big supporter of John’s commitment to using Scrum to transform the world of education ever since he unveiled the first classroom to use Scrum at the Atlanta Scrum Gathering in 2010. When the Scrum Alliance, the largest Agile organization in the world, heard of Paul and Bill’s desire to implement Scrum for their students, they stepped up to sponsor the event. The Swiss Group of International Schools also co-sponsored the workshop.&lt;/p&gt;
 &lt;p&gt;The Agile Classrooms Workshop&lt;/p&gt;
 </description>

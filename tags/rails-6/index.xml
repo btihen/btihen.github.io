@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rails 6 | btihen</title>
-    <link>https://btihen.me/tags/rails-6/</link>
-      <atom:link href="https://btihen.me/tags/rails-6/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/tags/rails-6/</link>
+      <atom:link href="http://localhost:1313/tags/rails-6/index.xml" rel="self" type="application/rss+xml" />
     <description>Rails 6</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 12 Aug 2021 01:11:22 +0200</lastBuildDate>
     <image>
-      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <url>http://localhost:1313/img/btihen_landing_page.png</url>
       <title>Rails 6</title>
-      <link>https://btihen.me/tags/rails-6/</link>
+      <link>http://localhost:1313/tags/rails-6/</link>
     </image>
     
     <item>
       <title>Squished String Type (Rails 5/6)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_x_squished_strings_type/</link>
       <pubDate>Thu, 12 Aug 2021 01:11:22 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_x_squished_strings_type/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3&lt;/a&gt;&lt;/li&gt;
@@ -347,12 +347,12 @@ end
     
     <item>
       <title>Tweets - A Single Page Rails App (using reloads)</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_1_single_page_app_simulate/</link>
       <pubDate>Sat, 20 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_single_page_app_simulate/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This article is just to have a base app that stays on the index page.  We will use this as a starting point for a more efficient single page app by updating this project with Hotwire in the next article 
-&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_hotwire_tweet_single_page/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_hotwire_tweet_single_page/&#34;&gt;Tweets - A Rails based Single Page App using Hotwire&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt; allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;
@@ -672,9 +672,9 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
     
     <item>
       <title>Rails 6.1 with TailwindCSS 2.0 and AlpineJS</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</link>
+      <link>http://localhost:1313/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</link>
       <pubDate>Thu, 10 Sep 2020 02:46:07 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</guid>
+      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
 &lt;p&gt;TailwindCSS is a very flexible CSS framework and makes it easy to customize unique web pages and animations.&lt;/p&gt;
 &lt;p&gt;Unfortunately, with Rails its a bit tricky to install and configure with Rails Standards.&lt;/p&gt;
