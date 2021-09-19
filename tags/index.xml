@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | btihen</title>
-    <link>http://localhost:1313/tags/</link>
-      <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/</link>
+      <atom:link href="https://btihen.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:20:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:36:55 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Tags</title>
-      <link>http://localhost:1313/tags/</link>
+      <link>https://btihen.me/tags/</link>
     </image>
     
   </channel>

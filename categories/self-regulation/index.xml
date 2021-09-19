@@ -2,77 +2,77 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Self-Regulation | btihen</title>
-    <link>http://localhost:1313/categories/self-regulation/</link>
-      <atom:link href="http://localhost:1313/categories/self-regulation/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/self-regulation/</link>
+      <atom:link href="https://btihen.me/categories/self-regulation/index.xml" rel="self" type="application/rss+xml" />
     <description>Self-Regulation</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Self-Regulation</title>
-      <link>http://localhost:1313/categories/self-regulation/</link>
+      <link>https://btihen.me/categories/self-regulation/</link>
     </image>
     
     <item>
       <title>Demos and Feedback in the Classroom</title>
-      <link>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
+      <link>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
+      <guid>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Build Confidence: Exploration and Student Choice</title>
-      <link>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</link>
+      <link>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</link>
       <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</guid>
+      <guid>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pull vs Push: Student Centric</title>
-      <link>http://localhost:1313/publication/tieonline_pull_vs_push/</link>
+      <link>https://btihen.me/publication/tieonline_pull_vs_push/</link>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_pull_vs_push/</guid>
+      <guid>https://btihen.me/publication/tieonline_pull_vs_push/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>http://localhost:1313/publication/tieonline_importance_of_challenge/</link>
+      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_importance_of_challenge/</guid>
+      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Roots of Agile for Education</title>
-      <link>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</link>
+      <link>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</link>
       <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</guid>
+      <guid>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Patient Explanations Lead to Good Things</title>
-      <link>http://localhost:1313/publication/las_spotlight_patient_explanations/</link>
+      <link>https://btihen.me/publication/las_spotlight_patient_explanations/</link>
       <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/las_spotlight_patient_explanations/</guid>
+      <guid>https://btihen.me/publication/las_spotlight_patient_explanations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Getting Agile at School</title>
-      <link>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</link>
+      <link>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</link>
       <pubDate>Tue, 16 Apr 2019 18:04:29 +0200</pubDate>
-      <guid>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</guid>
+      <guid>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Designed to Float your Boat</title>
-      <link>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</link>
+      <link>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</link>
       <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</guid>
+      <guid>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</guid>
       <description>&lt;iframe allowfullscreen allow=&#34;fullscreen&#34; style=&#34;border:none;width:100%;height:326px;&#34; src=&#34;https://issuu.com/ecischools/docs/globalinsights6&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;Student boat (before 3-D printing)
 &lt;img src=&#34;student_katamaran_boat.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;
@@ -87,17 +87,17 @@
     
     <item>
       <title>Introducing EDgility</title>
-      <link>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</link>
+      <link>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</guid>
+      <guid>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LETS ClimateCase</title>
-      <link>http://localhost:1313/publication/las_laser_lets_climate_case_laser_report_2015/</link>
+      <link>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</link>
       <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/las_laser_lets_climate_case_laser_report_2015/</guid>
+      <guid>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;climate_case_profile.jpeg&#34; alt=&#34;Climate Case Profile&#34;&gt;
 &lt;img src=&#34;climate_case_electronics.jpeg&#34; alt=&#34;Climate Case Electronics&#34;&gt;
 &lt;img src=&#34;climate_case_internal.jpeg&#34; alt=&#34;Climate Case Grow Space&#34;&gt;&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>retrospective | btihen</title>
-    <link>http://localhost:1313/tags/retrospective/</link>
-      <atom:link href="http://localhost:1313/tags/retrospective/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/retrospective/</link>
+      <atom:link href="https://btihen.me/tags/retrospective/index.xml" rel="self" type="application/rss+xml" />
     <description>retrospective</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 03 Oct 2020 01:16:28 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>retrospective</title>
-      <link>http://localhost:1313/tags/retrospective/</link>
+      <link>https://btihen.me/tags/retrospective/</link>
     </image>
     
     <item>
       <title>Reflection: The Key to Adaptability</title>
-      <link>http://localhost:1313/post_edu/edgility_btihen_reflection/</link>
+      <link>https://btihen.me/post_edu/edgility_btihen_reflection/</link>
       <pubDate>Sat, 03 Oct 2020 01:16:28 +0200</pubDate>
-      <guid>http://localhost:1313/post_edu/edgility_btihen_reflection/</guid>
+      <guid>https://btihen.me/post_edu/edgility_btihen_reflection/</guid>
       <description>&lt;p&gt;Adaptability is the key or maybe even the definition of agility, as discussed in Paul’s article 
-&lt;a href=&#34;http://localhost:1313/blog/edgility_pmagnuson_adaptability&#34;&gt;Adaptability article&lt;/a&gt;. In this article I’ll discuss how I try to instill adaptability as a classroom process for student learning. These practices are borrowed from tech companies and business consultants, but I am confident they can be applied in many contexts, including education, when properly adapted.&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/blog/edgility_pmagnuson_adaptability&#34;&gt;Adaptability article&lt;/a&gt;. In this article I’ll discuss how I try to instill adaptability as a classroom process for student learning. These practices are borrowed from tech companies and business consultants, but I am confident they can be applied in many contexts, including education, when properly adapted.&lt;/p&gt;
 &lt;p&gt;When I first taught, I only led reflections at the end of a learning unit or project and I encouraged the students to think deeply and go into detail. However, I realized that students have little practice with reflecting on their learning process, making a deep retrospective impractical. Additionally, I encourage an exploratory approach in class, where the student goal purposely doesn’t align with easy-to-google solutions, so students need to learn and adapt as they go. It turns out students generally have little practice adapting as they go, perhaps because the learning path is too easy, or too clean. Thus even project work doesn’t usually involve deep thinking, thoughtful decisions, and compromises to accomplish their goals.&lt;/p&gt;
 &lt;p&gt;My solution was to introduce mini-reflections at the end of each class and then ask what, if anything, students would do differently in the next class. I ask one or two questions, usually from this list:&lt;/p&gt;
 &lt;ul&gt;
@@ -42,9 +42,9 @@
     
     <item>
       <title>Explore, Uplift and Reflect</title>
-      <link>http://localhost:1313/post_edu/explore_uplift_reflect/</link>
+      <link>https://btihen.me/post_edu/explore_uplift_reflect/</link>
       <pubDate>Sun, 24 May 2020 15:16:45 +0200</pubDate>
-      <guid>http://localhost:1313/post_edu/explore_uplift_reflect/</guid>
+      <guid>https://btihen.me/post_edu/explore_uplift_reflect/</guid>
       <description>&lt;p&gt;Basically a mix of having the kids build on their strengths, &lt;strong&gt;exploring&lt;/strong&gt; the doing project based with and goal and within a context of the student&amp;rsquo;s choice.  The project-work uses many agile processes*, one step outside their knowledge/comfort,&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Agility in this context means small-teams that work with small aspects of a bigger objective and build their knowledge / project iteratively and reflect (on demo suggestions (feedback) AND their own learning process) to inform the next iteration and enjoy the exploration of knowledge.&lt;/li&gt;

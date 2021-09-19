@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>smallify | btihen</title>
-    <link>http://localhost:1313/tags/smallify/</link>
-      <atom:link href="http://localhost:1313/tags/smallify/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/smallify/</link>
+      <atom:link href="https://btihen.me/tags/smallify/index.xml" rel="self" type="application/rss+xml" />
     <description>smallify</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 13 Mar 2017 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>smallify</title>
-      <link>http://localhost:1313/tags/smallify/</link>
+      <link>https://btihen.me/tags/smallify/</link>
     </image>
     
     <item>
       <title>Introducing EDgility</title>
-      <link>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</link>
+      <link>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</guid>
+      <guid>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</guid>
       <description></description>
     </item>
     

@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Recent &amp; Upcoming Talks | btihen</title>
-    <link>http://localhost:1313/talk/</link>
-      <atom:link href="http://localhost:1313/talk/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/talk/</link>
+      <atom:link href="https://btihen.me/talk/index.xml" rel="self" type="application/rss+xml" />
     <description>Recent &amp; Upcoming Talks</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Recent &amp; Upcoming Talks</title>
-      <link>http://localhost:1313/talk/</link>
+      <link>https://btihen.me/talk/</link>
     </image>
     
   </channel>

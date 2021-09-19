@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dan Patton | btihen</title>
-    <link>http://localhost:1313/authors/dan-patton/</link>
-      <atom:link href="http://localhost:1313/authors/dan-patton/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/authors/dan-patton/</link>
+      <atom:link href="https://btihen.me/authors/dan-patton/index.xml" rel="self" type="application/rss+xml" />
     <description>Dan Patton</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Dan Patton</title>
-      <link>http://localhost:1313/authors/dan-patton/</link>
+      <link>https://btihen.me/authors/dan-patton/</link>
     </image>
     
     <item>
       <title>EDgility</title>
-      <link>http://localhost:1313/projects/edgility/</link>
+      <link>https://btihen.me/projects/edgility/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/edgility/</guid>
+      <guid>https://btihen.me/projects/edgility/</guid>
       <description>&lt;p&gt;EDgility focuses on Education Agility.  Inspired by agiles ability to create engaged and enthusiastic learning enviornments in technology companies.  We started with our top educational principles and we quietly integrated agile practices into our classrooms.&lt;/p&gt;
 </description>
     </item>

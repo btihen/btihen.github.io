@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lucky | btihen</title>
-    <link>http://localhost:1313/categories/lucky/</link>
-      <atom:link href="http://localhost:1313/categories/lucky/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/lucky/</link>
+      <atom:link href="https://btihen.me/categories/lucky/index.xml" rel="self" type="application/rss+xml" />
     <description>Lucky</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 12 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Lucky</title>
-      <link>http://localhost:1313/categories/lucky/</link>
+      <link>https://btihen.me/categories/lucky/</link>
     </image>
     
     <item>
       <title>Lucky Language Inflections - 0.28.0</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</link>
       <pubDate>Wed, 12 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</guid>
       <description>&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
 &lt;p&gt;It is helpful to be able to configure your cli-tasks to work the same as lucky.
 In lucky you can configure the application&amp;rsquo;s behavior / settings in the &lt;code&gt;config&lt;/code&gt; folder.&lt;/p&gt;
@@ -107,9 +107,9 @@ Generated Staff::FormFields in ./src/components/staff/form_fields.cr
     
     <item>
       <title>Lucky Framework Upgrade</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</link>
       <pubDate>Mon, 10 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.&lt;/p&gt;
 &lt;p&gt;The Lucky repo describes the changes to the shards file and the code base too.
@@ -197,9 +197,9 @@ shards list
     
     <item>
       <title>Lucky Framework with Crystal Language</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_27_project_basics/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_27_project_basics/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.&lt;/p&gt;
 &lt;p&gt;If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I&amp;rsquo;ll probably switch to Lucky.&lt;/p&gt;

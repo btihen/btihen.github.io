@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Overview | btihen</title>
-    <link>http://localhost:1313/explore/mint/</link>
-      <atom:link href="http://localhost:1313/explore/mint/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/explore/mint/</link>
+      <atom:link href="https://btihen.me/explore/mint/index.xml" rel="self" type="application/rss+xml" />
     <description>Overview</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 09 Sep 2018 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Overview</title>
-      <link>http://localhost:1313/explore/mint/</link>
+      <link>https://btihen.me/explore/mint/</link>
     </image>
     
     <item>
       <title>Mint CLI</title>
-      <link>http://localhost:1313/explore/mint/cli/</link>
+      <link>https://btihen.me/explore/mint/cli/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/explore/mint/cli/</guid>
+      <guid>https://btihen.me/explore/mint/cli/</guid>
       <description>&lt;p&gt;In this tutorial, I&amp;rsquo;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
 &lt;h2 id=&#34;mint-cli&#34;&gt;Mint CLI&lt;/h2&gt;
 </description>

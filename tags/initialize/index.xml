@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>initialize | btihen</title>
-    <link>http://localhost:1313/tags/initialize/</link>
-      <atom:link href="http://localhost:1313/tags/initialize/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/initialize/</link>
+      <atom:link href="https://btihen.me/tags/initialize/index.xml" rel="self" type="application/rss+xml" />
     <description>initialize</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:20:00 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>initialize</title>
-      <link>http://localhost:1313/tags/initialize/</link>
+      <link>https://btihen.me/tags/initialize/</link>
     </image>
     
     <item>
       <title>Rails 7.0alpha2 Test-drive</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_7_0_alpha_test_drive/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_7_0_alpha_test_drive/</link>
       <pubDate>Sat, 18 Sep 2021 21:20:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_7_0_alpha_test_drive/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_7_0_alpha_test_drive/</guid>
       <description>&lt;p&gt;I thought it would be fun to test the new alpha version of rails - but I always forget how to do this without upgrading an existing projects.&lt;/p&gt;
 &lt;h3 id=&#34;discover-the-rails-pre-release-versions&#34;&gt;Discover the Rails Pre-release versions&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem list rails --remote --prerelease -e

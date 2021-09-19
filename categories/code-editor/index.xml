@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code Editor | btihen</title>
-    <link>http://localhost:1313/categories/code-editor/</link>
-      <atom:link href="http://localhost:1313/categories/code-editor/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/code-editor/</link>
+      <atom:link href="https://btihen.me/categories/code-editor/index.xml" rel="self" type="application/rss+xml" />
     <description>Code Editor</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 03 Nov 2020 01:19:09 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Code Editor</title>
-      <link>http://localhost:1313/categories/code-editor/</link>
+      <link>https://btihen.me/categories/code-editor/</link>
     </image>
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>http://localhost:1313/post_tech_notes/codium_plugins/</link>
+      <link>https://btihen.me/post_tech_notes/codium_plugins/</link>
       <pubDate>Tue, 03 Nov 2020 01:19:09 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/codium_plugins/</guid>
+      <guid>https://btihen.me/post_tech_notes/codium_plugins/</guid>
       <description>&lt;p&gt;Need to point Codium to MS extions?  Do the following:&lt;/p&gt;
 &lt;h3 id=&#34;like-codium-but-need-a-ms-code-plugin&#34;&gt;&lt;strong&gt;Like Codium but need a MS Code Plugin?&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;

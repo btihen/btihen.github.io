@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PubSub | btihen</title>
-    <link>http://localhost:1313/tags/pubsub/</link>
-      <atom:link href="http://localhost:1313/tags/pubsub/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/pubsub/</link>
+      <atom:link href="https://btihen.me/tags/pubsub/index.xml" rel="self" type="application/rss+xml" />
     <description>PubSub</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 10 May 2020 17:01:53 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>PubSub</title>
-      <link>http://localhost:1313/tags/pubsub/</link>
+      <link>https://btihen.me/tags/pubsub/</link>
     </image>
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>shards | btihen</title>
-    <link>http://localhost:1313/tags/shards/</link>
-      <atom:link href="http://localhost:1313/tags/shards/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/shards/</link>
+      <atom:link href="https://btihen.me/tags/shards/index.xml" rel="self" type="application/rss+xml" />
     <description>shards</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 10 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>shards</title>
-      <link>http://localhost:1313/tags/shards/</link>
+      <link>https://btihen.me/tags/shards/</link>
     </image>
     
     <item>
       <title>Lucky Framework Upgrade</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</link>
       <pubDate>Mon, 10 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.&lt;/p&gt;
 &lt;p&gt;The Lucky repo describes the changes to the shards file and the code base too.

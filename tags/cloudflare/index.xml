@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cloudflare | btihen</title>
-    <link>http://localhost:1313/tags/cloudflare/</link>
-      <atom:link href="http://localhost:1313/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/cloudflare/</link>
+      <atom:link href="https://btihen.me/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
     <description>cloudflare</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 31 May 2020 13:22:48 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>cloudflare</title>
-      <link>http://localhost:1313/tags/cloudflare/</link>
+      <link>https://btihen.me/tags/cloudflare/</link>
     </image>
     
     <item>
       <title>Github Website with a Custom Domain &amp; SSL</title>
-      <link>http://localhost:1313/post_tech_notes/github_website_with_custom_domain/</link>
+      <link>https://btihen.me/post_tech_notes/github_website_with_custom_domain/</link>
       <pubDate>Sun, 31 May 2020 13:22:48 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/github_website_with_custom_domain/</guid>
+      <guid>https://btihen.me/post_tech_notes/github_website_with_custom_domain/</guid>
       <description>&lt;h3 id=&#34;step-0-buy-a-domain-name&#34;&gt;step 0: buy a domain name&lt;/h3&gt;
 &lt;p&gt;For these instructions use the (Namecheap)[https://www.namecheap.com/] service to buy your Domain.&lt;/p&gt;
 &lt;h3 id=&#34;step-1-point-your-domain-name-at-usernamegithubio-optional&#34;&gt;step 1: point your domain name at: username.github.io (optional)&lt;/h3&gt;

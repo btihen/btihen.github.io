@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>robotics | btihen</title>
-    <link>http://localhost:1313/tags/robotics/</link>
-      <atom:link href="http://localhost:1313/tags/robotics/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/robotics/</link>
+      <atom:link href="https://btihen.me/tags/robotics/index.xml" rel="self" type="application/rss+xml" />
     <description>robotics</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 25 May 2017 14:10:13 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>robotics</title>
-      <link>http://localhost:1313/tags/robotics/</link>
+      <link>https://btihen.me/tags/robotics/</link>
     </image>
     
     <item>
       <title>Robot Gardener</title>
-      <link>http://localhost:1313/publication/las_spotlight_robot_gardener/</link>
+      <link>https://btihen.me/publication/las_spotlight_robot_gardener/</link>
       <pubDate>Thu, 25 May 2017 14:10:13 +0200</pubDate>
-      <guid>http://localhost:1313/publication/las_spotlight_robot_gardener/</guid>
+      <guid>https://btihen.me/publication/las_spotlight_robot_gardener/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LETS ClimateCase</title>
-      <link>http://localhost:1313/publication/las_laser_lets_climate_case_laser_report_2015/</link>
+      <link>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</link>
       <pubDate>Thu, 14 May 2015 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/las_laser_lets_climate_case_laser_report_2015/</guid>
+      <guid>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;climate_case_profile.jpeg&#34; alt=&#34;Climate Case Profile&#34;&gt;
 &lt;img src=&#34;climate_case_electronics.jpeg&#34; alt=&#34;Climate Case Electronics&#34;&gt;
 &lt;img src=&#34;climate_case_internal.jpeg&#34; alt=&#34;Climate Case Grow Space&#34;&gt;&lt;/p&gt;

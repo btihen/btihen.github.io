@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>challenge | btihen</title>
-    <link>http://localhost:1313/tags/challenge/</link>
-      <atom:link href="http://localhost:1313/tags/challenge/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/challenge/</link>
+      <atom:link href="https://btihen.me/tags/challenge/index.xml" rel="self" type="application/rss+xml" />
     <description>challenge</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 01 Jan 2021 01:16:20 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>challenge</title>
-      <link>http://localhost:1313/tags/challenge/</link>
+      <link>https://btihen.me/tags/challenge/</link>
     </image>
     
     <item>
       <title>The Hero&#39;s Journey</title>
-      <link>http://localhost:1313/post_edu/edgilty_btihen_heros_journey/</link>
+      <link>https://btihen.me/post_edu/edgilty_btihen_heros_journey/</link>
       <pubDate>Fri, 01 Jan 2021 01:16:20 +0200</pubDate>
-      <guid>http://localhost:1313/post_edu/edgilty_btihen_heros_journey/</guid>
+      <guid>https://btihen.me/post_edu/edgilty_btihen_heros_journey/</guid>
       <description>&lt;p&gt;Stories, especially a Hero’s Journey, have a long and successful track record of creating engaging stories, movies, and, more recently, captivating ad campaigns for marketers and business executives. For several reasons, I also argue that the Hero’s Journey is very helpful in a learning context - especially if the students themselves are the authors of the story.&lt;/p&gt;
 &lt;p&gt;First of all, stories allow students a variety of ways to engage with curriculum goals. I generally like to have students create a story related to the unit, giving them just enough guidelines to ensure a good challenge, while still clearly seeing if they have accomplished the goal, all without falling back on the teacher’s opinion.&lt;/p&gt;
 &lt;p&gt;To do this, I start with a statement For example, when creating a unit on biology and robotics, the goal was to have the students create a robot that would keep their plants alive over a two week vacation. If the robot fails, the garden dies. Or in a boat design / physics class, students were to design a boat that met at least one of three prescribed qualities and could survive at least one of three prescribed nautical challenges.&lt;/p&gt;
@@ -59,33 +59,33 @@
     
     <item>
       <title>Build Confidence: Exploration and Student Choice</title>
-      <link>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</link>
+      <link>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</link>
       <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</guid>
+      <guid>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Importance of Challenge: Engaged, Deep Learning</title>
-      <link>http://localhost:1313/publication/tieonline_importance_of_challenge/</link>
+      <link>https://btihen.me/publication/tieonline_importance_of_challenge/</link>
       <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_importance_of_challenge/</guid>
+      <guid>https://btihen.me/publication/tieonline_importance_of_challenge/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Patient Explanations Lead to Good Things</title>
-      <link>http://localhost:1313/publication/las_spotlight_patient_explanations/</link>
+      <link>https://btihen.me/publication/las_spotlight_patient_explanations/</link>
       <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/las_spotlight_patient_explanations/</guid>
+      <guid>https://btihen.me/publication/las_spotlight_patient_explanations/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Designed to Float your Boat</title>
-      <link>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</link>
+      <link>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</link>
       <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</guid>
+      <guid>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</guid>
       <description>&lt;iframe allowfullscreen allow=&#34;fullscreen&#34; style=&#34;border:none;width:100%;height:326px;&#34; src=&#34;https://issuu.com/ecischools/docs/globalinsights6&#34;&gt;&lt;/iframe&gt;
 &lt;p&gt;Student boat (before 3-D printing)
 &lt;img src=&#34;student_katamaran_boat.png&#34; alt=&#34;Student Katamaran Boat&#34;&gt;&lt;/p&gt;

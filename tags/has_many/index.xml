@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>has_many | btihen</title>
-    <link>http://localhost:1313/tags/has_many/</link>
-      <atom:link href="http://localhost:1313/tags/has_many/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/has_many/</link>
+      <atom:link href="https://btihen.me/tags/has_many/index.xml" rel="self" type="application/rss+xml" />
     <description>has_many</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 19 May 2021 01:57:00 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>has_many</title>
-      <link>http://localhost:1313/tags/has_many/</link>
+      <link>https://btihen.me/tags/has_many/</link>
     </image>
     
     <item>
       <title>Rails 6.x - Framework Agnostic Associations - part 1</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_1/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</link>
       <pubDate>Wed, 19 May 2021 01:57:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_1/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;In the interest of coding Rails in a way to work well with other code bases, I looking at ways to do complex database relations in a framework agnostic way.  In particular, this article will primarily explore Polymorphic Relationships.&lt;/p&gt;
 &lt;p&gt;This is the second article in the series.  This article is followed up with (part 2)[post_ruby_rails/rails_6_x_agnostic_associations_2/]&lt;/p&gt;
@@ -421,9 +421,9 @@ git commit -m &amp;quot;created person possibly related to the model&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;

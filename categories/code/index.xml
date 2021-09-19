@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code | btihen</title>
-    <link>http://localhost:1313/categories/code/</link>
-      <atom:link href="http://localhost:1313/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/code/</link>
+      <atom:link href="https://btihen.me/categories/code/index.xml" rel="self" type="application/rss+xml" />
     <description>Code</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 12 May 2021 01:01:53 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Code</title>
-      <link>http://localhost:1313/categories/code/</link>
+      <link>https://btihen.me/categories/code/</link>
     </image>
     
     <item>
       <title>Shared Schedule</title>
-      <link>http://localhost:1313/projects/mobile_calendar/</link>
+      <link>https://btihen.me/projects/mobile_calendar/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/mobile_calendar/</guid>
+      <guid>https://btihen.me/projects/mobile_calendar/</guid>
       <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Lucky Language Inflections - 0.28.0</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</link>
       <pubDate>Wed, 12 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</guid>
       <description>&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
 &lt;p&gt;It is helpful to be able to configure your cli-tasks to work the same as lucky.
 In lucky you can configure the application&amp;rsquo;s behavior / settings in the &lt;code&gt;config&lt;/code&gt; folder.&lt;/p&gt;
@@ -116,9 +116,9 @@ Generated Staff::FormFields in ./src/components/staff/form_fields.cr
     
     <item>
       <title>Lucky Framework Upgrade</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</link>
       <pubDate>Mon, 10 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;I learned about Lucky improvements (fixes from the minor bugs after my first article) and wanted to test them out.&lt;/p&gt;
 &lt;p&gt;The Lucky repo describes the changes to the shards file and the code base too.
@@ -206,9 +206,9 @@ shards list
     
     <item>
       <title>Lucky Framework with Crystal Language</title>
-      <link>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</link>
+      <link>https://btihen.me/post_crystal/lucky_0_27_project_basics/</link>
       <pubDate>Sun, 02 May 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</guid>
+      <guid>https://btihen.me/post_crystal/lucky_0_27_project_basics/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;My goal is to have a simple tutorial to understand and use basic Lucky framework features.  I recommend this as a great platform if you work in English and publish in English.&lt;/p&gt;
 &lt;p&gt;If internationalization and or other languages and language flexibility are important to you and your work, then I recommend Rails or Phoenix.  If/when internationalization and language flexibility become easier - I&amp;rsquo;ll probably switch to Lucky.&lt;/p&gt;
@@ -1080,9 +1080,9 @@ SKIP_LUCKY_TASK_PRECOMPILATION=true ./script/setup
     
     <item>
       <title>Phoenix 1.5 authentication with POW</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_authentication_pow/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/</link>
       <pubDate>Sun, 25 Apr 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_authentication_pow/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/</guid>
       <description>&lt;h2 id=&#34;auth&#34;&gt;Auth&lt;/h2&gt;
 &lt;p&gt;Auth with POW&lt;/p&gt;
 &lt;ul&gt;
@@ -1900,9 +1900,9 @@ config :my_app, :pow_assent,
     
     <item>
       <title>Phoenix LiveView - Simple Real-Time SPA</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</link>
       <pubDate>Sat, 10 Apr 2021 17:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</guid>
       <description>&lt;p&gt;Here is a quick example of how to create a very simple &amp;ldquo;real-time&amp;rdquo;-&amp;ldquo;single-page-app&amp;rdquo; using phoenix-liveview.  This provides the same functionality to as 
 &lt;a href=&#34;post_ruby_rails/rails_6_1_hotwire_simple_realtime&#34;&gt;Realtime Rails with Hotwire&lt;/a&gt; - in order to compare.&lt;/p&gt;
 &lt;p&gt;The repo can be found here: 
@@ -2156,9 +2156,9 @@ git commit -m &amp;quot;add realtime broadcast to all users&amp;quot;
     
     <item>
       <title>Phoenix 1.5 PETAL Stack Setup - w/ asdf</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</link>
       <pubDate>Sat, 10 Apr 2021 01:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</guid>
       <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
 &lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
 &lt;ul&gt;
@@ -2430,9 +2430,9 @@ git commit -m &amp;quot;Tailwind installed&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog with Comments</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</link>
       <pubDate>Fri, 10 Jul 2020 09:43:51 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article builds on the existing article: 
 &lt;a href=&#34;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://btihen.me/post_tech/phoenix_1_5_blog_intro/&lt;/a&gt; and adds nested relationships and has_many_through.&lt;/p&gt;
@@ -2806,9 +2806,9 @@ git commit -m &amp;quot;handle comment creation errors&amp;quot;
     
     <item>
       <title>Phoenix 1.5 Blog Intro</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</link>
       <pubDate>Sat, 04 Jul 2020 13:06:29 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</guid>
       <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;This article creates a basic web application backed by a database and creates a few relationships.  I&amp;rsquo;ll use the mix generator commands to make this process quick and easy.  In step two we will add a graphql api.&lt;/p&gt;
 &lt;h2 id=&#34;topics-covered&#34;&gt;Topics Covered&lt;/h2&gt;
@@ -3107,9 +3107,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Academic Content Commands</title>
-      <link>http://localhost:1313/post_tech_notes/hugo_academic_cheatsheet/</link>
+      <link>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</link>
       <pubDate>Sat, 23 May 2020 10:39:21 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/hugo_academic_cheatsheet/</guid>
+      <guid>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</guid>
       <description>&lt;h2 id=&#34;from-the-academic-documentation&#34;&gt;From the Academic Documentation&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://sourcethemes.com/academic/docs/managing-content&lt;/a&gt;&lt;/p&gt;
@@ -3159,9 +3159,9 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
     
     <item>
       <title>Hugo Website using Github</title>
-      <link>http://localhost:1313/post_tech_notes/hugo_academic_website_steps/</link>
+      <link>https://btihen.me/post_tech_notes/hugo_academic_website_steps/</link>
       <pubDate>Sat, 16 May 2020 10:39:21 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/hugo_academic_website_steps/</guid>
+      <guid>https://btihen.me/post_tech_notes/hugo_academic_website_steps/</guid>
       <description>&lt;h3 id=&#34;step-0-install-hugo&#34;&gt;step 0: install hugo&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install hugo
 &lt;/code&gt;&lt;/pre&gt;
@@ -3450,9 +3450,9 @@ cd ..
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
@@ -3617,9 +3617,9 @@ ruby                2.5                 a98425292e84        2 weeks ago         
     
     <item>
       <title>Phoenix 1.5 LiveView &amp; PubSub Basics</title>
-      <link>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</link>
       <pubDate>Sun, 10 May 2020 17:01:53 +0200</pubDate>
-      <guid>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</guid>
       <description>&lt;p&gt;I have been watching Phoenix and Elixir for a while, and the idea of writing dynamic Web Applications without needing a ton of JavaScript is very interesting.  I recently saw this video by Chris McCord:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;

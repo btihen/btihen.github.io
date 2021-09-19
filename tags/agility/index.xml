@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Agility | btihen</title>
-    <link>http://localhost:1313/tags/agility/</link>
-      <atom:link href="http://localhost:1313/tags/agility/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/agility/</link>
+      <atom:link href="https://btihen.me/tags/agility/index.xml" rel="self" type="application/rss+xml" />
     <description>Agility</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Agility</title>
-      <link>http://localhost:1313/tags/agility/</link>
+      <link>https://btihen.me/tags/agility/</link>
     </image>
     
     <item>
       <title>EDgility</title>
-      <link>http://localhost:1313/projects/edgility/</link>
+      <link>https://btihen.me/projects/edgility/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/edgility/</guid>
+      <guid>https://btihen.me/projects/edgility/</guid>
       <description>&lt;p&gt;EDgility focuses on Education Agility.  Inspired by agiles ability to create engaged and enthusiastic learning enviornments in technology companies.  We started with our top educational principles and we quietly integrated agile practices into our classrooms.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Peak Challenges</title>
-      <link>http://localhost:1313/projects/peakchallenges/</link>
+      <link>https://btihen.me/projects/peakchallenges/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/peakchallenges/</guid>
+      <guid>https://btihen.me/projects/peakchallenges/</guid>
       <description>&lt;p&gt;PeakChallenges: Engaged Learning for a Changing World&lt;/p&gt;
 &lt;p&gt;We are inspired by learning and working in our changing world.&lt;/p&gt;
 &lt;p&gt;Agile is is an excellent foundation for working with changes. As educators, our goal has been to merge the Agile Learning Loop with excellent classroom practices.&lt;/p&gt;
@@ -34,9 +34,9 @@
     
     <item>
       <title>Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School</title>
-      <link>http://localhost:1313/in_news/agile_in_education_interview_scrum_alliance/</link>
+      <link>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</link>
       <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/in_news/agile_in_education_interview_scrum_alliance/</guid>
+      <guid>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</guid>
       <description>&lt;p&gt;A discussion with Scrum Alliance on the importance of bringing Agile into Educaion and a few important implementation points.&lt;/p&gt;
 
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;

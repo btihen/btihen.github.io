@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>WebSocket | btihen</title>
-    <link>http://localhost:1313/tags/websocket/</link>
-      <atom:link href="http://localhost:1313/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/websocket/</link>
+      <atom:link href="https://btihen.me/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
     <description>WebSocket</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 28 Mar 2021 01:57:00 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>WebSocket</title>
-      <link>http://localhost:1313/tags/websocket/</link>
+      <link>https://btihen.me/tags/websocket/</link>
     </image>
     
     <item>
       <title>Rails 6.1 - Hotwire with Lazy Loading</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</link>
       <pubDate>Sun, 28 Mar 2021 01:57:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;As was seen in 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; Hotwire can easily load data - let&amp;rsquo;s do this in a lazy loaded way (after the html is loaded we add data).&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; Hotwire can easily load data - let&amp;rsquo;s do this in a lazy loaded way (after the html is loaded we add data).&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;prepare-our-code&#34;&gt;Prepare our code&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s remove the extra Tweet.new load in the controller&amp;rsquo;s index method:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/tweets_controller.rb
@@ -67,15 +67,15 @@
     
     <item>
       <title>Rails 6.1 - Hotwire with Modals</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_modal_form/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</link>
       <pubDate>Sat, 20 Mar 2021 18:57:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_modal_form/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Now that you have the basics of using Hotwire in Rails 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;add-jquery-to-bootstrap-setup&#34;&gt;Add jQuery to Bootstrap Setup&lt;/h2&gt;
 &lt;p&gt;First we need to ensure we have JS and JQuery (installed with Bootstrap) - so we will simply add the following to the end of our &amp;lt;body&amp;gt; in the &lt;code&gt;application.html.erb&lt;/code&gt; file:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layouts/application.html.erb
@@ -219,15 +219,15 @@ New Tweet
     
     <item>
       <title>Rails 6.1 - Hotwire with StimulusJS</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</link>
       <pubDate>Sun, 14 Mar 2021 18:57:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Hotwire only updates dom_ids (usually only within a partial) - so other Frontend needs still need to be met with Javascript.  Rails uses StimulusJS to augment Hotwire.  I 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; we created a new instance of Tweet in the turbo_template and sent that to the form.  (Pretty non-standard) - we can do this even more simply by using JS to clear the form without instantiating a new object.&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt; we created a new instance of Tweet in the turbo_template and sent that to the form.  (Pretty non-standard) - we can do this even more simply by using JS to clear the form without instantiating a new object.&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/&#34;&gt;Using Hotwire with Flash Messages&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;stimulusjs-to-clear-forms&#34;&gt;StimulusJS to clear forms&lt;/h2&gt;
 &lt;p&gt;To enable Flash Messages our create/controller looked like - which seems a little messy - in &lt;code&gt;create&lt;/code&gt; (happy-path) we handle all the updates via the create.turbo_stream.erb template and with validation errors we explicity (in the controller - handle the validation errors)&lt;/p&gt;
 &lt;p&gt;So lets start by disabling the code we no longer need in the template:&lt;/p&gt;
@@ -267,15 +267,15 @@ export default class extends Controller {
     
     <item>
       <title>Rails 6.1 - Hotwire with Flash Messages</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_flash_messages/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</link>
       <pubDate>Sat, 06 Mar 2021 18:57:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_flash_messages/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Now that you have the basics of using Hotwire in Rails 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt; - its interesting to try using it in other contexts, inparticular &lt;strong&gt;modals&lt;/strong&gt; are very useful for inputs in Single Page Apps.  So in this Blog we will make the new input form a modal and leave the edit as an in-place form.&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;Start with the code at the end of: 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/&#34;&gt;Using Hotwire in Rails&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;flash-messages-in-partial&#34;&gt;Flash Messages in Partial&lt;/h2&gt;
 &lt;p&gt;Remember, turbo_streams requires a dom_id and a partial in order to know where to send / update the HTML it generates &amp;ndash; so let&amp;rsquo;s prepare &lt;code&gt;application.html.erb&lt;/code&gt; so that flash messages use partials.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/layouts/application.html.erb
@@ -316,7 +316,7 @@ def create
   end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now when we test everything works great, except our form no longer clears. We can fix that by adding a second action to the create template (we will send a Tweet.new - there are other approaches too - covered in 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs&#34;&gt;Hotwire and StimulusJS&lt;/a&gt;)&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs&#34;&gt;Hotwire and StimulusJS&lt;/a&gt;)&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/tweets/create.turbo_stream.erb
 &amp;lt;%# clear form on create - without using JavaScript - by replacing the old Tweet info with Tweet.new %&amp;gt;
 &amp;lt;%= turbo_stream.replace &amp;quot;tweet-form&amp;quot;, partial: &amp;quot;tweets/form&amp;quot;, locals: { tweet: Tweet.new } %&amp;gt;
@@ -362,9 +362,9 @@ def create
     
     <item>
       <title>Rails 6.1 - Hotwire (Simple Realtime SPA)</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</link>
       <pubDate>Sun, 28 Feb 2021 18:57:00 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hotwire&lt;/a&gt;  is planned to be integrated into Rails 7.x and is already included in the soon to be published book: 
@@ -372,14 +372,14 @@ def create
 &lt;p&gt;Hotwire allows us to build Single Page Apps using Ruby and Rails with nearly NO configuration! It allow very responsive web-applications as it reloads only the parts of the page that change via a socket.  Hotwire using 
 &lt;a href=&#34;https://turbo.hotwire.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Turbo&lt;/a&gt; - an evolution of TurboLinks and as such is mobile friendly and in most cases can send the replacement HTML directly from the server to the client with minimal or no client side processing over websockets so there is minimal lag time.&lt;/p&gt;
 &lt;p&gt;In this article we convert a seemingly &amp;lsquo;single-page&amp;rsquo; web app that reloads with every request see previous article 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_6_1_single_page_app_simulate_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt; and convert it into a proper &amp;lsquo;single-page&amp;rsquo; app that only refreshes the aspects that change.  This makes web-pages with lots of data and complexity FAST and feel like native apps.  This is done with Hotwire (using web-sockets).&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt; and convert it into a proper &amp;lsquo;single-page&amp;rsquo; app that only refreshes the aspects that change.  This makes web-pages with lots of data and complexity FAST and feel like native apps.  This is done with Hotwire (using web-sockets).&lt;/p&gt;
 &lt;h2 id=&#34;basic-setup&#34;&gt;Basic Setup&lt;/h2&gt;
 &lt;p&gt;We will be starting with a basic Tweet Simulator it looks something like:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;tweet_index_1st_starting_point.png&#34; alt=&#34;tweet_index_1st&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The starting code base can be found at: 
 &lt;a href=&#34;https://github.com/btihen/tweet_simulator_rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/tweet_simulator_rails&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The steps to re-create this code can be found at: 
-&lt;a href=&#34;http://localhost:1313/post_ruby_rails/rails_tweet_single_page_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_tweet_single_page_reloads/&#34;&gt;Tweets - A Single Page Rails App (using reloads)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The actual Tweet Hotwire code from this article can be found at:&lt;/p&gt;
 &lt;h2 id=&#34;install-and-configure-hotwire&#34;&gt;Install and configure Hotwire&lt;/h2&gt;
 &lt;h3 id=&#34;install-hotwire&#34;&gt;Install Hotwire&lt;/h3&gt;

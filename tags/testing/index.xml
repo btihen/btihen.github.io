@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>testing | btihen</title>
-    <link>http://localhost:1313/tags/testing/</link>
-      <atom:link href="http://localhost:1313/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/testing/</link>
+      <atom:link href="https://btihen.me/tags/testing/index.xml" rel="self" type="application/rss+xml" />
     <description>testing</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 10 Sep 2020 01:46:07 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>testing</title>
-      <link>http://localhost:1313/tags/testing/</link>
+      <link>https://btihen.me/tags/testing/</link>
     </image>
     
     <item>
       <title>Install and Configure Rails</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_install_n_configure/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_install_n_configure/</link>
       <pubDate>Thu, 10 Sep 2020 01:46:07 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_install_n_configure/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_install_n_configure/</guid>
       <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;
 &lt;p&gt;To document is mostly for me &amp;ndash; at least until I automate my setup defaults. However, I am glad to share and get ideas from others too.  I will build a little calendar app I use with friends (it&amp;rsquo;s focused on being mobile friendly and easy to use &amp;ndash; not a full featured calendar).&lt;/p&gt;
 &lt;h1 id=&#34;rails-setup&#34;&gt;Rails Setup&lt;/h1&gt;
@@ -661,9 +661,9 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;

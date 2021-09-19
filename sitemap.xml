@@ -2,872 +2,872 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/projects/edgility/</loc>
+    <loc>https://btihen.me/projects/edgility/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/peakchallenges/</loc>
+    <loc>https://btihen.me/projects/peakchallenges/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/mobile_calendar/</loc>
+    <loc>https://btihen.me/projects/mobile_calendar/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/arcforschools/</loc>
+    <loc>https://btihen.me/projects/arcforschools/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/crystal/cli/</loc>
+    <loc>https://btihen.me/explore/crystal/cli/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/mint/cli/</loc>
+    <loc>https://btihen.me/explore/mint/cli/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/crystal/</loc>
+    <loc>https://btihen.me/explore/crystal/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/mint/</loc>
+    <loc>https://btihen.me/explore/mint/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/contact/contact/</loc>
+    <loc>https://btihen.me/contact/contact/</loc>
   </url><url>
-    <loc>http://localhost:1313/courses/boat_design/</loc>
+    <loc>https://btihen.me/courses/boat_design/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/courses/boat_design/example1/</loc>
+    <loc>https://btihen.me/courses/boat_design/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/courses/boat_design/example2/</loc>
+    <loc>https://btihen.me/courses/boat_design/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/courses/robot_gardner/</loc>
+    <loc>https://btihen.me/courses/robot_gardner/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/courses/robot_gardner/example1/</loc>
+    <loc>https://btihen.me/courses/robot_gardner/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/courses/robot_gardner/example2/</loc>
+    <loc>https://btihen.me/courses/robot_gardner/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/</loc>
+    <loc>https://btihen.me/authors/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/authors/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/authors/btihen/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/magic-link/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/passwordless-access/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/rails/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_magic_links_w_signed_global_id/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/signed-globalid/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/</loc>
+    <lastmod>2021-09-18T21:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/initialize/</loc>
     <lastmod>2021-09-18T21:20:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/</loc>
+    <loc>https://btihen.me/tags/install/</loc>
     <lastmod>2021-09-18T21:20:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/btihen/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_7_0_alpha_test_drive/</loc>
     <lastmod>2021-09-18T21:20:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/initialize/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/install/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/rails/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_7_0_alpha_test_drive/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2021-09-18T21:20:00+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/command-object/</loc>
-    <lastmod>2021-08-14T01:11:22+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/lambda/</loc>
-    <lastmod>2021-08-14T01:11:22+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_x_simplify_complex_behavior_decisions/</loc>
-    <lastmod>2021-08-14T01:11:22+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/strategy-pattern/</loc>
-    <lastmod>2021-08-14T01:11:22+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/rails-5/</loc>
+    <loc>https://btihen.me/tags/rails-5/</loc>
     <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/rails-6/</loc>
+    <loc>https://btihen.me/tags/rails-6/</loc>
     <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_x_squished_strings_type/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</loc>
     <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/types/</loc>
+    <loc>https://btihen.me/tags/types/</loc>
     <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/virtual-attributes/</loc>
+    <loc>https://btihen.me/tags/virtual-attributes/</loc>
     <lastmod>2021-08-12T01:11:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/belongs_to/</loc>
+    <loc>https://btihen.me/tags/belongs_to/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/data-models/</loc>
+    <loc>https://btihen.me/tags/data-models/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/databases/</loc>
+    <loc>https://btihen.me/tags/databases/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/framework-agnostic/</loc>
+    <loc>https://btihen.me/tags/framework-agnostic/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/has_one/</loc>
+    <loc>https://btihen.me/tags/has_one/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_3/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_3/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_2/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_2/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/has_many/</loc>
+    <loc>https://btihen.me/tags/has_many/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_x_agnostic_associations_1/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://btihen.me/categories/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/code/</loc>
+    <loc>https://btihen.me/categories/code/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/configuration/</loc>
+    <loc>https://btihen.me/tags/configuration/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/crystal-language/</loc>
+    <loc>https://btihen.me/categories/crystal-language/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/inflections/</loc>
+    <loc>https://btihen.me/tags/inflections/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/language/</loc>
+    <loc>https://btihen.me/tags/language/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/lucky/</loc>
+    <loc>https://btihen.me/categories/lucky/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_crystal/lucky_0_28_0_inflections/</loc>
+    <loc>https://btihen.me/post_crystal/lucky_0_28_0_inflections/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_crystal/</loc>
+    <loc>https://btihen.me/post_crystal/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_crystal/lucky_0_28_0_upgrade/</loc>
+    <loc>https://btihen.me/post_crystal/lucky_0_28_0_upgrade/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/shards/</loc>
+    <loc>https://btihen.me/tags/shards/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/upgrade/</loc>
+    <loc>https://btihen.me/tags/upgrade/</loc>
     <lastmod>2021-08-13T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/basics/</loc>
+    <loc>https://btihen.me/tags/basics/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/components/</loc>
+    <loc>https://btihen.me/tags/components/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/crystal-language/</loc>
+    <loc>https://btihen.me/tags/crystal-language/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/forms/</loc>
+    <loc>https://btihen.me/tags/forms/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/lucky/</loc>
+    <loc>https://btihen.me/tags/lucky/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_crystal/lucky_0_27_project_basics/</loc>
+    <loc>https://btihen.me/post_crystal/lucky_0_27_project_basics/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/relationships/</loc>
+    <loc>https://btihen.me/tags/relationships/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/routing/</loc>
+    <loc>https://btihen.me/tags/routing/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/web-framework/</loc>
+    <loc>https://btihen.me/tags/web-framework/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/authentication/</loc>
+    <loc>https://btihen.me/tags/authentication/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/elixir/</loc>
+    <loc>https://btihen.me/tags/elixir/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/email/</loc>
+    <loc>https://btihen.me/tags/email/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/hogmail/</loc>
+    <loc>https://btihen.me/tags/hogmail/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/phoenix/</loc>
+    <loc>https://btihen.me/tags/phoenix/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_authentication_pow/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/pow/</loc>
+    <loc>https://btihen.me/tags/pow/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/liveview/</loc>
+    <loc>https://btihen.me/tags/liveview/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/spa/</loc>
+    <loc>https://btihen.me/tags/spa/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/alpinejs/</loc>
+    <loc>https://btihen.me/tags/alpinejs/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/petal-stack/</loc>
+    <loc>https://btihen.me/tags/petal-stack/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/tailwindcss/</loc>
+    <loc>https://btihen.me/tags/tailwindcss/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/hotwire/</loc>
+    <loc>https://btihen.me/tags/hotwire/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/lazy-load-data/</loc>
+    <loc>https://btihen.me/tags/lazy-load-data/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_lazy_load_data/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/realtime/</loc>
+    <loc>https://btihen.me/tags/realtime/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/websocket/</loc>
+    <loc>https://btihen.me/tags/websocket/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/modal-forms/</loc>
+    <loc>https://btihen.me/tags/modal-forms/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_modal_form/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_modal_form/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/flash-message/</loc>
+    <loc>https://btihen.me/tags/flash-message/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_and_stimulusjs/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_flash_messages/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_flash_messages/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_hotwire_simple_realtime/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/html/</loc>
+    <loc>https://btihen.me/tags/html/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_single_page_app_simulate/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_single_page_app_simulate/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/buy-in/</loc>
+    <loc>https://btihen.me/tags/buy-in/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/challenge/</loc>
+    <loc>https://btihen.me/tags/challenge/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/choice/</loc>
+    <loc>https://btihen.me/tags/choice/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/classroom/</loc>
+    <loc>https://btihen.me/categories/classroom/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/edgile/</loc>
+    <loc>https://btihen.me/categories/edgile/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/education/</loc>
+    <loc>https://btihen.me/categories/education/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/</loc>
+    <loc>https://btihen.me/post_edu/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/heros-journey/</loc>
+    <loc>https://btihen.me/tags/heros-journey/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/practice/</loc>
+    <loc>https://btihen.me/categories/practice/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/story-telling/</loc>
+    <loc>https://btihen.me/tags/story-telling/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/student-directed-learning/</loc>
+    <loc>https://btihen.me/tags/student-directed-learning/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/edgilty_btihen_heros_journey/</loc>
+    <loc>https://btihen.me/post_edu/edgilty_btihen_heros_journey/</loc>
     <lastmod>2021-01-01T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/collaboration/</loc>
+    <loc>https://btihen.me/tags/collaboration/</loc>
     <lastmod>2020-12-05T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/feedback/</loc>
+    <loc>https://btihen.me/tags/feedback/</loc>
     <lastmod>2020-12-05T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/explore_uplift_feedback/</loc>
+    <loc>https://btihen.me/post_edu/explore_uplift_feedback/</loc>
     <lastmod>2020-12-05T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/natural-feedback/</loc>
+    <loc>https://btihen.me/tags/natural-feedback/</loc>
     <lastmod>2020-12-05T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/self-regulation/</loc>
+    <loc>https://btihen.me/tags/self-regulation/</loc>
     <lastmod>2020-12-05T01:16:20+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/agile/</loc>
+    <loc>https://btihen.me/categories/agile/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/agility/</loc>
+    <loc>https://btihen.me/tags/agility/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/calendar/</loc>
+    <loc>https://btihen.me/tags/calendar/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/dan-patton/</loc>
+    <loc>https://btihen.me/authors/dan-patton/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/education/</loc>
+    <loc>https://btihen.me/tags/education/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/elliott-hebert/</loc>
+    <loc>https://btihen.me/authors/elliott-hebert/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/mobile/</loc>
+    <loc>https://btihen.me/tags/mobile/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/nicola-cosgrove/</loc>
+    <loc>https://btihen.me/authors/nicola-cosgrove/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/paul-magnuson/</loc>
+    <loc>https://btihen.me/authors/paul-magnuson/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/practices/</loc>
+    <loc>https://btihen.me/tags/practices/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/</loc>
+    <loc>https://btihen.me/projects/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/ruby/</loc>
+    <loc>https://btihen.me/tags/ruby/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/sharing/</loc>
+    <loc>https://btihen.me/categories/sharing/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/values/</loc>
+    <loc>https://btihen.me/tags/values/</loc>
     <lastmod>2020-11-06T01:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/code-editor/</loc>
+    <loc>https://btihen.me/categories/code-editor/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/codium/</loc>
+    <loc>https://btihen.me/tags/codium/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/codium_plugins/</loc>
+    <loc>https://btihen.me/post_tech_notes/codium_plugins/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/editor/</loc>
+    <loc>https://btihen.me/tags/editor/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/plugin/</loc>
+    <loc>https://btihen.me/tags/plugin/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/</loc>
+    <loc>https://btihen.me/post_tech_notes/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/tooling/</loc>
+    <loc>https://btihen.me/tags/tooling/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/design/</loc>
+    <loc>https://btihen.me/categories/design/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/design/</loc>
+    <loc>https://btihen.me/tags/design/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/icons/</loc>
+    <loc>https://btihen.me/tags/icons/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/images/</loc>
+    <loc>https://btihen.me/tags/images/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/opensource/</loc>
+    <loc>https://btihen.me/categories/opensource/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/pictures/</loc>
+    <loc>https://btihen.me/tags/pictures/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/web_design_resources/</loc>
+    <loc>https://btihen.me/post_tech_notes/web_design_resources/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/elliot-hebert/</loc>
+    <loc>https://btihen.me/authors/elliot-hebert/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/faculty/</loc>
+    <loc>https://btihen.me/tags/faculty/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/international/</loc>
+    <loc>https://btihen.me/tags/international/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/professional-development/</loc>
+    <loc>https://btihen.me/tags/professional-development/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/research/</loc>
+    <loc>https://btihen.me/categories/research/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/sharing/</loc>
+    <loc>https://btihen.me/tags/sharing/</loc>
     <lastmod>2020-10-18T10:34:47+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/adaptability/</loc>
+    <loc>https://btihen.me/tags/adaptability/</loc>
     <lastmod>2020-10-03T01:16:28+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/reflection/</loc>
+    <loc>https://btihen.me/tags/reflection/</loc>
     <lastmod>2020-10-03T01:16:28+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/edgility_btihen_reflection/</loc>
+    <loc>https://btihen.me/post_edu/edgility_btihen_reflection/</loc>
     <lastmod>2020-10-03T01:16:28+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/retrospective/</loc>
+    <loc>https://btihen.me/tags/retrospective/</loc>
     <lastmod>2020-10-03T01:16:28+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/uplift/</loc>
+    <loc>https://btihen.me/tags/uplift/</loc>
     <lastmod>2020-10-03T01:16:28+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/configure/</loc>
+    <loc>https://btihen.me/tags/configure/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/rails/</loc>
+    <loc>https://btihen.me/categories/rails/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_1_tailwind_2_0_alpinejs/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/durable/</loc>
+    <loc>https://btihen.me/tags/durable/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_6_install_n_configure/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_install_n_configure/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/testing/</loc>
+    <loc>https://btihen.me/tags/testing/</loc>
     <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/context/</loc>
+    <loc>https://btihen.me/tags/context/</loc>
     <lastmod>2020-08-22T14:05:18+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/depth-of-knowledge/</loc>
+    <loc>https://btihen.me/tags/depth-of-knowledge/</loc>
     <lastmod>2020-08-22T14:05:18+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/self-motivation/</loc>
+    <loc>https://btihen.me/tags/self-motivation/</loc>
     <lastmod>2020-08-22T14:05:18+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/value/</loc>
+    <loc>https://btihen.me/tags/value/</loc>
     <lastmod>2020-08-22T14:05:18+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/edgility_btihen_value/</loc>
+    <loc>https://btihen.me/post_edu/edgility_btihen_value/</loc>
     <lastmod>2020-08-22T14:05:18+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/exploration/</loc>
+    <loc>https://btihen.me/tags/exploration/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/edgility_btihen_smallify/</loc>
+    <loc>https://btihen.me/post_edu/edgility_btihen_smallify/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/student-choice/</loc>
+    <loc>https://btihen.me/tags/student-choice/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/devise/</loc>
+    <loc>https://btihen.me/tags/devise/</loc>
     <lastmod>2020-08-07T20:45:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/namespace/</loc>
+    <loc>https://btihen.me/tags/namespace/</loc>
     <lastmod>2020-08-07T20:45:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_ruby_rails/rails_devise_users_namespaced/</loc>
+    <loc>https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/</loc>
     <lastmod>2020-08-07T20:45:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/elixir/</loc>
+    <loc>https://btihen.me/categories/elixir/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/nested-preloading/</loc>
+    <loc>https://btihen.me/tags/nested-preloading/</loc>
     <lastmod>2021-08-07T01:43:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/nested-resources/</loc>
+    <loc>https://btihen.me/tags/nested-resources/</loc>
     <lastmod>2021-08-07T01:43:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/phoenix/</loc>
+    <loc>https://btihen.me/categories/phoenix/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_w_comments/</loc>
     <lastmod>2021-08-07T01:43:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/render-foriegn-views/</loc>
+    <loc>https://btihen.me/tags/render-foriegn-views/</loc>
     <lastmod>2021-08-07T01:43:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/templates/</loc>
+    <loc>https://btihen.me/tags/templates/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/user-error-handling/</loc>
+    <loc>https://btihen.me/tags/user-error-handling/</loc>
     <lastmod>2021-08-07T01:43:51+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/dependent-delete/</loc>
+    <loc>https://btihen.me/tags/dependent-delete/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_blog_intro/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_blog_intro/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/preloading/</loc>
+    <loc>https://btihen.me/tags/preloading/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/selection-in-form/</loc>
+    <loc>https://btihen.me/tags/selection-in-form/</loc>
     <lastmod>2021-08-07T13:06:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/deliberate-practice/</loc>
+    <loc>https://btihen.me/tags/deliberate-practice/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/explore/</loc>
+    <loc>https://btihen.me/tags/explore/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/joy/</loc>
+    <loc>https://btihen.me/tags/joy/</loc>
     <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/edgility_btihen_rework/</loc>
+    <loc>https://btihen.me/post_edu/edgility_btihen_rework/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/self-assess/</loc>
+    <loc>https://btihen.me/tags/self-assess/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/self-correct/</loc>
+    <loc>https://btihen.me/tags/self-correct/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/self-reflect/</loc>
+    <loc>https://btihen.me/tags/self-reflect/</loc>
     <lastmod>2020-06-16T15:01:22+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/adventure/</loc>
+    <loc>https://btihen.me/tags/adventure/</loc>
     <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/engagement/</loc>
+    <loc>https://btihen.me/tags/engagement/</loc>
     <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/edgility_btihen_exploration/</loc>
+    <loc>https://btihen.me/post_edu/edgility_btihen_exploration/</loc>
     <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/trust/</loc>
+    <loc>https://btihen.me/tags/trust/</loc>
     <lastmod>2020-06-16T16:57:16+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/cloudflare/</loc>
+    <loc>https://btihen.me/tags/cloudflare/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/domain/</loc>
+    <loc>https://btihen.me/tags/domain/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/github/</loc>
+    <loc>https://btihen.me/tags/github/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/github_website_with_custom_domain/</loc>
+    <loc>https://btihen.me/post_tech_notes/github_website_with_custom_domain/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/namecheap/</loc>
+    <loc>https://btihen.me/tags/namecheap/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/ssl/</loc>
+    <loc>https://btihen.me/tags/ssl/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/website/</loc>
+    <loc>https://btihen.me/categories/website/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/website/</loc>
+    <loc>https://btihen.me/tags/website/</loc>
     <lastmod>2020-05-31T13:22:48+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/agile/</loc>
+    <loc>https://btihen.me/tags/agile/</loc>
     <lastmod>2020-05-24T15:16:45+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/differentiated/</loc>
+    <loc>https://btihen.me/tags/differentiated/</loc>
     <lastmod>2020-05-24T15:16:45+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/explore_uplift_reflect/</loc>
+    <loc>https://btihen.me/post_edu/explore_uplift_reflect/</loc>
     <lastmod>2020-05-24T15:16:45+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/reflect/</loc>
+    <loc>https://btihen.me/tags/reflect/</loc>
     <lastmod>2020-05-24T15:16:45+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/academic-theme/</loc>
+    <loc>https://btihen.me/tags/academic-theme/</loc>
     <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/commands/</loc>
+    <loc>https://btihen.me/tags/commands/</loc>
     <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/git/</loc>
+    <loc>https://btihen.me/tags/git/</loc>
     <lastmod>2021-08-07T01:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/hugo/</loc>
+    <loc>https://btihen.me/tags/hugo/</loc>
     <lastmod>2021-08-07T01:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/hugo_academic_cheatsheet/</loc>
+    <loc>https://btihen.me/post_tech_notes/hugo_academic_cheatsheet/</loc>
     <lastmod>2020-05-23T10:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/static-site/</loc>
+    <loc>https://btihen.me/tags/static-site/</loc>
     <lastmod>2021-08-07T01:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/hugo_academic_website_steps/</loc>
+    <loc>https://btihen.me/post_tech_notes/hugo_academic_website_steps/</loc>
     <lastmod>2021-08-07T01:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/submodules/</loc>
+    <loc>https://btihen.me/tags/submodules/</loc>
     <lastmod>2021-08-07T01:39:21+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/docker/</loc>
+    <loc>https://btihen.me/tags/docker/</loc>
     <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</loc>
+    <loc>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</loc>
     <lastmod>2020-05-23T21:19:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/interactive/</loc>
+    <loc>https://btihen.me/tags/interactive/</loc>
     <lastmod>2020-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_elixir_phoenix/phoenix_1_5_live_view_basics/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_live_view_basics/</loc>
     <lastmod>2020-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/pubsub/</loc>
+    <loc>https://btihen.me/tags/pubsub/</loc>
     <lastmod>2020-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/kanban/</loc>
+    <loc>https://btihen.me/tags/kanban/</loc>
     <lastmod>2020-05-03T19:25:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post_edu/kanban_usage/</loc>
+    <loc>https://btihen.me/post_edu/kanban_usage/</loc>
     <lastmod>2020-05-03T19:25:09+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/11/</loc>
+    <loc>https://btihen.me/publication_types/11/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/14/</loc>
+    <loc>https://btihen.me/publication_types/14/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/15/</loc>
+    <loc>https://btihen.me/publication_types/15/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/21-century/</loc>
+    <loc>https://btihen.me/tags/21-century/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/9/</loc>
+    <loc>https://btihen.me/publication_types/9/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/in_news/</loc>
+    <loc>https://btihen.me/in_news/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/</loc>
+    <loc>https://btihen.me/publication_types/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/reflections/</loc>
+    <loc>https://btihen.me/tags/reflections/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/tim-logan/</loc>
+    <loc>https://btihen.me/authors/tim-logan/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</loc>
+    <loc>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</loc>
     <lastmod>2020-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/12/</loc>
+    <loc>https://btihen.me/publication_types/12/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</loc>
+    <loc>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/emotional-safety/</loc>
+    <loc>https://btihen.me/tags/emotional-safety/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/</loc>
+    <loc>https://btihen.me/publication/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/self-regulation/</loc>
+    <loc>https://btihen.me/categories/self-regulation/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/student-agency/</loc>
+    <loc>https://btihen.me/categories/student-agency/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/tieonline_uplift_and_explore_build_confidence/</loc>
+    <loc>https://btihen.me/publication/tieonline_uplift_and_explore_build_confidence/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/confidence/</loc>
+    <loc>https://btihen.me/tags/confidence/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/natural-assessment/</loc>
+    <loc>https://btihen.me/tags/natural-assessment/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/natural-consquences/</loc>
+    <loc>https://btihen.me/tags/natural-consquences/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/non-judgemental/</loc>
+    <loc>https://btihen.me/tags/non-judgemental/</loc>
     <lastmod>2020-02-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/effectiveness/</loc>
+    <loc>https://btihen.me/tags/effectiveness/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/tieonline_pull_vs_push/</loc>
+    <loc>https://btihen.me/publication/tieonline_pull_vs_push/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/tieonline_importance_of_challenge/</loc>
+    <loc>https://btihen.me/publication/tieonline_importance_of_challenge/</loc>
     <lastmod>2019-12-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/meaningful-context/</loc>
+    <loc>https://btihen.me/tags/meaningful-context/</loc>
     <lastmod>2019-12-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/manifesto/</loc>
+    <loc>https://btihen.me/tags/manifesto/</loc>
     <lastmod>2019-12-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/people-focus/</loc>
+    <loc>https://btihen.me/tags/people-focus/</loc>
     <lastmod>2019-12-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/tieonline_roots_of_agile_for_education/</loc>
+    <loc>https://btihen.me/publication/tieonline_roots_of_agile_for_education/</loc>
     <lastmod>2019-12-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/2/</loc>
+    <loc>https://btihen.me/publication_types/2/</loc>
     <lastmod>2019-10-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/las_spotlight_patient_explanations/</loc>
+    <loc>https://btihen.me/publication/las_spotlight_patient_explanations/</loc>
     <lastmod>2019-10-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/courses/</loc>
+    <loc>https://btihen.me/courses/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/explore/</loc>
+    <loc>https://btihen.me/explore/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/6/</loc>
+    <loc>https://btihen.me/publication_types/6/</loc>
     <lastmod>2019-04-16T18:04:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/daniel-patton/</loc>
+    <loc>https://btihen.me/authors/daniel-patton/</loc>
     <lastmod>2019-04-16T18:04:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/springer_getting_agile_at_school_chapter/</loc>
+    <loc>https://btihen.me/publication/springer_getting_agile_at_school_chapter/</loc>
     <lastmod>2019-04-16T18:04:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/project-based/</loc>
+    <loc>https://btihen.me/tags/project-based/</loc>
     <lastmod>2019-04-16T18:04:29+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/privacy/</loc>
+    <loc>https://btihen.me/privacy/</loc>
     <lastmod>2018-06-28T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/terms/</loc>
+    <loc>https://btihen.me/terms/</loc>
     <lastmod>2018-06-28T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/ecis_designed_to_float_your_boat_article/</loc>
+    <loc>https://btihen.me/publication/ecis_designed_to_float_your_boat_article/</loc>
     <lastmod>2018-04-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/biology/</loc>
+    <loc>https://btihen.me/tags/biology/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/ecology/</loc>
+    <loc>https://btihen.me/tags/ecology/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/electronics/</loc>
+    <loc>https://btihen.me/tags/electronics/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/las_spotlight_robot_gardener/</loc>
+    <loc>https://btihen.me/publication/las_spotlight_robot_gardener/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/robotics/</loc>
+    <loc>https://btihen.me/tags/robotics/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/sensors/</loc>
+    <loc>https://btihen.me/tags/sensors/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/stem/</loc>
+    <loc>https://btihen.me/categories/stem/</loc>
     <lastmod>2017-05-25T14:10:13+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/4/</loc>
+    <loc>https://btihen.me/publication_types/4/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/experiments/</loc>
+    <loc>https://btihen.me/tags/experiments/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/las_laser_introducing_edgility_report_2017/</loc>
+    <loc>https://btihen.me/publication/las_laser_introducing_edgility_report_2017/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/smallify/</loc>
+    <loc>https://btihen.me/tags/smallify/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/in_news/agile_in_education_interview_scrum_alliance/</loc>
+    <loc>https://btihen.me/in_news/agile_in_education_interview_scrum_alliance/</loc>
     <lastmod>2017-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication_types/10/</loc>
+    <loc>https://btihen.me/publication_types/10/</loc>
     <lastmod>2016-12-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/in_news/agile_in_education_at_las_interview_agile_amped/</loc>
+    <loc>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</loc>
     <lastmod>2016-12-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/howard-sublett/</loc>
+    <loc>https://btihen.me/authors/howard-sublett/</loc>
     <lastmod>2016-12-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/agile-classrooms/</loc>
+    <loc>https://btihen.me/tags/agile-classrooms/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/in_news/agile_classrooms_article_agile_classrooms/</loc>
+    <loc>https://btihen.me/in_news/agile_classrooms_article_agile_classrooms/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/john-miller/</loc>
+    <loc>https://btihen.me/tags/john-miller/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/john-miller/</loc>
+    <loc>https://btihen.me/authors/john-miller/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/middle-school/</loc>
+    <loc>https://btihen.me/tags/middle-school/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/scrum-workshop/</loc>
+    <loc>https://btihen.me/tags/scrum-workshop/</loc>
     <lastmod>2015-05-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/3d-printing/</loc>
+    <loc>https://btihen.me/tags/3d-printing/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/altitude/</loc>
+    <loc>https://btihen.me/tags/altitude/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/citizen-science/</loc>
+    <loc>https://btihen.me/tags/citizen-science/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/climate/</loc>
+    <loc>https://btihen.me/tags/climate/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/climate-change/</loc>
+    <loc>https://btihen.me/tags/climate-change/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/in_news/climate_poles_john_harlin_lets_report/</loc>
+    <loc>https://btihen.me/in_news/climate_poles_john_harlin_lets_report/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/engineering/</loc>
+    <loc>https://btihen.me/tags/engineering/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/john-harlin/</loc>
+    <loc>https://btihen.me/authors/john-harlin/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/publication/las_laser_lets_climate_case_laser_report_2015/</loc>
+    <loc>https://btihen.me/publication/las_laser_lets_climate_case_laser_report_2015/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/plant-science/</loc>
+    <loc>https://btihen.me/tags/plant-science/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/species/</loc>
+    <loc>https://btihen.me/tags/species/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/transect/</loc>
+    <loc>https://btihen.me/tags/transect/</loc>
     <lastmod>2015-05-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/btihen/_index_original_bio/</loc>
+    <loc>https://btihen.me/authors/btihen/_index_original_bio/</loc>
   </url><url>
-    <loc>http://localhost:1313/contact/</loc>
+    <loc>https://btihen.me/contact/</loc>
   </url><url>
-    <loc>http://localhost:1313/post_javascript/</loc>
+    <loc>https://btihen.me/post_javascript/</loc>
   </url><url>
-    <loc>http://localhost:1313/talk/</loc>
+    <loc>https://btihen.me/talk/</loc>
   </url>
 </urlset>

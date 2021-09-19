@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects | btihen</title>
-    <link>http://localhost:1313/projects/</link>
-      <atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/projects/</link>
+      <atom:link href="https://btihen.me/projects/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Projects</title>
-      <link>http://localhost:1313/projects/</link>
+      <link>https://btihen.me/projects/</link>
     </image>
     
     <item>
       <title>EDgility</title>
-      <link>http://localhost:1313/projects/edgility/</link>
+      <link>https://btihen.me/projects/edgility/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/edgility/</guid>
+      <guid>https://btihen.me/projects/edgility/</guid>
       <description>&lt;p&gt;EDgility focuses on Education Agility.  Inspired by agiles ability to create engaged and enthusiastic learning enviornments in technology companies.  We started with our top educational principles and we quietly integrated agile practices into our classrooms.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Peak Challenges</title>
-      <link>http://localhost:1313/projects/peakchallenges/</link>
+      <link>https://btihen.me/projects/peakchallenges/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/peakchallenges/</guid>
+      <guid>https://btihen.me/projects/peakchallenges/</guid>
       <description>&lt;p&gt;PeakChallenges: Engaged Learning for a Changing World&lt;/p&gt;
 &lt;p&gt;We are inspired by learning and working in our changing world.&lt;/p&gt;
 &lt;p&gt;Agile is is an excellent foundation for working with changes. As educators, our goal has been to merge the Agile Learning Loop with excellent classroom practices.&lt;/p&gt;
@@ -34,18 +34,18 @@
     
     <item>
       <title>Shared Schedule</title>
-      <link>http://localhost:1313/projects/mobile_calendar/</link>
+      <link>https://btihen.me/projects/mobile_calendar/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/mobile_calendar/</guid>
+      <guid>https://btihen.me/projects/mobile_calendar/</guid>
       <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>ARC for Schools</title>
-      <link>http://localhost:1313/projects/arcforschools/</link>
+      <link>https://btihen.me/projects/arcforschools/</link>
       <pubDate>Sun, 18 Oct 2020 10:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/arcforschools/</guid>
+      <guid>https://btihen.me/projects/arcforschools/</guid>
       <description>&lt;p&gt;Find schools, organizations, blogs, podcasts, and publications below.
 ARC consortium members contribute by documenting applications of the agile mindset in education.&lt;/p&gt;
 </description>

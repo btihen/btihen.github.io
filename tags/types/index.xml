@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Types | btihen</title>
-    <link>http://localhost:1313/tags/types/</link>
-      <atom:link href="http://localhost:1313/tags/types/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/types/</link>
+      <atom:link href="https://btihen.me/tags/types/index.xml" rel="self" type="application/rss+xml" />
     <description>Types</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 12 Aug 2021 01:11:22 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Types</title>
-      <link>http://localhost:1313/tags/types/</link>
+      <link>https://btihen.me/tags/types/</link>
     </image>
     
     <item>
       <title>Squished String Type (Rails 5/6)</title>
-      <link>http://localhost:1313/post_ruby_rails/rails_6_x_squished_strings_type/</link>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</link>
       <pubDate>Thu, 12 Aug 2021 01:11:22 +0200</pubDate>
-      <guid>http://localhost:1313/post_ruby_rails/rails_6_x_squished_strings_type/</guid>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_squished_strings_type/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://discuss.rubyonrails.org/t/database-fields-are-polluted-with-both-nil-and-empty-values-when-submitting-forms/74877/3&lt;/a&gt;&lt;/li&gt;

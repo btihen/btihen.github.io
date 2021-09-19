@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publication_types | btihen</title>
-    <link>http://localhost:1313/publication_types/</link>
-      <atom:link href="http://localhost:1313/publication_types/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/publication_types/</link>
+      <atom:link href="https://btihen.me/publication_types/index.xml" rel="self" type="application/rss+xml" />
     <description>Publication_types</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 25 Apr 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Publication_types</title>
-      <link>http://localhost:1313/publication_types/</link>
+      <link>https://btihen.me/publication_types/</link>
     </image>
     
   </channel>

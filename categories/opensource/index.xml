@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OpenSource | btihen</title>
-    <link>http://localhost:1313/categories/opensource/</link>
-      <atom:link href="http://localhost:1313/categories/opensource/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/opensource/</link>
+      <atom:link href="https://btihen.me/categories/opensource/index.xml" rel="self" type="application/rss+xml" />
     <description>OpenSource</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 01 Nov 2020 01:57:16 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>OpenSource</title>
-      <link>http://localhost:1313/categories/opensource/</link>
+      <link>https://btihen.me/categories/opensource/</link>
     </image>
     
     <item>
       <title>Web Design Resources</title>
-      <link>http://localhost:1313/post_tech_notes/web_design_resources/</link>
+      <link>https://btihen.me/post_tech_notes/web_design_resources/</link>
       <pubDate>Sun, 01 Nov 2020 01:57:16 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/web_design_resources/</guid>
+      <guid>https://btihen.me/post_tech_notes/web_design_resources/</guid>
       <description>&lt;h2 id=&#34;thesarus-word-finder&#34;&gt;Thesarus (word finder)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;

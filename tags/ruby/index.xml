@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ruby | btihen</title>
-    <link>http://localhost:1313/tags/ruby/</link>
-      <atom:link href="http://localhost:1313/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/ruby/</link>
+      <atom:link href="https://btihen.me/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
     <description>ruby</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Fri, 06 Nov 2020 01:34:47 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>ruby</title>
-      <link>http://localhost:1313/tags/ruby/</link>
+      <link>https://btihen.me/tags/ruby/</link>
     </image>
     
     <item>
       <title>Shared Schedule</title>
-      <link>http://localhost:1313/projects/mobile_calendar/</link>
+      <link>https://btihen.me/projects/mobile_calendar/</link>
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/mobile_calendar/</guid>
+      <guid>https://btihen.me/projects/mobile_calendar/</guid>
       <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
 </description>
     </item>

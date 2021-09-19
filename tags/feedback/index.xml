@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>feedback | btihen</title>
-    <link>http://localhost:1313/tags/feedback/</link>
-      <atom:link href="http://localhost:1313/tags/feedback/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/feedback/</link>
+      <atom:link href="https://btihen.me/tags/feedback/index.xml" rel="self" type="application/rss+xml" />
     <description>feedback</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 05 Dec 2020 01:16:20 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>feedback</title>
-      <link>http://localhost:1313/tags/feedback/</link>
+      <link>https://btihen.me/tags/feedback/</link>
     </image>
     
     <item>
       <title>Feedback: It&#39;s Not what You Think</title>
-      <link>http://localhost:1313/post_edu/explore_uplift_feedback/</link>
+      <link>https://btihen.me/post_edu/explore_uplift_feedback/</link>
       <pubDate>Sat, 05 Dec 2020 01:16:20 +0200</pubDate>
-      <guid>http://localhost:1313/post_edu/explore_uplift_feedback/</guid>
+      <guid>https://btihen.me/post_edu/explore_uplift_feedback/</guid>
       <description>&lt;p&gt;I do what I can to create an environment where students can learn as much as possible both independently and from each other collaboratively. This has two large impacts. First, as a teacher I am mostly removed from continually correcting students. Second, as a teacher I have time to coach and guide the students when they need help and guidance, in a manner they are asking for. Teaching is much more joyful when you aren’t continually in a position of correcting  and judging what is right. The classroom atmosphere is positively impacted as well.&lt;/p&gt;
 &lt;p&gt;To promote independent learning I do what I can to create learning situations (and projects) where &lt;strong&gt;natural&lt;/strong&gt; feedback is integral to the learning process. Natural feedback comes about in circumstances where the student work itself produces the feedback with no dependence on the teacher. For example, while learning about designing boats, if students are printing their designs on a 3D printer, the students themselves will see how their boats float and how they react to adverse conditions, for example waves and wind. If the assignment asks students to test their boats by setting up a fan to blow across the test pool, they will see if their boat can travel across the pool without hitting the side wall or foundering. Or in math and physics students can do what we call sanity checks. Are their calculations plausible? Learning the skill of creating and learning from feedback that you control yourself is a transferable, life-worthy skill, that goes beyond the particular content of an activity or course.&lt;/p&gt;
 &lt;p&gt;To promote collaborative learning, I help students learn how to support each other by giving feedback that is easy to digest. Instead of promoting correction, I ask students to follow the Pixar &lt;strong&gt;additive&lt;/strong&gt; feedback method (see the resources at the end for further information). In short, I have the following demo or presentation rules:&lt;/p&gt;
@@ -88,9 +88,9 @@
     
     <item>
       <title>Demos and Feedback in the Classroom</title>
-      <link>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
+      <link>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
+      <guid>https://btihen.me/publication/tieonline_demos_and_collaborative_feedback_in_classroom/</guid>
       <description></description>
     </item>
     

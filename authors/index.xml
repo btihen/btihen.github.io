@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors | btihen</title>
-    <link>http://localhost:1313/authors/</link>
-      <atom:link href="http://localhost:1313/authors/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/authors/</link>
+      <atom:link href="https://btihen.me/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:20:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:36:55 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Authors</title>
-      <link>http://localhost:1313/authors/</link>
+      <link>https://btihen.me/authors/</link>
     </image>
     
     <item>
       <title>Bill Tihen</title>
-      <link>http://localhost:1313/authors/btihen/_index_original_bio/</link>
+      <link>https://btihen.me/authors/btihen/_index_original_bio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/authors/btihen/_index_original_bio/</guid>
+      <guid>https://btihen.me/authors/btihen/_index_original_bio/</guid>
       <description>&lt;p&gt;Developer, Educator, Meditator and Nature Enthusiast.&lt;/p&gt;
 &lt;p&gt;I hold a Masters in Electrical Engineering (with a focus on Materials Science). I also have a ScrumMaster certification.&lt;/p&gt;
 &lt;p&gt;I have worked as a robotics designer, teacher, systems administrator and software engineer. My technical work has strongly influenced how I teach: Research and Agile practices have helped me develop a keen interest in the joy of exploring or &amp;lsquo;playful experiments.&amp;rsquo; Agile presents the Plan, Do, Reflect, Adjust loop and I have found that  &amp;lsquo;smallifying&amp;rsquo; large tasks is an effective way to make progress with a large overwhelming project. In fact, taking little exploratory &amp;lsquo;bets&amp;rsquo; / experiments to move forward, helps many people feel safe. When I realized these are also excellent learning methodologies, I realized in addition to content, I need to teach these skills too.&lt;/p&gt;

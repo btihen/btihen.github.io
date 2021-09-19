@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>10 | btihen</title>
-    <link>http://localhost:1313/publication_types/10/</link>
-      <atom:link href="http://localhost:1313/publication_types/10/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/publication_types/10/</link>
+      <atom:link href="https://btihen.me/publication_types/10/index.xml" rel="self" type="application/rss+xml" />
     <description>10</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 01 Dec 2016 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>10</title>
-      <link>http://localhost:1313/publication_types/10/</link>
+      <link>https://btihen.me/publication_types/10/</link>
     </image>
     
     <item>
       <title>Agile in Education at Leysin American School</title>
-      <link>http://localhost:1313/in_news/agile_in_education_at_las_interview_agile_amped/</link>
+      <link>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</link>
       <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/in_news/agile_in_education_at_las_interview_agile_amped/</guid>
+      <guid>https://btihen.me/in_news/agile_in_education_at_las_interview_agile_amped/</guid>
       <description>&lt;p&gt;How would our education system be different using agile principles and values?&lt;/p&gt;
 &lt;p&gt;In this InDepth edition, our conversation focuses around the American School in Leysin, Switzerland, and their experiments over the past 3 yrs in Agile in Education. My guests are Paul Magnuson ( Director of Curriculum &amp;amp; Director of the Middle School) and Bill Tihen ( Director of IT, Teacher, and runs the Makers Space )
 Empowering students, making learning visible, and creating life long learners are goals for Paul and Bill as they lead this movement at Leysin.&lt;/p&gt;

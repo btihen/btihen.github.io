@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Reflections | btihen</title>
-    <link>http://localhost:1313/tags/reflections/</link>
-      <atom:link href="http://localhost:1313/tags/reflections/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/reflections/</link>
+      <atom:link href="https://btihen.me/tags/reflections/index.xml" rel="self" type="application/rss+xml" />
     <description>Reflections</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 25 Apr 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Reflections</title>
-      <link>http://localhost:1313/tags/reflections/</link>
+      <link>https://btihen.me/tags/reflections/</link>
     </image>
     
     <item>
       <title>Webinar Agility by Tim Logan</title>
-      <link>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
+      <link>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
+      <guid>https://btihen.me/in_news/tim_logan_ecis_agility_webinar_linkedin/</guid>
       <description>&lt;p&gt;Tim Logan posted an interesting educational agility video of his ECIS Webinar and used materials developed my Paul Magnuson &amp;amp; me.  He posted his slide deck on Trello.&lt;/p&gt;
 &lt;p&gt;Tim Logan&amp;rsquo;s video Intro into his Educational Agility webinar for ECIS.
 

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Research | btihen</title>
-    <link>http://localhost:1313/categories/research/</link>
-      <atom:link href="http://localhost:1313/categories/research/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/categories/research/</link>
+      <atom:link href="https://btihen.me/categories/research/index.xml" rel="self" type="application/rss+xml" />
     <description>Research</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 18 Oct 2020 10:34:47 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Research</title>
-      <link>http://localhost:1313/categories/research/</link>
+      <link>https://btihen.me/categories/research/</link>
     </image>
     
     <item>
       <title>ARC for Schools</title>
-      <link>http://localhost:1313/projects/arcforschools/</link>
+      <link>https://btihen.me/projects/arcforschools/</link>
       <pubDate>Sun, 18 Oct 2020 10:34:47 +0200</pubDate>
-      <guid>http://localhost:1313/projects/arcforschools/</guid>
+      <guid>https://btihen.me/projects/arcforschools/</guid>
       <description>&lt;p&gt;Find schools, organizations, blogs, podcasts, and publications below.
 ARC consortium members contribute by documenting applications of the agile mindset in education.&lt;/p&gt;
 </description>

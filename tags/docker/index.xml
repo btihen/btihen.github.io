@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker | btihen</title>
-    <link>http://localhost:1313/tags/docker/</link>
-      <atom:link href="http://localhost:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://btihen.me/tags/docker/</link>
+      <atom:link href="https://btihen.me/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <description>Docker</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Tue, 12 May 2020 21:19:09 +0200</lastBuildDate>
     <image>
-      <url>http://localhost:1313/img/btihen_landing_page.png</url>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Docker</title>
-      <link>http://localhost:1313/tags/docker/</link>
+      <link>https://btihen.me/tags/docker/</link>
     </image>
     
     <item>
       <title>Docker Intro using MailCatcher</title>
-      <link>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</link>
+      <link>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</link>
       <pubDate>Tue, 12 May 2020 21:19:09 +0200</pubDate>
-      <guid>http://localhost:1313/post_tech_notes/docker_intro_with_mail_catcher/</guid>
+      <guid>https://btihen.me/post_tech_notes/docker_intro_with_mail_catcher/</guid>
       <description>&lt;h3 id=&#34;intro&#34;&gt;&lt;strong&gt;Intro&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;It is often helpful to be able to test email sending from an application during development or testing (or even to make testing emails on a staging server possible).&lt;/p&gt;
 &lt;p&gt;To do this follow these instructions for a safe convenient way to test and inspect emails sent from an application.&lt;/p&gt;
