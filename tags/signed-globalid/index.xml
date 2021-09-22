@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/signed-globalid/</link>
       <atom:link href="https://btihen.me/tags/signed-globalid/index.xml" rel="self" type="application/rss+xml" />
     <description>Signed GlobalID</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Sep 2021 21:36:55 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 19 Sep 2021 01:36:55 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Signed GlobalID</title>
@@ -13,17 +13,17 @@
     </image>
     
     <item>
-      <title>Rails 6.x&#43; MagicLinks using a Signed GlobalIDs</title>
-      <link>https://btihen.me/post_ruby_rails/rails_6_x_magic_links_w_signed_global_id/</link>
-      <pubDate>Sat, 18 Sep 2021 21:36:55 +0200</pubDate>
-      <guid>https://btihen.me/post_ruby_rails/rails_6_x_magic_links_w_signed_global_id/</guid>
-      <description>&lt;p&gt;Passwordless Authentication is very convenient for users and generally as secure as passwords (according to many articles as long as the email access-links are short-lived - as email is not very secure).&lt;/p&gt;
-&lt;p&gt;Therefore, after some reading, it seems like a good approach is to make a short-lived link, and then transfer the security to a session.&lt;/p&gt;
+      <title>Rails 6.x&#43; Auth with MagicLinks using Rails Signed GlobalIDs</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/</link>
+      <pubDate>Sun, 19 Sep 2021 01:36:55 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/</guid>
+      <description>&lt;p&gt;Passwordless Authentication is very convenient for users and generally as secure as passwords (a good security authentication discussion can be found at: ).&lt;/p&gt;
+&lt;p&gt;A good approach is to make a short-lived link, and then transfer the security to a session.&lt;/p&gt;
 &lt;p&gt;I found that there seems to be three simple approaches:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Do it yourself: with a Signed-GlobalID from Rails (self-times out &amp;amp; no migration)&lt;/li&gt;
-&lt;li&gt;Do it yourself: with a Stored-Token (adapts to any framework)&lt;/li&gt;
-&lt;li&gt;Other Options: Devise Plugin (when using devise) or other Gems&lt;/li&gt;
+&lt;li&gt;Do it yourself: with a Stored-Token (with an expiration date-time)&lt;/li&gt;
+&lt;li&gt;Do it yourself: with a Signed-GlobalID from Rails (self-times out &amp;amp; no stored tokens)&lt;/li&gt;
+&lt;li&gt;Other Options: other Gems for Devise, Sorcery, or independent gems&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;ol&gt;
@@ -33,15 +33,12 @@
 &lt;li&gt;When the user follows the link in the email, a session is generated&lt;/li&gt;
 &lt;li&gt;Session valid until the session expires or the user logs out (deleting the session).&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I will be assuming that the account must exist, but you could also just create a new account &lt;em&gt;(consider this option carefully and some limits on account creation per IP address or per hour, etc.  As you could otherwise be flooded with useless, malicious emails!)&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id=&#34;do-it-yourself&#34;&gt;Do it yourself&lt;/h2&gt;
-&lt;p&gt;This is relatively easy to do with built-in Rails security - and I like not being dependent on external code, I&amp;rsquo;ll show a way to do this.  In this case, assume that the accounts are already created (or not).&lt;/p&gt;
-&lt;p&gt;If you want to do user registration, confirmation, etc &amp;ndash; then I think it is best to use Devise or some other gem!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; User accounts are assumed to be previously created, and verified.  If you need a full set of features - then your best option is probably to use devise, sorcery or authenticate and use an extension or build your own extension to one of these libraries.  Either way, this article will clarify the basics of passwordless authentication.&lt;/p&gt;
 &lt;h3 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h3&gt;
 &lt;p&gt;Create a Rails Project&lt;/p&gt;
 &lt;p&gt;Code is posted at:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new magic
-cd magic
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new magic_id
+cd magic_id
 git add .
 git commit -m &amp;quot;initial commit on creation&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;

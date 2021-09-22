@@ -1,0 +1,1696 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Passwordless Authentication is very convenient for users and generally as secure as passwords (according to many articles as long as the email access-links are short-lived - as email is not very secure).">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/">
+  <meta property="og:title" content="Rails 6.x Auth with MagicLink using SecureRandom Token | btihen">
+  <meta property="og:description" content="Passwordless Authentication is very convenient for users and generally as secure as passwords (according to many articles as long as the email access-links are short-lived - as email is not very secure)."><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-09-22T16:09:57&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-09-22T16:09:57&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 6.x Auth with MagicLink using SecureRandom Token | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://container4.ch/" target="_blank" rel="noopener"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_crystal"><span>Crystal</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Pubs</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#in_news"><span>News</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Rails 6.x Auth with MagicLink using SecureRandom Token</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Wed, Sep 22, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/rails/">Rails</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 640px; max-height: 320px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Passwordless Authentication is very convenient for users and generally as secure as passwords (according to many articles as long as the email access-links are short-lived - as email is not very secure).</p>
+<p>Therefore, after some reading, it seems like a good approach is to make a short-lived link, and then transfer the security to a session.</p>
+<p>I found that there seems to be three simple approaches:</p>
+<ol>
+<li>Do it yourself: with a Signed-GlobalID from Rails (self-times out &amp; no migration)</li>
+<li>Do it yourself: with a Stored-Token (adapts to any framework)</li>
+<li>Other Options: Devise Plugin (when using devise) or other Gems</li>
+</ol>
+<p>This article will focus on using Secure Random - since it can work with any Framework (in Rails however, I prefer to use SignedGlobalIDs - see: 
+<a href="https://btihen.me/" target="_blank" rel="noopener">https://btihen.me/</a> , since it simplifies the user model and the expiration logic)</p>
+<h2 id="overview">Overview</h2>
+<ol>
+<li>User enters their email-address in a simple form</li>
+<li>If account is found - a link with a token is generated and email is sent</li>
+<li>User is notified that the link is on its way (even if the account is not found and no email is sent)</li>
+<li>When the user follows the link in the email, a session is generated</li>
+<li>Session valid until the session expires or the user logs out (deleting the session).</li>
+</ol>
+<p><strong>NOTE:</strong> I will be assuming that the account must exist, but you could also just create a new account <em>(consider this option carefully and some limits on account creation per IP address or per hour, etc.  As you could otherwise be flooded with useless, malicious emails!)</em></p>
+<h2 id="do-it-yourself">Do it yourself</h2>
+<p>This is relatively easy to do with built-in Rails security - and I like not being dependent on external code, I&rsquo;ll show a way to do this.  In this case, assume that the accounts are already created (or not).</p>
+<p>If you want to do user registration, confirmation, etc &ndash; then I think it is best to use Devise or some other gem!</p>
+<h3 id="getting-started">Getting Started</h3>
+<p>Code is posted at: 
+<a href="https://github.com/btihen/magic_token" target="_blank" rel="noopener">https://github.com/btihen/magic_token</a></p>
+<p>Create a Rails Project:</p>
+<pre><code class="language-bash">bin/rails new magic_token
+cd magic_token
+bin/rails db:create
+</code></pre>
+<p>now start rails and be sure you get the welcome page at:
+<code>http://localhost:3000</code></p>
+<p>Assuming all works well:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;initial commit&quot;
+</code></pre>
+<h3 id="create-a-landing-page">Create a Landing Page</h3>
+<p>We will now make a landing page (it will need to be always available):</p>
+<pre><code class="language-bash">bin/rails g controller landing index --helper false
+</code></pre>
+<p>now lets point the root page to that too - make the routes page look like:</p>
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+  get '/landing', to: 'landing#index', as: :landing
+  root to: &quot;landing#index&quot;
+end
+</code></pre>
+<p>Now lets check all is well with the routes:</p>
+<pre><code class="language-bash">bin/rails routes | grep landing
+# should show
+  landing   GET   /landing(:format)   landing#index
+     root   GET   /                   landing#index
+</code></pre>
+<p>(quite likely it will be all spread out)</p>
+<p>Start up rails and be sure we can access these pages:</p>
+<ul>
+<li><code>http://localhost:3000/</code></li>
+<li><code>http://localhost:3000/landing</code></li>
+</ul>
+<p>Feel free to make them look nicer!</p>
+<p>assuming all works well:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;add landing page&quot;
+</code></pre>
+<h3 id="create-users-management-page">Create Users Management Page</h3>
+<p>User-Controller to manage users:</p>
+<pre><code class="language-bash">bin/rails g scaffold User email:string token:string token_expires_at:datetime --helper false
+bin/rails db:migrate
+</code></pre>
+<p>Lets make a few accounts in the seed file (or enter in the console <code>bin/rails c</code>):</p>
+<pre><code class="language-ruby"># db/seeds.rb
+User.create(email: 'test1@test.ch')
+User.create(email: 'test2@test.ch')
+</code></pre>
+<p>now run the seed file:</p>
+<pre><code class="language-bash">bin/rails db:seed
+</code></pre>
+<p>Lets start Rails</p>
+<pre><code class="language-bash">bin/rails s
+</code></pre>
+<p>Go to: <code>http://localhost:3000/users</code></p>
+<p>Now you should see the users &amp; be able to create a few more users.</p>
+<p>Feel free to make the GUI nicer!</p>
+<p>Assuming all is good:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;user management page&quot;
+</code></pre>
+<h3 id="add-auth-restrictions-to-application-controller">Add auth restrictions to Application Controller</h3>
+<p>This will allow us to control access to all urls within our app (we will also allow exceptions for a landing page)</p>
+<p>The application controller ensures only authenticated users (with a session) can access pages - with the following code (especially the <code>users_only</code>, but current_user is also very helpful generally)</p>
+<pre><code class="language-ruby"># app/controllers/application_controller.rb
+class ApplicationController &lt; ActionController::Base
+  before_action :users_only
+
+  def current_user
+    # `dig` and `find_by` avoid raising an exception w/o a session
+    user_id = session.dig(:user_id)
+    @current_user ||= User.find_by(id: user_id)
+  end
+
+  private
+
+  # code to ensure only logged in users have access to users pages
+  def users_only
+    if current_user.blank?
+      # send to login page to get an access link
+      redirect_back(fallback_location: landing_path,
+                    :alert =&gt; &quot;Login Required&quot;)
+      # # uncomment to send people access link page (when built)
+      # redirect_back(fallback_location: new_login_path,
+      #               :alert =&gt; &quot;Login Required&quot;)
+    end
+  end
+end
+</code></pre>
+<p>Now we should NOT be able to reach our previous pages</p>
+<p><code>http://localhost:3000/</code>
+<code>http://localhost:3000/users</code>
+<code>http://localhost:3000/landing</code></p>
+<p>Now lets allow access to the landing page again - we need to add:</p>
+<p><code>skip_before_action :users_only</code></p>
+<p>to <code>app/controllers/landing_controller.rb</code> in order to allow unathenticated access.</p>
+<pre><code class="language-ruby"># app/controllers/landing_controller.rb
+class LandingController &lt; ApplicationController
+  skip_before_action :users_only
+  def index
+  end
+end
+</code></pre>
+<p>Assuming that works:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;restrict access w/exception&quot;
+</code></pre>
+<h3 id="create-a-users-homepage">Create a Users Homepage</h3>
+<p>Now that we have a public home / default page - lets make an authenticed (user) homepage - where we auto-redirect people on login.</p>
+<pre><code class="language-bash">bin/rails g controller home index --helper false
+</code></pre>
+<p>update the routes page with the following (I&rsquo;m not a fan of including the <code>index</code> in the url)</p>
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+  get '/home',    to: 'home#index',     as: :home
+  resources :users
+  get '/landing', to: 'landing#index',  as: :landing
+  root to: &quot;landing#index&quot;
+end
+
+</code></pre>
+<p>Now lets check all is well with the routes:</p>
+<pre><code class="language-bash">bin/rails routes | grep home
+# should show
+  home  GET   /home(:format)    home#index
+</code></pre>
+<p>Assuming the routes are correct when we try to go to:</p>
+<p><code>http://localhost:3000/home</code></p>
+<p>we should end up at (be redirected to):</p>
+<p><code>http://localhost:3000/landing</code></p>
+<p>assuming this works well:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;restricted user home page&quot;
+</code></pre>
+<h3 id="optional---setup-a-mail-trap-mailhog">Optional - setup a mail trap (MailHog)</h3>
+<p>I like to view the emails in a browser to check the look as well as the content, for this quick blog - just viewing the info in the logs is good enough.  However, in case you are interested a quick mini MailHog tutorial (for a Mac):</p>
+<p>Install mailhog:</p>
+<pre><code class="language-bash">brew install mailhog
+mailhog
+</code></pre>
+<p>now open <code>config/environments/development.rb</code></p>
+<p>and add the following mail settings (for development):</p>
+<pre><code class="language-ruby"># config/environments/development.rb
+Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+  # ...
+  # mailhog config
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+  # ...
+end
+</code></pre>
+<p>at this point you will be able to go to: <code>http://localhost:8025/</code> and you should see a webpage that looks like a simple mailreader.  In the future, when you send an email from rails it should be available here.</p>
+<h3 id="create-an-emailer-to-send-access-links">Create an emailer to send Access-Links</h3>
+<p>We need a way to send the login link - so we will create a login mailer with:</p>
+<pre><code class="language-bash">bin/rails generate mailer Login send_link --helper false
+</code></pre>
+<p>Configure our emailer for our needs to send the login link:</p>
+<pre><code class="language-ruby"># app/mailer/login_mailer.rb
+class LoginMailer &lt; ApplicationMailer
+  def send_link(user, login_url)
+    @user = user
+    @login_url  = login_url
+    host = Rails.application.config.hosts.first
+
+    mail(to: @user.email, subject: &quot;Access-Link for #{host}&quot;)
+  end
+end
+</code></pre>
+<p>Now we need to create the mailer views to send the url with the access token</p>
+<p>The HTML view:</p>
+<pre><code class="language-ruby"># app/views/login_mailer/send_link.html.erb
+&lt;h1&gt;Hi &lt;%= @user.email %&gt;,&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;&lt;%= @login_url %&gt;&quot;&gt;Access-Link for &lt;%= @host %&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt; &lt;%= @login_url %&gt; &lt;/p&gt;
+
+&lt;p&gt;Link is valid for about an hour from &lt;%= DateTime.now %&gt;&lt;/p&gt;
+</code></pre>
+<p>The text view:</p>
+<pre><code class="language-ruby"># app/views/login_mailer/send_link.text.erb
+Hi &lt;%= @user.email %&gt;,
+
+Access-Link for &lt;%= @host %&gt; is:
+
+&lt;%= @login_url %&gt;
+
+Link is valid for about an hour from &lt;%= DateTime.now %&gt;.
+</code></pre>
+<p>Again feel free to make these pages more beautiful with CSS (Bulma or Tailwind are my favorites)</p>
+<p>Lets test our mailer with the rail console:</p>
+<pre><code class="language-ruby">bin/rails c
+
+# for testing we don't care much which user we pick
+user = User.first
+# we will just send a 'fake url' - we are just testing our mail sending
+url  = &quot;http://localhost:3000/landing&quot;
+
+# we should should now be able to send the mail with:
+LoginMailer.send_link(user, url).deliver_later
+</code></pre>
+<p>Now you should be able to see that the mail was send from the console output or by going to: <code>http://localhost:8025/</code> if you are running mailhog and see the email sent.</p>
+<p>Assuming that work:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;Login URL mailer&quot;
+</code></pre>
+<h3 id="create-an-session-authorization-controller">Create an Session Authorization Controller</h3>
+<p>For the session controller we don&rsquo;t need views or anything else so we can just create the controller file directly.</p>
+<pre><code class="language-bash">touch app/controllers/sessions_controller.rb
+</code></pre>
+<pre><code class="language-ruby">class SessionsController &lt; ApplicationController
+  skip_before_action :users_only, only: :create
+
+  def create
+    token = params[:token].to_s
+    # find the user with a matching token and with current-time &lt; token_expired_at
+    user = User.where(token: token)
+               .where('users.token_expires_at &gt; (?)', DateTime.now)
+               .first
+    if user
+      # create the session id for current_user to access
+      session[:user_id] = user.id
+      # send the user to their homepage (or where erver you prefer)
+      redirect_to(home_path, notice: &quot;Welcome back #{user.name}&quot;)
+    else
+      flash[:alert] = 'Oops - a valid login link is required'
+      redirect_to(landing_path)
+      # when the login request page is built it might make sense to redirect to:
+      # redirect_to(new_login_path)
+    end
+  end
+
+  # allow a user to logout / destroy session if desired
+  def destroy
+    user = current_user
+    if user
+      session[:user_id] = nil
+      flash[:notice] = &quot;logout successful&quot;
+    else
+      falsh[:alert] = &quot;Oops, there was a problem&quot;
+    end
+    redirect_to(landing_path)
+  end
+
+end
+</code></pre>
+<p>Add to routes (I am using a get for the create instead of a post verb - since I don&rsquo;t know of a way to make a text url embed a post verb) - so we will add:</p>
+<pre><code class="language-ruby">  get '/sessions/:token', to: 'sessions#create',  as: :create_session
+  resources :sessions,    only: [:destroy]
+</code></pre>
+<p>to the routes file:</p>
+<p>Now the routes should look something like:</p>
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+  # use get to create since I don't think a text url can create a post
+  get '/sessions/:token', to: 'sessions#create',  as: :create_session
+  resources :sessions,    only: [:destroy]
+  get '/home',    to: 'home#index',     as: :home
+  resources :users
+  get '/landing', to: 'landing#index',  as: :landing
+  root to: &quot;landing#index&quot;
+end
+</code></pre>
+<p>now if we check the session routes we should see something like:</p>
+<pre><code class="language-bash">bin/rails routes | grep session
+  create_session    GET     /sessions/:token(.:format)   sessions#create
+         session    DELETE  /sessions/:id(.:format)      sessions#destroy
+</code></pre>
+<p><strong>OPTIONAL:</strong> by default rails sessions have no expiration, thus are deleted when the browser closes. To change this default behavior, we need to create the file.</p>
+<pre><code class="language-bash">touch config/initializers/session_store.rb
+</code></pre>
+<p>Now you can set the session length (time until a new login is required) with the setting:</p>
+<pre><code class="language-ruby"># config/initializers/session_store.rb
+Rails.application.config.session_store :cookie_store, expire_after: 14.days
+</code></pre>
+<p>you might want to use 2 weeks or 4 weeks - whatever you and your users are comfortable with before forcing a new login (if unsure - go with a shorter time-frame)</p>
+<p>Let&rsquo;s setup a user with a known valid token and test our new session controller:</p>
+<pre><code class="language-ruby">bin/rails c
+
+user = User.first
+# the token length isn't so important but should be enough to make guessing very hard
+user.token = SecureRandom.hex(50)  # be sure to use a url-safe random-generator
+# expiration time should be relatively short - email is generally not encrypted
+user.token_expires_at = DateTime.now + 1.hour
+user.save
+user.reload
+
+# generate the URL for the session path
+# (we need to give the full rails path to the url_helpers since we don't have the controller loaded)
+url = Rails.application.routes.url_helpers.create_session_url(token: user.token, host: 'localhost:3000')
+
+# copy the above url into the browser
+</code></pre>
+<p>Now when we enter the url generated in the email (or click on the link in mailhog), we should be redirected to the &ldquo;home&rdquo; page <code>http://localhost:3000/home</code></p>
+<p>Assumeing that works:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;session controller (login)&quot;
+</code></pre>
+<h3 id="access-link-generation">Access-Link Generation</h3>
+<p>We will need to allow the user to request an access-link.</p>
+<h4 id="login-controller">Login Controller</h4>
+<p>Now lets create a user login controller:</p>
+<pre><code class="language-bash">bin/rails g controller Logins new create --helper false
+</code></pre>
+<p>Now we need the Logins Controller login AND be sure to add</p>
+<p><code>skip_before_action :users_only</code></p>
+<p>so this page is always available!</p>
+<p>Also note the code is similar to what we entered previously in the console.</p>
+<pre><code class="language-ruby"># app/controllers/users/logins_controller.rb
+class LoginsController &lt; ApplicationController
+  # we need to skip the users only check so this pages can be accessed
+  skip_before_action :users_only
+
+  def new
+    user = User.new
+    render :new, locals: {user: user}
+  end
+
+  def create
+    email = user_params[:email]
+
+    # we may or may not find a user
+    user = User.find_by(email: email)
+
+    # always take the time to calculate token info (discourages email fishing)
+    token = SecureRandom.hex(50)
+    # besure to use NOW and not NEW!
+    token_expires_at = DateTime.now + 1.hour
+    token_params = {token: token, token_expires_at: token_expires_at}
+
+    # if we have a user and the update is successful
+    if user &amp;&amp; user.update(token_params)
+      access_url = create_session_url(token: user.token)
+      LoginMailer.send_link(user, access_url).deliver_later
+    end
+
+    # # uncomment to add noise to discourage response time monitoring
+    # # in order to mine user emails
+    # mini_wait = Random.new.rand(10..20) / 1000
+    # wait(mini_wait)
+
+    # true or not we state we have sent an access link and redirect to the landing page
+    # also prevent email fishing by always returning the same answer
+    redirect_to(landing_path, notice: &quot;Access-Link has been sent&quot;)
+  end
+
+  private
+    # Only allow a list of trusted parameters through.
+    def user_params
+      params.require(:user).permit(:email)
+    end
+end
+</code></pre>
+<p><strong>NOTE:</strong>  In real projects I tend to put all my business logic in a <code>command</code> or <code>service</code> class &ndash; I like skinny models and skinny controllers)</p>
+<p>We need to add the route to the users login_controller with:</p>
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+  resources :logins,      only: [:new, :create]
+  # use get to create since I don't think a text url can create a post
+  get '/sessions/:token', to: 'sessions#create',  as: :create_session
+  resources :sessions,    only: [:destroy]
+  get '/home',    to: 'home#index',     as: :home
+  resources :users
+  get '/landing', to: 'landing#index',  as: :landing
+  root to: &quot;landing#index&quot;
+end
+</code></pre>
+<p>now check the routes:</p>
+<pre><code class="language-bash">bin/rails routes | grep logins
+# should return
+     logins   POST  /logins(.:format)       logins#create
+  new_login   GET   /logins/new(.:format)   logins#new
+</code></pre>
+<p>Lets go to the new page <code>http://localhost:3000/logins/new</code> and be sure that we can get access that page.</p>
+<p>Now login into the console and check the user attributes.</p>
+<pre><code class="language-ruby">bin/rails c
+user = User.find_by(email: 'test1.test.ch') # or whatever email you used
+user.token # be sure it updated with the same key as in the logs
+user.token_expires_at # should be an hour into the future
+# if the date is the year 0000 - then you used .new (with an `e`) instead of .now
+</code></pre>
+<p>Assuming this works:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;login controller&quot;
+</code></pre>
+<h4 id="login-form">Login Form</h4>
+<p>Login email form - we only need <code>app/views/logins/new.html.erb</code></p>
+<p>We can delete <code>app/views/logins/create.html.erb</code> as that just posts to an action and then redirects to our user&rsquo;s home_path</p>
+<pre><code class="language-ruby"># app/views/ogins/new.html.erb
+&lt;%= form_for(user, local: true,
+             url: logins_path, # NEW MUST BE PLURAL for POST
+             id: &quot;login-form&quot;, class: &quot;user&quot; ) do |form|  %&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;label class=&quot;label&quot;&gt;Email for Access-Link&lt;/label&gt;
+    &lt;div class=&quot;control&quot;&gt;
+      &lt;%= form.email_field :email,
+                            placeholder: &quot;Email&quot;,
+                            class: 'input' %&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;help&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;control&quot;&gt;
+    &lt;%= form.submit(&quot;Get Access-Link&quot;, class: &quot;button is-success&quot;) %&gt;
+  &lt;/div&gt;
+
+&lt;% end %&gt;
+</code></pre>
+<p>PS - I dislike using instance variables (and often use &lsquo;input&rsquo; classes) with my forms - this is why this form looks a little different than standard rails.</p>
+<p>Note I often use Bulma - so here is how I like to format my forms (without Bulma installed the form will be ugly).</p>
+<p>Let&rsquo;s test this code:</p>
+<p>First:</p>
+<ul>
+<li>go to: <code>http:localhost:3000/home</code></li>
+<li>hopefully your are redirected to: <code>http:localhost:3000/landing</code></li>
+</ul>
+<p>Now:</p>
+<ul>
+<li>go to: <code>http:localhost:3000/logins/new</code></li>
+<li>enter a user&rsquo;s email address</li>
+<li>find the login url generated in the email</li>
+<li>enter that login_url in the browser - (ideally click on the link in mailhog - much like a &lsquo;real user&rsquo; would do)</li>
+<li>hopefully you are now redirected to <code>http:localhost:3000/home</code></li>
+</ul>
+<p>Assuming this works:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;login form and create action with redirect&quot;
+</code></pre>
+<h2 id="resources">Resources</h2>
+<p>s
+Code Repository is at:</p>
+<p><strong>Rails GlobalID</strong></p>
+<p>The nice thing about these is that the auto expire - simplifying the code and the usermodel.</p>
+<ul>
+<li>
+<a href="https://github.com/rails/globalid" target="_blank" rel="noopener">https://github.com/rails/globalid</a></li>
+<li>
+<a href="https://www.magicalruby.com/implementing-magic-links-in-rails/" target="_blank" rel="noopener">https://www.magicalruby.com/implementing-magic-links-in-rails/</a></li>
+</ul>
+<p><strong>Token using SecureRandom</strong></p>
+<p>With these you need to create your own expiration and lookup system (more code add a migration), but will work with any framework.</p>
+<ul>
+<li>(using uuids) - 
+<a href="https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154" target="_blank" rel="noopener">https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154</a></li>
+<li>(using SecureRandom) - 
+<a href="https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/" target="_blank" rel="noopener">https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/</a></li>
+</ul>
+<p><strong>Devise Options</strong></p>
+<ul>
+<li>Devise Plugin - 
+<a href="https://github.com/abevoelker/devise-passwordless" target="_blank" rel="noopener">https://github.com/abevoelker/devise-passwordless</a></li>
+<li>Do it Yourself Devise - 
+<a href="https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o" target="_blank" rel="noopener">https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o</a></li>
+<li>Do it yourself Devise - 
+<a href="https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise" target="_blank" rel="noopener">https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise</a></li>
+</ul>
+<p><strong>Other Options</strong></p>
+<ul>
+<li>
+<p>passwordless gem - 
+<a href="https://github.com/mikker/passwordless#token-and-session-expiry" target="_blank" rel="noopener">https://github.com/mikker/passwordless#token-and-session-expiry</a></p>
+</li>
+<li>
+<p>magic-link gem - 
+<a href="https://github.com/dvanderbeek/magic-link" target="_blank" rel="noopener">https://github.com/dvanderbeek/magic-link</a></p>
+</li>
+<li>
+<p>Using Sorcery - 
+<a href="https://fullstackheroes.com/rails/sorcery-passwordless-authentication/" target="_blank" rel="noopener">https://fullstackheroes.com/rails/sorcery-passwordless-authentication/</a></p>
+</li>
+<li>
+<p>Using Sourcery - 
+<a href="https://www.sitepoint.com/magical-authentication-sorcery/" target="_blank" rel="noopener">https://www.sitepoint.com/magical-authentication-sorcery/</a></p>
+</li>
+<li>
+<p>(using JWTs) - 
+<a href="https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/" target="_blank" rel="noopener">https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/</a>
+<strong>Passwordless Security Overview</strong></p>
+</li>
+<li>
+<p>
+<a href="https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/" target="_blank" rel="noopener">https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/</a></p>
+</li>
+</ul>
+<p><strong>Sessions</strong></p>
+<ul>
+<li>
+<a href="https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html" target="_blank" rel="noopener">https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html</a></li>
+<li>
+<a href="https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html" target="_blank" rel="noopener">https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/authentication/">Authentication</a>
+  
+  <a class="badge badge-light" href="/tags/passwordless-auth/">passwordless auth</a>
+  
+  <a class="badge badge-light" href="/tags/magiclink/">MagicLink</a>
+  
+  <a class="badge badge-light" href="/tags/securerandom/">SecureRandom</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/&amp;text=Rails%206.x%20Auth%20with%20MagicLink%20using%20SecureRandom%20Token" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/&amp;t=Rails%206.x%20Auth%20with%20MagicLink%20using%20SecureRandom%20Token" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%206.x%20Auth%20with%20MagicLink%20using%20SecureRandom%20Token&amp;body=https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/&amp;title=Rails%206.x%20Auth%20with%20MagicLink%20using%20SecureRandom%20Token" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%206.x%20Auth%20with%20MagicLink%20using%20SecureRandom%20Token%20https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/&amp;title=Rails%206.x%20Auth%20with%20MagicLink%20using%20SecureRandom%20Token" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2021
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

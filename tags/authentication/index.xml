@@ -5,12 +5,1016 @@
     <link>https://btihen.me/tags/authentication/</link>
       <atom:link href="https://btihen.me/tags/authentication/index.xml" rel="self" type="application/rss+xml" />
     <description>Authentication</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sun, 25 Apr 2021 01:01:53 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Wed, 22 Sep 2021 16:09:57 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Authentication</title>
       <link>https://btihen.me/tags/authentication/</link>
     </image>
+    
+    <item>
+      <title>Rails 6.x Auth with MagicLink using SecureRandom Token</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/</link>
+      <pubDate>Wed, 22 Sep 2021 16:09:57 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/</guid>
+      <description>&lt;p&gt;Passwordless Authentication is very convenient for users and generally as secure as passwords (according to many articles as long as the email access-links are short-lived - as email is not very secure).&lt;/p&gt;
+&lt;p&gt;Therefore, after some reading, it seems like a good approach is to make a short-lived link, and then transfer the security to a session.&lt;/p&gt;
+&lt;p&gt;I found that there seems to be three simple approaches:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Do it yourself: with a Signed-GlobalID from Rails (self-times out &amp;amp; no migration)&lt;/li&gt;
+&lt;li&gt;Do it yourself: with a Stored-Token (adapts to any framework)&lt;/li&gt;
+&lt;li&gt;Other Options: Devise Plugin (when using devise) or other Gems&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This article will focus on using Secure Random - since it can work with any Framework (in Rails however, I prefer to use SignedGlobalIDs - see: 
+&lt;a href=&#34;https://btihen.me/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://btihen.me/&lt;/a&gt; , since it simplifies the user model and the expiration logic)&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;User enters their email-address in a simple form&lt;/li&gt;
+&lt;li&gt;If account is found - a link with a token is generated and email is sent&lt;/li&gt;
+&lt;li&gt;User is notified that the link is on its way (even if the account is not found and no email is sent)&lt;/li&gt;
+&lt;li&gt;When the user follows the link in the email, a session is generated&lt;/li&gt;
+&lt;li&gt;Session valid until the session expires or the user logs out (deleting the session).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I will be assuming that the account must exist, but you could also just create a new account &lt;em&gt;(consider this option carefully and some limits on account creation per IP address or per hour, etc.  As you could otherwise be flooded with useless, malicious emails!)&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;do-it-yourself&#34;&gt;Do it yourself&lt;/h2&gt;
+&lt;p&gt;This is relatively easy to do with built-in Rails security - and I like not being dependent on external code, I&amp;rsquo;ll show a way to do this.  In this case, assume that the accounts are already created (or not).&lt;/p&gt;
+&lt;p&gt;If you want to do user registration, confirmation, etc &amp;ndash; then I think it is best to use Devise or some other gem!&lt;/p&gt;
+&lt;h3 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h3&gt;
+&lt;p&gt;Code is posted at: 
+&lt;a href=&#34;https://github.com/btihen/magic_token&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/magic_token&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Create a Rails Project:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new magic_token
+cd magic_token
+bin/rails db:create
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now start rails and be sure you get the welcome page at:
+&lt;code&gt;http://localhost:3000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming all works well:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;initial commit&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-a-landing-page&#34;&gt;Create a Landing Page&lt;/h3&gt;
+&lt;p&gt;We will now make a landing page (it will need to be always available):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller landing index --helper false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets point the root page to that too - make the routes page look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets check all is well with the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep landing
+# should show
+  landing   GET   /landing(:format)   landing#index
+     root   GET   /                   landing#index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(quite likely it will be all spread out)&lt;/p&gt;
+&lt;p&gt;Start up rails and be sure we can access these pages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;http://localhost:3000/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;http://localhost:3000/landing&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Feel free to make them look nicer!&lt;/p&gt;
+&lt;p&gt;assuming all works well:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;add landing page&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-users-management-page&#34;&gt;Create Users Management Page&lt;/h3&gt;
+&lt;p&gt;User-Controller to manage users:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g scaffold User email:string token:string token_expires_at:datetime --helper false
+bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets make a few accounts in the seed file (or enter in the console &lt;code&gt;bin/rails c&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+User.create(email: &#39;test1@test.ch&#39;)
+User.create(email: &#39;test2@test.ch&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now run the seed file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:seed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets start Rails&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Go to: &lt;code&gt;http://localhost:3000/users&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now you should see the users &amp;amp; be able to create a few more users.&lt;/p&gt;
+&lt;p&gt;Feel free to make the GUI nicer!&lt;/p&gt;
+&lt;p&gt;Assuming all is good:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;user management page&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;add-auth-restrictions-to-application-controller&#34;&gt;Add auth restrictions to Application Controller&lt;/h3&gt;
+&lt;p&gt;This will allow us to control access to all urls within our app (we will also allow exceptions for a landing page)&lt;/p&gt;
+&lt;p&gt;The application controller ensures only authenticated users (with a session) can access pages - with the following code (especially the &lt;code&gt;users_only&lt;/code&gt;, but current_user is also very helpful generally)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/application_controller.rb
+class ApplicationController &amp;lt; ActionController::Base
+  before_action :users_only
+
+  def current_user
+    # `dig` and `find_by` avoid raising an exception w/o a session
+    user_id = session.dig(:user_id)
+    @current_user ||= User.find_by(id: user_id)
+  end
+
+  private
+
+  # code to ensure only logged in users have access to users pages
+  def users_only
+    if current_user.blank?
+      # send to login page to get an access link
+      redirect_back(fallback_location: landing_path,
+                    :alert =&amp;gt; &amp;quot;Login Required&amp;quot;)
+      # # uncomment to send people access link page (when built)
+      # redirect_back(fallback_location: new_login_path,
+      #               :alert =&amp;gt; &amp;quot;Login Required&amp;quot;)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we should NOT be able to reach our previous pages&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://localhost:3000/&lt;/code&gt;
+&lt;code&gt;http://localhost:3000/users&lt;/code&gt;
+&lt;code&gt;http://localhost:3000/landing&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now lets allow access to the landing page again - we need to add:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;skip_before_action :users_only&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;to &lt;code&gt;app/controllers/landing_controller.rb&lt;/code&gt; in order to allow unathenticated access.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/landing_controller.rb
+class LandingController &amp;lt; ApplicationController
+  skip_before_action :users_only
+  def index
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming that works:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;restrict access w/exception&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-a-users-homepage&#34;&gt;Create a Users Homepage&lt;/h3&gt;
+&lt;p&gt;Now that we have a public home / default page - lets make an authenticed (user) homepage - where we auto-redirect people on login.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller home index --helper false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the routes page with the following (I&amp;rsquo;m not a fan of including the &lt;code&gt;index&lt;/code&gt; in the url)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  get &#39;/home&#39;,    to: &#39;home#index&#39;,     as: :home
+  resources :users
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;,  as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets check all is well with the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep home
+# should show
+  home  GET   /home(:format)    home#index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming the routes are correct when we try to go to:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://localhost:3000/home&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;we should end up at (be redirected to):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://localhost:3000/landing&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;assuming this works well:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;restricted user home page&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;optional---setup-a-mail-trap-mailhog&#34;&gt;Optional - setup a mail trap (MailHog)&lt;/h3&gt;
+&lt;p&gt;I like to view the emails in a browser to check the look as well as the content, for this quick blog - just viewing the info in the logs is good enough.  However, in case you are interested a quick mini MailHog tutorial (for a Mac):&lt;/p&gt;
+&lt;p&gt;Install mailhog:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install mailhog
+mailhog
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now open &lt;code&gt;config/environments/development.rb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and add the following mail settings (for development):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/environments/development.rb
+Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+  # ...
+  # mailhog config
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = { address: &#39;localhost&#39;, port: 1025 }
+  # ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;at this point you will be able to go to: &lt;code&gt;http://localhost:8025/&lt;/code&gt; and you should see a webpage that looks like a simple mailreader.  In the future, when you send an email from rails it should be available here.&lt;/p&gt;
+&lt;h3 id=&#34;create-an-emailer-to-send-access-links&#34;&gt;Create an emailer to send Access-Links&lt;/h3&gt;
+&lt;p&gt;We need a way to send the login link - so we will create a login mailer with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails generate mailer Login send_link --helper false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Configure our emailer for our needs to send the login link:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/mailer/login_mailer.rb
+class LoginMailer &amp;lt; ApplicationMailer
+  def send_link(user, login_url)
+    @user = user
+    @login_url  = login_url
+    host = Rails.application.config.hosts.first
+
+    mail(to: @user.email, subject: &amp;quot;Access-Link for #{host}&amp;quot;)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to create the mailer views to send the url with the access token&lt;/p&gt;
+&lt;p&gt;The HTML view:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/login_mailer/send_link.html.erb
+&amp;lt;h1&amp;gt;Hi &amp;lt;%= @user.email %&amp;gt;,&amp;lt;/h1&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;&amp;lt;%= @login_url %&amp;gt;&amp;quot;&amp;gt;Access-Link for &amp;lt;%= @host %&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt; &amp;lt;%= @login_url %&amp;gt; &amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;Link is valid for about an hour from &amp;lt;%= DateTime.now %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text view:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/login_mailer/send_link.text.erb
+Hi &amp;lt;%= @user.email %&amp;gt;,
+
+Access-Link for &amp;lt;%= @host %&amp;gt; is:
+
+&amp;lt;%= @login_url %&amp;gt;
+
+Link is valid for about an hour from &amp;lt;%= DateTime.now %&amp;gt;.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again feel free to make these pages more beautiful with CSS (Bulma or Tailwind are my favorites)&lt;/p&gt;
+&lt;p&gt;Lets test our mailer with the rail console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+
+# for testing we don&#39;t care much which user we pick
+user = User.first
+# we will just send a &#39;fake url&#39; - we are just testing our mail sending
+url  = &amp;quot;http://localhost:3000/landing&amp;quot;
+
+# we should should now be able to send the mail with:
+LoginMailer.send_link(user, url).deliver_later
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you should be able to see that the mail was send from the console output or by going to: &lt;code&gt;http://localhost:8025/&lt;/code&gt; if you are running mailhog and see the email sent.&lt;/p&gt;
+&lt;p&gt;Assuming that work:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;Login URL mailer&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-an-session-authorization-controller&#34;&gt;Create an Session Authorization Controller&lt;/h3&gt;
+&lt;p&gt;For the session controller we don&amp;rsquo;t need views or anything else so we can just create the controller file directly.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch app/controllers/sessions_controller.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class SessionsController &amp;lt; ApplicationController
+  skip_before_action :users_only, only: :create
+
+  def create
+    token = params[:token].to_s
+    # find the user with a matching token and with current-time &amp;lt; token_expired_at
+    user = User.where(token: token)
+               .where(&#39;users.token_expires_at &amp;gt; (?)&#39;, DateTime.now)
+               .first
+    if user
+      # create the session id for current_user to access
+      session[:user_id] = user.id
+      # send the user to their homepage (or where erver you prefer)
+      redirect_to(home_path, notice: &amp;quot;Welcome back #{user.name}&amp;quot;)
+    else
+      flash[:alert] = &#39;Oops - a valid login link is required&#39;
+      redirect_to(landing_path)
+      # when the login request page is built it might make sense to redirect to:
+      # redirect_to(new_login_path)
+    end
+  end
+
+  # allow a user to logout / destroy session if desired
+  def destroy
+    user = current_user
+    if user
+      session[:user_id] = nil
+      flash[:notice] = &amp;quot;logout successful&amp;quot;
+    else
+      falsh[:alert] = &amp;quot;Oops, there was a problem&amp;quot;
+    end
+    redirect_to(landing_path)
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add to routes (I am using a get for the create instead of a post verb - since I don&amp;rsquo;t know of a way to make a text url embed a post verb) - so we will add:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  get &#39;/sessions/:token&#39;, to: &#39;sessions#create&#39;,  as: :create_session
+  resources :sessions,    only: [:destroy]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to the routes file:&lt;/p&gt;
+&lt;p&gt;Now the routes should look something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  # use get to create since I don&#39;t think a text url can create a post
+  get &#39;/sessions/:token&#39;, to: &#39;sessions#create&#39;,  as: :create_session
+  resources :sessions,    only: [:destroy]
+  get &#39;/home&#39;,    to: &#39;home#index&#39;,     as: :home
+  resources :users
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;,  as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now if we check the session routes we should see something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep session
+  create_session    GET     /sessions/:token(.:format)   sessions#create
+         session    DELETE  /sessions/:id(.:format)      sessions#destroy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;OPTIONAL:&lt;/strong&gt; by default rails sessions have no expiration, thus are deleted when the browser closes. To change this default behavior, we need to create the file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch config/initializers/session_store.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can set the session length (time until a new login is required) with the setting:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/session_store.rb
+Rails.application.config.session_store :cookie_store, expire_after: 14.days
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you might want to use 2 weeks or 4 weeks - whatever you and your users are comfortable with before forcing a new login (if unsure - go with a shorter time-frame)&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s setup a user with a known valid token and test our new session controller:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+
+user = User.first
+# the token length isn&#39;t so important but should be enough to make guessing very hard
+user.token = SecureRandom.hex(50)  # be sure to use a url-safe random-generator
+# expiration time should be relatively short - email is generally not encrypted
+user.token_expires_at = DateTime.now + 1.hour
+user.save
+user.reload
+
+# generate the URL for the session path
+# (we need to give the full rails path to the url_helpers since we don&#39;t have the controller loaded)
+url = Rails.application.routes.url_helpers.create_session_url(token: user.token, host: &#39;localhost:3000&#39;)
+
+# copy the above url into the browser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when we enter the url generated in the email (or click on the link in mailhog), we should be redirected to the &amp;ldquo;home&amp;rdquo; page &lt;code&gt;http://localhost:3000/home&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assumeing that works:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;session controller (login)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;access-link-generation&#34;&gt;Access-Link Generation&lt;/h3&gt;
+&lt;p&gt;We will need to allow the user to request an access-link.&lt;/p&gt;
+&lt;h4 id=&#34;login-controller&#34;&gt;Login Controller&lt;/h4&gt;
+&lt;p&gt;Now lets create a user login controller:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller Logins new create --helper false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need the Logins Controller login AND be sure to add&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;skip_before_action :users_only&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;so this page is always available!&lt;/p&gt;
+&lt;p&gt;Also note the code is similar to what we entered previously in the console.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/users/logins_controller.rb
+class LoginsController &amp;lt; ApplicationController
+  # we need to skip the users only check so this pages can be accessed
+  skip_before_action :users_only
+
+  def new
+    user = User.new
+    render :new, locals: {user: user}
+  end
+
+  def create
+    email = user_params[:email]
+
+    # we may or may not find a user
+    user = User.find_by(email: email)
+
+    # always take the time to calculate token info (discourages email fishing)
+    token = SecureRandom.hex(50)
+    # besure to use NOW and not NEW!
+    token_expires_at = DateTime.now + 1.hour
+    token_params = {token: token, token_expires_at: token_expires_at}
+
+    # if we have a user and the update is successful
+    if user &amp;amp;&amp;amp; user.update(token_params)
+      access_url = create_session_url(token: user.token)
+      LoginMailer.send_link(user, access_url).deliver_later
+    end
+
+    # # uncomment to add noise to discourage response time monitoring
+    # # in order to mine user emails
+    # mini_wait = Random.new.rand(10..20) / 1000
+    # wait(mini_wait)
+
+    # true or not we state we have sent an access link and redirect to the landing page
+    # also prevent email fishing by always returning the same answer
+    redirect_to(landing_path, notice: &amp;quot;Access-Link has been sent&amp;quot;)
+  end
+
+  private
+    # Only allow a list of trusted parameters through.
+    def user_params
+      params.require(:user).permit(:email)
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt;  In real projects I tend to put all my business logic in a &lt;code&gt;command&lt;/code&gt; or &lt;code&gt;service&lt;/code&gt; class &amp;ndash; I like skinny models and skinny controllers)&lt;/p&gt;
+&lt;p&gt;We need to add the route to the users login_controller with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  resources :logins,      only: [:new, :create]
+  # use get to create since I don&#39;t think a text url can create a post
+  get &#39;/sessions/:token&#39;, to: &#39;sessions#create&#39;,  as: :create_session
+  resources :sessions,    only: [:destroy]
+  get &#39;/home&#39;,    to: &#39;home#index&#39;,     as: :home
+  resources :users
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;,  as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now check the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep logins
+# should return
+     logins   POST  /logins(.:format)       logins#create
+  new_login   GET   /logins/new(.:format)   logins#new
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets go to the new page &lt;code&gt;http://localhost:3000/logins/new&lt;/code&gt; and be sure that we can get access that page.&lt;/p&gt;
+&lt;p&gt;Now login into the console and check the user attributes.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+user = User.find_by(email: &#39;test1.test.ch&#39;) # or whatever email you used
+user.token # be sure it updated with the same key as in the logs
+user.token_expires_at # should be an hour into the future
+# if the date is the year 0000 - then you used .new (with an `e`) instead of .now
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming this works:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;login controller&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;login-form&#34;&gt;Login Form&lt;/h4&gt;
+&lt;p&gt;Login email form - we only need &lt;code&gt;app/views/logins/new.html.erb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We can delete &lt;code&gt;app/views/logins/create.html.erb&lt;/code&gt; as that just posts to an action and then redirects to our user&amp;rsquo;s home_path&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/ogins/new.html.erb
+&amp;lt;%= form_for(user, local: true,
+             url: logins_path, # NEW MUST BE PLURAL for POST
+             id: &amp;quot;login-form&amp;quot;, class: &amp;quot;user&amp;quot; ) do |form|  %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;label class=&amp;quot;label&amp;quot;&amp;gt;Email for Access-Link&amp;lt;/label&amp;gt;
+    &amp;lt;div class=&amp;quot;control&amp;quot;&amp;gt;
+      &amp;lt;%= form.email_field :email,
+                            placeholder: &amp;quot;Email&amp;quot;,
+                            class: &#39;input&#39; %&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;p class=&amp;quot;help&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;control&amp;quot;&amp;gt;
+    &amp;lt;%= form.submit(&amp;quot;Get Access-Link&amp;quot;, class: &amp;quot;button is-success&amp;quot;) %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;PS - I dislike using instance variables (and often use &amp;lsquo;input&amp;rsquo; classes) with my forms - this is why this form looks a little different than standard rails.&lt;/p&gt;
+&lt;p&gt;Note I often use Bulma - so here is how I like to format my forms (without Bulma installed the form will be ugly).&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s test this code:&lt;/p&gt;
+&lt;p&gt;First:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;go to: &lt;code&gt;http:localhost:3000/home&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;hopefully your are redirected to: &lt;code&gt;http:localhost:3000/landing&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;go to: &lt;code&gt;http:localhost:3000/logins/new&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;enter a user&amp;rsquo;s email address&lt;/li&gt;
+&lt;li&gt;find the login url generated in the email&lt;/li&gt;
+&lt;li&gt;enter that login_url in the browser - (ideally click on the link in mailhog - much like a &amp;lsquo;real user&amp;rsquo; would do)&lt;/li&gt;
+&lt;li&gt;hopefully you are now redirected to &lt;code&gt;http:localhost:3000/home&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Assuming this works:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;login form and create action with redirect&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;s
+Code Repository is at:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Rails GlobalID&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The nice thing about these is that the auto expire - simplifying the code and the usermodel.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/rails/globalid&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/globalid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.magicalruby.com/implementing-magic-links-in-rails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.magicalruby.com/implementing-magic-links-in-rails/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Token using SecureRandom&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With these you need to create your own expiration and lookup system (more code add a migration), but will work with any framework.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(using uuids) - 
+&lt;a href=&#34;https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(using SecureRandom) - 
+&lt;a href=&#34;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Devise Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Devise Plugin - 
+&lt;a href=&#34;https://github.com/abevoelker/devise-passwordless&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/abevoelker/devise-passwordless&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Do it Yourself Devise - 
+&lt;a href=&#34;https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Do it yourself Devise - 
+&lt;a href=&#34;https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Other Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;passwordless gem - 
+&lt;a href=&#34;https://github.com/mikker/passwordless#token-and-session-expiry&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mikker/passwordless#token-and-session-expiry&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;magic-link gem - 
+&lt;a href=&#34;https://github.com/dvanderbeek/magic-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/dvanderbeek/magic-link&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Sorcery - 
+&lt;a href=&#34;https://fullstackheroes.com/rails/sorcery-passwordless-authentication/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackheroes.com/rails/sorcery-passwordless-authentication/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Sourcery - 
+&lt;a href=&#34;https://www.sitepoint.com/magical-authentication-sorcery/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.sitepoint.com/magical-authentication-sorcery/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(using JWTs) - 
+&lt;a href=&#34;https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/&lt;/a&gt;
+&lt;strong&gt;Passwordless Security Overview&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Sessions&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 6.x&#43; Auth with MagicLinks using Rails Signed GlobalIDs</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/</link>
+      <pubDate>Sun, 19 Sep 2021 01:36:55 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/</guid>
+      <description>&lt;p&gt;Passwordless Authentication is very convenient for users and generally as secure as passwords (a good security authentication discussion can be found at: ).&lt;/p&gt;
+&lt;p&gt;A good approach is to make a short-lived link, and then transfer the security to a session.&lt;/p&gt;
+&lt;p&gt;I found that there seems to be three simple approaches:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Do it yourself: with a Stored-Token (with an expiration date-time)&lt;/li&gt;
+&lt;li&gt;Do it yourself: with a Signed-GlobalID from Rails (self-times out &amp;amp; no stored tokens)&lt;/li&gt;
+&lt;li&gt;Other Options: other Gems for Devise, Sorcery, or independent gems&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;User enters their email-address in a simple form&lt;/li&gt;
+&lt;li&gt;If account is found - a link with a token is generated and email is sent&lt;/li&gt;
+&lt;li&gt;User is notified that the link is on its way (even if the account is not found and no email is sent)&lt;/li&gt;
+&lt;li&gt;When the user follows the link in the email, a session is generated&lt;/li&gt;
+&lt;li&gt;Session valid until the session expires or the user logs out (deleting the session).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; User accounts are assumed to be previously created, and verified.  If you need a full set of features - then your best option is probably to use devise, sorcery or authenticate and use an extension or build your own extension to one of these libraries.  Either way, this article will clarify the basics of passwordless authentication.&lt;/p&gt;
+&lt;h3 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h3&gt;
+&lt;p&gt;Create a Rails Project&lt;/p&gt;
+&lt;p&gt;Code is posted at:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new magic_id
+cd magic_id
+git add .
+git commit -m &amp;quot;initial commit on creation&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;User-Controller to manage users:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:create
+bin/rails g scaffold User name:string email:string
+bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets start Rails&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Go to: &lt;code&gt;http://localhost:3000/users&lt;/code&gt; and create a few users - feel free to make the GUI nicer!&lt;/p&gt;
+&lt;p&gt;Assuming all is good:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit &amp;quot;user management scaffold&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-a-landing-page&#34;&gt;Create a Landing Page&lt;/h3&gt;
+&lt;p&gt;we need a landing / root page to send users when they are not logged in:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller landing index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets point the root page to that too - make the routes page look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I will also remove: &lt;code&gt;app/helpers/landing_helper.rb&lt;/code&gt; with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rm app/helpers/landing_helper.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets check all is well with the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep landing
+# should show
+  landing GET /landing(:format) landing#index
+     root GET /                 landing#index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(quite likely it will be all spread out)&lt;/p&gt;
+&lt;p&gt;Now the following pages should be available:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;http://localhost:3000/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;http://localhost:3000/landing&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;again feel free to make them look nice.&lt;/p&gt;
+&lt;p&gt;assuming all works well:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;create landing page and landing &amp;amp; root route&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-a-user-application-controller-restrict-access&#34;&gt;Create a User Application Controller (restrict access)&lt;/h3&gt;
+&lt;p&gt;This will allow us to control access to all urls in the /users paths within our app&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/controllers/users
+touch app/controllers/users/application_controller.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The application controller ensures only authenticated users (with a session) can access pages in the &lt;code&gt;users&lt;/code&gt; area:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/users/application_controller.rb
+class Users::ApplicationController &amp;lt; ApplicationController
+  before_action :users_only
+
+  def current_user(user_id = session[:user_id])
+    # `try` and `find_by` avoid raising an exception w/o a session
+    @current_user ||= User.find_by(id: user_id)
+  end
+
+  private
+
+  # code to ensure only logged in users have access to users pages
+  def users_only
+    # send person to a safe page if not logged in
+    if current_user.blank?
+      # send to login page to get an access link
+      redirect_back(fallback_location: landing_path,
+                    :alert =&amp;gt; &amp;quot;Login Required&amp;quot;)
+      # once the below page is created we can redirect to here instead
+      # redirect_back(fallback_location: new_users_login_path,
+      #               :alert =&amp;gt; &amp;quot;Login Required&amp;quot;)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE: if you want all pages protected then put this code in:
+&lt;code&gt;app/controllers/application_controller.rb&lt;/code&gt;
+and adjust the routes (remove the namespace)!&lt;/p&gt;
+&lt;h3 id=&#34;restricted-user-home-page&#34;&gt;Restricted User Home Page&lt;/h3&gt;
+&lt;p&gt;we need a landing / root page to send users when they are not logged in:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller users/landing index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now lets point the root page to that too - make the routes page look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  namespace :users do
+    get &#39;/&#39;,                as: &#39;root&#39;,         to: &#39;home#index&#39;
+    get &#39;/home&#39;,            as: &#39;home&#39;,         to: &#39;home#index&#39;
+  end
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Update the controller to use the Users::ApplicationController:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/users/home_controller.rb
+class Users::HomeController &amp;lt; Users::ApplicationController
+  def index
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I will also remove: &lt;code&gt;app/helpers/users/home_helper.rb&lt;/code&gt; with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rm app/helpers/users/home_helper.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets check all is well with the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep user
+# should show
+  users_home GET /users/home(:format) home#index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(quite likely it will be all spread out)&lt;/p&gt;
+&lt;p&gt;Now the following pages should NOT be available:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;http://localhost:3000/users&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;http://localhost:3000/users/home&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and we should be redirected to the landing page.  If you access the home page - then probably the first line is wrong it should be:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Users::HomeController &amp;lt; Users::ApplicationController&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;assuming all works well:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;create restricted user home page&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-an-session-authorization-controller&#34;&gt;Create an Session Authorization Controller&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch app/controllers/users/sessions_controller.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Users::SessionsController &amp;lt; Users::ApplicationController
+  # before_action :users_only, only: :destroy
+  skip_before_action :users_only, only: :create
+
+  def create
+    sgid_token = params[:token].to_s
+    user = GlobalID::Locator.locate_signed(sgid_token, for: &#39;user_access&#39;)
+    if user
+      # create the session id for current_user to access
+      session[:user_id] = user.id
+      redirect_to(users_home_path, notice: &amp;quot;Welcome back #{user.name}&amp;quot;)
+    else
+      flash[:alert] = &#39;Oops - you need a new login link&#39;
+      redirect_to(landing_path)
+      # later when created we will redirect to login access link page
+      # redirect_to(new_users_login)
+    end
+  end
+
+  # allow a user to logout / destroy session if desired
+  def destroy
+    user = current_user
+    if user
+      session[:user_id] = nil
+      flash[:notice] = &amp;quot;logout successful&amp;quot;
+    else
+      falsh[:alert] = &amp;quot;Oops, there was a problem&amp;quot;
+    end
+    redirect_to(landing_path)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add to routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  namespace :users do
+    get &#39;/&#39;,                as: &#39;root&#39;,         to: &#39;home#index&#39;
+    get &#39;/home&#39;,            as: &#39;home&#39;,         to: &#39;home#index&#39;
+    # use get to create since I don&#39;t think a text url can create a post
+    get &#39;/sessions/:token&#39;, as: &#39;session_create&#39;, to: &#39;sessions#create&#39;
+    # allow logout / destroy the session
+    resources :sessions,    only: [:destroy]
+  end
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To test this go to rails console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+# create our own token
+user = User.first
+global_id = User.find(user.id).to_sgid(expires_in: 1.hour, for: &#39;user_access&#39;)
+access_token = global_id.to_s
+
+# check that this global_id works (we should get the same user)
+GlobalID::Locator.locate_signed(access_token, for: &#39;user_access&#39;)
+
+# add url helpers to console
+include ActionView::Helpers
+include ActionView::Helpers::UrlHelper
+# generate the URL for the session
+Rails.application.routes.url_helpers.users_session_create_url(token: global_id.to_s, host: &#39;locahost:3000&#39;)
+# should get something like:
+# &amp;quot;http://locahost:3000/users/sessions/BAh7CEkiCGdpZAY6BkVUSSItZ2lkOi8vbWFnaWMtbGlua3MvVXNlci8xP2V4cGlyZXNfaW49MzYwMAY7AFRJIgxwdXJwb3NlBjsAVEkiEHVzZXJfYWNjZXNzBjsAVEkiD2V4cGlyZXNfYXQGOwBUSSIdMjAyMS0wOS0xOVQxNTozNzo0MS4wNjdaBjsAVA==--c948a0a5ccbae391c7ab9c808677fe41da4cbc28&amp;quot;
+
+# copy this url into the browser
+# now we be on: `http://localhost:3000/user/` &amp;amp; `http://localhost:3000/user/home`
+
+# if you try again in an hour it should not work!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; by default rails sessions have no expiration, thus are deleted when the browser closes. To change this default behavior, you can set the session length with the setting:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/session_store.rb
+Rails.application.config.session_store :cookie_store, expire_after: 14.days
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming all works:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;session controller gives access to users_home&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;access-link-generation&#34;&gt;Access-Link Generation&lt;/h3&gt;
+&lt;p&gt;We will need to allow the user to request an access-link.  We will do this with (we won&amp;rsquo;t be generating any models just a controller and a submission form - scaffold_controller does this for us):&lt;/p&gt;
+&lt;h4 id=&#34;create-a-mailer-to-send-access-links&#34;&gt;Create a Mailer to send Access-Links&lt;/h4&gt;
+&lt;p&gt;We need a way to send the login link - so we will create a login mailer with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails generate mailer Login send_link
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Configure our emailer for our needs with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class LoginMailer &amp;lt; ApplicationMailer
+  def send_link(user, login_url)
+    @user = user
+    @login_url  = login_url
+    host = Rails.application.config.hosts.first
+
+    mail(to: @user.email, subject: &amp;quot;Access-Link for #{host}&amp;quot;)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And of course set up the views that contain the contents of the email:
+The HTML Version&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/login_mailer/send_link.html.erb
+&amp;lt;h1&amp;gt;Hi &amp;lt;%= @user.name %&amp;gt;,&amp;lt;/h1&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;&amp;lt;%= @login_url %&amp;gt;&amp;quot;&amp;gt;Access-Link for &amp;lt;%= @host %&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt; &amp;lt;%= @login_url %&amp;gt; &amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;Link is valid for about an hour from &amp;lt;%= DateTime.now %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text version:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/login_mailer/send_link.text.erb
+Hi &amp;lt;%= @user.name %&amp;gt;,
+
+Access-Link for &amp;lt;%= @host %&amp;gt; is:
+
+&amp;lt;%= @login_url %&amp;gt;
+
+Link is valid for about an hour from &amp;lt;%= DateTime.now %&amp;gt;.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;setup-mailhog-optional&#34;&gt;Setup Mailhog (OPTIONAL)&lt;/h4&gt;
+&lt;p&gt;This is optional - technical testing can be done from the log file - but to see what the email formatting looks like this is VERY HELPFUL.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install mailhog
+mailhog
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Configure Rails to send emails to port 1025 in development (where mailhog listens)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/environments/development.rb
+Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+  # ...
+  # mailhog config
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = { address: &#39;localhost&#39;, port: 1025 }
+  # ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now open - to view:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;open localhost:8025
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;controller&#34;&gt;Controller&lt;/h4&gt;
+&lt;p&gt;Now lets create a user login controller:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch app/controllers/users/logins_controller.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add the contents of the controller:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/users/logins_controller.rb
+class Users::LoginsController &amp;lt; Users::ApplicationController
+skip_before_action :users_only
+
+  def new
+    user = User.new
+    render :new, locals: {user: user}
+  end
+
+  def create
+    email = user_params[:email]
+    ip_address = request.remote_ip
+    # the participant might already exist in our db or possimagic_link_url = participants_session_auth_url(token: participant.login_token)bly a new participant
+    user = User.find_by(email: email)
+
+    if user
+      # create a signed expiring Rails Global ID - this makes LONG tokens, but browswers can handle it
+      # all browsers should handle up to 2000 characters.
+      # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+      # https://www.geeksforgeeks.org/maximum-length-of-a-url-in-different-browsers/
+      global_id = user.to_sgid(expires_in: 1.hour, for: &#39;user_access&#39;)
+      access_url = users_session_create_url(token: global_id.to_s)
+      LoginMailer.send_link(user, access_url).deliver_later
+    else
+      # if user isn&#39;t found then grab a user and compute the global_id and url (but don&#39;t send an email)
+      # in order to make the time of both paths similar - so people can&#39;t find user emails checking the response times
+      # see: https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/
+
+      global_id = User.first.to_sgid(expires_in: 1.hour, for: &#39;user_access&#39;)
+      access_url = user_auth_url(token: global_id.to_s)
+    end
+
+    # uncomment to add noise to further make email fishing difficult to time
+    # mini_wait = Random.new.rand(10..20) / 1000
+    # wait(mini_wait)
+
+    # true or not we state we have sent an access link and redirect to the landing page
+    # also prevent email fishing by always returning the same answer
+    redirect_to(landing_path, notice: &amp;quot;Access-Link has been sent&amp;quot;)
+  end
+
+  private
+
+    # Only allow a list of trusted parameters through.
+    def user_params
+      params.require(:user).permit(:email)
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; You can let the GlobalID be valid for however long you want (in hours), but since email isn&amp;rsquo;t very secure, it seems wise to keep this short lived.  The default time is 30.days&lt;/p&gt;
+&lt;p&gt;We need to add the route to the users login_controller with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  # restricted area (protected by user login - Users::ApplicationController)
+  namespace :users do
+    get &#39;/&#39;,                as: &#39;root&#39;,         to: &#39;home#index&#39;
+    get &#39;/home&#39;,            as: &#39;home&#39;,         to: &#39;home#index&#39;
+    # use get to create since I don&#39;t think a text url can create a post
+    get &#39;/sessions/:token&#39;, as: &#39;session_create&#39;, to: &#39;sessions#create&#39;
+    # allow logout / destroy the session
+    resources :sessions,    only: [:destroy]
+    # login (generates link and emails to the user)
+    resources :logins,      only: [:new, :create]
+  end
+  get &#39;/landing&#39;, to: &#39;landing#index&#39;, as: :landing
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now check the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails routes | grep users
+# should return
+     users_logins POST  /users/logins(.:format)     users/logins#create
+  new_users_login GET   /users/logins/new(.:format) users/logins#new
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;email--access-link-form&#34;&gt;Email / Access Link form&lt;/h4&gt;
+&lt;p&gt;Login email form:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/views/users/logins
+touch app/views/users/logins/new.html.erb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note I often use Bulma - so here is how I like to format my forms (without Bulma installed the form will be ugly).
+Also note, I dislike using instance variables in my form - so this is why the form looks a little extra complicated.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/users/logins/new.html.erb
+&amp;lt;%= form_for(user, local: true,
+             url: users_logins_path,   # NEW MUST BE PLURAL for POST
+             id: &amp;quot;user-login-form&amp;quot;, class: &amp;quot;user&amp;quot; ) do |form|  %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;label class=&amp;quot;label&amp;quot;&amp;gt;Email for Access-Link&amp;lt;/label&amp;gt;
+    &amp;lt;div class=&amp;quot;control&amp;quot;&amp;gt;
+      &amp;lt;%= form.email_field :email,
+                            placeholder: &amp;quot;Email&amp;quot;,
+                            class: &#39;input&#39; %&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;p class=&amp;quot;help&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;control&amp;quot;&amp;gt;
+    &amp;lt;%= form.submit(&amp;quot;Get Access-Link&amp;quot;, class: &amp;quot;button is-success&amp;quot;) %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-the-full-flow&#34;&gt;Test the full flow&lt;/h2&gt;
+&lt;p&gt;using the command line create some users:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+User.create(email: &amp;quot;tester@test.ch&amp;quot;, name: &amp;quot;Tester&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;start rails with: &lt;code&gt;bin/rails s&lt;/code&gt;
+start mailhog with: &lt;code&gt;mailhog&lt;/code&gt;
+go to: &lt;code&gt;http://localhost:3000/user/home&lt;/code&gt; (should get redirected to the below URL)
+go to: &lt;code&gt;http://localhost:3000/user/logins&lt;/code&gt;
+enter the &amp;ldquo;
+&lt;a href=&#34;mailto:tester@test.ch&#34;&gt;tester@test.ch&lt;/a&gt;&amp;rdquo; email
+Check mailhog for the link &lt;code&gt;http://localhost:8025/&lt;/code&gt;
+Click the link you should now be on &lt;code&gt;http://localhost:3000/user/home&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Assuming everything works:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;working magic links using Rails Global ID&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; obviously automated tests are important (both spec and feature tests).&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Rails GlobalID&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The nice thing about these is that the auto expire - simplifying the code a lot.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/rails/globalid&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/globalid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.magicalruby.com/implementing-magic-links-in-rails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.magicalruby.com/implementing-magic-links-in-rails/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Token using SecureRandom&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With these you need to create your own expiration and lookup system (more code add a migration), but will work with any framework.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(using uuids) - 
+&lt;a href=&#34;https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(using SecureRandom) - 
+&lt;a href=&#34;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Devise Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Devise Plugin - 
+&lt;a href=&#34;https://github.com/abevoelker/devise-passwordless&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/abevoelker/devise-passwordless&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Do it Yourself Devise - 
+&lt;a href=&#34;https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Do it yourself Devise - 
+&lt;a href=&#34;https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Other Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;passwordless gem - 
+&lt;a href=&#34;https://github.com/mikker/passwordless#token-and-session-expiry&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mikker/passwordless#token-and-session-expiry&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;magic-link gem - 
+&lt;a href=&#34;https://github.com/dvanderbeek/magic-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/dvanderbeek/magic-link&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Sorcery - 
+&lt;a href=&#34;https://fullstackheroes.com/rails/sorcery-passwordless-authentication/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackheroes.com/rails/sorcery-passwordless-authentication/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Sourcery - 
+&lt;a href=&#34;https://www.sitepoint.com/magical-authentication-sorcery/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.sitepoint.com/magical-authentication-sorcery/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(using JWTs) - 
+&lt;a href=&#34;https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/&lt;/a&gt;
+&lt;strong&gt;Passwordless Security Overview&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Sessions&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Phoenix 1.5 authentication with POW</title>
