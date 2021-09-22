@@ -40,7 +40,7 @@
 &lt;p&gt;This is relatively easy to do with built-in Rails security - and I like not being dependent on external code, I&amp;rsquo;ll show a way to do this.  In this case, assume that the accounts are already created (or not).&lt;/p&gt;
 &lt;p&gt;If you want to do user registration, confirmation, etc &amp;ndash; then I think it is best to use Devise or some other gem!&lt;/p&gt;
 &lt;h3 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h3&gt;
-&lt;p&gt;Code is posted at: 
+&lt;p&gt;Code repo is posted at: 
 &lt;a href=&#34;https://github.com/btihen/magic_token&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/magic_token&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Create a Rails Project:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new magic_token

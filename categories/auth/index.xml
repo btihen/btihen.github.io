@@ -35,8 +35,9 @@
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; User accounts are assumed to be previously created, and verified.  If you need a full set of features - then your best option is probably to use devise, sorcery or authenticate and use an extension or build your own extension to one of these libraries.  Either way, this article will clarify the basics of passwordless authentication.&lt;/p&gt;
 &lt;h3 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h3&gt;
+&lt;p&gt;Code Repo is posted at: 
+&lt;a href=&#34;https://github.com/btihen/magic_sgid&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/magic_sgid&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Create a Rails Project&lt;/p&gt;
-&lt;p&gt;Code is posted at:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new magic_id
 cd magic_id
 git add .
