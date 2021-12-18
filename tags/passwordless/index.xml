@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>passwordless | btihen</title>
+    <link>https://btihen.me/tags/passwordless/</link>
+      <atom:link href="https://btihen.me/tags/passwordless/index.xml" rel="self" type="application/rss+xml" />
+    <description>passwordless</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Sat, 18 Dec 2021 01:36:55 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>passwordless</title>
+      <link>https://btihen.me/tags/passwordless/</link>
+    </image>
+    
+    <item>
+      <title>Passwordless Authentication with Devise</title>
+      <link>https://btihen.me/post_ruby_rails/rails_6_x_passwordless_devise_w_global_ids/</link>
+      <pubDate>Sat, 18 Dec 2021 01:36:55 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_6_x_passwordless_devise_w_global_ids/</guid>
+      <description>&lt;p&gt;I wrote a little app for a small non-profit group.  Some of them had severe problems with password management - so this article is how I solved that.&lt;/p&gt;
+&lt;p&gt;The easiest way to approach this is to use Rails built-in Secure Global IDs, in this way no database migrations are needed.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;User enters their email-address in a simple form&lt;/li&gt;
+&lt;li&gt;If account is found - a link with a token is generated and email is sent&lt;/li&gt;
+&lt;li&gt;User is notified that the link is on its way (even if the account is not found and no email is sent)&lt;/li&gt;
+&lt;li&gt;When the user follows the link in the email, a session is generated&lt;/li&gt;
+&lt;li&gt;Session valid until the session expires or the user logs out (deleting the session).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Since you are using Devise, I will assume you are using it to also manage accounts.  However to keep the code short I will only show what is needed for this one feature.&lt;/p&gt;
+&lt;h3 id=&#34;understanding-globalids&#34;&gt;Understanding GlobalIDs&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s start by understanding how Global IDs work&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We start by grabbing a user object and generating a token.&lt;/li&gt;
+&lt;li&gt;Next we use the token to retrieve the same user object.
+Code to demostrate the usage:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+user_orig = User.first
+# * the `for: &#39;user_auth&#39;` must matching on the receiving end.
+# * the `expires_in: 1.hour` can be set for any length of time (default is 30 days)
+sgid = user_orig.to_sgid(expires_in: 1.hour, for: &#39;user_auth&#39;)
+
+# now that we have a secured global id, we can generate a token
+auth_token = sgid.to_s # token from the Global ID
+
+# should retrieve the user since the token is still valid and the `for:` string matches
+user_retrieved = GlobalID::Locator.locate_signed(auth_token, for: &#39;user_auth&#39;)
+# try this token again in an hour+ and it should fail!
+user_retrieved.id == user_orig.id
+
+# should be nil, since the `for:` string didn&#39;t match
+GlobalID::Locator.locate_signed(auth_token, for: &#39;admins_access&#39;).nil?
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;global-ids-for-login&#34;&gt;Global IDs for login&lt;/h3&gt;
+&lt;p&gt;To use a Global ID will need a user&amp;rsquo;s email to send it to them and generate a token points to a url that can verify the token and create a session.   So we would need code that looks something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;email = params[:email]
+user = User.find_by(email: email)
+sgid = user.to_sgid(expires_in: 1.hour, for: &#39;user_auth&#39;)
+auth_url = Rails.application.routes.url_helpers
+                .auth_user_session_url(auth_token: sgid.to_s)
+UserAuthMailer.send_link(user, auth_url).deliver_now
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of course we don&amp;rsquo;t have the &lt;code&gt;auth_user_session_url&lt;/code&gt; route and &lt;code&gt;UserAuthMailer.send_link&lt;/code&gt; yet, but we will build that soon.&lt;/p&gt;
+&lt;p&gt;To unpack the token and build a session we will need code that looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;auth_token = params[:auth_token]
+user = GlobalID::Locator.locate_signed(auth_token, for: &#39;user_auth&#39;)
+if user.present?
+  sign_in(user) # a devise method
+  flash[:notice] = &amp;quot;Welcome back! #{user.email}&amp;quot;
+else
+  flash[:alert] = &#39;invalid token&#39;
+end
+redirect_to root_path
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets figure out where all this code goes to integrate with both Rails and Devise.&lt;/p&gt;
+&lt;h3 id=&#34;simple-app&#34;&gt;Simple App&lt;/h3&gt;
+&lt;p&gt;This code-repo is posted at: 
+&lt;a href=&#34;https://github.com/btihen/ruby_kafi_passwordless_devise_code&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/btihen/ruby_kafi_passwordless_devise_code&lt;/a&gt; (actually this has code to demo two methods)&lt;/p&gt;
+&lt;p&gt;Create a Rails Project&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails new passwordless_devise_code
+cd passwordless_devise_code
+
+bin/rails db:create
+bin/rails g controller Landing index
+bin/rails g scaffold Pet name species
+bin/rails db:migrate
+
+## config/routes.rb
+Rails.application.routes.draw do
+  resources :pets
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The landing page and pets should both be fully available.&lt;/p&gt;
+&lt;h3 id=&#34;add-the-devise-gem&#34;&gt;Add the Devise Gem&lt;/h3&gt;
+&lt;p&gt;User-Controller to manage users:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle add devise
+bundle install
+bin/rails generate devise:install
+bin/rails generate devise User
+# update the migration to match any added features
+bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;devise--rails-config-for-email-and-urls&#34;&gt;Devise / Rails Config for email and URLs&lt;/h3&gt;
+&lt;p&gt;Devise and Rails need a few config tweeks to do what we want.  (the example is for development, but when publishing of course production will need the appropriate configs too)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/environments/development.rb
+self.default_url_options = { host: &#39;http://localhost:3000&#39; }
+config.action_mailer.default_url_options = { host: &#39;localhost&#39;, port: 3000 }
+
+# app/views/layouts/application.html.erb
+&amp;lt;p class=&amp;quot;notice&amp;quot;&amp;gt;&amp;lt;%= notice %&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&amp;quot;alert&amp;quot;&amp;gt;&amp;lt;%= alert %&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;require-authentication-to-access-pets&#34;&gt;Require Authentication to access Pets&lt;/h3&gt;
+&lt;p&gt;Now lets activate Devise on all pages, except the landing page.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/application_controller.rb
+class ApplicationController &amp;lt; ActionController::Base
+  before_action :authenticate_user!
+end
+
+# app/controllers/landing_controller.rb
+class LandingController &amp;lt; ApplicationController
+  skip_before_action :authenticate_user!
+  def index
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now the landing page should be available, but not the pets page.&lt;/p&gt;
+&lt;h3 id=&#34;setup-session-authentication&#34;&gt;Setup Session Authentication&lt;/h3&gt;
+&lt;p&gt;We are going to need to generate our own DeviseSession controller and add to it.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;rails g devise:controllers users -c=sessions
+
+# app/controllers/users/sessions_controller.rb:
+class Users::SessionsController &amp;lt; Devise::SessionsController
+  def auth_token
+    auth_token = params[:auth_token]
+    user = GlobalID::Locator.locate_signed(auth_token, for: &#39;user_auth&#39;)
+    # if we get a user then we know the secured global ID checked out
+    if user.present?
+      sign_in(user)
+      flash[:notice] = &amp;quot;Welcome back! #{user.email}&amp;quot;
+      redirect_to pets_path
+    else
+      flash[:alert] = &#39;OOPS - something went wrong.&#39;
+      redirect_to root_path
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We need to tell Devise and Rails about our new code in the routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;#config/routes.rb
+Rails.application.routes.draw do
+  # tell devise about our sessions controller
+  devise_for :users, controllers: { sessions: &#39;users/sessions&#39; }
+  devise_scope :user do  # tell rails and devise about our new passwordless authorization route
+    get &#39;users/auth_token/:auth_token&#39;, as: :auth_user_session, to: &#39;users/sessions#auth_token&#39;
+  end
+  resources :pets
+  root to: &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we try this now we will get a password error, since devise always assumes a user MUST have and has entered a password.&lt;/p&gt;
+&lt;h3 id=&#34;allow-devise-to-ignore-passwords&#34;&gt;Allow Devise to ignore passwords&lt;/h3&gt;
+&lt;p&gt;It is tricky to remove the passwords, but easy to ignore them with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
+  before_validation :set_password, on: :create
+
+  # don&#39;t require passwords with user_authenticate!
+  def password_required?
+    false # because we aren&#39;t using passwords
+  end
+  private
+  # set random Devise passwords to keep devise happy
+  def set_password
+    tmp_passwd = SecureRandom.alphanumeric(30) # the longer the better (more or less)
+    self.password = tmp_passwd
+    self.password_confirmation = tmp_passwd
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;testing-our-new-model-and-controller&#34;&gt;Testing our new model and controller&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+
+# create new devise user (without a known password)
+User.create(email: &amp;quot;tester@test.ch&amp;quot;, name: &amp;quot;Tester&amp;quot;)
+user = User.last
+sgid = user.to_sgid(expires_in: 1.hour, for: &#39;user_auth&#39;)
+auth_url = Rails.application.routes.url_helpers
+                .auth_user_session_url(auth_token: sgid.to_s)
+#                `auth_user_session_url` - matches our route name we set!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Copy this generated url into your browser and you should end up on the &lt;code&gt;pets&lt;/code&gt; page!&lt;/p&gt;
+&lt;h3 id=&#34;emailing-our-auth_token&#34;&gt;Emailing our auth_token&lt;/h3&gt;
+&lt;p&gt;Now that we know the Auth Token works, lets learn to email them to the appropriate email&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# create the Emailer code with:
+bin/rails g mailer UserAuth send_link
+
+# app/mailers/user_auth_mailer.rb
+class UserAuthMailer &amp;lt; ApplicationMailer
+  def send_url(user, auth_url)
+    @user = user
+    @url  = auth_url
+    @host = Rails.application.config.hosts.first
+    mail to: @user.email, subject: &#39;Sign in into #{@host}&#39;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets create the email contents - let&amp;rsquo;s include a greeting, the sending host and of course the auth_url (we will determine later)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;
+
+# app/views/user_auth_mailer/send_url.html.erb
+&amp;lt;p&amp;gt;
+  Hi &amp;lt;%= @user.email %&amp;gt;,
+  &amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+  For access to &amp;lt;%= @host %&amp;gt; &amp;lt;%= link_to &amp;quot;Click here&amp;quot;, @url %&amp;gt;
+  &amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+  or in plain-text: &amp;lt;%= @url %&amp;gt;
+&amp;lt;/p&amp;gt;
+
+# app/views/user_auth_mailer/send_url.text.erb
+Hi &amp;lt;%= @user.email %&amp;gt;,
+
+For access to &amp;lt;%= @host %&amp;gt; follow this link:
+&amp;lt;%= @url %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;test-the-emailer&#34;&gt;Test the emailer&lt;/h3&gt;
+&lt;p&gt;Start mailhog and then:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+user = User.first
+sgid = user.to_sgid(expires_in: 1.hour, for: &#39;user_auth&#39;)
+auth_url = Rails.application.routes.url_helpers
+                .auth_user_session_url(auth_token: sgid.to_s)
+UserAuthMailer.send_link(user, auth_url).deliver_now
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now open the mailhog browser tab (or copy the url from the console) and click on the link and pets should open.&lt;/p&gt;
+&lt;h3 id=&#34;now-the-hard-devise-strategy-part&#34;&gt;Now the Hard (Devise Strategy) part&lt;/h3&gt;
+&lt;p&gt;Now we have all that we need to update Devise with a new Strategy.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;mkdir app/lib/devise
+mkdir app/lib/devise/models
+mkdir app/lib/devise/strategies
+touch app/lib/devise/models/token_authenticatable.rb
+touch app/lib/devise/strategies/token_authenticatable.rb
+
+# app/lib/devise/models/passwordless_authenticatable.rb
+require Rails.root.join(&#39;app/lib/devise/strategies/token_authenticatable&#39;)
+module Devise
+  module Models
+    module TokenAuthenticatable
+      extend ActiveSupport::Concern
+    end
+  end
+end
+
+# app/lib/devise/strategies/token_authenticatable.rb
+require &#39;devise/strategies/authenticatable&#39;
+require_relative &#39;../../../mailers/user_mailer&#39;
+
+module Devise::Strategies
+  class TokenAuthenticatable &amp;lt; Authenticatable
+    def authenticate!
+      email = params.dig(:user, :email)
+      user = User.find_by(email: email)
+      if user.present? &amp;amp;&amp;amp; !user.locked_at? # and other restrictions as (depending on what was configured)
+        auth_sgid = user.to_sgid(expires_in: 1.hour, for: &#39;user_auth&#39;)
+        auth_token = auth_sgid.to_s
+        auth_url = Rails.application.routes.url_helpers
+                        .auth_user_session_url(login_token: auth_token)
+        UserAuthMailer.send_url(user, auth_url).deliver_later
+      end
+      fail!(&amp;quot;An email was sent to you with an authorization link.&amp;quot;)s
+    end
+  end
+end
+Warden::Strategies.add(:token_authenticatable, Devise::Strategies::TokenAuthenticatable)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; this strategy authenticates that the user is allowed to get a token.  The &lt;code&gt;auth&lt;/code&gt; method in sessions_controller - authenticates the token and creates a session.&lt;/p&gt;
+&lt;h3 id=&#34;tell-devise-to-use-the-new-strategy&#34;&gt;Tell Devise to use the new Strategy&lt;/h3&gt;
+&lt;p&gt;Now we want to move Devise away from its default &lt;code&gt;database_athenticable&lt;/code&gt; to &lt;code&gt;token_authenticable&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So now we need to add &lt;code&gt;:token_authenticatable&lt;/code&gt; to our User model:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/users.rb
+class User &amp;lt; ApplicationRecord
+  before_validation :set_password, on: :create
+
+  # at this point validatable is basically only checking that the email is valid
+  devise :token_authenticatable, :validatable
+
+  def password_required?
+    false # because we aren&#39;t using passwords
+  end
+  private
+  # since we aren&#39;t using passwords
+  def set_password
+    tmp_passwd = SecureRandom.alphanumeric(20)
+    self.password = tmp_passwd
+    self.password_confirmation = tmp_passwd
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, this isn&amp;rsquo;t enough - devise must know to load this strategy at boot - we do this with by adding the following to the VERY TOP of Devise initializer file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/devise.rb
+Devise.add_module(:token_authenticatable, {
+  strategy:   true,
+  route:      :session,
+  controller: :sessions,
+  model:      &#39;app/lib/devise/models/token_authenticatable&#39;
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE: if all is good the devise routes should be there (plus our extra one):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;new_user_session      GET     /users/sign_in(.:format)     users/sessions#new
+user_session          POST    /users/sign_in(.:format)     users/sessions#create
+destroy_user_session  DELETE  /users/sign_out(.:format)    users/sessions#destroy
+auth_user_session     GET     /users/auth_token(.:format)  users/sessions#auth_token
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;devise-views-remove-the-passwords&#34;&gt;Devise Views (remove the passwords)&lt;/h3&gt;
+&lt;p&gt;Now we need to change the password in the views so we will need to generate the devise views (and configure devise to use scoped views is probably best):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/devise.rb:
+config.scoped_views = true
+
+# generate the devise views (to override them)
+bin/rails generate devise:views users
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you will need to remove the password field from all the views.  For this project, I will only show the sign_in page:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/views/users/sessions/new.html.erb
+&amp;lt;h2&amp;gt;Log in&amp;lt;/h2&amp;gt;
+&amp;lt;%= form_for(resource, as: resource_name, url: user_session_path) do |f| %&amp;gt;
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= f.label :email %&amp;gt;&amp;lt;br /&amp;gt;
+    &amp;lt;%= f.email_field :email, autofocus: true, autocomplete: &amp;quot;email&amp;quot; %&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;% if devise_mapping.rememberable? %&amp;gt;
+    &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+      &amp;lt;%= f.check_box :remember_me %&amp;gt;
+      &amp;lt;%= f.label :remember_me %&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;% end %&amp;gt;
+  &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
+    &amp;lt;%= f.submit &amp;quot;Log in&amp;quot; %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;% end %&amp;gt;
+&amp;lt;%= render &amp;quot;users/shared/links&amp;quot; %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;security-note&#34;&gt;Security Note&lt;/h3&gt;
+&lt;p&gt;NOTE: I prefer a short sgid key life-spans and longer session-lifespans (both are configurable)&lt;/p&gt;
+&lt;p&gt;By default rails sessions have no expiration (until logout) and sgids are valid for a month. I find both of these settings too long. To change this default behavior, you can set the session length with the setting:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/session_store.rb
+Rails.application.config.session_store :cookie_store, expire_after: 14.days
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And you saw in the code where the sgid lifespan is defined.&lt;/p&gt;
+&lt;h2 id=&#34;test-the-full-flow&#34;&gt;Test the full flow&lt;/h2&gt;
+&lt;p&gt;With all that completed you should be able to test the full workflow!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;start rails with: &lt;code&gt;bin/rails s&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;start mailhog with: &lt;code&gt;mailhog&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;go to: &lt;code&gt;http://localhost:3000/user/home&lt;/code&gt; (should get redirected to the below URL)&lt;/li&gt;
+&lt;li&gt;go to: &lt;code&gt;http://localhost:3000/user/logins&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;enter the &amp;ldquo;
+&lt;a href=&#34;mailto:tester@test.ch&#34;&gt;tester@test.ch&lt;/a&gt;&amp;rdquo; email&lt;/li&gt;
+&lt;li&gt;Check mailhog for the link &lt;code&gt;http://localhost:8025/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;click the link you should now be on &lt;code&gt;http://localhost:3000/user/home&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Rails GlobalID&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The nice thing about these is that the auto expire - simplifying the code a lot.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/rails/globalid&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/globalid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.magicalruby.com/implementing-magic-links-in-rails/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.magicalruby.com/implementing-magic-links-in-rails/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Token using SecureRandom&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With these you need to create your own expiration and lookup system (more code add a migration), but will work with any framework.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(using uuids) - 
+&lt;a href=&#34;https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/how-to-implement-passwordless-authentication-in-ruby-on-rails-154&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(using SecureRandom) - 
+&lt;a href=&#34;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Devise Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Devise Plugin - 
+&lt;a href=&#34;https://github.com/abevoelker/devise-passwordless&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/abevoelker/devise-passwordless&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Do it Yourself Devise - 
+&lt;a href=&#34;https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/matiascarpintini/magic-links-with-ruby-on-rails-and-devise-4e3o&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Do it yourself Devise - 
+&lt;a href=&#34;https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.mintbit.com/blog/passwordless-authentication-in-ruby-on-rails-with-devise&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Other Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;passwordless gem - 
+&lt;a href=&#34;https://github.com/mikker/passwordless#token-and-session-expiry&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/mikker/passwordless#token-and-session-expiry&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;magic-link gem - 
+&lt;a href=&#34;https://github.com/dvanderbeek/magic-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/dvanderbeek/magic-link&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Sorcery - 
+&lt;a href=&#34;https://fullstackheroes.com/rails/sorcery-passwordless-authentication/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackheroes.com/rails/sorcery-passwordless-authentication/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Sourcery - 
+&lt;a href=&#34;https://www.sitepoint.com/magical-authentication-sorcery/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.sitepoint.com/magical-authentication-sorcery/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(using JWTs) - 
+&lt;a href=&#34;https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.kiprosh.com/implement-passwordless-authentication-via-magic-link-in-rails-api/&lt;/a&gt;
+&lt;strong&gt;Passwordless Security Overview&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://abevoelker.com/skipping-the-database-with-stateless-tokens-a-hidden-rails-gem-and-a-useful-web-technique/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Sessions&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

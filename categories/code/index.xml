@@ -546,7 +546,7 @@ end
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;lucky db.seed.sample_data
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;assuming this runs we should be able to view this data in our db (I often use the cli - but you might also want to use: &lt;code&gt;dbgate&lt;/code&gt; 
-&lt;a href=&#34;https://dbgate.org/%29:&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dbgate.org/):&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://dbgate.org/%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dbgate.org/)&lt;/a&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;psql
 \l
 \c lucky_poly_development
@@ -2244,7 +2244,7 @@ npm install alpinejs
 // .. after the app.scss import add:
 import Alpine from &amp;quot;alpinejs&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;still in &lt;code&gt;assets/js/app.js&lt;/code&gt; find&lt;code&gt;:&lt;/code&gt;let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {params: {_csrf_token: csrfToken}})`&lt;/p&gt;
+&lt;p&gt;still in &lt;code&gt;assets/js/app.js&lt;/code&gt; find&lt;code&gt;: &lt;/code&gt;let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {params: {_csrf_token: csrfToken}})`&lt;/p&gt;
 &lt;p&gt;and change to:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;let liveSocket =
     new LiveSocket(&amp;quot;/live&amp;quot;,

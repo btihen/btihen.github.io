@@ -828,7 +828,7 @@ npm install alpinejs
 // .. after the app.scss import add:
 import Alpine from &quot;alpinejs&quot;;
 </code></pre>
-<p>still in <code>assets/js/app.js</code> find<code>:</code>let liveSocket = new LiveSocket(&quot;/live&quot;, Socket, {params: {_csrf_token: csrfToken}})`</p>
+<p>still in <code>assets/js/app.js</code> find<code>: </code>let liveSocket = new LiveSocket(&quot;/live&quot;, Socket, {params: {_csrf_token: csrfToken}})`</p>
 <p>and change to:</p>
 <pre><code class="language-elixir">let liveSocket =
     new LiveSocket(&quot;/live&quot;,

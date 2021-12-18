@@ -299,7 +299,7 @@ What is your type?&lt;/p&gt;
 =&amp;gt; :date
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we know the &lt;code&gt;:publish_date&lt;/code&gt; attribute is a &lt;code&gt;:date&lt;/code&gt; type. This is defined by &lt;code&gt;ActiveRecord::Type::Date&lt;/code&gt;, which extends &lt;code&gt;ActiveModel::Type::Date&lt;/code&gt; (ActiveRecord Types are here: 
-&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Type.html%29,&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Type.html),&lt;/a&gt; which extends &lt;code&gt;ActiveModel::Type::Value&lt;/code&gt; (ActiveModel Types are here: 
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Type.html%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Type.html)&lt;/a&gt;, which extends &lt;code&gt;ActiveModel::Type::Value&lt;/code&gt; (ActiveModel Types are here: 
 &lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html)&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;How is user input transformed by &lt;code&gt;ActiveRecord::Type::Date&lt;/code&gt;?&lt;/p&gt;
 &lt;p&gt;So, when you set &lt;code&gt;:publish_date&lt;/code&gt;, the value is passed to cast, which calls cast_value. Since form input is a String, it will try a &lt;code&gt;fast_string_to_date&lt;/code&gt; then &lt;code&gt;fallback_string_to_date&lt;/code&gt; which uses &lt;code&gt;Date._parse&lt;/code&gt;.&lt;/p&gt;

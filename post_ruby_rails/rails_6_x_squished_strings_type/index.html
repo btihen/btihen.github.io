@@ -1004,7 +1004,7 @@ What is your type?</p>
 =&gt; :date
 </code></pre>
 <p>Now we know the <code>:publish_date</code> attribute is a <code>:date</code> type. This is defined by <code>ActiveRecord::Type::Date</code>, which extends <code>ActiveModel::Type::Date</code> (ActiveRecord Types are here: 
-<a href="https://api.rubyonrails.org/classes/ActiveRecord/Type.html%29," target="_blank" rel="noopener">https://api.rubyonrails.org/classes/ActiveRecord/Type.html),</a> which extends <code>ActiveModel::Type::Value</code> (ActiveModel Types are here: 
+<a href="https://api.rubyonrails.org/classes/ActiveRecord/Type.html%29" target="_blank" rel="noopener">https://api.rubyonrails.org/classes/ActiveRecord/Type.html)</a>, which extends <code>ActiveModel::Type::Value</code> (ActiveModel Types are here: 
 <a href="https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html%29" target="_blank" rel="noopener">https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html)</a>.</p>
 <p>How is user input transformed by <code>ActiveRecord::Type::Date</code>?</p>
 <p>So, when you set <code>:publish_date</code>, the value is passed to cast, which calls cast_value. Since form input is a String, it will try a <code>fast_string_to_date</code> then <code>fallback_string_to_date</code> which uses <code>Date._parse</code>.</p>

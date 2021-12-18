@@ -993,7 +993,7 @@ git commit -m &amp;quot;new tweet form is hooked into turbo-stream and validatio
 Turbo - is clever enough to figure out the routing in the default case and will use its own stream to update the page - however you could also define an explicit stream - something like: &lt;code&gt;format.turbo_stream { render turbo_stream: turbo_stream.prepend(@tweet, locals: { tweet: @tweet}) }&lt;/code&gt; or with &lt;code&gt;format.turbo_stream&lt;/code&gt; and a turbo view &lt;code&gt;app/views/tweets/create.turbo_stream&lt;/code&gt; - containing: &lt;code&gt;&amp;lt;%=  %&amp;gt;&lt;/code&gt;
 ????&lt;/p&gt;
 &lt;h4 id=&#34;in-place-edit&#34;&gt;In-Place Edit&lt;/h4&gt;
-&lt;p&gt;In oder to do an in-place edit we will need yet another type of broadcast &lt;code&gt;after_update_commit { broadcast_replace_to &amp;quot;tweets&amp;quot; }&lt;/code&gt;
+&lt;p&gt;In oder to do an in-place edit we will need yet another type of broadcast &lt;code&gt; after_update_commit { broadcast_replace_to &amp;quot;tweets&amp;quot; }&lt;/code&gt;
 so our new model will now look like:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/tweet.rb
 class Tweet &amp;lt; ApplicationRecord

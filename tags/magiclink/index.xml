@@ -26,7 +26,7 @@
 &lt;li&gt;Other Options: Devise Plugin (when using devise) or other Gems&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;This article will focus on using Secure Random - since it can work with any Framework (in Rails however, I prefer to use SignedGlobalIDs - see: 
-&lt;a href=&#34;https://btihen.me/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://btihen.me/&lt;/a&gt; , since it simplifies the user model and the expiration logic)&lt;/p&gt;
+&lt;a href=&#34;https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://btihen.me/&lt;/a&gt;, since it simplifies the user model and the expiration logic)&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;User enters their email-address in a simple form&lt;/li&gt;

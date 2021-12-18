@@ -46,23 +46,50 @@
     <loc>https://btihen.me/courses/robot_gardner/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/categories/auth/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/tags/authentication/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/btihen/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/devise/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/magic-link/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/passwordless/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_6_x_passwordless_devise_w_global_ids/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/categories/rails/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/signed-globalid/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/</loc>
+    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/magiclink/</loc>
     <lastmod>2021-09-22T16:09:57+02:00</lastmod>
@@ -70,28 +97,13 @@
     <loc>https://btihen.me/tags/passwordless-auth/</loc>
     <lastmod>2021-09-22T16:09:57+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/categories/rails/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_random_token/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/post_ruby_rails/</loc>
     <lastmod>2021-09-22T16:09:57+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/securerandom/</loc>
     <lastmod>2021-09-22T16:09:57+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/</loc>
-    <lastmod>2021-09-22T16:09:57+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/categories/auth/</loc>
-    <lastmod>2021-09-21T01:36:55+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_6_x_auth_w_magic_links_using_signed_global_id/</loc>
-    <lastmod>2021-09-21T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/signed-globalid/</loc>
     <lastmod>2021-09-21T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/initialize/</loc>
@@ -495,9 +507,6 @@
   </url><url>
     <loc>https://btihen.me/tags/student-choice/</loc>
     <lastmod>2020-07-24T14:05:38+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/devise/</loc>
-    <lastmod>2020-08-07T20:45:51+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/namespace/</loc>
     <lastmod>2020-08-07T20:45:51+02:00</lastmod>
