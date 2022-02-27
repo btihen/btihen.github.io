@@ -46,25 +46,67 @@
     <loc>https://btihen.me/courses/robot_gardner/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/tags/alpinejs/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/alpinejs-3.x/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/authors/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/authors/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/authors/btihen/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/categories/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/categories/code/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/elixir/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/liveview/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/petal/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/petal-stack/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/phoenix/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/phoenix-1.6.x/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_elixir_phoenix/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/tailwindcss/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/tailwindcss-3.x/</loc>
+    <lastmod>2022-02-27T01:01:53+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/categories/auth/</loc>
     <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/authentication/</loc>
-    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/authors/</loc>
-    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/authors/btihen/</loc>
-    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/</loc>
-    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/categories/</loc>
     <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/devise/</loc>
@@ -86,9 +128,6 @@
     <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/signed-globalid/</loc>
-    <lastmod>2021-12-18T01:36:55+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/</loc>
     <lastmod>2021-12-18T01:36:55+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/magiclink/</loc>
@@ -160,9 +199,6 @@
     <loc>https://btihen.me/post_ruby_rails/rails_6_x_agnostic_associations_1/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/categories/code/</loc>
-    <lastmod>2021-08-13T01:01:53+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/tags/configuration/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
@@ -220,28 +256,16 @@
     <loc>https://btihen.me/tags/web-framework/</loc>
     <lastmod>2021-08-12T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/elixir/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/tags/email/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/hogmail/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/phoenix/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_authentication_pow/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/post_elixir_phoenix/</loc>
-    <lastmod>2021-08-07T13:06:29+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/tags/pow/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/liveview/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_liveview_simple_realtime/</loc>
@@ -250,17 +274,8 @@
     <loc>https://btihen.me/tags/spa/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/alpinejs/</loc>
-    <lastmod>2021-08-07T01:46:07+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/petal-stack/</loc>
-    <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_5_petal_setup_with_asdf/</loc>
     <lastmod>2021-08-07T01:01:53+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/tailwindcss/</loc>
-    <lastmod>2021-08-07T01:46:07+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/hotwire/</loc>
     <lastmod>2021-08-07T01:57:00+02:00</lastmod>
