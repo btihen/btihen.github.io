@@ -1,0 +1,1619 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Create a modern webapp with tremendous flexibility">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/">
+  <meta property="og:title" content="Phoenix 1.6 PETAL Stack Setup (w/a Custom Font) using Phoenix Generator | btihen">
+  <meta property="og:description" content="Create a modern webapp with tremendous flexibility"><meta property="og:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-03-04T01:01:53&#43;02:00">
+    
+    <meta property="article:modified_time" content="2022-03-04T01:01:53&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Phoenix 1.6 PETAL Stack Setup (w/a Custom Font) using Phoenix Generator | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://container4.ch/" target="_blank" rel="noopener"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Media</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Phoenix 1.6 PETAL Stack Setup (w/a Custom Font) using Phoenix Generator</h1>
+
+  
+  <p class="page-subtitle">Simple PETAL Setup (Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView)</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Fri, Mar 4, 2022
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 365px;">
+  <div style="position: relative">
+    <img src="/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/featured_hu83226946e6091425465295e54bca7452_288978_720x0_resize_lanczos_3.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.</p>
+<h2 id="install-asdf---and-required-software">Install asdf - and required software</h2>
+<ul>
+<li>
+<a href="https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/" target="_blank" rel="noopener">https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/</a></li>
+<li>
+<a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58" target="_blank" rel="noopener">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></li>
+</ul>
+<p>On a Mac I used Homebrew:</p>
+<pre><code class="language-bash">brew install asdf
+echo -e '\n. $(brew --prefix asdf)/asdf.sh' &gt;&gt; ~/.bash_profile
+echo -e '\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash' &gt;&gt; ~/.bash_profile
+source ~/.bash_profile  # (or open a new terminal)
+</code></pre>
+<p>Now you can install asdf software packages:</p>
+<pre><code class="language-bash">asdf plugin-add erlang
+asdf plugin-add elixir
+asdf plugin-add Postgres
+</code></pre>
+<p>Now you need to install the desired versions (usually the newest) - currently:</p>
+<pre><code class="language-bash">asdf list all erlang
+asdf install erlang 24.2.2
+asdf global erlang 24.2.2
+
+
+# note the elixir version otp must match the erlang version!
+asdf list all elixir
+asdf install elixir 1.13.3-otp-24
+asdf global elixir 1.13.3-otp-24
+
+# asdf install elixir 1.11.4-otp-24
+# if you mismatch elixir with erlang you will get errors like:
+# {&quot;init terminating in do_boot&quot;,{undef,[{elixir,start_cli,[],[]},{init,start_em,1,[]},{init,do_boot,3,[]}]}}
+
+asdf list all Postgres
+asdf install Postgres 14.2
+</code></pre>
+<h2 id="get-the-newest-elixir-tools">Get the newest Elixir tools</h2>
+<pre><code>mix local.rebar --force
+mix local.hex --force
+</code></pre>
+<h2 id="get-the-newest-phoenix-hex-package">Get the newest Phoenix Hex Package</h2>
+<p>Once you have established you have the requrements - the download the newest version of Phoenix (go to: 
+<a href="https://hexdocs.pm/phoenix/installation.html#phoenix" target="_blank" rel="noopener">https://hexdocs.pm/phoenix/installation.html#phoenix</a> to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:</p>
+<pre><code class="language-bash">mix archive.install hex phx_new 1.6.6 --force
+</code></pre>
+<h2 id="create-a-project-with-asdf-settings">create a project with asdf settings</h2>
+<p>First we will creat the folder / project location</p>
+<pre><code class="language-bash">mkdir petal
+</code></pre>
+<p>Now we will tell it which software to use:</p>
+<pre><code class="language-bash">touch petal/.tool-versions
+cat &lt;&lt;EOF &gt;&gt;petal/.tool-versions
+erlang 24.2.2
+elixir 1.13.3-otp-24
+Postgres 14.2
+EOF
+</code></pre>
+<h2 id="create-a-new-phoenix-project">Create a new Phoenix Project</h2>
+<p>
+<a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58" target="_blank" rel="noopener">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></p>
+<p>Now you can simply do:</p>
+<pre><code class="language-bash">mix phx.new petal --live
+cd petal
+mix ecto.create
+</code></pre>
+<p>assuming all is good lets configure git:</p>
+<pre><code class="language-bash">git init
+git add .
+git commit -m &quot;initial Phoenix install with LiveView&quot;
+</code></pre>
+<h2 id="credo">credo</h2>
+<p>add credo to mix.exs</p>
+<pre><code>{:credo, &quot;~&gt; 1.6&quot;},
+{:phx_gen_tailwind, &quot;~&gt; 0.1.3&quot;, only: :dev, runtime: false}
+</code></pre>
+<p>configure Credo &amp; TailwindCSS</p>
+<pre><code>mix deps.get
+mix credo gen.config
+mix phx.gen.tailwind
+</code></pre>
+<h2 id="test-tailwindcss">Test TailwindCSS</h2>
+<p>add to the top of: <code>lib/slacker_gen_tail_web/templates/page/index.html.heex</code></p>
+<pre><code class="language-css">&lt;div class=&quot;text-green-500 text-5xl text-center&quot;&gt;Large Centered Green TailwindCSS&lt;/div&gt;
+</code></pre>
+<p>start phoenix <code>mix -S phx.server</code></p>
+<h2 id="install-alpinejs">install AlpineJS</h2>
+<p>
+<a href="https://www.youtube.com/watch?v=vZBHkvTAb2U" target="_blank" rel="noopener">https://www.youtube.com/watch?v=vZBHkvTAb2U</a>
+
+<a href="https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial" target="_blank" rel="noopener">https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial</a></p>
+<pre><code class="language-bash">cd assets
+npm install alpinejs
+cd ..
+</code></pre>
+<p>Now change <code>app.js</code> is to require our new setup:</p>
+<pre><code class="language-js"># assets/js/app.js
+// .. after the app.scss import add:
+import Alpine from &quot;alpinejs&quot;;
+</code></pre>
+<p>still in <code>assets/js/app.js</code> find:</p>
+<pre><code class="language-js">let csrfToken = document.querySelector(&quot;meta[name='csrf-token']&quot;).getAttribute(&quot;content&quot;)
+let liveSocket = new LiveSocket(&quot;/live&quot;, Socket, {params: {_csrf_token: csrfToken}})
+</code></pre>
+<p>and change to:</p>
+<pre><code class="language-js">// after all the imports
+window.Alpine = Alpine;
+Alpine.start();
+let hooks = {};
+let csrfToken = document.querySelector(&quot;meta[name='csrf-token']&quot;).getAttribute(&quot;content&quot;)
+let liveSocket = new LiveSocket(&quot;/live&quot;, Socket, {
+  params: { _csrf_token: csrfToken },
+  hooks: hooks,
+  dom: {
+    onBeforeElUpdated(from, to) {
+      if (from._x_dataStack) {
+        window.Alpine.clone(from, to);
+      }
+    },
+  },
+});
+</code></pre>
+<p>now change the loading of <code>assets/app.js</code> in the root file to load <code>assets/js/app.js</code> to load AlpineJS into Phoenix you do that with in <code>lib/fonts_web/templates/layout/root.html.heex</code> by changing:</p>
+<pre><code>    &lt;!-- change this from app.js to js/app.js --&gt;
+    &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/app.js&quot;)}&gt;&lt;/script&gt;
+</code></pre>
+<p>to:</p>
+<pre><code>    &lt;!-- change this from app.js to js/app.js --&gt;
+    &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/js/app.js&quot;)}&gt;&lt;/script&gt;
+</code></pre>
+<p>so now <code>lib/fonts_web/templates/layout/root.html.heex</code> should look like:</p>
+<pre><code class="language-html">&lt;!-- lib/fonts_web/templates/layout/root.html.heex --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;/&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;/&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+    &lt;%= csrf_meta_tag() %&gt;
+    &lt;%= live_title_tag assigns[:page_title] || &quot;SlackerPetal&quot;, suffix: &quot; · Phoenix Framework&quot; %&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/app.css&quot;)}/&gt;
+    &lt;!-- change the `javascript` static path from `/assets/app.js` to `/assets/app.js` to load AlpineJS --&gt;
+    &lt;%# &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/app.js&quot;)}&gt;&lt;/script&gt; %&gt;
+    &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/js/app.js&quot;)}&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;section class=&quot;container&quot;&gt;
+        &lt;nav&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;https://hexdocs.pm/phoenix/overview.html&quot;&gt;Get Started&lt;/a&gt;&lt;/li&gt;
+            &lt;%= if function_exported?(Routes, :live_dashboard_path, 2) do %&gt;
+              &lt;li&gt;&lt;%= link &quot;LiveDashboard&quot;, to: Routes.live_dashboard_path(@conn, :home) %&gt;&lt;/li&gt;
+            &lt;% end %&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+        &lt;a href=&quot;https://phoenixframework.org/&quot; class=&quot;phx-logo&quot;&gt;
+          &lt;img src={Routes.static_path(@conn, &quot;/images/phoenix.png&quot;)} alt=&quot;Phoenix Framework Logo&quot;/&gt;
+        &lt;/a&gt;
+      &lt;/section&gt;
+    &lt;/header&gt;
+    &lt;%= @inner_content %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="test-alpinejs">Test AlpineJS</h2>
+<p>TEST by adding to the end of: <code>lib/petal_web/live/page_live.html.leex</code></p>
+<pre><code class="language-elixir">&lt;section&gt;
+  &lt;h2&gt;Alpine JS Installed&lt;/h2&gt;
+  &lt;div x-data=&quot;{name:''}&quot;&gt;
+    &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+    &lt;input id=&quot;name&quot; type=&quot;text&quot; x-model=&quot;name&quot; /&gt;
+    &lt;p&gt;&lt;br&gt;&lt;b&gt;&lt;em&gt;Output:&lt;/em&gt;&lt;/b&gt; &lt;span x-text=&quot;name&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>test with:
+<code>mix phx.server</code></p>
+<p>when typing the name should appear below!</p>
+<h2 id="add-css-components-to-tailwindcss">Add CSS Components to TailwindCSS</h2>
+<p>we will create a file for our default CSS styles the: <code>assets/css/default.css</code> file:</p>
+<pre><code class="language-bash"># assuming you are in the root directory
+touch assets/css/default.css
+</code></pre>
+<p>Put your default site CSS here.</p>
+<p>Let&rsquo;s also create some custom CSS components:</p>
+<pre><code class="language-css"># assuming you are still in the assets directory on the cli
+mkdir assets/css/components
+touch assets/css/components/buttons.css
+cat &lt;&lt;EOF &gt;assets/css/components/buttons.css
+@layer components {
+  .btn-redish {
+    @apply bg-red-300 hover:bg-red-600 text-blue-800 font-bold py-2 px-4 rounded;
+  }
+  .btn-greenish {
+    @apply bg-green-300 hover:bg-green-600 text-blue-800 font-bold py-2 px-4 rounded;
+  }
+}
+EOF
+</code></pre>
+<p>Let&rsquo;s add our components (&amp; Default CSS to our config)</p>
+<pre><code class="language-css">/* Import tailwind - with postcss-import installed */
+@import &quot;tailwindcss/base&quot;;
+@import &quot;tailwindcss/components&quot;;
+@import &quot;tailwindcss/utilities&quot;;
+
+/* custom styles - put after base imports! */
+@import &quot;./default.css&quot;;
+/* import custom components */
+@import &quot;./components/buttons.css&quot;;
+/* default phoenix styles - replaced bby default.css file */
+/* @import &quot;./phoenix.css&quot;; */
+</code></pre>
+<p>add a test html from tailwind to the end of: <code>lib/petal_web/live/page_live.html.leex</code></p>
+<pre><code class="language-elixir">&lt;section class=&quot;grid grid-cols-1 gap-4&quot;&gt;
+	&lt;!-- tailwind text --&gt;
+  &lt;div&gt;
+    &lt;h2 class=&quot;text-red-500 text-5xl font-bold text-center&quot;&gt;Tailwind CSS with Alpine JS Dropdown&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;!-- alpinejs dropdown test --&gt;
+	&lt;div x-data=&quot;{ open: false }&quot; class=&quot;relative text-left&quot;&gt;
+  	&lt;button
+  					@click=&quot;open = !open&quot;
+  					@keydown.escape.window=&quot;open = false&quot;
+  					@click.away=&quot;open = false&quot;
+  					class=&quot;flex items-center h-8 pl-3 pr-2 border border-black focus:outline-none&quot;&gt;
+  			&lt;span class=&quot;text-sm leading-none&quot;&gt;
+  					Options
+  			&lt;/span&gt;
+  			&lt;svg class=&quot;w-4 h-4 mt-px ml-2&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 20 20&quot; fill=&quot;currentColor&quot;&gt;
+  					&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z&quot; clip-rule=&quot;evenodd&quot; /&gt;
+  			&lt;/svg&gt;
+  	&lt;/button&gt;
+  	&lt;div
+  					x-cloak
+  					x-show=&quot;open&quot;
+  					x-transition:enter=&quot;transition ease-out duration-100&quot;
+  					x-transition:enter-start=&quot;transform opacity-0 scale-95&quot;
+  					x-transition:enter-end=&quot;transform opacity-100 scale-100&quot;
+  					x-transition:leave=&quot;transition ease-in duration-75&quot;
+  					x-transition:leave-start=&quot;transform opacity-100 scale-100&quot;
+  					x-transition:leave-end=&quot;transform opacity-0 scale-95&quot;
+  					class=&quot;absolute flex flex-col w-40 mt-1 border border-black shadow-xs&quot;&gt;
+  			&lt;a class=&quot;flex items-center h-8 px-3 text-sm hover:bg-gray-200&quot; href=&quot;#&quot;&gt;Settings&lt;/a&gt;
+  			&lt;a class=&quot;flex items-center h-8 px-3 text-sm hover:bg-gray-200&quot; href=&quot;#&quot;&gt;Support&lt;/a&gt;
+  			&lt;a class=&quot;flex items-center h-8 px-3 text-sm hover:bg-gray-200&quot; href=&quot;#&quot;&gt;Sign Out&lt;/a&gt;
+  	&lt;/div&gt;
+	&lt;/div&gt;
+
+  &lt;!-- alpinejs counter test --&gt;
+  &lt;div&gt;
+    &lt;p class=&quot;mt-5 font-bold text-center&quot;&gt;Counter with Component Buttons&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;!--
+    If you want a box around the counter use:
+    &lt;div class=&quot;flex items-center justify-center h-screen bg-gray-200&quot;&gt;
+  --&gt;
+  &lt;div class=&quot;mt-10 flex justify-center&quot; x-data=&quot;{ count: 0 }&quot;&gt;
+    &lt;button class=&quot;btn-redish&quot; x-on:click=&quot;count--&quot;&gt;Decrement&lt;/button&gt;
+    &lt;code&gt;count: &lt;/code&gt;&lt;code x-text=&quot;count&quot;&gt;&lt;/code&gt;
+    &lt;button class=&quot;btn-greenish&quot; x-on:click=&quot;count++&quot;&gt;Increment&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Start phoenix with:</p>
+<pre><code>iex -S mix phx.server
+</code></pre>
+<p>Now we should have a dropdown &amp; our colored component buttons on our counter.</p>
+<h2 id="add-a-custom-font">Add a custom Font</h2>
+<p>
+<a href="https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/" target="_blank" rel="noopener">https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/</a></p>
+<p>Find a font at: 
+<a href="https://fonts.google.com/" target="_blank" rel="noopener">https://fonts.google.com/</a> (or any other source of fonts)</p>
+<p>I will use <code>handlee</code> as it is very distinctive - to make the setup easier I will download <code>handlee</code> from:
+
+<a href="https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin" target="_blank" rel="noopener">https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin</a></p>
+<p>I will put the fonts in the folder: <code>assets/fonts/handlee</code></p>
+<pre><code class="language-bash">mkdir -p assets/fonts/handlee
+touch assets/fonts/handlee/handless.css
+cat &lt;&lt;EOF&gt;&gt;assets/fonts/handlee/handless.css
+/* handlee-regular - latin - copied from: https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin */
+/* be sure the font-path is local to where the fonts are */
+@font-face {
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('handlee-v12-latin-regular.woff2') format('woff2'),
+       url('handlee-v12-latin-regular.woff') format('woff');
+}
+EOF
+</code></pre>
+<p>Now lets setup <code>esbuild</code> to manage the CSS and fonts - the default in <code>config/config.exs</code> is:</p>
+<pre><code class="language-elixir"># config/config.exs
+config :esbuild,
+  version: &quot;0.14.0&quot;,
+  default: [
+    args: ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand(&quot;../assets&quot;, __DIR__),
+    env: %{&quot;NODE_PATH&quot; =&gt; Path.expand(&quot;../deps&quot;, __DIR__)}
+  ]
+</code></pre>
+<p>We will need to add our FontCSS path <code>fonts/handlee/handlee.css</code> to the build System along with the font types to load:<code>--loader:.woff2=file --loader:.woff=file</code>, so now it should look like:</p>
+<pre><code class="language-elixir">config :esbuild,
+  version: &quot;0.14.0&quot;,
+  default: [
+    args: ~w(js/app.js fonts/handlee/handlee.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand(&quot;../assets&quot;, __DIR__),
+    env: %{&quot;NODE_PATH&quot; =&gt; Path.expand(&quot;../deps&quot;, __DIR__)}
+  ]
+</code></pre>
+<p>Now you NEED to restart phoenix once a config file changes!</p>
+<p>Assuming everything is working you will see:</p>
+<ul>
+<li>the fonts files in: <code>priv/static/assets/</code></li>
+<li>the fonts css in: <code>priv/static/assets/fonts/handlee/handlee.css</code></li>
+</ul>
+<p>this is critical - if this isn&rsquo;t working you MUST fix it!</p>
+<h3 id="integrate-the-font-into-css--tailwindcss">Integrate the font into CSS (&amp; TailwindCSS)</h3>
+<p>Now you will need to tell TailwindCSS about the font so you can use: <code>font-handprint</code> as a CSS class.</p>
+<p>Your initial <code>assets/tailwind.config.js</code> file will look like:</p>
+<pre><code class="language-javascript">module.exports = {
+  mode: 'jit',
+  purge: [
+    './js/**/*.js',
+    '../lib/*_web/**/*.*ex'
+  ],
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</code></pre>
+<p>Your define you font in the <code>theme</code> section with:</p>
+<pre><code class="language-javascript">module.exports = {
+  mode: 'jit',
+  purge: [
+    './js/**/*.js',
+    '../lib/*_web/**/*.*ex'
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        handprint: ['Handlee']
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</code></pre>
+<p>Working in Switzerland it is convenient to use very multi-lingual fonts such as <code>Noto</code> and redefine the sans and serif fonts - in fact, my goto fonts and setup are:</p>
+<pre><code class="language-javascript">module.exports = {
+  mode: 'jit',
+  purge: [
+    './js/**/*.js',
+    '../lib/*_web/**/*.*ex'
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        comic: ['ComicNeue'],
+        hand: ['Handless'],
+        sans: ['NotoSans', 'sans-serif'],
+        serif: ['NotoSerif', 'serif']
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</code></pre>
+<h3 id="integrate-the-fonts-into-phoenix">Integrate the Fonts Into Phoenix</h3>
+<p>in the root.html.heex file add the static route <code>/assets/fonts/Hanlee/hanlee.css</code> before the <code>/assets/app.css</code>.</p>
+<p>This is done with the following html route:</p>
+<pre><code class="language-elixir">    &lt;!-- add font before app.css --&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/fonts/Hanlee/hanlee.css&quot;)}/&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/app.css&quot;)}/&gt;
+</code></pre>
+<p>So now <code>lib/fonts_web/templates/layout/root.html.heex</code> would look like:</p>
+<pre><code class="language-html">&lt;!-- lib/fonts_web/templates/layout/root.html.heex --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;/&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;/&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+    &lt;%= csrf_meta_tag() %&gt;
+    &lt;%= live_title_tag assigns[:page_title] || &quot;SlackerPetal&quot;, suffix: &quot; · Phoenix Framework&quot; %&gt;
+    &lt;!-- add font here BEFORE `/assets/app.css` --&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/fonts/Hanlee/hanlee.css&quot;)}/&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/app.css&quot;)}/&gt;
+    &lt;!-- change the `javascript` static path from `/assets/app.js` to `/assets/app.js` to load AlpineJS --&gt;
+    &lt;%# &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/app.js&quot;)}&gt;&lt;/script&gt; %&gt;
+    &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/js/app.js&quot;)}&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;section class=&quot;container&quot;&gt;
+        &lt;nav&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;https://hexdocs.pm/phoenix/overview.html&quot;&gt;Get Started&lt;/a&gt;&lt;/li&gt;
+            &lt;%= if function_exported?(Routes, :live_dashboard_path, 2) do %&gt;
+              &lt;li&gt;&lt;%= link &quot;LiveDashboard&quot;, to: Routes.live_dashboard_path(@conn, :home) %&gt;&lt;/li&gt;
+            &lt;% end %&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+        &lt;a href=&quot;https://phoenixframework.org/&quot; class=&quot;phx-logo&quot;&gt;
+          &lt;img src={Routes.static_path(@conn, &quot;/images/phoenix.png&quot;)} alt=&quot;Phoenix Framework Logo&quot;/&gt;
+        &lt;/a&gt;
+      &lt;/section&gt;
+    &lt;/header&gt;
+    &lt;%= @inner_content %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="test-you-new-font">Test you new font</h3>
+<p>Now add to the file <code>lib/slacker_gen_tail_web/templates/page/index.html.heex</code> to the following html:</p>
+<pre><code class="language-html">&lt;p class=&quot;text-red-500 text-5xl text-center font-handprint&quot;&gt;Hand Printed&lt;/p&gt;
+</code></pre>
+<p>Ideally you now see your new font displayed within the &ldquo;Hand Printed&rdquo; text</p>
+<p>NOTE:
+if you get an error like:
+<code>(Phoenix.Router.NoRouteError) no route found for GET /assets/fonts/Handlee/handlee.css</code></p>
+<p>Check your esbundle config and that <code>priv/static/assets/fonts/handlee/handlee.css</code> is being copied (Static routes always point to: <code>priv/static/</code>)!</p>
+<h2 id="resources-16x">Resources (1.6.x)</h2>
+<ul>
+<li>
+<a href="https://www.youtube.com/watch?v=vZBHkvTAb2U" target="_blank" rel="noopener">https://www.youtube.com/watch?v=vZBHkvTAb2U</a></li>
+<li>
+<a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58" target="_blank" rel="noopener">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></li>
+<li>
+<a href="https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial" target="_blank" rel="noopener">https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial</a></li>
+<li>
+<a href="https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix" target="_blank" rel="noopener">https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix</a></li>
+<li>
+<a href="https://thinkingelixir.com/petal-stack-in-elixir/" target="_blank" rel="noopener">https://thinkingelixir.com/petal-stack-in-elixir/</a></li>
+<li>
+<a href="https://larainfo.com/blogs/build-simple-count-app-using-apline-js-with-tailwind-css" target="_blank" rel="noopener">https://larainfo.com/blogs/build-simple-count-app-using-apline-js-with-tailwind-css</a></li>
+<li>
+<a href="https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js" target="_blank" rel="noopener">https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js</a></li>
+<li>
+<a href="https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/" target="_blank" rel="noopener">https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/</a></li>
+<li>
+<a href="https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58" target="_blank" rel="noopener">https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58</a></li>
+<li>
+<a href="https://tailwindcss.com/" target="_blank" rel="noopener">https://tailwindcss.com/</a></li>
+<li>
+<a href="https://github.com/alpinejs/alpine" target="_blank" rel="noopener">https://github.com/alpinejs/alpine</a></li>
+<li>
+<a href="https://github.com/tailwindlabs/tailwindcss" target="_blank" rel="noopener">https://github.com/tailwindlabs/tailwindcss</a></li>
+<li>
+<a href="https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/" target="_blank" rel="noopener">https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/</a></li>
+<li>
+<a href="https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix" target="_blank" rel="noopener">https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix</a></li>
+<li>
+<a href="https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16" target="_blank" rel="noopener">https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16</a></li>
+</ul>
+<h2 id="older-resources">Older Resources</h2>
+<ul>
+<li>
+<a href="https://www.youtube.com/watch?v=o4Prej0wIZA" target="_blank" rel="noopener">https://www.youtube.com/watch?v=o4Prej0wIZA</a></li>
+<li>
+<a href="http://blog.pthompson.org/alpine-js-and-liveview" target="_blank" rel="noopener">http://blog.pthompson.org/alpine-js-and-liveview</a></li>
+<li>
+<a href="https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix" target="_blank" rel="noopener">https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix</a></li>
+<li>
+<a href="https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix" target="_blank" rel="noopener">https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix</a></li>
+<li>
+<a href="https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js" target="_blank" rel="noopener">https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js</a></li>
+<li>
+<a href="https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace" target="_blank" rel="noopener">https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace</a></li>
+<li>
+<a href="https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/" target="_blank" rel="noopener">https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/phoenix/">Phoenix</a>
+  
+  <a class="badge badge-light" href="/tags/phoenix-1.6.x/">Phoenix 1.6.x</a>
+  
+  <a class="badge badge-light" href="/tags/elixir/">Elixir</a>
+  
+  <a class="badge badge-light" href="/tags/tailwindcss/">TailwindCSS</a>
+  
+  <a class="badge badge-light" href="/tags/tailwindcss-3.x/">TailwindCSS 3.x</a>
+  
+  <a class="badge badge-light" href="/tags/alpinejs/">AlpineJS</a>
+  
+  <a class="badge badge-light" href="/tags/alpinejs-3.x/">AlpineJS 3.x</a>
+  
+  <a class="badge badge-light" href="/tags/liveview/">LiveView</a>
+  
+  <a class="badge badge-light" href="/tags/petal/">PETAL</a>
+  
+  <a class="badge badge-light" href="/tags/petal-stack/">PETAL Stack</a>
+  
+  <a class="badge badge-light" href="/tags/custom-font/">Custom Font</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/&amp;text=Phoenix%201.6%20PETAL%20Stack%20Setup%20%28w/a%20Custom%20Font%29%20using%20Phoenix%20Generator" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/&amp;t=Phoenix%201.6%20PETAL%20Stack%20Setup%20%28w/a%20Custom%20Font%29%20using%20Phoenix%20Generator" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Phoenix%201.6%20PETAL%20Stack%20Setup%20%28w/a%20Custom%20Font%29%20using%20Phoenix%20Generator&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/&amp;title=Phoenix%201.6%20PETAL%20Stack%20Setup%20%28w/a%20Custom%20Font%29%20using%20Phoenix%20Generator" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.6%20PETAL%20Stack%20Setup%20%28w/a%20Custom%20Font%29%20using%20Phoenix%20Generator%20https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/&amp;title=Phoenix%201.6%20PETAL%20Stack%20Setup%20%28w/a%20Custom%20Font%29%20using%20Phoenix%20Generator" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2022
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

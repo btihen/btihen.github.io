@@ -103,13 +103,13 @@
     <loc>https://btihen.me/tags/alpinejs-3.x/</loc>
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/asdf/</loc>
-    <lastmod>2022-03-04T01:01:53+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/categories/</loc>
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/code/</loc>
+    <lastmod>2022-03-04T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/custom-font/</loc>
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/elixir/</loc>
@@ -127,7 +127,7 @@
     <loc>https://btihen.me/tags/phoenix/</loc>
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/</loc>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/</loc>
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/phoenix-1.6.x/</loc>
@@ -140,6 +140,12 @@
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/tailwindcss-3.x/</loc>
+    <lastmod>2022-03-04T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/asdf/</loc>
+    <lastmod>2022-03-04T01:01:53+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/</loc>
     <lastmod>2022-03-04T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/auth/</loc>
