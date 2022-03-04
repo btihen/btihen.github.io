@@ -46,5 +46,19 @@
 </description>
     </item>
     
+    <item>
+      <title>Agile in Education: Bill Tihen and Paul Magnuson of Leysin American School</title>
+      <link>https://btihen.me/publication/scrum_alliance_interview_agile_in_education/</link>
+      <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>https://btihen.me/publication/scrum_alliance_interview_agile_in_education/</guid>
+      <description>&lt;p&gt;A discussion with Scrum Alliance on the importance of bringing Agile into Educaion and a few important implementation points.&lt;/p&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/cV8UQvNcN9s&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+    </item>
+    
   </channel>
 </rss>

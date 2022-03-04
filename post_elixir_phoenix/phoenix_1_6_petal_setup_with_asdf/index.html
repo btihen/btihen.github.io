@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="Create a modern webapp with tremendous flexibility">
+  <meta name="description" content="The underlying tooling for a PETAL Stack">
 
   
   <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/">
@@ -237,14 +237,14 @@
   
   <meta property="og:site_name" content="btihen">
   <meta property="og:url" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/">
-  <meta property="og:title" content="Phoenix 1.6 PETAL Stack Setup - using asdf | btihen">
-  <meta property="og:description" content="Create a modern webapp with tremendous flexibility"><meta property="og:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/featured.png">
+  <meta property="og:title" content="Phoenix 1.6 PETAL Stack Setup by Hand | btihen">
+  <meta property="og:description" content="The underlying tooling for a PETAL Stack"><meta property="og:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/featured.png">
   <meta property="twitter:image" content="https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/featured.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2022-02-27T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2022-02-27T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2022-03-04T01:01:53&#43;02:00">
   
 
   
@@ -263,7 +263,7 @@
 
 
 
-  <title>Phoenix 1.6 PETAL Stack Setup - using asdf | btihen</title>
+  <title>Phoenix 1.6 PETAL Stack Setup by Hand | btihen</title>
 
 </head>
 
@@ -468,35 +468,6 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#post_crystal"><span>Crystal</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
           <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
         </li>
 
@@ -555,36 +526,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#publications"><span>Pubs</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#in_news"><span>News</span></a>
+          <a class="nav-link " href="/#publications"><span>Media</span></a>
         </li>
 
         
@@ -660,10 +602,10 @@
 
 
 <div class="article-container pt-3">
-  <h1>Phoenix 1.6 PETAL Stack Setup - using asdf</h1>
+  <h1>Phoenix 1.6 PETAL Stack Setup by Hand</h1>
 
   
-  <p class="page-subtitle">Phoenix, Elixir, TailwindCSS, AlpineJS, LiveView - PETAL Stack</p>
+  <p class="page-subtitle">Simple PETAL Setup</p>
   
 
   
@@ -689,8 +631,10 @@
     
     
       
+          Last updated on
+      
     
-    Sun, Feb 27, 2022
+    Fri, Mar 4, 2022
   </span>
   
 
@@ -783,12 +727,12 @@ asdf install Postgres 14.2
 mix local.hex --force
 </code></pre>
 <h2 id="get-the-newest-phoenix-hex-package">Get the newest Phoenix Hex Package</h2>
-<p>Once you have established you have the requrements - the download the newest version of Phoenix (go to: 
+<p>Once you have established you have the requirements - the download the newest version of Phoenix (go to: 
 <a href="https://hexdocs.pm/phoenix/installation.html#phoenix" target="_blank" rel="noopener">https://hexdocs.pm/phoenix/installation.html#phoenix</a> to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:</p>
 <pre><code class="language-bash">mix archive.install hex phx_new 1.6.6 --force
 </code></pre>
 <h2 id="create-a-project-with-asdf-settings">create a project with asdf settings</h2>
-<p>First we will creat the folder / project location</p>
+<p>First we will create the folder / project location</p>
 <pre><code class="language-bash">mkdir petal
 </code></pre>
 <p>Now we will tell it which software to use:</p>
@@ -886,7 +830,7 @@ git commit -m &quot;phoenix with alpine js&quot;
 npm install autoprefixer postcss postcss-import postcss-cli tailwindcss --save-dev
 cd ..
 </code></pre>
-<p>comment out <code>import &quot;../css/app.css&quot;</code> to avoid pipleline compilation conflicts</p>
+<p>comment out <code>import &quot;../css/app.css&quot;</code> to avoid pipeline compilation conflicts</p>
 <pre><code class="language-js">// assets/js/app.js
 // We import the CSS which is extracted to its own file by esbuild.
 // Remove this line if you add a your own CSS build pipeline (e.g postcss).
@@ -1039,6 +983,158 @@ EOF
 <pre><code class="language-bash">git add .
 git commit -m &quot;PETAL 1.6.x Configured&quot;
 </code></pre>
+<h2 id="add-a-custom-font">Add a custom Font</h2>
+<p>
+<a href="https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/" target="_blank" rel="noopener">https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/</a></p>
+<p>We will download 2 Fonts:</p>
+<ul>
+<li>Noto Sans - (full international support &amp; very readable):
+
+<a href="https://google-webfonts-helper.herokuapp.com/fonts/noto-sans?subsets=latin" target="_blank" rel="noopener">https://google-webfonts-helper.herokuapp.com/fonts/noto-sans?subsets=latin</a></li>
+<li>Quickens Comic (easy to read and fun) -
+
+<a href="https://graphicgoods.net/downloads/quickens-free-font/" target="_blank" rel="noopener">https://graphicgoods.net/downloads/quickens-free-font/</a></li>
+</ul>
+<h3 id="noto-sans">Noto Sans</h3>
+<p>We will start with Noto - listed on Google fonts from Webfonts Helper</p>
+<p>Copy the CSS from the website (prefer modern browswers if possible) - update the Customize folder prefix</p>
+<pre><code class="language-css">mkdir -p assets/vendor/fonts/NotoSans
+cat &lt;&lt;EOF&gt;assets/vendor/fonts/NotoSans/noto_sans.css
+/* noto-sans-regular - latin-ext_latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('../fonts/NotoSans/noto-sans-v25-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/NotoSans/noto-sans-v25-latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+EOF
+</code></pre>
+<h3 id="quickens-otf">Quickens (otf)</h3>
+<p>Download and convert the font at:</p>
+<ul>
+<li>
+<a href="https://transfonter.org/" target="_blank" rel="noopener">https://transfonter.org/</a></li>
+<li>
+<a href="https://onlinefontconverter.com/" target="_blank" rel="noopener">https://onlinefontconverter.com/</a></li>
+<li>
+<a href="https://www.fontsquirrel.com/tools/webfont-generator" target="_blank" rel="noopener">https://www.fontsquirrel.com/tools/webfont-generator</a></li>
+</ul>
+<pre><code class="language-css">mkdir -p assets/vendor/fonts/Quickens
+cat &lt;&lt;EOF&gt;assets/vendor/fonts/Quickens/quickens.css
+/* otf not recommended - convert the font at:
+  * https://transfonter.org/
+  * https://onlinefontconverter.com/
+  * https://www.fontsquirrel.com/tools/webfont-generator
+
+@font-face {
+  font-family: 'Quickens';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('quickens-regular.otf') format('opentype'),
+       url('quickens-rough.otf') format('opentype');
+} */
+
+@font-face {
+  font-family: 'Quickens';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('quickens_regular-webfont.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('quickens_regular-webfont.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+  font-family: 'QuickensRough';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('quickens_rough-webfont.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('quickens_rough-webfont.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+EOF
+</code></pre>
+<h3 id="add-fonts-to-html">Add Fonts to HTML</h3>
+<pre><code class="language-html"># /lib/fonts_web/templates/layout/root.html.heex
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;/&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;/&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+    &lt;%= csrf_meta_tag() %&gt;
+    &lt;%= live_title_tag assigns[:page_title] || &quot;SlackerPetal&quot;, suffix: &quot; · Phoenix Framework&quot; %&gt;
+    &lt;!-- add font here --&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/vendor/fonts/NotoSans/noto_sans.css&quot;)}/&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/vendor/fonts/NotoSerif/noto_serif.css&quot;)}/&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/vendor/fonts/Quickens/quickens.css&quot;)}/&gt;
+    &lt;!-- end custom fonts --&gt;
+    &lt;link phx-track-static rel=&quot;stylesheet&quot; href={Routes.static_path(@conn, &quot;/assets/app.css&quot;)}/&gt;
+    &lt;!-- change this from app.js to js/app.js --&gt;
+    &lt;%# &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/app.js&quot;)}&gt;&lt;/script&gt; %&gt;
+    &lt;script defer phx-track-static type=&quot;text/javascript&quot; src={Routes.static_path(@conn, &quot;/assets/js/app.js&quot;)}&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;section class=&quot;container&quot;&gt;
+        &lt;nav&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;https://hexdocs.pm/phoenix/overview.html&quot;&gt;Get Started&lt;/a&gt;&lt;/li&gt;
+            &lt;%= if function_exported?(Routes, :live_dashboard_path, 2) do %&gt;
+              &lt;li&gt;&lt;%= link &quot;LiveDashboard&quot;, to: Routes.live_dashboard_path(@conn, :home) %&gt;&lt;/li&gt;
+            &lt;% end %&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+        &lt;a href=&quot;https://phoenixframework.org/&quot; class=&quot;phx-logo&quot;&gt;
+          &lt;img src={Routes.static_path(@conn, &quot;/images/phoenix.png&quot;)} alt=&quot;Phoenix Framework Logo&quot;/&gt;
+        &lt;/a&gt;
+      &lt;/section&gt;
+    &lt;/header&gt;
+    &lt;%= @inner_content %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>OOPS
+<code>(Phoenix.Router.NoRouteError) no route found for GET /assets/vendor/fonts/NotoSerif/noto_serif.css</code></p>
+<h3 id="update-the-esbuild-configuration">Update the esbuild configuration</h3>
+<p>update args in</p>
+<pre><code># /config/config.exs
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: &quot;0.12.18&quot;,
+  default: [
+    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2016 --outdir=../priv/static/assets),
+    cd: Path.expand(&quot;../assets&quot;, __DIR__),
+    env: %{&quot;NODE_PATH&quot; =&gt; Path.expand(&quot;../deps&quot;, __DIR__)}
+  ]
+</code></pre>
+<h3 id="update-the-tailwind-configuration">Update the Tailwind configuration</h3>
+<p>The final step is to update Tailwind (set NotoSans to the default font &amp; make quickens available)</p>
+<pre><code class="language-js"># /assets/tailwind.config.js
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+module.exports = {
+  mode: 'jit',
+  purge: [
+    './js/**/*.js',
+    '../lib/*_web/**/*.*ex'
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['NotoSans var', ...defaultTheme.fontFamily.sans],
+        quicken: ['Quickens']
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+</code></pre>
 <h2 id="resources-16x">Resources (1.6.x)</h2>
 <ul>
 <li>
@@ -1065,6 +1161,12 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
 <a href="https://github.com/alpinejs/alpine" target="_blank" rel="noopener">https://github.com/alpinejs/alpine</a></li>
 <li>
 <a href="https://github.com/tailwindlabs/tailwindcss" target="_blank" rel="noopener">https://github.com/tailwindlabs/tailwindcss</a></li>
+<li>
+<a href="https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/" target="_blank" rel="noopener">https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/</a></li>
+<li>
+<a href="https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix" target="_blank" rel="noopener">https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix</a></li>
+<li>
+<a href="https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16" target="_blank" rel="noopener">https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16</a></li>
 </ul>
 <h2 id="older-resources">Older Resources</h2>
 <ul>
@@ -1115,6 +1217,8 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
   
   <a class="badge badge-light" href="/tags/petal-stack/">PETAL Stack</a>
   
+  <a class="badge badge-light" href="/tags/asdf/">ASDF</a>
+  
 </div>
 
 
@@ -1130,7 +1234,7 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;text=Phoenix%201.6%20PETAL%20Stack%20Setup%20-%20using%20asdf" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;text=Phoenix%201.6%20PETAL%20Stack%20Setup%20by%20Hand" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1143,7 +1247,7 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;t=Phoenix%201.6%20PETAL%20Stack%20Setup%20-%20using%20asdf" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;t=Phoenix%201.6%20PETAL%20Stack%20Setup%20by%20Hand" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1156,7 +1260,7 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
       
       
       <li>
-        <a href="mailto:?subject=Phoenix%201.6%20PETAL%20Stack%20Setup%20-%20using%20asdf&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Phoenix%201.6%20PETAL%20Stack%20Setup%20by%20Hand&amp;body=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1169,7 +1273,7 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;title=Phoenix%201.6%20PETAL%20Stack%20Setup%20-%20using%20asdf" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;title=Phoenix%201.6%20PETAL%20Stack%20Setup%20by%20Hand" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1182,7 +1286,7 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Phoenix%201.6%20PETAL%20Stack%20Setup%20-%20using%20asdf%20https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Phoenix%201.6%20PETAL%20Stack%20Setup%20by%20Hand%20https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1195,7 +1299,7 @@ git commit -m &quot;PETAL 1.6.x Configured&quot;
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;title=Phoenix%201.6%20PETAL%20Stack%20Setup%20-%20using%20asdf" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&amp;title=Phoenix%201.6%20PETAL%20Stack%20Setup%20by%20Hand" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
