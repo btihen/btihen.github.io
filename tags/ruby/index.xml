@@ -26,7 +26,7 @@
       <link>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</link>
       <pubDate>Sun, 06 Mar 2022 01:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</guid>
-      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;overview&#34;&gt;&lt;strong&gt;Overview&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;I have often wanted to build websites using as much of my Rails knowledge as possible.  Now I can!&lt;/p&gt;
 &lt;p&gt;Enter Bridgetown - 
 &lt;a href=&#34;https://edge.bridgetownrb.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edge.bridgetownrb.com/docs&lt;/a&gt;&lt;/p&gt;
@@ -39,7 +39,7 @@
 &lt;li&gt;(&lt;strong&gt;automations&lt;/strong&gt;)[https://www.bridgetownrb.com/docs/automations] An automation script is nothing more than a Ruby code file run in the context of an instance
 Unfortunately, I still struggle to find the parts I am looking for, so I am adding the links here (to help my future self).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;new-site-setup&#34;&gt;New Site Setup&lt;/h2&gt;
+&lt;h2 id=&#34;new-site-setup&#34;&gt;&lt;strong&gt;New Site Setup&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;I listened to the interview about Bridgetown on (Remote Ruby Podcast)[https://remoteruby.transistor.fm/169] so I went and checked it out.  Starting with the (Beta Docs)[https://edge.bridgetownrb.com/docs] - as it has a TailwindCSS installer and lots of excellent deployment setups (in particular Render and Netlify - although I would find Fly.io also interesting)&lt;/p&gt;
 &lt;p&gt;So I started by downloading the gem:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install bridgetown -N -v 1.0.0.beta3
@@ -48,7 +48,7 @@ Unfortunately, I still struggle to find the parts I am looking for, so I am addi
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bridgetown new tailwind_site -t erb
 cd tailwind_site
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;configure-tailwindcss&#34;&gt;Configure TailwindCSS&lt;/h2&gt;
+&lt;h2 id=&#34;configure-tailwindcss&#34;&gt;&lt;strong&gt;Configure TailwindCSS&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Installing TailwindCSS it was straightforward - once I found the right area. Follow the instructions at 
 &lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss&lt;/a&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle exec bridgetown configure tailwindcss
@@ -57,7 +57,7 @@ cd tailwind_site
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/bridgetown start
 open localhost:4000
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;configure-alpinejs&#34;&gt;Configure AlpineJS&lt;/h2&gt;
+&lt;h2 id=&#34;configure-alpinejs&#34;&gt;&lt;strong&gt;Configure AlpineJS&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;It looked good - so I went on to install AlpineJS (using the embedded script method) at 
 &lt;a href=&#34;https://alpinejs.dev/essentials/installation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://alpinejs.dev/essentials/installation&lt;/a&gt; - so I went to &lt;code&gt;src/_partials/_head.erb&lt;/code&gt; and added &lt;code&gt;&amp;lt;script defer src=&amp;quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt; just before the &lt;code&gt;live_reload_dev_js&lt;/code&gt; tag:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_partials/_head.erb --&amp;gt;
@@ -76,7 +76,21 @@ open localhost:4000
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Cool this works!  So I went and created my navbar and footer.&lt;/p&gt;
-&lt;h3 id=&#34;what-didnt-work-yet&#34;&gt;What didn&amp;rsquo;t work (yet!)&lt;/h3&gt;
+&lt;h2 id=&#34;deploy&#34;&gt;&lt;strong&gt;Deploy&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;First, install the config for your deploy service:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle exec bridgetown configure netlify
+git add bin/netlify.sh netlify.toml
+git commit -m &amp;quot;add netlify config&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Second, create and push your repo to github or gitlab&lt;/li&gt;
+&lt;li&gt;Third, connect your netlify account to the repo&lt;/li&gt;
+&lt;li&gt;Four, click deploy and wait 5-10 mins and you should have your new website - just click on preview :)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;what-didnt-work-yet&#34;&gt;What didn&amp;rsquo;t work (yet!)&lt;/h2&gt;
 &lt;p&gt;I am hoping to install AlpineJS as an imported module (so building isn&amp;rsquo;t depending on a webconnection and the code needed is local).  So I tried removing the AplineJS script tag from the header:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_partials/_head.erb --&amp;gt;
 ...
@@ -100,10 +114,9 @@ window.Alpine = Alpine
 Alpine.start()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;But unfortunately, this doesn&amp;rsquo;t work :( If you know how to make it work, I&amp;rsquo;ll be glad to update this document.&lt;/p&gt;
-&lt;h2 id=&#34;feature-to-explore&#34;&gt;Feature to explore&lt;/h2&gt;
-&lt;p&gt;Bundle Configs&lt;/p&gt;
+&lt;h2 id=&#34;feature-still-to-explore&#34;&gt;Feature still to explore&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Bundle Configs&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Setup to deploy to netlify: (bundle exec bridgetown configure netlify) - also available is render - but I don&amp;rsquo;t find it at the moment&lt;/li&gt;
 &lt;li&gt;Setup for purging css: (bundle exec bridgetown configure purgecss) - 
 &lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook&lt;/a&gt; - installed by default with Tailwind&lt;/li&gt;
 &lt;li&gt;Rails Default JS - (bundle exec bridgetown configure stimulus) - 
@@ -113,7 +126,7 @@ Alpine.start()
 &lt;li&gt;Animation Transitions: (bundle exec bridgetown configure swup) - 
 &lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#swupjs-page-transitions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#swupjs-page-transitions&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Automations&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automations&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Bulma Configured Site: (bundle exec bridgetown apply 
 &lt;a href=&#34;https://github.com/whitefusionhq/bulmatown&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/bulmatown&lt;/a&gt;)&lt;/li&gt;
@@ -122,14 +135,14 @@ Alpine.start()
 &lt;li&gt;Netlify Configuration: (bundle exec bridgetown apply 
 &lt;a href=&#34;https://github.com/bridgetownrb/automations/netlify.rb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/automations/netlify.rb&lt;/a&gt;) - how is this different from Netlify bundle configure?&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Testing:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Testing&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;MiniTests: (bundle exec bridgetown configure minitesting) - 
 &lt;a href=&#34;https://www.bridgetownrb.com/docs/testing#use-ruby-and-minitest-to-test-html-directly&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/testing#use-ruby-and-minitest-to-test-html-directly&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Cypres JS Testing: (bundle exec bridgetown apply 
 &lt;a href=&#34;https://github.com/ParamagicDev/bridgetown-automation-cypress&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/ParamagicDev/bridgetown-automation-cypress&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Plugins&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Plugins&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;SEO Tags (bundle add bridgetown-seo-tag -g bridgetown_plugins): 
 &lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-seo-tag&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-seo-tag&lt;/a&gt;&lt;/li&gt;
@@ -154,7 +167,7 @@ Alpine.start()
 &lt;a href=&#34;https://github.com/whitefusionhq/bulmatown%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/bulmatown)&lt;/a&gt;: 
 &lt;a href=&#34;https://github.com/whitefusionhq/bulmatown&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/bulmatown&lt;/a&gt; (something went wrong on my first try - and don&amp;rsquo;t use this with tailwindcss :)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Content Management Plugins&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Content Management Plugins&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Notable MD Editor (bundle add bridgetown-notable -g bridgetown_plugins): 
 &lt;a href=&#34;https://github.com/jamie/bridgetown-notable&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/jamie/bridgetown-notable&lt;/a&gt;&lt;/li&gt;
@@ -170,6 +183,9 @@ Alpine.start()
 &lt;li&gt;I have only been able to install AlpineJS as a weblink and not as an included module (If I figure it out I&amp;rsquo;ll update this document and or make a configuration script) - maybe I just need to learn into StimulusJS.&lt;/li&gt;
 &lt;li&gt;I would like to use Fly.io too (if I figure it out I&amp;rsquo;ll write a configuration script)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;Apparently, Vue, React, Bulma plugin-configuations are comming too.
+As well as workflows and deployment for github and gitlab.
+This should be interesting and fun.&lt;/p&gt;
 </description>
     </item>
     
