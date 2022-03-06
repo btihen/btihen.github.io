@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Mobile Friendly Scheduling Software">
+  <meta name="description" content="A fun and straightforward way to build static sites using your Ruby &amp; Rails knowledge">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/projects/mobile_calendar/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/">
 
   
 
@@ -218,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
-  <link rel="canonical" href="https://btihen.me/projects/mobile_calendar/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/">
 
   
   
@@ -236,15 +236,15 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/projects/mobile_calendar/">
-  <meta property="og:title" content="Shared Schedule | btihen">
-  <meta property="og:description" content="Mobile Friendly Scheduling Software"><meta property="og:image" content="https://btihen.me/projects/mobile_calendar/featured.png">
-  <meta property="twitter:image" content="https://btihen.me/projects/mobile_calendar/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/">
+  <meta property="og:title" content="Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation | btihen">
+  <meta property="og:description" content="A fun and straightforward way to build static sites using your Ruby &amp; Rails knowledge"><meta property="og:image" content="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-11-06T01:34:47&#43;02:00">
+      <meta property="article:published_time" content="2022-03-06T01:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2020-11-06T01:34:47&#43;02:00">
+    <meta property="article:modified_time" content="2022-03-06T01:57:00&#43;02:00">
   
 
   
@@ -263,7 +263,7 @@
 
 
 
-  <title>Shared Schedule | btihen</title>
+  <title>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation | btihen</title>
 
 </head>
 
@@ -600,8 +600,10 @@
 
 
 <div class="article-container pt-3">
-  <h1>Shared Schedule</h1>
+  <h1>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation</h1>
 
+  
+  <p class="page-subtitle">Static Site Generation with Ruby</p>
   
 
   
@@ -628,7 +630,7 @@
     
       
     
-    Fri, Nov 6, 2020
+    Sun, Mar 6, 2022
   </span>
   
 
@@ -642,10 +644,6 @@
 
   
   
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a>, <a href="/categories/sharing/">Sharing</a></span>
-  
 
 </div>
 
@@ -663,48 +661,13 @@
 
 
 
-<div class="btn-links mb-3">
-  
-  <a class="btn btn-outline-primary my-1" href="https://github.com/btihen/bern_umdze" target="_blank" rel="noopener">Go to Project Site</a>
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 
 
-</div>
-
-
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 367px; max-height: 459px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 659px; max-height: 317px;">
   <div style="position: relative">
-    <img src="/projects/mobile_calendar/featured.png" alt="" class="featured-image">
+    <img src="/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/featured.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -714,7 +677,150 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>An opensource mobile friendly simple calendar to simplify scheduling for non-profits.</p>
+      <h2 id="overview">Overview</h2>
+<p>I have often wanted to build websites using as much of my Rails knowledge as possible.  Now I can!</p>
+<p>Enter Bridgetown - 
+<a href="https://edge.bridgetownrb.com/docs" target="_blank" rel="noopener">https://edge.bridgetownrb.com/docs</a></p>
+<p>A ruby based (erb, components, etc), author-friendly (markdown pages).</p>
+<p>The newest version 1.0 beta uses esbuild by default (or webpacker) and has several pre-build deploy configurations and a quick and easy way to install TailwindCSS!</p>
+<p>Unfortunately, for some reason I found it a bit hard to assemble the information to create a website that would meet my needs and interests.  So this doc is a quick summary and context that will get you through the next step after <code>getting started</code>.  My understanding is now that are 3 added aspects</p>
+<ul>
+<li>(<strong>bundled configurations</strong>)[https://www.bridgetownrb.com/docs/bundled-configurations] are for <code>tool-chain setup</code>, like deployment configs, tailwindcss, stimulusJS, etc.  And</li>
+<li><strong>Plugins</strong> are for things that will show-up in the <code>output html</code> like SEO Tags, Sitemaps, etc.</li>
+<li>(<strong>automations</strong>)[https://www.bridgetownrb.com/docs/automations] An automation script is nothing more than a Ruby code file run in the context of an instance
+Unfortunately, I still struggle to find the parts I am looking for, so I am adding the links here (to help my future self).</li>
+</ul>
+<h2 id="new-site-setup">New Site Setup</h2>
+<p>I listened to the interview about Bridgetown on (Remote Ruby Podcast)[https://remoteruby.transistor.fm/169] so I went and checked it out.  Starting with the (Beta Docs)[https://edge.bridgetownrb.com/docs] - as it has a TailwindCSS installer and lots of excellent deployment setups (in particular Render and Netlify - although I would find Fly.io also interesting)</p>
+<p>So I started by downloading the gem:</p>
+<pre><code class="language-bash">gem install bridgetown -N -v 1.0.0.beta3
+</code></pre>
+<p>I decided to configure it with the <code>erb</code> but you can leave off <code>-t erb</code> and use liquid or change erb for serbea templates.  Anyway, I created a new project with <code>erb</code> using:</p>
+<pre><code class="language-bash">bridgetown new tailwind_site -t erb
+cd tailwind_site
+</code></pre>
+<h2 id="configure-tailwindcss">Configure TailwindCSS</h2>
+<p>Installing TailwindCSS it was straightforward - once I found the right area. Follow the instructions at 
+<a href="https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss</a>.</p>
+<pre><code class="language-bash">bundle exec bridgetown configure tailwindcss
+</code></pre>
+<p>I wanted to see if this worked by starting bridgetown with:</p>
+<pre><code class="language-bash">bin/bridgetown start
+open localhost:4000
+</code></pre>
+<h2 id="configure-alpinejs">Configure AlpineJS</h2>
+<p>It looked good - so I went on to install AlpineJS (using the embedded script method) at 
+<a href="https://alpinejs.dev/essentials/installation" target="_blank" rel="noopener">https://alpinejs.dev/essentials/installation</a> - so I went to <code>src/_partials/_head.erb</code> and added <code>&lt;script defer src=&quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&quot;&gt;&lt;/script&gt;</code> just before the <code>live_reload_dev_js</code> tag:</p>
+<pre><code class="language-html">&lt;!-- src/_partials/_head.erb --&gt;
+...
+&lt;!-- AlpineJS script tag--&gt;
+&lt;script defer src=&quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&quot;&gt;&lt;/script&gt;
+&lt;%= live_reload_dev_js %&gt;
+</code></pre>
+<p>Then I went to the page <code>src/_components/shared/navbar.erb</code> to add an example from (AlpineJS Start-here page)[https://alpinejs.dev/start-here]</p>
+<pre><code class="language-html">&lt;div x-data=&quot;{ count: 0 }&quot;&gt;
+ &lt;button x-on:click=&quot;count++&quot;
+         class=&quot;bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded&quot;&gt;
+   Increment
+ &lt;/button&gt;
+ &lt;span x-text=&quot;count&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Cool this works!  So I went and created my navbar and footer.</p>
+<h3 id="what-didnt-work-yet">What didn&rsquo;t work (yet!)</h3>
+<p>I am hoping to install AlpineJS as an imported module (so building isn&rsquo;t depending on a webconnection and the code needed is local).  So I tried removing the AplineJS script tag from the header:</p>
+<pre><code class="language-html">&lt;!-- src/_partials/_head.erb --&gt;
+...
+&lt;!-- AlpineJS script tag--&gt;
+&lt;%# &lt;script defer src=&quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&quot;&gt;&lt;/script&gt; %&gt;
+&lt;%= live_reload_dev_js %&gt;
+</code></pre>
+<p>Then installing alpinejs</p>
+<pre><code class="language-bash">yarn add alpinejs
+</code></pre>
+<p>and I confirmed that I see the AlpineJS in the node_modules folder.</p>
+<p>Then I import and start AlpineJS in <code>frontend/javascript/index.js</code> so it looked like:</p>
+<pre><code class="language-javascript">// frontend/javascript/index.js
+import &quot;index.css&quot;
+import Alpine from 'alpinejs'
+// Import all JavaScript &amp; CSS files from src/_components
+import components from &quot;bridgetownComponents/**/*.{js,jsx,js.rb,css}&quot;
+
+console.info(&quot;Bridgetown is loaded!&quot;)
+window.Alpine = Alpine
+Alpine.start()
+</code></pre>
+<p>But unfortunately, this doesn&rsquo;t work :( If you know how to make it work, I&rsquo;ll be glad to update this document.</p>
+<h2 id="feature-to-explore">Feature to explore</h2>
+<p>Bundle Configs</p>
+<ul>
+<li>Setup to deploy to netlify: (bundle exec bridgetown configure netlify) - also available is render - but I don&rsquo;t find it at the moment</li>
+<li>Setup for purging css: (bundle exec bridgetown configure purgecss) - 
+<a href="https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook</a> - installed by default with Tailwind</li>
+<li>Rails Default JS - (bundle exec bridgetown configure stimulus) - 
+<a href="https://www.bridgetownrb.com/docs/bundled-configurations#stimulus" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/bundled-configurations#stimulus</a></li>
+<li>Rails Turbo features: (bundle exec bridgetown configure turbo) - 
+<a href="https://www.bridgetownrb.com/docs/bundled-configurations#turbo" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/bundled-configurations#turbo</a></li>
+<li>Animation Transitions: (bundle exec bridgetown configure swup) - 
+<a href="https://www.bridgetownrb.com/docs/bundled-configurations#swupjs-page-transitions" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/bundled-configurations#swupjs-page-transitions</a></li>
+</ul>
+<p>Automations</p>
+<ul>
+<li>Bulma Configured Site: (bundle exec bridgetown apply 
+<a href="https://github.com/whitefusionhq/bulmatown" target="_blank" rel="noopener">https://github.com/whitefusionhq/bulmatown</a>)</li>
+<li>Cloudinary Configuration: (bundle exec bridgetown apply 
+<a href="https://github.com/bridgetownrb/bridgetown-cloudinary" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-cloudinary</a>)</li>
+<li>Netlify Configuration: (bundle exec bridgetown apply 
+<a href="https://github.com/bridgetownrb/automations/netlify.rb" target="_blank" rel="noopener">https://github.com/bridgetownrb/automations/netlify.rb</a>) - how is this different from Netlify bundle configure?</li>
+</ul>
+<p>Testing:</p>
+<ul>
+<li>MiniTests: (bundle exec bridgetown configure minitesting) - 
+<a href="https://www.bridgetownrb.com/docs/testing#use-ruby-and-minitest-to-test-html-directly" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/testing#use-ruby-and-minitest-to-test-html-directly</a></li>
+<li>Cypres JS Testing: (bundle exec bridgetown apply 
+<a href="https://github.com/ParamagicDev/bridgetown-automation-cypress" target="_blank" rel="noopener">https://github.com/ParamagicDev/bridgetown-automation-cypress</a>)</li>
+</ul>
+<p>Plugins</p>
+<ul>
+<li>SEO Tags (bundle add bridgetown-seo-tag -g bridgetown_plugins): 
+<a href="https://github.com/bridgetownrb/bridgetown-seo-tag" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-seo-tag</a></li>
+<li>Atom Feed (bundle add bridgetown-feed -g bridgetown_plugins): 
+<a href="https://github.com/bridgetownrb/bridgetown-feed" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-feed</a></li>
+<li>SVG in HTML inline (bundle add &ldquo;bridgetown-svg-inliner&rdquo; -g bridgetown_plugins): 
+<a href="https://github.com/ayushn21/bridgetown-svg-inliner" target="_blank" rel="noopener">https://github.com/ayushn21/bridgetown-svg-inliner</a></li>
+<li>Liquid QuickSearch (bundle add bridgetown-quick-search -g bridgetown_plugins): 
+<a href="https://github.com/bridgetownrb/bridgetown-quick-search" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-quick-search</a></li>
+<li>Add a SiteMap (bundle add bridgetown-sitemap -g bridgetown_plugins): 
+<a href="https://github.com/ayushn21/bridgetown-sitemap" target="_blank" rel="noopener">https://github.com/ayushn21/bridgetown-sitemap</a></li>
+<li>Markdown JS (bundle add bridgetown-mdjs -g bridgetown_plugins): 
+<a href="https://github.com/bridgetownrb/bridgetown-mdjs" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-mdjs</a></li>
+<li>HTML Minify (bundle add bridgetown-minify-html -g bridgetown_plugins): 
+<a href="https://github.com/bt-rb/bridgetown-minify-html" target="_blank" rel="noopener">https://github.com/bt-rb/bridgetown-minify-html</a></li>
+<li>Github ViewComponents (bundle add bridgetown-view-component -g bridgetown_plugins): 
+<a href="https://github.com/bridgetownrb/bridgetown-view-component" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-view-component</a> &ndash; but the docs are here: 
+<a href="https://www.bridgetownrb.com/docs/components/ruby#need-compatibility-with-rails-try-viewcomponent-experimental" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/components/ruby#need-compatibility-with-rails-try-viewcomponent-experimental</a></li>
+<li>GraphQL Api for Bridgetown (bundle add graphtown -g bridgetown_plugins): 
+<a href="https://github.com/whitefusionhq/graphtown" target="_blank" rel="noopener">https://github.com/whitefusionhq/graphtown</a></li>
+<li>Bulma Starter (bundle exec bridgetown apply 
+<a href="https://github.com/whitefusionhq/bulmatown%29" target="_blank" rel="noopener">https://github.com/whitefusionhq/bulmatown)</a>: 
+<a href="https://github.com/whitefusionhq/bulmatown" target="_blank" rel="noopener">https://github.com/whitefusionhq/bulmatown</a> (something went wrong on my first try - and don&rsquo;t use this with tailwindcss :)</li>
+</ul>
+<p>Content Management Plugins</p>
+<ul>
+<li>Notable MD Editor (bundle add bridgetown-notable -g bridgetown_plugins): 
+<a href="https://github.com/jamie/bridgetown-notable" target="_blank" rel="noopener">https://github.com/jamie/bridgetown-notable</a></li>
+<li>Prismic Flat CMS (bin/bridgetown apply 
+<a href="https://github.com/bridgetownrb/bridgetown-prismic%29" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-prismic)</a>: 
+<a href="https://github.com/bridgetownrb/bridgetown-prismic" target="_blank" rel="noopener">https://github.com/bridgetownrb/bridgetown-prismic</a></li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>This looks promising for people familiar with Rails, we will see how it competes with Astro and the other JAMF Stacks for the general public.</p>
+<p>So far, the only downsides have been:</p>
+<ul>
+<li>I am not sure I fully understand the logic of 3 added aspects of additional features - for example why is there a netlify automation and bundle config?</li>
+<li>I have only been able to install AlpineJS as a weblink and not as an included module (If I figure it out I&rsquo;ll update this document and or make a configuration script) - maybe I just need to learn into StimulusJS.</li>
+<li>I would like to use Fly.io too (if I figure it out I&rsquo;ll write a configuration script)</li>
+</ul>
 
     </div>
 
@@ -729,11 +835,11 @@
   
   <a class="badge badge-light" href="/tags/ruby/">Ruby</a>
   
-  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  <a class="badge badge-light" href="/tags/erb/">ERB</a>
   
-  <a class="badge badge-light" href="/tags/mobile/">mobile</a>
+  <a class="badge badge-light" href="/tags/static-site/">Static Site</a>
   
-  <a class="badge badge-light" href="/tags/calendar/">calendar</a>
+  <a class="badge badge-light" href="/tags/bridgetown/">Bridgetown</a>
   
 </div>
 
@@ -750,7 +856,7 @@
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/projects/mobile_calendar/&amp;text=Shared%20Schedule" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;text=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -763,7 +869,7 @@
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/projects/mobile_calendar/&amp;t=Shared%20Schedule" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;t=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -776,7 +882,7 @@
       
       
       <li>
-        <a href="mailto:?subject=Shared%20Schedule&amp;body=https://btihen.me/projects/mobile_calendar/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation&amp;body=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -789,7 +895,7 @@
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/projects/mobile_calendar/&amp;title=Shared%20Schedule" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;title=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -802,7 +908,7 @@
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Shared%20Schedule%20https://btihen.me/projects/mobile_calendar/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation%20https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -815,7 +921,7 @@
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/projects/mobile_calendar/&amp;title=Shared%20Schedule" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;title=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

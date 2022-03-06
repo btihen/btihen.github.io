@@ -5,7 +5,7 @@
     <link>https://btihen.me/</link>
       <atom:link href="https://btihen.me/index.xml" rel="self" type="application/rss+xml" />
     <description>btihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sun, 06 Mar 2022 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>btihen</title>
@@ -160,6 +160,158 @@ ARC consortium members contribute by documenting applications of the agile minds
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation</title>
+      <link>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</link>
+      <pubDate>Sun, 06 Mar 2022 01:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;I have often wanted to build websites using as much of my Rails knowledge as possible.  Now I can!&lt;/p&gt;
+&lt;p&gt;Enter Bridgetown - 
+&lt;a href=&#34;https://edge.bridgetownrb.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edge.bridgetownrb.com/docs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A ruby based (erb, components, etc), author-friendly (markdown pages).&lt;/p&gt;
+&lt;p&gt;The newest version 1.0 beta uses esbuild by default (or webpacker) and has several pre-build deploy configurations and a quick and easy way to install TailwindCSS!&lt;/p&gt;
+&lt;p&gt;Unfortunately, for some reason I found it a bit hard to assemble the information to create a website that would meet my needs and interests.  So this doc is a quick summary and context that will get you through the next step after &lt;code&gt;getting started&lt;/code&gt;.  My understanding is now that are 3 added aspects&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(&lt;strong&gt;bundled configurations&lt;/strong&gt;)[https://www.bridgetownrb.com/docs/bundled-configurations] are for &lt;code&gt;tool-chain setup&lt;/code&gt;, like deployment configs, tailwindcss, stimulusJS, etc.  And&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plugins&lt;/strong&gt; are for things that will show-up in the &lt;code&gt;output html&lt;/code&gt; like SEO Tags, Sitemaps, etc.&lt;/li&gt;
+&lt;li&gt;(&lt;strong&gt;automations&lt;/strong&gt;)[https://www.bridgetownrb.com/docs/automations] An automation script is nothing more than a Ruby code file run in the context of an instance
+Unfortunately, I still struggle to find the parts I am looking for, so I am adding the links here (to help my future self).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;new-site-setup&#34;&gt;New Site Setup&lt;/h2&gt;
+&lt;p&gt;I listened to the interview about Bridgetown on (Remote Ruby Podcast)[https://remoteruby.transistor.fm/169] so I went and checked it out.  Starting with the (Beta Docs)[https://edge.bridgetownrb.com/docs] - as it has a TailwindCSS installer and lots of excellent deployment setups (in particular Render and Netlify - although I would find Fly.io also interesting)&lt;/p&gt;
+&lt;p&gt;So I started by downloading the gem:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install bridgetown -N -v 1.0.0.beta3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I decided to configure it with the &lt;code&gt;erb&lt;/code&gt; but you can leave off &lt;code&gt;-t erb&lt;/code&gt; and use liquid or change erb for serbea templates.  Anyway, I created a new project with &lt;code&gt;erb&lt;/code&gt; using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bridgetown new tailwind_site -t erb
+cd tailwind_site
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;configure-tailwindcss&#34;&gt;Configure TailwindCSS&lt;/h2&gt;
+&lt;p&gt;Installing TailwindCSS it was straightforward - once I found the right area. Follow the instructions at 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle exec bridgetown configure tailwindcss
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I wanted to see if this worked by starting bridgetown with:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/bridgetown start
+open localhost:4000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;configure-alpinejs&#34;&gt;Configure AlpineJS&lt;/h2&gt;
+&lt;p&gt;It looked good - so I went on to install AlpineJS (using the embedded script method) at 
+&lt;a href=&#34;https://alpinejs.dev/essentials/installation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://alpinejs.dev/essentials/installation&lt;/a&gt; - so I went to &lt;code&gt;src/_partials/_head.erb&lt;/code&gt; and added &lt;code&gt;&amp;lt;script defer src=&amp;quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt; just before the &lt;code&gt;live_reload_dev_js&lt;/code&gt; tag:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_partials/_head.erb --&amp;gt;
+...
+&amp;lt;!-- AlpineJS script tag--&amp;gt;
+&amp;lt;script defer src=&amp;quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;%= live_reload_dev_js %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then I went to the page &lt;code&gt;src/_components/shared/navbar.erb&lt;/code&gt; to add an example from (AlpineJS Start-here page)[https://alpinejs.dev/start-here]&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div x-data=&amp;quot;{ count: 0 }&amp;quot;&amp;gt;
+ &amp;lt;button x-on:click=&amp;quot;count++&amp;quot;
+         class=&amp;quot;bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded&amp;quot;&amp;gt;
+   Increment
+ &amp;lt;/button&amp;gt;
+ &amp;lt;span x-text=&amp;quot;count&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cool this works!  So I went and created my navbar and footer.&lt;/p&gt;
+&lt;h3 id=&#34;what-didnt-work-yet&#34;&gt;What didn&amp;rsquo;t work (yet!)&lt;/h3&gt;
+&lt;p&gt;I am hoping to install AlpineJS as an imported module (so building isn&amp;rsquo;t depending on a webconnection and the code needed is local).  So I tried removing the AplineJS script tag from the header:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_partials/_head.erb --&amp;gt;
+...
+&amp;lt;!-- AlpineJS script tag--&amp;gt;
+&amp;lt;%# &amp;lt;script defer src=&amp;quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; %&amp;gt;
+&amp;lt;%= live_reload_dev_js %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then installing alpinejs&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn add alpinejs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and I confirmed that I see the AlpineJS in the node_modules folder.&lt;/p&gt;
+&lt;p&gt;Then I import and start AlpineJS in &lt;code&gt;frontend/javascript/index.js&lt;/code&gt; so it looked like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// frontend/javascript/index.js
+import &amp;quot;index.css&amp;quot;
+import Alpine from &#39;alpinejs&#39;
+// Import all JavaScript &amp;amp; CSS files from src/_components
+import components from &amp;quot;bridgetownComponents/**/*.{js,jsx,js.rb,css}&amp;quot;
+
+console.info(&amp;quot;Bridgetown is loaded!&amp;quot;)
+window.Alpine = Alpine
+Alpine.start()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But unfortunately, this doesn&amp;rsquo;t work :( If you know how to make it work, I&amp;rsquo;ll be glad to update this document.&lt;/p&gt;
+&lt;h2 id=&#34;feature-to-explore&#34;&gt;Feature to explore&lt;/h2&gt;
+&lt;p&gt;Bundle Configs&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Setup to deploy to netlify: (bundle exec bridgetown configure netlify) - also available is render - but I don&amp;rsquo;t find it at the moment&lt;/li&gt;
+&lt;li&gt;Setup for purging css: (bundle exec bridgetown configure purgecss) - 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#purgecss-post-build-hook&lt;/a&gt; - installed by default with Tailwind&lt;/li&gt;
+&lt;li&gt;Rails Default JS - (bundle exec bridgetown configure stimulus) - 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#stimulus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#stimulus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Rails Turbo features: (bundle exec bridgetown configure turbo) - 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#turbo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#turbo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Animation Transitions: (bundle exec bridgetown configure swup) - 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#swupjs-page-transitions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#swupjs-page-transitions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Automations&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bulma Configured Site: (bundle exec bridgetown apply 
+&lt;a href=&#34;https://github.com/whitefusionhq/bulmatown&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/bulmatown&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Cloudinary Configuration: (bundle exec bridgetown apply 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-cloudinary&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-cloudinary&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Netlify Configuration: (bundle exec bridgetown apply 
+&lt;a href=&#34;https://github.com/bridgetownrb/automations/netlify.rb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/automations/netlify.rb&lt;/a&gt;) - how is this different from Netlify bundle configure?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Testing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MiniTests: (bundle exec bridgetown configure minitesting) - 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/testing#use-ruby-and-minitest-to-test-html-directly&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/testing#use-ruby-and-minitest-to-test-html-directly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Cypres JS Testing: (bundle exec bridgetown apply 
+&lt;a href=&#34;https://github.com/ParamagicDev/bridgetown-automation-cypress&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/ParamagicDev/bridgetown-automation-cypress&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Plugins&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SEO Tags (bundle add bridgetown-seo-tag -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-seo-tag&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-seo-tag&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Atom Feed (bundle add bridgetown-feed -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-feed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-feed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;SVG in HTML inline (bundle add &amp;ldquo;bridgetown-svg-inliner&amp;rdquo; -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/ayushn21/bridgetown-svg-inliner&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/ayushn21/bridgetown-svg-inliner&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Liquid QuickSearch (bundle add bridgetown-quick-search -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-quick-search&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-quick-search&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add a SiteMap (bundle add bridgetown-sitemap -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/ayushn21/bridgetown-sitemap&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/ayushn21/bridgetown-sitemap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Markdown JS (bundle add bridgetown-mdjs -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-mdjs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-mdjs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTML Minify (bundle add bridgetown-minify-html -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/bt-rb/bridgetown-minify-html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bt-rb/bridgetown-minify-html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Github ViewComponents (bundle add bridgetown-view-component -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-view-component&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-view-component&lt;/a&gt; &amp;ndash; but the docs are here: 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/components/ruby#need-compatibility-with-rails-try-viewcomponent-experimental&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/components/ruby#need-compatibility-with-rails-try-viewcomponent-experimental&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GraphQL Api for Bridgetown (bundle add graphtown -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/whitefusionhq/graphtown&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/graphtown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Bulma Starter (bundle exec bridgetown apply 
+&lt;a href=&#34;https://github.com/whitefusionhq/bulmatown%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/bulmatown)&lt;/a&gt;: 
+&lt;a href=&#34;https://github.com/whitefusionhq/bulmatown&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/whitefusionhq/bulmatown&lt;/a&gt; (something went wrong on my first try - and don&amp;rsquo;t use this with tailwindcss :)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Content Management Plugins&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Notable MD Editor (bundle add bridgetown-notable -g bridgetown_plugins): 
+&lt;a href=&#34;https://github.com/jamie/bridgetown-notable&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/jamie/bridgetown-notable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Prismic Flat CMS (bin/bridgetown apply 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-prismic%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-prismic)&lt;/a&gt;: 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-prismic&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-prismic&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This looks promising for people familiar with Rails, we will see how it competes with Astro and the other JAMF Stacks for the general public.&lt;/p&gt;
+&lt;p&gt;So far, the only downsides have been:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I am not sure I fully understand the logic of 3 added aspects of additional features - for example why is there a netlify automation and bundle config?&lt;/li&gt;
+&lt;li&gt;I have only been able to install AlpineJS as a weblink and not as an included module (If I figure it out I&amp;rsquo;ll update this document and or make a configuration script) - maybe I just need to learn into StimulusJS.&lt;/li&gt;
+&lt;li&gt;I would like to use Fly.io too (if I figure it out I&amp;rsquo;ll write a configuration script)&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
