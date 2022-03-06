@@ -75,8 +75,8 @@ Unfortunately, I still struggle to find the parts I am looking for, so I am addi
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install bridgetown -N -v 1.0.0.beta3
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I decided to configure it with the &lt;code&gt;erb&lt;/code&gt; but you can leave off &lt;code&gt;-t erb&lt;/code&gt; and use liquid or change erb for serbea templates.  Anyway, I created a new project with &lt;code&gt;erb&lt;/code&gt; using:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bridgetown new tailwind_site -t erb
-cd tailwind_site
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bridgetown new bridge_tail_site -t erb
+cd bridge_tail_site
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;configure-tailwindcss&#34;&gt;&lt;strong&gt;Configure TailwindCSS&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Installing TailwindCSS it was straightforward - once I found the right area. Follow the instructions at 
@@ -106,22 +106,140 @@ open localhost:4000
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Cool this works!  So I went and created my navbar and footer.&lt;/p&gt;
+&lt;h2 id=&#34;adding-a-custom-font-in-css&#34;&gt;Adding a Custom Font (in CSS)&lt;/h2&gt;
+&lt;p&gt;We will add the &lt;code&gt;handlee&lt;/code&gt; font as it is distinctive and easy to see that it works (or not).
+Let&amp;rsquo;s get it from (Google Webfonts Helper)[https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin] site.  &lt;strong&gt;This is a convenient site as it has both the font and the CSS needed.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Now that you&amp;rsquo;ve downloaded the font, create a new folder in the frontend folder and copy the font into it:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p frontend/fonts/handlee
+cp ~/Downloads/handlee-v12-latin/* frontend/fonts/handlee/.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now grab the CSS from the Google Webfonts Helper site and copy it into the &lt;code&gt;frontend/styles/index.css&lt;/code&gt; file (I like to put the font css just below the tailwind imports). So the start of index.css looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/* frontend/styles/index.css */
+
+/* triggers frontend rebuilds */
+@import &amp;quot;jit-refresh.css&amp;quot;;
+
+/* Set up Tailwind imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Fonts */
+@font-face {
+  font-family: &#39;Handlee&#39;;
+  font-style: normal;
+  font-weight: 400;
+  src: local(&#39;&#39;),
+       url(&#39;../fonts/handlee/handlee-v12-latin-regular.woff2&#39;) format(&#39;woff2&#39;),
+       url(&#39;../fonts/handlee/handlee-v12-latin-regular.woff&#39;) format(&#39;woff&#39;);
+}
+
+/* ... */
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now within your CSS definitions you can use: &lt;code&gt;font-family: &#39;Handlee&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s try it out - let&amp;rsquo;s add that to the h1 definition in the index.css file - so now that would look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/* ... */
+h1 {
+  margin: 1rem 0 3rem;
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.5rem;
+  font-family: &#39;Handlee&#39;;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+/* ... */
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Be sure the Title of your homepage is now using the &amp;lsquo;Handlee&amp;rsquo; font.&lt;/p&gt;
+&lt;h2 id=&#34;adding-a-custom-font-into-tailwindcss&#34;&gt;Adding a Custom Font (into TailwindCSS)&lt;/h2&gt;
+&lt;p&gt;Now we need to define this font within TailwindCSS config to have it create a &lt;code&gt;font-handlee&lt;/code&gt; class so we can use this font within our tailwind class definitions.  To do this we will need to update the &lt;code&gt;tailwind.config.js&lt;/code&gt; file to look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;module.exports = {
+  content: [
+    &#39;./src/**/*.{html,md,liquid,erb,serb}&#39;,
+    &#39;./frontend/javascript/**/*.js&#39;,
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        handlee: [&#39;Handlee&#39;]
+      },
+    },
+  },
+  plugins: [],
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s update the default layout to use Handlee for the text within the main body. So lets open &lt;code&gt;src/_layouts/default.erb&lt;/code&gt; and change the &lt;code&gt;main&lt;/code&gt; tag to have the &lt;code&gt;class=&amp;quot;font-handlee&amp;quot;&lt;/code&gt; in it - so now it might look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- ... --&amp;gt;
+    &amp;lt;main class=&amp;quot;font-hand&amp;quot;&amp;gt;
+      &amp;lt;%= yield %&amp;gt;
+    &amp;lt;/main&amp;gt;
+&amp;lt;!-- ... --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now both the Title and Body of each page should be using the Handlee font.&lt;/p&gt;
+&lt;h2 id=&#34;adding-an-image&#34;&gt;Adding an Image&lt;/h2&gt;
+&lt;p&gt;So to add an image we need to put it in the &lt;code&gt;src/images&lt;/code&gt; folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /images/posts/welcome_post
+cp ~/Desktop/sunrise.jpeg /images/posts/welcome_post/.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s test this in our &lt;strong&gt;navbar&lt;/strong&gt; file &lt;code&gt;src/_components/shared/navbar.erb&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;header&amp;gt;
+  &amp;lt;%# &amp;lt;img src=&amp;quot;/images/logo.svg&amp;quot; alt=&amp;quot;Logo&amp;quot; /&amp;gt; %&amp;gt;
+  &amp;lt;img src=&amp;quot;/images/posts/welcome/sunrise.jpeg&amp;quot; alt=&amp;quot;Sunrise&amp;quot; /&amp;gt;
+&amp;lt;/header&amp;gt;
+&amp;lt;!-- ... --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Bridgetown uses &lt;strong&gt;Kramdown&lt;/strong&gt; as the Markdown rendering engine.  You can learn more about Kramdown Markdown at: 
+&lt;a href=&#34;https://kramdown.gettalong.org/quickref.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://kramdown.gettalong.org/quickref.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s also add it in our sample blog post &lt;code&gt;src/_posts/2022-03-05-welcome-to-bridgetown.md&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;---
+layout: post
+title:  &amp;quot;Your First Post on Bridgetown&amp;quot;
+date:   2022-03-05 23:22:30 +0100
+categories: updates
+---
+**Display our image!**
+
+![Sunrise](/images/posts/welcome/sunrise.jpeg)
+
+_Now on to the post_
+You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `bridgetown serve`, which launches a web server and auto-regenerates your site when a file is updated.
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hopefully you see the image:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;once on the page &lt;code&gt;http://localhost:4000/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;twice on the page &lt;code&gt;http://localhost:4000/updates/2022/03/05/welcome-to-bridgetown/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;deploy&#34;&gt;&lt;strong&gt;Deploy&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s now deploy this Webpage (using the &lt;code&gt;configure&lt;/code&gt; command) it is very straightforward!&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;First, install the config for your deploy service:&lt;/li&gt;
+&lt;li&gt;First, be sure you have pushed your project to github or gitlab - create the repo online and push it with:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git add .
+git commit -m &amp;quot;Configured w TailwindCSS and Handlee Font&amp;quot;
+git remote add origin git@github.com:gitusername/bridge_tail_site.git
+git branch -M main
+git push -u origin main
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;Second, install the config for your deploy service (in this case &lt;code&gt;netlify&lt;/code&gt;) by typing:&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle exec bridgetown configure netlify
 git add bin/netlify.sh netlify.toml
 git commit -m &amp;quot;add netlify config&amp;quot;
 git push
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;Second, create and push your repo to github or gitlab&lt;/li&gt;
-&lt;li&gt;Third, connect your netlify account to the repo&lt;/li&gt;
-&lt;li&gt;Four, click deploy and wait 5-10 mins and you should have your new website - just click on preview :)&lt;/li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Third, connect your netlify account to the repo you just created.&lt;/li&gt;
+&lt;li&gt;Four, click &lt;code&gt;deploy&lt;/code&gt; within the netlify site (if it hasn&amp;rsquo;t already startet) and wait 5-10 mins (yes its kinda slow to deploy) and you should have your new website!&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;Woo Hoo.&lt;/p&gt;
 &lt;h2 id=&#34;what-didnt-work-yet&#34;&gt;What didn&amp;rsquo;t work (yet!)&lt;/h2&gt;
-&lt;p&gt;I am hoping to install AlpineJS as an imported module (so building isn&amp;rsquo;t depending on a webconnection and the code needed is local).  So I tried removing the AplineJS script tag from the header:&lt;/p&gt;
+&lt;p&gt;I tried using the Bridgetown Javascript install instructions at: 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/frontend-assets#javascript&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/frontend-assets#javascript&lt;/a&gt; &amp;amp; also the AlpineJS instructions at: 
+&lt;a href=&#34;https://alpinejs.dev/essentials/installation#as-a-module&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://alpinejs.dev/essentials/installation#as-a-module&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I am hoping to install AlpineJS as an imported module (so building isn&amp;rsquo;t depending on a web-connection and the code needed is local).  So I tried removing the AplineJS script tag from the header:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_partials/_head.erb --&amp;gt;
 ...
 &amp;lt;!-- AlpineJS script tag--&amp;gt;
@@ -144,7 +262,10 @@ window.Alpine = Alpine
 Alpine.start()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;But unfortunately, this doesn&amp;rsquo;t work :( If you know how to make it work, I&amp;rsquo;ll be glad to update this document.&lt;/p&gt;
+&lt;p&gt;I have also created a github discussion to hopefully help: 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown/discussions/506&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown/discussions/506&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;feature-still-to-explore&#34;&gt;Feature still to explore&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Add a Custom Font&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Bundle Configs&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Setup for purging css: (bundle exec bridgetown configure purgecss) - 
