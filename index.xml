@@ -5,7 +5,7 @@
     <link>https://btihen.me/</link>
       <atom:link href="https://btihen.me/index.xml" rel="self" type="application/rss+xml" />
     <description>btihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sun, 06 Mar 2022 01:57:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 05 Mar 2022 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>btihen</title>
@@ -166,7 +166,7 @@ ARC consortium members contribute by documenting applications of the agile minds
     <item>
       <title>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation</title>
       <link>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</link>
-      <pubDate>Sun, 06 Mar 2022 01:57:00 +0200</pubDate>
+      <pubDate>Sat, 05 Mar 2022 01:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;&lt;strong&gt;Overview&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;I have often wanted to build websites using as much of my Rails knowledge as possible.  Now I can!&lt;/p&gt;
@@ -218,7 +218,7 @@ open localhost:4000
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Cool this works!  So I went and created my navbar and footer.&lt;/p&gt;
-&lt;h2 id=&#34;adding-a-custom-font-in-css&#34;&gt;Adding a Custom Font (in CSS)&lt;/h2&gt;
+&lt;h2 id=&#34;adding-a-custom-font-in-css&#34;&gt;&lt;strong&gt;Adding a Custom Font (in CSS)&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;We will add the &lt;code&gt;handlee&lt;/code&gt; font as it is distinctive and easy to see that it works (or not).
 Let&amp;rsquo;s get it from (Google Webfonts Helper)[https://google-webfonts-helper.herokuapp.com/fonts/handlee?subsets=latin] site.  &lt;strong&gt;This is a convenient site as it has both the font and the CSS needed.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Now that you&amp;rsquo;ve downloaded the font, create a new folder in the frontend folder and copy the font into it:&lt;/p&gt;
@@ -263,7 +263,7 @@ h1 {
 /* ... */
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Be sure the Title of your homepage is now using the &amp;lsquo;Handlee&amp;rsquo; font.&lt;/p&gt;
-&lt;h2 id=&#34;adding-a-custom-font-into-tailwindcss&#34;&gt;Adding a Custom Font (into TailwindCSS)&lt;/h2&gt;
+&lt;h2 id=&#34;adding-a-custom-font-into-tailwindcss&#34;&gt;&lt;strong&gt;Adding a Custom Font (into TailwindCSS)&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Now we need to define this font within TailwindCSS config to have it create a &lt;code&gt;font-handlee&lt;/code&gt; class so we can use this font within our tailwind class definitions.  To do this we will need to update the &lt;code&gt;tailwind.config.js&lt;/code&gt; file to look like:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;module.exports = {
   content: [
@@ -288,7 +288,27 @@ h1 {
 &amp;lt;!-- ... --&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now both the Title and Body of each page should be using the Handlee font.&lt;/p&gt;
-&lt;h2 id=&#34;adding-an-image&#34;&gt;Adding an Image&lt;/h2&gt;
+&lt;h2 id=&#34;adding-a-new-top-level-page&#34;&gt;&lt;strong&gt;Adding a new Top-Level Page&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s add a &lt;code&gt;contact&lt;/code&gt; page:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;mkdir src/_pages
+cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt; src/_pages/contact.md
+---
+layout: page
+title: Contact
+---
+
+&amp;lt;h1&amp;gt;Contact Me&amp;lt;/h1&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now if you go to: http://localhost:4000/contact you should see your new page.&lt;/p&gt;
+&lt;p&gt;For tidiness I prefer to have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;index.md&lt;/li&gt;
+&lt;li&gt;posts.md&lt;/li&gt;
+&lt;li&gt;about.md&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;all in the &lt;code&gt;src/_pages&lt;/code&gt; folder&lt;/p&gt;
+&lt;h2 id=&#34;adding-an-image&#34;&gt;&lt;strong&gt;Adding an Image&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;So to add an image we need to put it in the &lt;code&gt;src/images&lt;/code&gt; folder:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /images/posts/welcome_post
 cp ~/Desktop/sunrise.jpeg /images/posts/welcome_post/.
@@ -323,6 +343,65 @@ You’ll find this post in your `_posts` directory. Go ahead and edit it and re-
 &lt;li&gt;once on the page &lt;code&gt;http://localhost:4000/&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;twice on the page &lt;code&gt;http://localhost:4000/updates/2022/03/05/welcome-to-bridgetown/&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;new-post&#34;&gt;&lt;strong&gt;New post&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;A new page within a dated collection.&lt;/p&gt;
+&lt;p&gt;We just need to make a new file with the correct headers.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;touch src/_posts/playing_with_bridgetown.md
+cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/_posts/playing_with_bridgetown.md
+---
+layout: post
+title:  &amp;quot;Fun with Bridgetown&amp;quot;
+date:   2022-03-07 01:01:01 +0100
+categories: playing
+---
+
+## Fun is Rewarding
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now if you go to: http://localhost:4000/posts your new page&amp;rsquo;s title should be listed and if you click on it&amp;rsquo;s title you should see the page with the URL: http://localhost:4000/playing/2022/03/07/playing_with_bridgetown/ - the &lt;code&gt;category&lt;/code&gt; is the first part of the url, then the date, and finally the title.&lt;/p&gt;
+&lt;h2 id=&#34;define-a-new-collections&#34;&gt;&lt;strong&gt;Define a New Collections&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;coming soon&lt;/p&gt;
+&lt;h2 id=&#34;new-collection-with-custom-urls&#34;&gt;&lt;strong&gt;New Collection with Custom URLs&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Lets make a news file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;mkdir src/news
+touch src/news/breaking.md
+---
+layout: page
+title: Breaking
+date: 2022-03-07
+---
+
+**Breaking News**
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If go to: &lt;code&gt;localhost:4000/news/breaking&lt;/code&gt; we should see our page.&lt;/p&gt;
+&lt;p&gt;Now lets make an index page that collects all the &amp;lsquo;news&amp;rsquo; files.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;touch src/news/index.md
+cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/news/index.md
+---
+layout: page
+title: News
+date: 2022-03-07
+---
+
+**Some articles**
+
+&amp;lt;% full_path, current_page = File.split(page.path) %&amp;gt;
+&amp;lt;% path_list = Dir[full_path + &amp;quot;/*.md&amp;quot;].reject { |p| p.include?(current_page) } %&amp;gt;
+&amp;lt;% file_list = path_list.map { |p| File.split(p).last.split(&#39;.&#39;).first } %&amp;gt;
+&amp;lt;% title_list = path_list.map { |f| File.read(f).split(&amp;quot;\n&amp;quot;).detect {|t| t.include?(&#39;title: &#39;) }.split.last } %&amp;gt;
+&amp;lt;% link_list = title_list.zip(file_list) %&amp;gt;
+
+&amp;lt;ul&amp;gt;
+  &amp;lt;% link_list.each do |title, file| %&amp;gt;
+    &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;&amp;lt;%= file %&amp;gt;&amp;quot;&amp;gt;&amp;lt;%= title %&amp;gt;- &amp;lt;%= file %&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+  &amp;lt;% end %&amp;gt;
+&amp;lt;/ul&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now if you go to http://localhost:4000/news&lt;/p&gt;
+&lt;p&gt;you should see your new page with the breaking news listed too.&lt;/p&gt;
+&lt;p&gt;Granted this is a big hack - but works.  I am guessing the bridgetown-routes will help with custom routes, but it didn&amp;rsquo;t work for me (yet).&lt;/p&gt;
 &lt;h2 id=&#34;deploy&#34;&gt;&lt;strong&gt;Deploy&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s now deploy this Webpage (using the &lt;code&gt;configure&lt;/code&gt; command) it is very straightforward!&lt;/p&gt;
 &lt;ol&gt;
@@ -348,6 +427,118 @@ git push
 &lt;/ol&gt;
 &lt;p&gt;Woo Hoo.&lt;/p&gt;
 &lt;h2 id=&#34;what-didnt-work-yet&#34;&gt;What didn&amp;rsquo;t work (yet!)&lt;/h2&gt;
+&lt;h4 id=&#34;change-route-names&#34;&gt;Change route names&lt;/h4&gt;
+&lt;p&gt;To replace my existing site I am determined to keep the page paths the same as the existing site.  I haven&amp;rsquo;t figured that out for collections (such as blog posts).  I am not interested in breaking links and search index references - so figuring this out is critical.&lt;/p&gt;
+&lt;p&gt;Probably, hopefully, &lt;code&gt;Bridgetown File Routing&lt;/code&gt; will address this&lt;/p&gt;
+&lt;h4 id=&#34;bridgetown-file-routing&#34;&gt;Bridgetown File Routing&lt;/h4&gt;
+&lt;p&gt;Lets try the new File Routing feature described at: 
+&lt;a href=&#34;https://edge.bridgetownrb.com/docs/routes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edge.bridgetownrb.com/docs/routes&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;First update the &lt;code&gt;Gemfile&lt;/code&gt; - uncomment: &lt;code&gt;gem &amp;quot;bridgetown-routes&amp;quot;, &amp;quot;~&amp;gt; 1.0.0.beta3&amp;quot;, group: :bridgetown_plugins&lt;/code&gt; - now it should look similar to:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# Gemfile
+source &amp;quot;https://rubygems.org&amp;quot;
+git_source(:github) { |repo| &amp;quot;https://github.com/#{repo}.git&amp;quot; }
+
+gem &amp;quot;bridgetown&amp;quot;, &amp;quot;~&amp;gt; 1.0.0.beta3&amp;quot;
+
+# Uncomment to add file-based dynamic routing to your project:
+gem &amp;quot;bridgetown-routes&amp;quot;, &amp;quot;~&amp;gt; 1.0.0.beta3&amp;quot;, group: :bridgetown_plugins
+
+gem &amp;quot;puma&amp;quot;, &amp;quot;~&amp;gt; 5.5&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to run bundler:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now setup the Roda config &lt;code&gt;server/roda_app.rb&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# server/roda_app.rb
+require &amp;quot;bridgetown-routes&amp;quot;
+
+class RodaApp &amp;lt; Bridgetown::Rack::Roda
+  # Uncomment to use Bridgetown SSR:
+  # plugin :bridgetown_ssr
+
+  # And optionally file-based routing:
+  plugin :bridgetown_routes
+
+  route do |r|
+    # Load Roda routes in server/routes (and src/_routes via `bridgetown-routes`)
+    Bridgetown::Rack::Routes.start! self
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets add:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# ./server/routes/preview.rb
+
+class Routes::Preview &amp;lt; Bridgetown::Rack::Routes
+  route do |r|
+    r.on &amp;quot;preview&amp;quot; do
+      # Our special rendering pathway to preview a page
+      # route: /preview/:collection/:path
+      r.get String, String do |collection, path|
+        item = Bridgetown::Model::Base.find(&amp;quot;repo://#{collection}/#{path}&amp;quot;)
+
+        unless item.content.present?
+          next Bridgetown::Model::Base.find(&amp;quot;repo://pages/_pages/404.html&amp;quot;)
+            .render_as_resource
+            .output
+        end
+
+        item
+          .render_as_resource
+          .output
+      end
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets make an index page for this route:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;mkdir -p src/_routes/items
+cat &amp;lt;&amp;lt;EOF&amp;gt;src/_routes/items/index.erb
+---&amp;lt;%
+# route: /items
+r.get do
+  render_with data: {
+    layout: :page,
+    title: &amp;quot;Dynamic Items&amp;quot;,
+    items: [
+      { number: 1, slug: &amp;quot;123-abc&amp;quot; },
+      { number: 2, slug: &amp;quot;456-def&amp;quot; },
+      { number: 3, slug: &amp;quot;789-xyz&amp;quot; },
+    ]
+  }
+end
+%&amp;gt;---
+
+&amp;lt;ul&amp;gt;
+  &amp;lt;% resource.data.items.each do |item| %&amp;gt;
+    &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;/items/&amp;lt;%= item[:slug] %&amp;gt;&amp;quot;&amp;gt;Item #&amp;lt;%= item[:number] %&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+  &amp;lt;% end %&amp;gt;
+&amp;lt;/ul&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets create the template for items:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/_routes/items/[slug].erb
+---&amp;lt;%
+# route: /items/:slug
+r.get do
+  item_id, *item_sku = r.params[:slug].split(&amp;quot;-&amp;quot;)
+  item_sku = item_sku.join(&amp;quot;-&amp;quot;)
+
+  render_with data: {
+    layout: :page,
+    title: &amp;quot;Item Page&amp;quot;,
+    item_id: item_id,
+    item_sku: item_sku
+  }
+end
+%&amp;gt;---
+
+&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;Item ID:&amp;lt;/strong&amp;gt; &amp;lt;%= resource.data.item_id %&amp;gt;&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;Item SKU:&amp;lt;/strong&amp;gt; &amp;lt;%= resource.data.item_sku %&amp;gt;&amp;lt;/p&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;alpinejs-installed-as-a-module&#34;&gt;AlpineJS installed as a module&lt;/h4&gt;
+&lt;p&gt;Not a show stopper but irritates me.&lt;/p&gt;
 &lt;p&gt;I tried using the Bridgetown Javascript install instructions at: 
 &lt;a href=&#34;https://www.bridgetownrb.com/docs/frontend-assets#javascript&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/frontend-assets#javascript&lt;/a&gt; &amp;amp; also the AlpineJS instructions at: 
 &lt;a href=&#34;https://alpinejs.dev/essentials/installation#as-a-module&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://alpinejs.dev/essentials/installation#as-a-module&lt;/a&gt;&lt;/p&gt;
