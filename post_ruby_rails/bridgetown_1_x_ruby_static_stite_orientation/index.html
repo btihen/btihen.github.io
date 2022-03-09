@@ -237,14 +237,14 @@
   
   <meta property="og:site_name" content="btihen">
   <meta property="og:url" content="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/">
-  <meta property="og:title" content="Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation | btihen">
+  <meta property="og:title" content="Bridgetown 1.0 - Ruby Static-Site Orientation | btihen">
   <meta property="og:description" content="A fun and straightforward way to build static sites using your Ruby &amp; Rails knowledge"><meta property="og:image" content="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/featured.png">
   <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/featured.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2022-03-05T01:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2022-03-07T01:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2022-03-09T01:57:00&#43;02:00">
   
 
   
@@ -263,7 +263,7 @@
 
 
 
-  <title>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation | btihen</title>
+  <title>Bridgetown 1.0 - Ruby Static-Site Orientation | btihen</title>
 
 </head>
 
@@ -600,7 +600,7 @@
 
 
 <div class="article-container pt-3">
-  <h1>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation</h1>
+  <h1>Bridgetown 1.0 - Ruby Static-Site Orientation</h1>
 
   
   <p class="page-subtitle">Static Site Generation with Ruby</p>
@@ -632,7 +632,7 @@
           Last updated on
       
     
-    Mon, Mar 7, 2022
+    Wed, Mar 9, 2022
   </span>
   
 
@@ -863,56 +863,128 @@ cat &lt;&lt;EOF&gt;&gt;src/_posts/playing_with_bridgetown.md
 layout: post
 title:  &quot;Fun with Bridgetown&quot;
 date:   2022-03-07 01:01:01 +0100
-categories: playing
+categories: ruby
 ---
 
 ## Fun is Rewarding
 EOF
 </code></pre>
-<p>Now if you go to: http://localhost:4000/posts your new page&rsquo;s title should be listed and if you click on it&rsquo;s title you should see the page with the URL: http://localhost:4000/playing/2022/03/07/playing_with_bridgetown/ - the <code>category</code> is the first part of the url, then the date, and finally the title.</p>
+<p>Now if you go to: http://localhost:4000/posts your new page&rsquo;s title should be listed and if you click on it&rsquo;s title you should see the page with the URL: http://localhost:4000/ruby/2022/03/07/playing_with_bridgetown/ - the <code>category</code> is the first part of the url, then the date, and finally the title.</p>
+<h2 id="controlling-the-urls-permalinks"><strong>Controlling the URLs (permalinks)</strong></h2>
+<p>This is important since you are likely to need to use specific URLs (in my case, I want the new site to have the same urls as the old site). This is documented at: 
+<a href="https://www.bridgetownrb.com/docs/content/permalinks" target="_blank" rel="noopener">https://www.bridgetownrb.com/docs/content/permalinks</a></p>
+<p>There are several default url formats - I will show you a simple override - using the predefined variables.</p>
+<p>first go to <code>bridgetown.config.yml</code> and add to the following to end of the file:</p>
+<pre><code class="language-yml">collections:
+  posts:
+    permalink: /blogs/:categories/:name/
+</code></pre>
+<p>&lsquo;slug&rsquo; is basically the file-name &amp; categories is defined in the</p>
+<p><strong>After changing <code>bridgetown.config.yml</code> you MUST stop bridgetown <code>^c</code> and start it again <code>bin/bridgetown start</code>!</strong></p>
+<p>now if you go back to <code>http://localhost:4000/posts</code> and click on the link for the new post:</p>
+<ul>
+<li>you should get the url: <code>http://localhost:4000/blogs/ruby/playing_with_bridgetown/</code></li>
+<li>instead of the (pretty) url: <code>http://localhost:4000/ruby/2022/03/07/playing_with_bridgetown/</code></li>
+</ul>
 <h2 id="define-a-new-collections"><strong>Define a New Collections</strong></h2>
-<p>coming soon</p>
-<h2 id="new-collection-with-custom-urls"><strong>New Collection with Custom URLs</strong></h2>
-<p>Lets make a news file:</p>
-<pre><code class="language-markdown">mkdir src/news
-touch src/news/breaking.md
+<p>Lets assume in addition to publishing your blog - you also want to publish your future presentations and past slides.</p>
+<p>we will start by defining the new collection &lsquo;talks&rsquo; in the <code>bridgetown.config.yml</code> file - so now the end of the file should look like:</p>
+<pre><code class="language-yml"># bridgetown.config.yml
+# ...
+collections:
+  posts:
+    permalink: /blogs/:categories/:slug/
+  talks:
+    output: true
+    future: true
+    sort_by: date
+    sort_direction: descending
+    permalink: /presentations/:categories/:slug/
+</code></pre>
+<ul>
+<li>&lsquo;output&rsquo; seems to be required for custom collections (I guess this allows a category to be turned on or offs)</li>
+<li>&lsquo;future&rsquo; true means that if the front-matter has a future date - it will be published anyway</li>
+<li>&lsquo;sort_by&rsquo; allows you to pick a front-matter key and sort by it</li>
+<li>&lsquo;sort_direction&rsquo; is pretty clear - <code>ascending</code> or <code>descending</code> are the two choices</li>
+</ul>
+<p>Now we can create our layout for the new collection:</p>
+<pre><code class="language-bash">cat &lt;&lt;EOF&gt;&gt; src/_layouts/talks.erb
 ---
-layout: page
-title: Breaking
-date: 2022-03-07
+layout: default
 ---
 
-**Breaking News**
+&lt;h1&gt;&lt;big&gt;TALK Title:&lt;/big&gt; &lt;%= resource.data.title %&gt;&lt;/h1&gt;
+&lt;h2&gt;&lt;big&gt;Topic:&lt;/big&gt; &lt;%= resource.data.categories %&gt;&lt;/h2&gt;
+&lt;h3&gt;&lt;big&gt;Date:&lt;/big&gt; &lt;%= resource.data.date %&gt;&lt;/h3&gt;
+
+&lt;%= yield %&gt;
+
 EOF
 </code></pre>
-<p>If go to: <code>localhost:4000/news/breaking</code> we should see our page.</p>
-<p>Now lets make an index page that collects all the &lsquo;news&rsquo; files.</p>
-<pre><code class="language-markdown">touch src/news/index.md
-cat &lt;&lt;EOF&gt;&gt;src/news/index.md
+<p>This layout loads the default layout and for each talk we will have the &lsquo;title&rsquo;, &lsquo;topic&rsquo; and &lsquo;date&rsquo;!</p>
+<p>Now we will need the index page for this collection that will list all the talks:</p>
+<pre><code class="language-md">cat &lt;&lt;EOF&gt;&gt; src/_pages/talks.md
 ---
-layout: page
-title: News
-date: 2022-03-07
+layout: talks
+title: My Presentations
 ---
-
-**Some articles**
-
-&lt;% full_path, current_page = File.split(page.path) %&gt;
-&lt;% path_list = Dir[full_path + &quot;/*.md&quot;].reject { |p| p.include?(current_page) } %&gt;
-&lt;% file_list = path_list.map { |p| File.split(p).last.split('.').first } %&gt;
-&lt;% title_list = path_list.map { |f| File.read(f).split(&quot;\n&quot;).detect {|t| t.include?('title: ') }.split.last } %&gt;
-&lt;% link_list = title_list.zip(file_list) %&gt;
 
 &lt;ul&gt;
-  &lt;% link_list.each do |title, file| %&gt;
-    &lt;li&gt;&lt;a href=&quot;&lt;%= file %&gt;&quot;&gt;&lt;%= title %&gt;- &lt;%= file %&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;% collections.talks.resources.each do |talk| %&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;&lt;%= talk.relative_url %&gt;&quot;&gt;&lt;%= talk.data.title %&gt;&lt;/a&gt;
+    &lt;/li&gt;
   &lt;% end %&gt;
 &lt;/ul&gt;
+
+If you like a talk, please tweet about it.
 EOF
 </code></pre>
-<p>now if you go to http://localhost:4000/news</p>
-<p>you should see your new page with the breaking news listed too.</p>
-<p>Granted this is a big hack - but works.  I am guessing the bridgetown-routes will help with custom routes, but it didn&rsquo;t work for me (yet).</p>
+<p>Now of course we will need to create a talk page (with a publication date in the past):</p>
+<pre><code class="language-md">cat &lt;&lt;EOF&gt;&gt;src/_talks/collection_intro.me
+---
+layout: talks
+title:  &quot;Introduction to Bridgetown Collections&quot;
+date:   2022-03-05 23:22:30 +0100
+categories: websites
+---
+
+Learning about collections - in case you want more than simple posts
+</code></pre>
+<p>Lets start Bridgetwn and be sure that worked</p>
+<p>Now lets advertise a future talk:</p>
+<pre><code class="language-md">cat &lt;&lt;EOF&gt;&gt;src/_talks/future-collections.me
+---
+layout: talks
+title:  &quot;The Future Bridgetown&quot;
+date:   2222-22-22 22:22:22 +0100
+draft:  true
+categories: websites
+---
+
+The future looks promising
+</code></pre>
+<p>we should now see 2 talks listed at; <code>http://localhost:4000/talks</code></p>
+<h2 id="create-a-draft-post"><strong>Create a Draft Post</strong></h2>
+<p>Without being able to use a future Date - we can simply add <code>&lt;% next if blog.data.draft %&gt;</code> to our index page</p>
+<pre><code class="language-md">---
+layout: blog
+title: Ruby Blogs
+---
+
+&lt;ul&gt;
+  &lt;% collections.ruby_blogs.resources.each do |blog| %&gt;
+    &lt;% next if blog.data.draft %&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;&lt;%= blog.relative_url %&gt;&quot;&gt;&lt;%= blog.data.title %&gt;-&lt;%= blog.data.draft %&gt;&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;% end %&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>now it should skip any file with <code>draft: true</code></p>
+<h2 id="pagination"><strong>Pagination</strong></h2>
+<p>If you have a lot of posts, you may want to consider adding 
+<a href="https://www.bridgetownrb.com/docs/content/pagination" target="_blank" rel="noopener">pagination</a>!```</p>
 <h2 id="deploy"><strong>Deploy</strong></h2>
 <p>Let&rsquo;s now deploy this Webpage (using the <code>configure</code> command) it is very straightforward!</p>
 <ol>
@@ -938,11 +1010,8 @@ git push
 </ol>
 <p>Woo Hoo.</p>
 <h2 id="what-didnt-work-yet">What didn&rsquo;t work (yet!)</h2>
-<h4 id="change-route-names">Change route names</h4>
-<p>To replace my existing site I am determined to keep the page paths the same as the existing site.  I haven&rsquo;t figured that out for collections (such as blog posts).  I am not interested in breaking links and search index references - so figuring this out is critical.</p>
-<p>Probably, hopefully, <code>Bridgetown File Routing</code> will address this</p>
 <h4 id="bridgetown-file-routing">Bridgetown File Routing</h4>
-<p>Lets try the new File Routing feature described at: 
+<p>Let&rsquo;s try the new File Routing feature described at: 
 <a href="https://edge.bridgetownrb.com/docs/routes" target="_blank" rel="noopener">https://edge.bridgetownrb.com/docs/routes</a></p>
 <p>First update the <code>Gemfile</code> - uncomment: <code>gem &quot;bridgetown-routes&quot;, &quot;~&gt; 1.0.0.beta3&quot;, group: :bridgetown_plugins</code> - now it should look similar to:</p>
 <pre><code class="language-ruby"># Gemfile
@@ -1186,7 +1255,7 @@ This should be interesting and fun.</p>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;text=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;text=Bridgetown%201.0%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1199,7 +1268,7 @@ This should be interesting and fun.</p>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;t=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;t=Bridgetown%201.0%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1212,7 +1281,7 @@ This should be interesting and fun.</p>
       
       
       <li>
-        <a href="mailto:?subject=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation&amp;body=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Bridgetown%201.0%20-%20Ruby%20Static-Site%20Orientation&amp;body=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1225,7 +1294,7 @@ This should be interesting and fun.</p>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;title=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;title=Bridgetown%201.0%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1238,7 +1307,7 @@ This should be interesting and fun.</p>
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation%20https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Bridgetown%201.0%20-%20Ruby%20Static-Site%20Orientation%20https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1251,7 +1320,7 @@ This should be interesting and fun.</p>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;title=Bridgetown%201.0%20%28Beta%29%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/&amp;title=Bridgetown%201.0%20-%20Ruby%20Static-Site%20Orientation" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

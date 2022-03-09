@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>Bridgetown 1.0 (Beta) - Ruby Static-Site Orientation</title>
+      <title>Bridgetown 1.0 - Ruby Static-Site Orientation</title>
       <link>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</link>
       <pubDate>Sat, 05 Mar 2022 01:57:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/bridgetown_1_x_ruby_static_stite_orientation/</guid>
@@ -201,56 +201,128 @@ cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/_posts/playing_with_bridgetown.md
 layout: post
 title:  &amp;quot;Fun with Bridgetown&amp;quot;
 date:   2022-03-07 01:01:01 +0100
-categories: playing
+categories: ruby
 ---
 
 ## Fun is Rewarding
 EOF
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now if you go to: http://localhost:4000/posts your new page&amp;rsquo;s title should be listed and if you click on it&amp;rsquo;s title you should see the page with the URL: http://localhost:4000/playing/2022/03/07/playing_with_bridgetown/ - the &lt;code&gt;category&lt;/code&gt; is the first part of the url, then the date, and finally the title.&lt;/p&gt;
+&lt;p&gt;Now if you go to: http://localhost:4000/posts your new page&amp;rsquo;s title should be listed and if you click on it&amp;rsquo;s title you should see the page with the URL: http://localhost:4000/ruby/2022/03/07/playing_with_bridgetown/ - the &lt;code&gt;category&lt;/code&gt; is the first part of the url, then the date, and finally the title.&lt;/p&gt;
+&lt;h2 id=&#34;controlling-the-urls-permalinks&#34;&gt;&lt;strong&gt;Controlling the URLs (permalinks)&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;This is important since you are likely to need to use specific URLs (in my case, I want the new site to have the same urls as the old site). This is documented at: 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/content/permalinks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/content/permalinks&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There are several default url formats - I will show you a simple override - using the predefined variables.&lt;/p&gt;
+&lt;p&gt;first go to &lt;code&gt;bridgetown.config.yml&lt;/code&gt; and add to the following to end of the file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;collections:
+  posts:
+    permalink: /blogs/:categories/:name/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;lsquo;slug&amp;rsquo; is basically the file-name &amp;amp; categories is defined in the&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;After changing &lt;code&gt;bridgetown.config.yml&lt;/code&gt; you MUST stop bridgetown &lt;code&gt;^c&lt;/code&gt; and start it again &lt;code&gt;bin/bridgetown start&lt;/code&gt;!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;now if you go back to &lt;code&gt;http://localhost:4000/posts&lt;/code&gt; and click on the link for the new post:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;you should get the url: &lt;code&gt;http://localhost:4000/blogs/ruby/playing_with_bridgetown/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;instead of the (pretty) url: &lt;code&gt;http://localhost:4000/ruby/2022/03/07/playing_with_bridgetown/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;define-a-new-collections&#34;&gt;&lt;strong&gt;Define a New Collections&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;coming soon&lt;/p&gt;
-&lt;h2 id=&#34;new-collection-with-custom-urls&#34;&gt;&lt;strong&gt;New Collection with Custom URLs&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Lets make a news file:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;mkdir src/news
-touch src/news/breaking.md
+&lt;p&gt;Lets assume in addition to publishing your blog - you also want to publish your future presentations and past slides.&lt;/p&gt;
+&lt;p&gt;we will start by defining the new collection &amp;lsquo;talks&amp;rsquo; in the &lt;code&gt;bridgetown.config.yml&lt;/code&gt; file - so now the end of the file should look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;# bridgetown.config.yml
+# ...
+collections:
+  posts:
+    permalink: /blogs/:categories/:slug/
+  talks:
+    output: true
+    future: true
+    sort_by: date
+    sort_direction: descending
+    permalink: /presentations/:categories/:slug/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;output&amp;rsquo; seems to be required for custom collections (I guess this allows a category to be turned on or offs)&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;future&amp;rsquo; true means that if the front-matter has a future date - it will be published anyway&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;sort_by&amp;rsquo; allows you to pick a front-matter key and sort by it&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;sort_direction&amp;rsquo; is pretty clear - &lt;code&gt;ascending&lt;/code&gt; or &lt;code&gt;descending&lt;/code&gt; are the two choices&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now we can create our layout for the new collection:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt; src/_layouts/talks.erb
 ---
-layout: page
-title: Breaking
-date: 2022-03-07
+layout: default
 ---
 
-**Breaking News**
+&amp;lt;h1&amp;gt;&amp;lt;big&amp;gt;TALK Title:&amp;lt;/big&amp;gt; &amp;lt;%= resource.data.title %&amp;gt;&amp;lt;/h1&amp;gt;
+&amp;lt;h2&amp;gt;&amp;lt;big&amp;gt;Topic:&amp;lt;/big&amp;gt; &amp;lt;%= resource.data.categories %&amp;gt;&amp;lt;/h2&amp;gt;
+&amp;lt;h3&amp;gt;&amp;lt;big&amp;gt;Date:&amp;lt;/big&amp;gt; &amp;lt;%= resource.data.date %&amp;gt;&amp;lt;/h3&amp;gt;
+
+&amp;lt;%= yield %&amp;gt;
+
 EOF
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If go to: &lt;code&gt;localhost:4000/news/breaking&lt;/code&gt; we should see our page.&lt;/p&gt;
-&lt;p&gt;Now lets make an index page that collects all the &amp;lsquo;news&amp;rsquo; files.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;touch src/news/index.md
-cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/news/index.md
+&lt;p&gt;This layout loads the default layout and for each talk we will have the &amp;lsquo;title&amp;rsquo;, &amp;lsquo;topic&amp;rsquo; and &amp;lsquo;date&amp;rsquo;!&lt;/p&gt;
+&lt;p&gt;Now we will need the index page for this collection that will list all the talks:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt; src/_pages/talks.md
 ---
-layout: page
-title: News
-date: 2022-03-07
+layout: talks
+title: My Presentations
 ---
-
-**Some articles**
-
-&amp;lt;% full_path, current_page = File.split(page.path) %&amp;gt;
-&amp;lt;% path_list = Dir[full_path + &amp;quot;/*.md&amp;quot;].reject { |p| p.include?(current_page) } %&amp;gt;
-&amp;lt;% file_list = path_list.map { |p| File.split(p).last.split(&#39;.&#39;).first } %&amp;gt;
-&amp;lt;% title_list = path_list.map { |f| File.read(f).split(&amp;quot;\n&amp;quot;).detect {|t| t.include?(&#39;title: &#39;) }.split.last } %&amp;gt;
-&amp;lt;% link_list = title_list.zip(file_list) %&amp;gt;
 
 &amp;lt;ul&amp;gt;
-  &amp;lt;% link_list.each do |title, file| %&amp;gt;
-    &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;&amp;lt;%= file %&amp;gt;&amp;quot;&amp;gt;&amp;lt;%= title %&amp;gt;- &amp;lt;%= file %&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+  &amp;lt;% collections.talks.resources.each do |talk| %&amp;gt;
+    &amp;lt;li&amp;gt;
+      &amp;lt;a href=&amp;quot;&amp;lt;%= talk.relative_url %&amp;gt;&amp;quot;&amp;gt;&amp;lt;%= talk.data.title %&amp;gt;&amp;lt;/a&amp;gt;
+    &amp;lt;/li&amp;gt;
   &amp;lt;% end %&amp;gt;
 &amp;lt;/ul&amp;gt;
+
+If you like a talk, please tweet about it.
 EOF
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;now if you go to http://localhost:4000/news&lt;/p&gt;
-&lt;p&gt;you should see your new page with the breaking news listed too.&lt;/p&gt;
-&lt;p&gt;Granted this is a big hack - but works.  I am guessing the bridgetown-routes will help with custom routes, but it didn&amp;rsquo;t work for me (yet).&lt;/p&gt;
+&lt;p&gt;Now of course we will need to create a talk page (with a publication date in the past):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/_talks/collection_intro.me
+---
+layout: talks
+title:  &amp;quot;Introduction to Bridgetown Collections&amp;quot;
+date:   2022-03-05 23:22:30 +0100
+categories: websites
+---
+
+Learning about collections - in case you want more than simple posts
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets start Bridgetwn and be sure that worked&lt;/p&gt;
+&lt;p&gt;Now lets advertise a future talk:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/_talks/future-collections.me
+---
+layout: talks
+title:  &amp;quot;The Future Bridgetown&amp;quot;
+date:   2222-22-22 22:22:22 +0100
+draft:  true
+categories: websites
+---
+
+The future looks promising
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;we should now see 2 talks listed at; &lt;code&gt;http://localhost:4000/talks&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-draft-post&#34;&gt;&lt;strong&gt;Create a Draft Post&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Without being able to use a future Date - we can simply add &lt;code&gt;&amp;lt;% next if blog.data.draft %&amp;gt;&lt;/code&gt; to our index page&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;---
+layout: blog
+title: Ruby Blogs
+---
+
+&amp;lt;ul&amp;gt;
+  &amp;lt;% collections.ruby_blogs.resources.each do |blog| %&amp;gt;
+    &amp;lt;% next if blog.data.draft %&amp;gt;
+    &amp;lt;li&amp;gt;
+      &amp;lt;a href=&amp;quot;&amp;lt;%= blog.relative_url %&amp;gt;&amp;quot;&amp;gt;&amp;lt;%= blog.data.title %&amp;gt;-&amp;lt;%= blog.data.draft %&amp;gt;&amp;lt;/a&amp;gt;
+    &amp;lt;/li&amp;gt;
+  &amp;lt;% end %&amp;gt;
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now it should skip any file with &lt;code&gt;draft: true&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;pagination&#34;&gt;&lt;strong&gt;Pagination&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;If you have a lot of posts, you may want to consider adding 
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/content/pagination&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pagination&lt;/a&gt;!```&lt;/p&gt;
 &lt;h2 id=&#34;deploy&#34;&gt;&lt;strong&gt;Deploy&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s now deploy this Webpage (using the &lt;code&gt;configure&lt;/code&gt; command) it is very straightforward!&lt;/p&gt;
 &lt;ol&gt;
@@ -276,11 +348,8 @@ git push
 &lt;/ol&gt;
 &lt;p&gt;Woo Hoo.&lt;/p&gt;
 &lt;h2 id=&#34;what-didnt-work-yet&#34;&gt;What didn&amp;rsquo;t work (yet!)&lt;/h2&gt;
-&lt;h4 id=&#34;change-route-names&#34;&gt;Change route names&lt;/h4&gt;
-&lt;p&gt;To replace my existing site I am determined to keep the page paths the same as the existing site.  I haven&amp;rsquo;t figured that out for collections (such as blog posts).  I am not interested in breaking links and search index references - so figuring this out is critical.&lt;/p&gt;
-&lt;p&gt;Probably, hopefully, &lt;code&gt;Bridgetown File Routing&lt;/code&gt; will address this&lt;/p&gt;
 &lt;h4 id=&#34;bridgetown-file-routing&#34;&gt;Bridgetown File Routing&lt;/h4&gt;
-&lt;p&gt;Lets try the new File Routing feature described at: 
+&lt;p&gt;Let&amp;rsquo;s try the new File Routing feature described at: 
 &lt;a href=&#34;https://edge.bridgetownrb.com/docs/routes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edge.bridgetownrb.com/docs/routes&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;First update the &lt;code&gt;Gemfile&lt;/code&gt; - uncomment: &lt;code&gt;gem &amp;quot;bridgetown-routes&amp;quot;, &amp;quot;~&amp;gt; 1.0.0.beta3&amp;quot;, group: :bridgetown_plugins&lt;/code&gt; - now it should look similar to:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# Gemfile
