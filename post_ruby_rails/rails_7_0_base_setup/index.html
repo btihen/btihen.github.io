@@ -27,10 +27,14 @@
   
     
   
-  <meta name="description" content="Developer, Data Enthusiast, Educator and Nature&#39;s Friend">
+  <meta name="description" content="update GEMS library gem update &ndash;system
+be sure bundler is installed gem install bundler
+update Bundler library bundle update &ndash;bundler
+update Ruby rbenv install 3.1.1 rbenv global 3.1.1
+or asdf install ruby 3.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/tags/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_7_0_base_setup/">
 
   
 
@@ -213,14 +217,12 @@
   
 
   
-  <link rel="alternate" href="/tags/index.xml" type="application/rss+xml" title="btihen">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
-  <link rel="canonical" href="https://btihen.me/tags/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_7_0_base_setup/">
 
   
   
@@ -238,29 +240,38 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/tags/">
-  <meta property="og:title" content="Tags | btihen">
-  <meta property="og:description" content="Developer, Data Enthusiast, Educator and Nature&#39;s Friend"><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
-  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_7_0_base_setup/">
+  <meta property="og:title" content="Rails 7.0 Base Setup | btihen">
+  <meta property="og:description" content="update GEMS library gem update &ndash;system
+be sure bundler is installed gem install bundler
+update Bundler library bundle update &ndash;bundler
+update Ruby rbenv install 3.1.1 rbenv global 3.1.1
+or asdf install ruby 3."><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_7_0_base_setup/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_7_0_base_setup/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2022-03-12T01:20:00&#43;02:00">
-  
-
-  
-
-
-
-
-  
-
-
+    
+      <meta property="article:published_time" content="2022-03-12T01:20:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2022-03-12T01:20:00&#43;02:00">
   
 
+  
+
+
+
+  
+
+
+  
+
+
+  
 
 
 
 
-  <title>Tags | btihen</title>
+
+  <title>Rails 7.0 Base Setup | btihen</title>
 
 </head>
 
@@ -569,156 +580,496 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Rails 7.0 Base Setup</h1>
+
+  
+  <p class="page-subtitle">Creating a Rails 7.0 App</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
   
   
   
+  
+  <div>
     
+
   
-<div class="universal-wrapper pt-3">
-  <h1>Tags</h1>
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sat, Mar 12, 2022
+  </span>
+  
 
   
 
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 474px; max-height: 491px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_7_0_base_setup/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="update-gems-library">update GEMS library</h2>
+<p>gem update &ndash;system</p>
+<h2 id="be-sure-bundler-is-installed">be sure bundler is installed</h2>
+<p>gem install bundler</p>
+<h2 id="update-bundler-library">update Bundler library</h2>
+<p>bundle update &ndash;bundler</p>
+<h2 id="update-ruby">update Ruby</h2>
+<p>rbenv install 3.1.1
+rbenv global 3.1.1</p>
+<p><strong>or</strong>
+asdf install ruby 3.1.1
+asdf global ruby 3.1.1</p>
+<h2 id="be-sure-you-have-rails-for-your-ruby-version">be sure you have rails for your ruby version</h2>
+<pre><code class="language-bash">gem install rails
+# or ensure version 7.0 using
+gem install rails --version 7.0.0
+</code></pre>
+<h2 id="rails-with-esbuild--css">Rails with esbuild &amp; css</h2>
+<p>The options:</p>
+<ul>
+<li><code>-T</code> - does not install mini-tests (I like rspec)</li>
+<li><code>-j esbuild</code> - is the middle ground between using webpacker and import-maps</li>
+<li><code>--css bulma</code> - install a css framwork (bulma, tailwind, bootstrap, sass, postcss)</li>
+<li></li>
+</ul>
+<pre><code class="language-bash"># default rails (using importmaps)
+# rails new slacker_base
+# or Bulma
+rails new slacker_bulma -j esbuild -T --css bulma
+# with Tailwind
+# rails new slacker_tail -j esbuild -T --css tailwind
+cd slacker
+</code></pre>
+<h2 id="install-richtext-editor">install richtext editor</h2>
+<p>This will also install StimulusJS and ActiveStorage and ActionText altogether</p>
+<pre><code class="language-bash">./bin/rails action_text:install
+</code></pre>
+<p>otherwise you can install them separately:</p>
+<p><strong>ActiveStorage</strong></p>
+<pre><code>bin/rails active_storage:install
+</code></pre>
+<p><strong>Stimulus</strong></p>
+<pre><code>./bin/bundle add stimulus-rails
+./bin/bundle install
+./bin/rails stimulus:install
+</code></pre>
+<p><strong>Hotwire</strong>
+if you initially used <code>--skip-hotwire</code> and now want it - type:</p>
+<pre><code class="language-bash">./bin/bundle add turbo-rails
+./bin/bundle install
+./bin/rails turbo:install
+./bin/rails turbo:install:redis
+</code></pre>
+<h2 id="additional-tooling">Additional Tooling</h2>
+<p>copy the following into your Gemfile:</p>
+<pre><code class="language-ruby">cat &lt;&lt;EOF &gt;&gt;Gemfile
+group :test do
+  gem 'shoulda-matchers' #, '~&gt; 5.0'
+end
+
+# allow rspec with feature tests and
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'faker'
+
+  # coverage
+  gem 'simplecov'
+
+  # security checks
+  gem 'brakeman'
+
+  # debugging
+  # gem 'pry'
+  gem 'pry-rails'
+  # stack, up, down, frame n
+  gem 'pry-stack_explorer' #, '~&gt; 0.6.0'
+
+  # standards
+  # gem 'standard', require: false
+  gem 'rubocop-rails', require: false
+
+  # sw quality checks
+  # gem 'skunk'
+  # gem 'circle-cli'
+  # gem 'rubycritic', require: false # uses virtus - discontinued !
+end
+EOF
+</code></pre>
+<h2 id="configure-testing">Configure Testing</h2>
+<pre><code class="language-bash">bin/rails g rspec:install
+</code></pre>
+<p><strong>Setup Configuation</strong>
+at the top of the spec/rails_helper.rb be sure to have:</p>
+<pre><code class="language-ruby">require 'capybara/rails'
+require 'simplecov'
+SimpleCov.start
+</code></pre>
+<p>at the bottom of spec/rails helper add:</p>
+<pre><code class="language-ruby">cat &lt;&lt;EOF &gt;&gt;spec/rails_helper.rb
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+EOF
+</code></pre>
+<h2 id="setup-the-database">Setup the Database</h2>
+<pre><code class="language-bash">bin/rails db:drop
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed
+</code></pre>
+<h2 id="login-management-as-needed">Login Management (as needed):</h2>
+<p>Devise is commonly used for login  user management</p>
+<pre><code>bundle add devise
+bundle install
+rails g devise:install
+</code></pre>
+<p>**Follow the instruction on printed on the screen or use (
+<a href="https://guides.railsgirls.com/devise" target="_blank" rel="noopener">https://guides.railsgirls.com/devise</a>)</p>
+<h2 id="setup-app-structure">Setup App Structure</h2>
+<p>Lets build a landing page</p>
+<pre><code class="language-bash">bin/rails g controller landing index
+</code></pre>
+<p><strong>update the routes</strong></p>
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+  get 'landing/index'
+
+  # Defines the root path route (&quot;/&quot;)
+  root &quot;landing#index&quot;
+end
+</code></pre>
+<h2 id="start-rails-dev-mode">Start Rails (dev-mode)</h2>
+<p><strong>In watchmode - like we are accustom</strong></p>
+<p><code>./bin/dev</code></p>
+<p>other options are:</p>
+<ul>
+<li><code>foreman start -f Procfile.dev</code></li>
+<li><code>bin/rails s</code> and <code>yarn build --watch</code> in separate windows</li>
+</ul>
+<h2 id="experiments-to-explore">Experiments to Explore</h2>
+<h3 id="packwerk">Packwerk</h3>
+<h3 id="stimulusjs">StimulusJS</h3>
+<h3 id="view-components">view components</h3>
+<h3 id="hotwire-turbo">HotWire (Turbo)</h3>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/install/">install</a>
+  
+  <a class="badge badge-light" href="/tags/setup/">setup</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/tags/heros-journey/" >hero’s journey</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_7_0_base_setup/&amp;text=Rails%207.0%20Base%20Setup" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tags/story-telling/" >story-telling</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_7_0_base_setup/&amp;t=Rails%207.0%20Base%20Setup" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tags/student-directed-learning/" >student-directed learning</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%207.0%20Base%20Setup&amp;body=https://btihen.me/post_ruby_rails/rails_7_0_base_setup/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tags/collaboration/" >collaboration</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_7_0_base_setup/&amp;title=Rails%207.0%20Base%20Setup" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tags/feedback/" >feedback</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%207.0%20Base%20Setup%20https://btihen.me/post_ruby_rails/rails_7_0_base_setup/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tags/natural-feedback/" >natural-feedback</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tags/self-regulation/" >self-regulation</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tags/agility/" >Agility</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tags/calendar/" >calendar</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tags/mobile/" >mobile</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-
-  
-<nav>
-  <ul class="pagination justify-content-center">
-    
-    <li class="page-item"><a class="page-link" href="/tags/page/7/">&laquo;</a></li>
-    
-    
-    <li class="page-item"><a class="page-link" href="/tags/page/9/">&raquo;</a></li>
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_7_0_base_setup/&amp;title=Rails%207.0%20Base%20Setup" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
     
   </ul>
-</nav>
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 

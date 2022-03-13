@@ -39,25 +39,144 @@
 &lt;li&gt;(&lt;strong&gt;automations&lt;/strong&gt;)[https://www.bridgetownrb.com/docs/automations] An automation script is nothing more than a Ruby code file run in the context of an instance
 Unfortunately, I still struggle to find the parts I am looking for, so I am adding the links here (to help my future self).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;new-site-setup&#34;&gt;&lt;strong&gt;New Site Setup&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;bridgetown-basics&#34;&gt;&lt;strong&gt;Bridgetown Basics&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Almost everything you will do to generate a website will be done in &lt;code&gt;src&lt;/code&gt; folder&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Resource&lt;/strong&gt; - a file that will generate a webpage&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Front Mater&lt;/strong&gt; - meta info - located at the top of a &amp;lsquo;resource&amp;rsquo; file and is used to assist in webpage generation.  This information is to be used directly in association with this one webpage&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Collection&lt;/strong&gt; - a group of resources that belong together (and can generate a centralized list). This MUST be located in a folder that starts with an &lt;code&gt;_&lt;/code&gt;, for example: &lt;code&gt;src/_posts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Permalink&lt;/strong&gt; - the way to define the URL for a &amp;lsquo;resource&amp;rsquo; - this is important if you are transferring a website to bridgetown and want to keep the urls the same&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data Files&lt;/strong&gt; - must be located in &lt;code&gt;src/_data&lt;/code&gt; - they define centralized data/information &amp;amp; variables across the entire-webste - options include: YAML, JSON, CSV, TSV &amp;amp; .rb files. Thes are accessed with &lt;code&gt;site.data&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Static Files&lt;/strong&gt; - files that do not contain any front matter. These include images, PDFs, and other un-rendered content. Static files can be searched and accessed in templates with &lt;code&gt;site.static_files&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Prototype Pages&lt;/strong&gt; - requires that &lt;code&gt;pagination&lt;/code&gt; is enabled. Prototypes lets you create automatically generated, paginated archives of your content filtered by the search terms you provide.  Often used to create the related content links to tag pages.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Templates&lt;/strong&gt; - this is the system used in your layouts and components (you can choose between &lt;code&gt;liquid&lt;/code&gt;, &lt;code&gt;erb&lt;/code&gt; and &lt;code&gt;serbea&lt;/code&gt;) - I&amp;rsquo;ll stick with &lt;code&gt;erb&lt;/code&gt; since that is familiar&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Layouts&lt;/strong&gt; - templates that define how your resource will look.  You have full access to the &lt;strong&gt;front matter&lt;/strong&gt; of the resource, ie &lt;code&gt;resource.data.title&lt;/code&gt; is the &lt;code&gt;title&lt;/code&gt; in the front-matter section of the resource.  The default looks like:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_layouts/default.erb --&amp;gt;
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;&amp;lt;%= site.locale %&amp;gt;&amp;quot;&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;%= render &amp;quot;head&amp;quot;, metadata: site.metadata, title: resource.data.title %&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body class=&amp;quot;&amp;lt;%= resource.data.layout %&amp;gt; &amp;lt;%= resource.data.page_class %&amp;gt;&amp;quot;&amp;gt;
+    &amp;lt;%= render Shared::Navbar.new(metadata: site.metadata, resource: resource) %&amp;gt;
+
+    &amp;lt;main&amp;gt;
+      &amp;lt;%= yield %&amp;gt;
+    &amp;lt;/main&amp;gt;
+
+    &amp;lt;%= render &amp;quot;footer&amp;quot;, metadata: site.metadata %&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Partials&lt;/strong&gt; - these are usually things like the header and footer and are used within &lt;code&gt;layout&lt;/code&gt; pages (same concept as in rails and use the &lt;code&gt;render&lt;/code&gt; call in the above example for default.erb.  This folder starts with the html &lt;code&gt;head&lt;/code&gt; (html language, seo info, etc) and &lt;code&gt;footer&lt;/code&gt; are located.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Components&lt;/strong&gt; - collection of reusable web-components. Here you can include &lt;code&gt;CSS&lt;/code&gt; &amp;amp; &lt;code&gt;JavaScript&lt;/code&gt; files alongside the &lt;code&gt;rb&lt;/code&gt; and &lt;code&gt;erb&lt;/code&gt; files - for example (the default starts with &lt;code&gt;src/_components/shared/navbar.rb&lt;/code&gt; and &lt;code&gt;src/_components/shared/navbar.erb&lt;/code&gt;) - I believe JS and CSS are scoped to the component class defined in the .rb file:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;├── src
+│   ├── _components
+│   │   ├── shared
+│   │   │   ├── navbar.erb
+│   │   │   ├── navbar.js
+│   │   │   ├── navbar.rb
+│   │   │   └── navbar.scss
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;templates&lt;/strong&gt; - the language used within the layout (defined by the file extension) - the site default can be configured&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bundled configurations&lt;/strong&gt; - bridgetown has some important configurations that are automated&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;plugins&lt;/strong&gt; - these extend bridgetown&amp;rsquo;s feature set.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;create-a-site&#34;&gt;&lt;strong&gt;Create a Site&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;I listened to the interview about Bridgetown on (Remote Ruby Podcast)[https://remoteruby.transistor.fm/169] so I went and checked it out.  Starting with the (Beta Docs)[https://edge.bridgetownrb.com/docs] - as it has a TailwindCSS installer and lots of excellent deployment setups (in particular Render and Netlify - although I would find Fly.io also interesting)&lt;/p&gt;
 &lt;p&gt;So I started by downloading the gem:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install bridgetown -N -v 1.0.0.beta3
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install bridgetown
+# gem install bridgetown -N -v 1.0.0
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I decided to configure it with the &lt;code&gt;erb&lt;/code&gt; but you can leave off &lt;code&gt;-t erb&lt;/code&gt; and use liquid or change erb for serbea templates.  Anyway, I created a new project with &lt;code&gt;erb&lt;/code&gt; using:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bridgetown new bridge_tail_site -t erb
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# simple no options
+bridgetown new bridge_tail_site
+# it is easier to start with much of the site configured using the options
+bridgetown new bridge_tail_site -t erb -c tailwindcss,netlify,stimulus
 cd bridge_tail_site
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;configure-tailwindcss&#34;&gt;&lt;strong&gt;Configure TailwindCSS&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Running Bridgetown&lt;/strong&gt; in dev-mode (it uses port 4000 - &lt;code&gt;http://localhost:4000&lt;/code&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/bridgetown start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;creation-explained&#34;&gt;Creation Explained&lt;/h3&gt;
+&lt;p&gt;There are 3 main parts to creation and configuration of a bridgetown site:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;template system&lt;/strong&gt; - which language is used to process &lt;code&gt;resources&lt;/code&gt; (the default is set using the &lt;code&gt;-t&lt;/code&gt; flag)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bundled configuration&lt;/strong&gt; - these are important configurations like JS, deployement config and can added with the &lt;code&gt;-c&lt;/code&gt; flag or later with the &lt;code&gt;bin/bridgetown configure [config_name]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Template System&lt;/strong&gt; (-t options)&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/template-engines&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/template-engines&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Options include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;liquid (default)&lt;/li&gt;
+&lt;li&gt;erb (rails default)&lt;/li&gt;
+&lt;li&gt;serbea&lt;/li&gt;
+&lt;li&gt;haml (not configured as site default)&lt;/li&gt;
+&lt;li&gt;slim (not configured as site default)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;this option sets up the default and generators, but at anytime you can use any of the templates by simpling providing the correct extension on the file and Bridgetown will know how to use the file&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Configure Bridgetown&lt;/strong&gt; (-c options)&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#netlify-toml-configuration&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#netlify-toml-configuration&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JS &amp;amp; Testing Options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;turbo (includes websockets)&lt;/li&gt;
+&lt;li&gt;stimulus (stimulusjs)&lt;/li&gt;
+&lt;li&gt;minitesting&lt;/li&gt;
+&lt;li&gt;cypress&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Deploy config options&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;render&lt;/li&gt;
+&lt;li&gt;netlify&lt;/li&gt;
+&lt;li&gt;vercel&lt;/li&gt;
+&lt;li&gt;gh-pages&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;if run after the install use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/bridgetown configure netlify
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;CSS Config&lt;/strong&gt;
+options include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;tailwindcss (which also installs postcss and purgecss)&lt;/li&gt;
+&lt;li&gt;postcss&lt;/li&gt;
+&lt;li&gt;purgecss&lt;/li&gt;
+&lt;li&gt;bulma (may be coming)&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;Installing TailwindCSS it was straightforward - once I found the right area. Follow the instructions at 
 &lt;a href=&#34;https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/bundled-configurations#tailwindcss&lt;/a&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle exec bridgetown configure tailwindcss
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/bridgetown configure tailwindcss
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I wanted to see if this worked by starting bridgetown with:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/bridgetown start
-open localhost:4000
+&lt;p&gt;&lt;strong&gt;Plugins&lt;/strong&gt; - can only be done AFTER the &lt;code&gt;new&lt;/code&gt; commands.  I&amp;rsquo;ve added these here since I got confused with all the setup options and there is no other clear section to add these.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.bridgetownrb.com/plugins&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/plugins&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Options include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bridgetown-sitemap - 
+&lt;a href=&#34;https://github.com/ayushn21/bridgetown-sitemap&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/ayushn21/bridgetown-sitemap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bridgetown-seo-tag - 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-seo-tag&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-seo-tag&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bridgetown-minify-html - 
+&lt;a href=&#34;https://github.com/bt-rb/bridgetown-minify-html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bt-rb/bridgetown-minify-html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bridgetown-svg-inliner - 
+&lt;a href=&#34;https://github.com/ayushn21/bridgetown-svg-inliner&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/ayushn21/bridgetown-svg-inliner&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bridgetown-quick-search - 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-quick-search&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-quick-search&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bridgetown-view-component - 
+&lt;a href=&#34;https://github.com/bridgetownrb/bridgetown-view-component&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/bridgetownrb/bridgetown-view-component&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bridgetown-media-transformation - 
+&lt;a href=&#34;https://github.com/julianrubisch/bridgetown-media-transformation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/julianrubisch/bridgetown-media-transformation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Installation looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bundle add bridgetown-media-transformation -g bridgetown_plugins
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;configure-alpinejs&#34;&gt;&lt;strong&gt;Configure AlpineJS&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;configure-with-alpinejs&#34;&gt;&lt;strong&gt;Configure with AlpineJS&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Espescially useful if not using stimulus&lt;/p&gt;
 &lt;p&gt;It looked good - so I went on to install AlpineJS (using the embedded script method) at 
 &lt;a href=&#34;https://alpinejs.dev/essentials/installation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://alpinejs.dev/essentials/installation&lt;/a&gt; - so I went to &lt;code&gt;src/_partials/_head.erb&lt;/code&gt; and added &lt;code&gt;&amp;lt;script defer src=&amp;quot;https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt; just before the &lt;code&gt;live_reload_dev_js&lt;/code&gt; tag:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- src/_partials/_head.erb --&amp;gt;
@@ -103,7 +222,6 @@ cp ~/Downloads/handlee-v12-latin/* frontend/fonts/handlee/.
        url(&#39;../fonts/handlee/handlee-v12-latin-regular.woff2&#39;) format(&#39;woff2&#39;),
        url(&#39;../fonts/handlee/handlee-v12-latin-regular.woff&#39;) format(&#39;woff&#39;);
 }
-
 /* ... */
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now within your CSS definitions you can use: &lt;code&gt;font-family: &#39;Handlee&#39;;&lt;/code&gt;&lt;/p&gt;
@@ -329,9 +447,37 @@ title: Ruby Blogs
 &amp;lt;/ul&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;now it should skip any file with &lt;code&gt;draft: true&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;prototypes---similar-talks&#34;&gt;&lt;strong&gt;prototypes - Similar Talks&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://edge.bridgetownrb.com/docs/prototype-pages#searching-in-collections&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edge.bridgetownrb.com/docs/prototype-pages#searching-in-collections&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ve probably seen a section on many webpages with &amp;lsquo;similar&amp;rsquo; articles (which lists articles with the same &lt;code&gt;tag&lt;/code&gt; or &lt;code&gt;category&lt;/code&gt;) - let&amp;rsquo;s set that up for talks.&lt;/p&gt;
+&lt;p&gt;First make a few talks with tags and categories.&lt;/p&gt;
+&lt;p&gt;Now lets create the pages to define our &amp;lsquo;similar&amp;rsquo; talks:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p src/talks/categories
+cat&amp;lt;&amp;lt;EOF&amp;gt;src/talks/categories/categories.html
+---
+title: Talks about :prototype-term-titleize
+prototype:
+  term: categories
+  collection: talks
+---
+EOF
+
+mkdir -p src/talks/tags
+cat&amp;lt;&amp;lt;EOF&amp;gt;src/talks/tags/tag.html
+---
+title: Talks about :prototype-term-titleize
+prototype:
+  term: tag
+  collection: talks
+---
+EOF
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;pagination&#34;&gt;&lt;strong&gt;Pagination&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;If you have a lot of posts, you may want to consider adding 
-&lt;a href=&#34;https://www.bridgetownrb.com/docs/content/pagination&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pagination&lt;/a&gt;!```&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/prototype-pages&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/prototype-pages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This required &lt;code&gt;pagination&lt;/code&gt; is enabled (
+&lt;a href=&#34;https://www.bridgetownrb.com/docs/content/pagination/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.bridgetownrb.com/docs/content/pagination/&lt;/a&gt;)&lt;/p&gt;
 &lt;h2 id=&#34;deploy&#34;&gt;&lt;strong&gt;Deploy&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s now deploy this Webpage (using the &lt;code&gt;configure&lt;/code&gt; command) it is very straightforward!&lt;/p&gt;
 &lt;ol&gt;

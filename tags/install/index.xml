@@ -5,12 +5,170 @@
     <link>https://btihen.me/tags/install/</link>
       <atom:link href="https://btihen.me/tags/install/index.xml" rel="self" type="application/rss+xml" />
     <description>install</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 18 Sep 2021 21:20:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 12 Mar 2022 01:20:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>install</title>
       <link>https://btihen.me/tags/install/</link>
     </image>
+    
+    <item>
+      <title>Rails 7.0 Base Setup</title>
+      <link>https://btihen.me/post_ruby_rails/rails_7_0_base_setup/</link>
+      <pubDate>Sat, 12 Mar 2022 01:20:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_7_0_base_setup/</guid>
+      <description>&lt;h2 id=&#34;update-gems-library&#34;&gt;update GEMS library&lt;/h2&gt;
+&lt;p&gt;gem update &amp;ndash;system&lt;/p&gt;
+&lt;h2 id=&#34;be-sure-bundler-is-installed&#34;&gt;be sure bundler is installed&lt;/h2&gt;
+&lt;p&gt;gem install bundler&lt;/p&gt;
+&lt;h2 id=&#34;update-bundler-library&#34;&gt;update Bundler library&lt;/h2&gt;
+&lt;p&gt;bundle update &amp;ndash;bundler&lt;/p&gt;
+&lt;h2 id=&#34;update-ruby&#34;&gt;update Ruby&lt;/h2&gt;
+&lt;p&gt;rbenv install 3.1.1
+rbenv global 3.1.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;or&lt;/strong&gt;
+asdf install ruby 3.1.1
+asdf global ruby 3.1.1&lt;/p&gt;
+&lt;h2 id=&#34;be-sure-you-have-rails-for-your-ruby-version&#34;&gt;be sure you have rails for your ruby version&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem install rails
+# or ensure version 7.0 using
+gem install rails --version 7.0.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-with-esbuild--css&#34;&gt;Rails with esbuild &amp;amp; css&lt;/h2&gt;
+&lt;p&gt;The options:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-T&lt;/code&gt; - does not install mini-tests (I like rspec)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-j esbuild&lt;/code&gt; - is the middle ground between using webpacker and import-maps&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--css bulma&lt;/code&gt; - install a css framwork (bulma, tailwind, bootstrap, sass, postcss)&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# default rails (using importmaps)
+# rails new slacker_base
+# or Bulma
+rails new slacker_bulma -j esbuild -T --css bulma
+# with Tailwind
+# rails new slacker_tail -j esbuild -T --css tailwind
+cd slacker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-richtext-editor&#34;&gt;install richtext editor&lt;/h2&gt;
+&lt;p&gt;This will also install StimulusJS and ActiveStorage and ActionText altogether&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./bin/rails action_text:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;otherwise you can install them separately:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ActiveStorage&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails active_storage:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Stimulus&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./bin/bundle add stimulus-rails
+./bin/bundle install
+./bin/rails stimulus:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Hotwire&lt;/strong&gt;
+if you initially used &lt;code&gt;--skip-hotwire&lt;/code&gt; and now want it - type:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./bin/bundle add turbo-rails
+./bin/bundle install
+./bin/rails turbo:install
+./bin/rails turbo:install:redis
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;additional-tooling&#34;&gt;Additional Tooling&lt;/h2&gt;
+&lt;p&gt;copy the following into your Gemfile:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;Gemfile
+group :test do
+  gem &#39;shoulda-matchers&#39; #, &#39;~&amp;gt; 5.0&#39;
+end
+
+# allow rspec with feature tests and
+group :development, :test do
+  gem &#39;factory_bot_rails&#39;
+  gem &#39;rspec-rails&#39;
+  gem &#39;capybara&#39;
+  gem &#39;launchy&#39;
+  gem &#39;faker&#39;
+
+  # coverage
+  gem &#39;simplecov&#39;
+
+  # security checks
+  gem &#39;brakeman&#39;
+
+  # debugging
+  # gem &#39;pry&#39;
+  gem &#39;pry-rails&#39;
+  # stack, up, down, frame n
+  gem &#39;pry-stack_explorer&#39; #, &#39;~&amp;gt; 0.6.0&#39;
+
+  # standards
+  # gem &#39;standard&#39;, require: false
+  gem &#39;rubocop-rails&#39;, require: false
+
+  # sw quality checks
+  # gem &#39;skunk&#39;
+  # gem &#39;circle-cli&#39;
+  # gem &#39;rubycritic&#39;, require: false # uses virtus - discontinued !
+end
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;configure-testing&#34;&gt;Configure Testing&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g rspec:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Setup Configuation&lt;/strong&gt;
+at the top of the spec/rails_helper.rb be sure to have:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;require &#39;capybara/rails&#39;
+require &#39;simplecov&#39;
+SimpleCov.start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;at the bottom of spec/rails helper add:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;spec/rails_helper.rb
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;setup-the-database&#34;&gt;Setup the Database&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:drop
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;login-management-as-needed&#34;&gt;Login Management (as needed):&lt;/h2&gt;
+&lt;p&gt;Devise is commonly used for login  user management&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bundle add devise
+bundle install
+rails g devise:install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;**Follow the instruction on printed on the screen or use (
+&lt;a href=&#34;https://guides.railsgirls.com/devise&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://guides.railsgirls.com/devise&lt;/a&gt;)&lt;/p&gt;
+&lt;h2 id=&#34;setup-app-structure&#34;&gt;Setup App Structure&lt;/h2&gt;
+&lt;p&gt;Lets build a landing page&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller landing index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;update the routes&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  get &#39;landing/index&#39;
+
+  # Defines the root path route (&amp;quot;/&amp;quot;)
+  root &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;start-rails-dev-mode&#34;&gt;Start Rails (dev-mode)&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;In watchmode - like we are accustom&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;./bin/dev&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;other options are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;foreman start -f Procfile.dev&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bin/rails s&lt;/code&gt; and &lt;code&gt;yarn build --watch&lt;/code&gt; in separate windows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;experiments-to-explore&#34;&gt;Experiments to Explore&lt;/h2&gt;
+&lt;h3 id=&#34;packwerk&#34;&gt;Packwerk&lt;/h3&gt;
+&lt;h3 id=&#34;stimulusjs&#34;&gt;StimulusJS&lt;/h3&gt;
+&lt;h3 id=&#34;view-components&#34;&gt;view components&lt;/h3&gt;
+&lt;h3 id=&#34;hotwire-turbo&#34;&gt;HotWire (Turbo)&lt;/h3&gt;
+</description>
+    </item>
     
     <item>
       <title>Rails 7.0alpha2 Test-drive</title>
