@@ -932,7 +932,7 @@ ActiveModel::Type.register(:token, Type::Token)
 <a href="https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846" target="_blank" rel="noopener">https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846</a></p>
 <p>How Rails Transforms Attributes</p>
 <p>Here&rsquo;s a quick tour of the Rails Attributes API. You can skip this section, but then you won&rsquo;t know how this stuff works. What fun is that?</p>
-<p>Understanding how Rails handles user input for your attribute will let us override only one method instead of making a more complete custom type. It will also help you write better code, since rails' code is pretty good.</p>
+<p>Understanding how Rails handles user input for your attribute will let us override only one method instead of making a more complete custom type. It will also help you write better code, since rails&rsquo; code is pretty good.</p>
 <p>Since you didn&rsquo;t mention a model, I&rsquo;ll assume you have a Post with a :publish_date attribute (some would prefer the name :published_on, but I digress).
 What is your type?</p>
 <p>Find out what type :publish_date is. We don&rsquo;t care that it is an instance of Date, we need to know what type_for_attribute returns:</p>
@@ -950,7 +950,7 @@ What is your type?</p>
 <a href="https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html%29" target="_blank" rel="noopener">https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html)</a>.</p>
 <p>How is user input transformed by <code>ActiveRecord::Type::Date</code>?</p>
 <p>So, when you set <code>:publish_date</code>, the value is passed to cast, which calls cast_value. Since form input is a String, it will try a <code>fast_string_to_date</code> then <code>fallback_string_to_date</code> which uses <code>Date._parse</code>.</p>
-<p>If you&rsquo;re getting lost, don&rsquo;t worry. You don&rsquo;t need to understand rails' code to customize an attribute.
+<p>If you&rsquo;re getting lost, don&rsquo;t worry. You don&rsquo;t need to understand rails&rsquo; code to customize an attribute.
 Defining a Custom Type</p>
 <p>Now that we understand how Rails uses the attributes API, we can easily make our own. Just create a custom type to override cast_value to expect localized date strings:</p>
 <pre><code class="language-ruby">class LocalizedDate &lt; ActiveRecord::Type::Date
@@ -971,7 +971,7 @@ Defining a Custom Type</p>
     end
 end
 </code></pre>
-<p>See how I just copied rails' code and made a small tweak. Easy. You might want to improve on this with a call to super and move the :short format to an option or constant.</p>
+<p>See how I just copied rails&rsquo; code and made a small tweak. Easy. You might want to improve on this with a call to super and move the :short format to an option or constant.</p>
 <p>Register your type so it can be referenced by a symbol:</p>
 <pre><code class="language-ruby"># config/initializers/types.rb
 ActiveRecord::Type.register(:localized_date, LocalizedDate)
@@ -1342,7 +1342,7 @@ end
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b83f17b8257ec03d591fc1860efee439.js"></script>
 
     
 

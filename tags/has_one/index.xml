@@ -792,7 +792,7 @@ end
   &amp;lt;/div&amp;gt;
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now when we try &lt;code&gt;/contacts&lt;/code&gt; we notice one more problem - it is always invalid - rails automatically add a leading &amp;quot;&amp;quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &amp;ldquo;&amp;quot;) using:&lt;/p&gt;
+&lt;p&gt;Now when we try &lt;code&gt;/contacts&lt;/code&gt; we notice one more problem - it is always invalid - rails automatically add a leading &amp;quot;&amp;quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &amp;ldquo;&amp;rdquo;) using:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  contact_attribs[&amp;quot;functions&amp;quot;].reject! {|f| f.blank? }
   contact_attribs
 &lt;/code&gt;&lt;/pre&gt;

@@ -1198,7 +1198,7 @@ end
   &lt;/div&gt;
 &lt;% end %&gt;
 </code></pre>
-<p>Now when we try <code>/contacts</code> we notice one more problem - it is always invalid - rails automatically add a leading &quot;&quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &ldquo;&quot;) using:</p>
+<p>Now when we try <code>/contacts</code> we notice one more problem - it is always invalid - rails automatically add a leading &quot;&quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &ldquo;&rdquo;) using:</p>
 <pre><code class="language-ruby">  contact_attribs[&quot;functions&quot;].reject! {|f| f.blank? }
   contact_attribs
 </code></pre>
@@ -1701,7 +1701,7 @@ git commit -m &quot;created person possibly related to the model&quot;
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b83f17b8257ec03d591fc1860efee439.js"></script>
 
     
 

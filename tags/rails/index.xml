@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/rails/</link>
       <atom:link href="https://btihen.me/tags/rails/index.xml" rel="self" type="application/rss+xml" />
     <description>Rails</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 12 Mar 2022 01:20:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 26 Mar 2022 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Rails</title>
@@ -18,6 +18,501 @@
       <pubDate>Fri, 06 Nov 2020 01:34:47 +0200</pubDate>
       <guid>https://btihen.me/projects/mobile_calendar/</guid>
       <description>&lt;p&gt;An opensource mobile friendly simple calendar to simplify scheduling for non-profits.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 5.2 - Command Objects and PORO Attributes</title>
+      <link>https://btihen.me/post_ruby_rails/rails_5_2_command_objects_attributes/</link>
+      <pubDate>Sat, 26 Mar 2022 01:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_5_2_command_objects_attributes/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Sometimes within an work flow different validations and business logic is needed.  It can be very complex if each modification uses the same controller and model logic!  I&amp;rsquo;ve tried and ist crazy difficult.  The best solution I have found is to use Commands and separate Controllers.  It became practical to treat a command object as a Rails Model as of Rails 5.2 when the Attribute API allows Plain Old Ruby Objects (POROs) to use Attributes.&lt;/p&gt;
+&lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
+&lt;p&gt;We have a workflow (at a school) where a young student submits a request.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Student creates a request&lt;/li&gt;
+&lt;li&gt;This is reviewed by the &amp;lsquo;assistant to the dean&amp;rsquo; (approved, conditional, declined)&lt;/li&gt;
+&lt;li&gt;When approved it is forwarded to the student&amp;rsquo;s guardian for guardian_approval (approved, conditional, declined)&lt;/li&gt;
+&lt;li&gt;When approved it is forwarded to the  &amp;lsquo;Dean of Students&amp;rsquo; for final_approval (approved, conditional, declined)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This example will omit much of the real-world complexities especially the relationships between users and the related security and scoping.  But the focus here is to build validations and logic outside the controllers and base model.  (the base model will only contains logic that is always true)&lt;/p&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;create a project&lt;/h2&gt;
+&lt;p&gt;We will ensure we are using Rails 5.2 (but it can be later and there are be more features in later versions of Rails)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rbenv install 2.7.5
+rbenv local 2.7.5
+
+gem install rails -v 5.2.7
+rails _5.2.7_ new commands_n_attributes --skip-spring
+
+cd commands_n_attributes
+
+bin/rails db:drop
+bin/rails db:create
+bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s create a landing page using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bin/rails g controller landing index&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And now update routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  get &#39;landing/index&#39;
+  root &#39;landing#index&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you start rails with &lt;code&gt;bin/rails s&lt;/code&gt; &amp;lsquo;/&amp;rsquo; should be the new landing-page.&lt;/p&gt;
+&lt;p&gt;We will need some users and their roles (but we will keep this simple!) using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rails g scaffold User name role email:uniq&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And we will update the migration to require our new fields using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class CreateUsers &amp;lt; ActiveRecord::Migration[5.2]
+  def change
+    create_table :users do |t|
+      t.string :name, null: false
+      t.string :email, null: false
+      t.string :role, default: &#39;student&#39;, null: false
+
+      t.timestamps
+    end
+    add_index :users, :email, unique: true
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since all fields are required all the time we will put the user validations in the model - so we can now update the model using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :role, presence: true,
+                   inclusion: { in: %w[student assistant parent dean],
+                                message: &#39;%{value} is not a valid role&#39; }
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s migrate &lt;code&gt;bin/rails db:migrate&lt;/code&gt; and make some users with &lt;code&gt;bin/rails db:migrate&lt;/code&gt; or using &lt;code&gt;/users&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+student = User.create(name: &#39;student&#39;, email: &#39;student@example.ch&#39;, role: &#39;student&#39;)
+reviewer = User.create(name: &#39;reviewer&#39;, email: &#39;reviewer@example.ch&#39;, role: &#39;reviewer&#39;)
+bill = User.create(name: &#39;bill&#39;, email: &#39;bill@example.ch&#39;, role: &#39;guardian&#39;)
+dean = User.create(name: &#39;dean&#39;, email: &#39;dean@example.ch&#39;, role: &#39;dean&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;student-request&#34;&gt;Student Request&lt;/h2&gt;
+&lt;p&gt;allow the student to make a request (this stuff will always be required so we will use all rails standards) &amp;ndash; in real-life this would usually be scoped and the only area students can access, but that is beyond the scope of this article.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rails g scaffold Request category description:text student:references&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now lets open this migration and require all fields using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class CreateRequests &amp;lt; ActiveRecord::Migration[5.2]
+  def change
+    create_table :travel_requests do |t|
+      t.string :category, null: false
+      t.text :description, null: false
+      t.references :student, foreign_key: {to_table: :users}, null: false
+
+      t.timestamps
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note we are using the student as an alias for the User class &amp;ndash; so we can eventually allow all the various users to interact and &amp;lsquo;student&amp;rsquo; is much clearer than &lt;code&gt;user&lt;/code&gt; the model name.  And we can enforce these required fields in the model too:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Request &amp;lt; ApplicationRecord
+  belongs_to :student, class_name: &#39;User&#39;
+
+  validates :student, presence: true
+  validates :description, presence: true
+  validates :category, presence: true,
+                       inclusion: { in: %w(travel money),
+                                    message: &amp;quot;%{value} is not a valid category&amp;quot; }
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s migrate again and create some requests:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+student = User.create(name: &#39;student&#39;, email: &#39;student@example.ch&#39;, role: &#39;student&#39;)
+reviewer = User.create(name: &#39;reviewer&#39;, email: &#39;reviewer@example.ch&#39;, role: &#39;reviewer&#39;)
+bill = User.create(name: &#39;bill&#39;, email: &#39;bill@example.ch&#39;, role: &#39;guardian&#39;)
+dean = User.create(name: &#39;dean&#39;, email: &#39;dean@example.ch&#39;, role: &#39;dean&#39;)
+
+request_good = Request.create(category: &#39;travel&#39;, description: &#39;reasonable&#39;, student: student)
+request_hmmm = Request.create(category: &#39;travel&#39;, description: &#39;questionable&#39;, student: student)
+request_nope = Request.create(category: &#39;travel&#39;, description: &#39;unreasonable&#39;, student: student)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;review-command&#34;&gt;Review Command&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s add the more complex logic outside the rails-standard way.&lt;/p&gt;
+&lt;p&gt;First let&amp;rsquo;s add the new fields needed by the reviewer:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails g migration AddReviewFieldsToRequests review_decision review_notes:texr \
+                      review_decision_at:timestamp reviewer:references
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Update the migration:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class AddReviewFieldsToRequests &amp;lt; ActiveRecord::Migration[5.2]
+  def change
+    add_column :requests, :review_notes, :string
+    add_column :requests, :review_decision, :string
+    add_column :requests, :review_decision_at, :timestamp
+    add_reference :requests, :reviewer, foreign_key: {to_table: :users}
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to update the Review Model too to add the relationship - its critical to add &lt;code&gt;optional: true&lt;/code&gt; in rails 5.2 - otherwise rails thinks it should always be present!  Otherwise, we are not changing the model nor its validations - since these fields are only required by the reviewer while reviewing a request.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Request &amp;lt; ApplicationRecord
+  belongs_to :student, class_name: &#39;User&#39;, foreign_key: &#39;student_id&#39;
+  belongs_to :reviewer, class_name: &#39;User&#39;, foreign_key: &#39;reviewer_id&#39;, optional: true
+
+  validates :student, presence: true
+  validates :description, presence: true
+  validates :category, presence: true,
+                       inclusion: { in: %w(travel money),
+                                    message: &amp;quot;%{value} is not a valid category&amp;quot; }
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;bin/rails db:migrate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s create a new controller to reviews the requests using (note - will will only accept the fields: review_decision review_notes - the others we will set in code) - so we can use the command:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bin/rails g scaffold_controller ReviewRequests review_decision review_notes&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We don&amp;rsquo;t actually want the assistant to create or delete requests so the routes will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
+  resources :review_requests, only: [:index, :show, :edit, :update]
+  resources :requests
+  resources :users
+  get &#39;landing/index&#39;
+  root &#39;landing#index&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s create out command (since we will have many commands we will make a folder called commands):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;mkdir -p app/commands
+touch app/commands/review_request_command.rb
+
+class ReviewRequestCommand
+  # Model and Attributes are BOTH needed to user Rails attributes in a Plain Ruby class
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+  include ActiveModel::AttributeAssignment # allows direct assignment `.assign_attributes`
+  include ActiveModel::AttributeMethods # allows attribute prefixing, etc
+  include ActiveModel::Conversion # provides: #to_model, #to_key, #to_param, and to_partial_path
+  include ActiveModel::Dirty # needed to track changes
+  include ActiveModel::Validations
+
+  # allow at least request to be seen outside this model (to display above the form)
+  attr_reader :params, :request
+
+  # unless all attributes are in the accessor you will get
+  # `undefined method `write_from_user&#39; for nil:NilClass` with normal attribute assignment
+  # although you can use @id = params[:id] instead
+  attr_accessor :id, :reviewer_id, :review_decision, :review_notes,
+                :review_decision_at, :reviewer
+
+  # our attributes (these are the only things the form can access/submit)
+  attribute :id, :integer
+  attribute :reviewer, User
+  attribute :reviewer_id, :integer
+  attribute :review_notes, :string
+  attribute :review_decision, :string
+  attribute :review_decision_at, :datetime
+
+  # our rewiewer validations
+  validates :id, presence: true
+  validates :reviewer_id, presence: true
+  validates :review_decision, presence: true,
+                              inclusion: { in: %w[approved conditional declined],
+                                           message: &#39;%{value} is not a valid decision&#39; }
+  # a complex validation with logic
+  validate :validate_review_notes
+
+  # not needed but convenient
+  def self.call(params = {})
+    new(params).run
+  end
+
+  def initialize(params = {})
+    @params = params # helps with debugging
+
+    # get the request and pre-populate our attributes from there
+    @request = Request.find(params[:id])
+    self.review_notes = @request.review_notes
+    self.review_decision = @request.review_decision
+
+    # set the attributes (incoming attributes overwrite those from the request)
+    assign_attributes(params)
+  end
+
+  # what does the action
+  def run
+    request.reviewer_id = reviewer_id
+    request.review_notes = review_notes
+    request.review_decision = review_decision
+    request.review_decision_at = review_decision_at
+
+    # return errors if not valid
+    return self unless valid? &amp;amp;&amp;amp; request.valid? &amp;amp;&amp;amp; request.save
+
+    # if success updating the original request - then do our additional logic
+    case request.review_decision
+    when &#39;approved&#39;
+      puts &#39;notify parent of request&#39;
+      puts &#39;notify student of approval&#39;
+    else
+      puts &amp;quot;notify student that the request is #{review_decision} because #{review_notes}&amp;quot;
+    end
+
+    self
+  end
+
+  # without this method path(object) doesn&#39;t work or you can just use path(id: object.id) instead
+  def to_param
+    id
+  end
+
+  # this must answer true for the form to use patch instead of post!
+  def persisted?
+    true
+  end
+
+  # rails 5.2 requires this to work with forms and dirty tracking
+  # unfortunately, rails 5.2 can&#39;t self-discover its own attributes
+  # without this you get: `undefined method `to_hash&#39; for nil:NilClass` in the form
+  def attributes
+    {
+      id: id,
+      reviewer_id: reviewer_id,
+      review_notes: review_notes,
+      review_decision: review_decision,
+      review_decision_at: review_decision_at,
+      request: request
+    }
+  end
+  alias_method :to_hash, :attributes
+
+  private
+
+  def validate_review_notes
+    # don&#39;t report an error when the decision is &#39;approved&#39; or decision is invalid
+    return unless %w[conditional declined].include? review_decision
+    return unless review_notes.blank?
+
+    errors.add(:review_notes, &#39;is required when request is not approved&#39;)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can test this Command in console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;student = User.create(name: &#39;student&#39;, email: &#39;student@example.ch&#39;, role: &#39;student&#39;)
+reviewer = User.create(name: &#39;reviewer&#39;, email: &#39;reviewer@example.ch&#39;, role: &#39;reviewer&#39;)
+bill = User.create(name: &#39;bill&#39;, email: &#39;bill@example.ch&#39;, role: &#39;guardian&#39;)
+dean = User.create(name: &#39;dean&#39;, email: &#39;dean@example.ch&#39;, role: &#39;dean&#39;)
+
+request_good = Request.create(category: &#39;travel&#39;, description: &#39;reasonable&#39;, student: student)
+request_hmmm = Request.create(category: &#39;travel&#39;, description: &#39;questionable&#39;, student: student)
+request_nope = Request.create(category: &#39;travel&#39;, description: &#39;unreasonable&#39;, student: student)
+
+review = ReviewRequestCommand.new(id: request_good.id, reviewer_id: reviewer.id)
+review.valid?
+review.errors.messages
+request_good.reload # should be unchanged
+
+review = ReviewRequestCommand.call(id: request_good.id, reviewer_id: reviewer.id)
+review.valid?
+review.errors.messages
+request_good.reload # should be unchanged
+
+review = ReviewRequestCommand.call(id: request_good.id, reviewer_id: reviewer.id, review_decision: &#39;accepted&#39;)
+review.valid?
+review.errors.messages
+request_good.reload # SHOULD BE CHANGED
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;adapt-the-review-controller&#34;&gt;Adapt the Review Controller&lt;/h2&gt;
+&lt;p&gt;Basically we need to treat the command as the model and send in the reviewer and the proper params.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class ReviewRequestsController &amp;lt; ApplicationController
+  def index
+    @review_requests = Request.all
+  end
+
+  def edit
+    @review_request = ReviewRequestCommand.new(command_params)
+  end
+
+  def update
+    @review_request = ReviewRequestCommand.call review_request_params.merge(command_params)
+    respond_to do |format|
+      if @review_request.valid?
+        format.html { redirect_to review_requests_url, notice: &#39;Review request was successfully updated.&#39; }
+        format.json { render :show, status: :ok, location: @review_request }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @review_request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+  def command_params
+    # {id: params[:id].to_i, reviewer_id: current_user.id}
+    {id: params[:id].to_i, reviewer_id: current_user.id, reviewer: current_user}
+  end
+
+  # Only allow a list of trusted parameters through.
+  def review_request_params
+    params.require(:review_request_command) # must be the model name
+          .permit(:review_decision, :review_notes)
+  end
+
+  def current_user
+    User.where(role: %w[reviewer admin]).first
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;adapting-the-view-form&#34;&gt;Adapting the View Form&lt;/h2&gt;
+&lt;p&gt;This next part is always tricky (rails likes working with Default models) &amp;ndash; the important thing is the &lt;code&gt;form&lt;/code&gt; command needs the URL since the model is called &lt;code&gt;review_request_command&lt;/code&gt;, but the route is called &lt;code&gt;review_request_path&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if you get a url error that review_request_command_path doesn&amp;rsquo;t exist - check the form url&lt;/li&gt;
+&lt;li&gt;if this form sends a POST be sure &lt;code&gt;review_request.persisted?&lt;/code&gt; returns &lt;code&gt;true&lt;/code&gt;!&lt;/li&gt;
+&lt;li&gt;if the form returns the error: &lt;code&gt;undefined method &lt;/code&gt;to_hash&amp;rsquo; for nil:NilClass&lt;code&gt;in the form - be sure your attribute is returned in&lt;/code&gt;review_request.attributes`&lt;/li&gt;
+&lt;li&gt;if you get the error &lt;code&gt;review_request&lt;/code&gt; wasn&amp;rsquo;t included, be sure you check the controller&amp;rsquo;s review_request_params method requires the &lt;code&gt;review_request_command&lt;/code&gt; not &lt;code&gt;review_request&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- app/views/review_requests/_form.html.erb --&amp;gt;
+&amp;lt;!-- add the url to the form and all should work :) --&amp;gt;
+&amp;lt;%= form_with(model: review_request, local: true,
+              url: review_request_path(id: review_request.id)) do |form| %&amp;gt;
+
+  &amp;lt;% if review_request.errors.any? %&amp;gt;
+    &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
+      &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(review_request.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this review_request from being saved:&amp;lt;/h2&amp;gt;
+
+      &amp;lt;ul&amp;gt;
+      &amp;lt;% review_request.errors.full_messages.each do |message| %&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;%= message %&amp;gt;&amp;lt;/li&amp;gt;
+      &amp;lt;% end %&amp;gt;
+      &amp;lt;/ul&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;% end %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :review_decision %&amp;gt;
+    &amp;lt;%= form.text_field :review_decision %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :review_notes %&amp;gt;
+    &amp;lt;%= form.text_field :review_notes %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
+    &amp;lt;%= form.submit %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can have complex process logic isolated in your commands and all your models, controllers and views can be focused on their simple tasks.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;h3 id=&#34;attributes-allowed-in-non-ar-models&#34;&gt;attributes allowed in non-ar models&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/rails/rails/issues/28020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/issues/28020&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;rails-52-docs&#34;&gt;Rails 5.2 Docs&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2/&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;default-attribute-types&#34;&gt;default attribute types:&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;book-using-poro-with-attributes&#34;&gt;book using PORO with attributes&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://products.arkency.com/domain-driven-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://products.arkency.com/domain-driven-rails&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;helpful-blogs&#34;&gt;helpful blogs&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
+
+&lt;a href=&#34;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
+
+&lt;a href=&#34;https://blog.dario-hamidi.de/a/rails-hidden-type-system&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.dario-hamidi.de/a/rails-hidden-type-system&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;custom-attribute-types&#34;&gt;custom Attribute types&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;
+
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
+
+&lt;a href=&#34;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;
+
+&lt;a href=&#34;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&lt;/a&gt;
+
+&lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;
+
+&lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;custom-attributes-when-inherited-from-acitivemodel&#34;&gt;Custom Attributes (when inherited from AcitiveModel)&lt;/h2&gt;
+&lt;p&gt;This is good with a &amp;rsquo;normal&amp;rsquo; active record model you can add &amp;lsquo;virtual&amp;rsquo; attributes - just for the form pages&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/attribute_types/squished_string.rb
+class SquishedString &amp;lt; ActiveRecord::Type::Value
+  include ActiveModel::Type::Helpers::Mutable
+  def type
+    :squished_string
+  end
+
+  def cast(value)
+    value.to_s.squish.strip
+  end
+
+  # def cast_value(value)
+  # end
+
+  # def deserialize(value)
+  # end
+
+  # def serialize(value)
+  # end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/attribute_types.rb
+ActiveRecord::Type.register(:squished_string, SquishedString)
+ActiveModel::Type.register(:squished_string, SquishedString)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;custom-attributes-in-poro---not-yet-in-rails-52&#34;&gt;Custom Attributes (in PORO - not yet in Rails 5.2)&lt;/h2&gt;
+&lt;p&gt;Without access to attribute_type it seems this only works with Manual casting - without explict casting.&lt;/p&gt;
+&lt;p&gt;@review_notes = TrimmedText.new.cast(&amp;rsquo; lots to     say &amp;lsquo;)
+&amp;ldquo;lots to say&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;ActiveModels have: #attribute_types &amp;amp; #attribute_names &amp;amp; #columns &amp;amp; #reflections (associations) - when a model has attribute types all works well as documented.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;[26] pry(Request):2&amp;gt; attribute_types
+=&amp;gt; {&amp;quot;id&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveModel::Type::Integer:0x00007f8382cf5b18 @limit=8, @precision=nil, @range=-9223372036854775808...9223372036854775808, @scale=nil&amp;gt;,
+ &amp;quot;category&amp;quot;=&amp;gt;#&amp;lt;ActiveModel::Type::String:0x00007f8383c36be0 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;description&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::Type::Text:0x00007f8382cf5708 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;student_id&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveModel::Type::Integer:0x00007f8382cf5b18 @limit=8, @precision=nil, @range=-9223372036854775808...9223372036854775808, @scale=nil&amp;gt;,
+ &amp;quot;created_at&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime:0x00007f8383c35c68 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;updated_at&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime:0x00007f8383c35c68 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;review_notes&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::Type::Text:0x00007f8382cf5708 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;review_decision&amp;quot;=&amp;gt;#&amp;lt;ActiveModel::Type::String:0x00007f8383c36be0 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;review_decision_at&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime:0x00007f8383c35c68 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;reviewer_id&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveModel::Type::Integer:0x00007f8382cf5b18 @limit=8, @precision=nil, @range=-9223372036854775808...9223372036854775808, @scale=nil&amp;gt;}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -982,7 +1477,7 @@ end
   &amp;lt;/div&amp;gt;
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now when we try &lt;code&gt;/contacts&lt;/code&gt; we notice one more problem - it is always invalid - rails automatically add a leading &amp;quot;&amp;quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &amp;ldquo;&amp;quot;) using:&lt;/p&gt;
+&lt;p&gt;Now when we try &lt;code&gt;/contacts&lt;/code&gt; we notice one more problem - it is always invalid - rails automatically add a leading &amp;quot;&amp;quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &amp;ldquo;&amp;rdquo;) using:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  contact_attribs[&amp;quot;functions&amp;quot;].reject! {|f| f.blank? }
   contact_attribs
 &lt;/code&gt;&lt;/pre&gt;
@@ -1190,7 +1685,7 @@ git commit -m &amp;quot;initial commit&amp;quot;
 &lt;p&gt;Generating a simple business model.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Business legal_name
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets adjust the migration to require the business&#39; legal name, by adding &lt;code&gt;null: false&lt;/code&gt; to the name:&lt;/p&gt;
+&lt;p&gt;Lets adjust the migration to require the business&amp;rsquo; legal name, by adding &lt;code&gt;null: false&lt;/code&gt; to the name:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/20210516080420_create_businesses.rb
 class CreateBusinesses &amp;lt; ActiveRecord::Migration[6.1]
   def change
@@ -1202,7 +1697,7 @@ class CreateBusinesses &amp;lt; ActiveRecord::Migration[6.1]
   end
 end
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we will validate the business&#39; name in the model:&lt;/p&gt;
+&lt;p&gt;Now we will validate the business&amp;rsquo; name in the model:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
 class Business &amp;lt; ApplicationRecord
   validates :legal_name, presence: true
@@ -1782,7 +2277,7 @@ export default class extends Controller {
               data: {controller: &amp;quot;reset-form&amp;quot;, action: &amp;quot;turbo:submit-end-&amp;gt;reset-form#reset&amp;quot;}
             ) do |form| %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&#39;-&amp;gt;&#39;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&#39;#&#39;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&amp;rsquo;-&amp;gt;&amp;rsquo;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&amp;rsquo;#&amp;rsquo;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Fairly straight-forward, but it helps to be aware of the syntax and the differences between Ruby and Javascript.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:

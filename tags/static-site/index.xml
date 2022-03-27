@@ -344,7 +344,7 @@ EOF
 &lt;/ul&gt;
 &lt;h2 id=&#34;define-a-new-collections&#34;&gt;&lt;strong&gt;Define a New Collections&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Lets assume in addition to publishing your blog - you also want to publish your future presentations and past slides.&lt;/p&gt;
-&lt;p&gt;we will start by defining the new collection &amp;lsquo;talks&amp;rsquo; in the &lt;code&gt;bridgetown.config.yml&lt;/code&gt; file - so now the end of the file should look like:&lt;/p&gt;
+&lt;p&gt;we will start by defining the new collection &amp;rsquo;talks&amp;rsquo; in the &lt;code&gt;bridgetown.config.yml&lt;/code&gt; file - so now the end of the file should look like:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;# bridgetown.config.yml
 # ...
 collections:
@@ -377,7 +377,7 @@ layout: default
 
 EOF
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This layout loads the default layout and for each talk we will have the &amp;lsquo;title&amp;rsquo;, &amp;lsquo;topic&amp;rsquo; and &amp;lsquo;date&amp;rsquo;!&lt;/p&gt;
+&lt;p&gt;This layout loads the default layout and for each talk we will have the &amp;rsquo;title&amp;rsquo;, &amp;rsquo;topic&amp;rsquo; and &amp;lsquo;date&amp;rsquo;!&lt;/p&gt;
 &lt;p&gt;Now we will need the index page for this collection that will list all the talks:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt; src/_pages/talks.md
 ---

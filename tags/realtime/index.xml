@@ -256,7 +256,7 @@ export default class extends Controller {
               data: {controller: &amp;quot;reset-form&amp;quot;, action: &amp;quot;turbo:submit-end-&amp;gt;reset-form#reset&amp;quot;}
             ) do |form| %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&#39;-&amp;gt;&#39;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&#39;#&#39;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&amp;rsquo;-&amp;gt;&amp;rsquo;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&amp;rsquo;#&amp;rsquo;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Fairly straight-forward, but it helps to be aware of the syntax and the differences between Ruby and Javascript.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:

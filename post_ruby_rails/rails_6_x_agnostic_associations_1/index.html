@@ -733,7 +733,7 @@ git commit -m &quot;initial commit&quot;
 <p>Generating a simple business model.</p>
 <pre><code class="language-bash">rails g scaffold Business legal_name
 </code></pre>
-<p>Lets adjust the migration to require the business' legal name, by adding <code>null: false</code> to the name:</p>
+<p>Lets adjust the migration to require the business&rsquo; legal name, by adding <code>null: false</code> to the name:</p>
 <pre><code class="language-ruby"># db/migrate/20210516080420_create_businesses.rb
 class CreateBusinesses &lt; ActiveRecord::Migration[6.1]
   def change
@@ -745,7 +745,7 @@ class CreateBusinesses &lt; ActiveRecord::Migration[6.1]
   end
 end
 </code></pre>
-<p>Now we will validate the business' name in the model:</p>
+<p>Now we will validate the business&rsquo; name in the model:</p>
 <pre><code class="language-ruby"># app/models/business.rb
 class Business &lt; ApplicationRecord
   validates :legal_name, presence: true
@@ -1435,7 +1435,7 @@ git commit -m &quot;created person possibly related to the model&quot;
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b83f17b8257ec03d591fc1860efee439.js"></script>
 
     
 

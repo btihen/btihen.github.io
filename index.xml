@@ -5,7 +5,7 @@
     <link>https://btihen.me/</link>
       <atom:link href="https://btihen.me/index.xml" rel="self" type="application/rss+xml" />
     <description>btihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 12 Mar 2022 01:20:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 26 Mar 2022 01:57:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>btihen</title>
@@ -160,6 +160,501 @@ ARC consortium members contribute by documenting applications of the agile minds
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 5.2 - Command Objects and PORO Attributes</title>
+      <link>https://btihen.me/post_ruby_rails/rails_5_2_command_objects_attributes/</link>
+      <pubDate>Sat, 26 Mar 2022 01:57:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_5_2_command_objects_attributes/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Sometimes within an work flow different validations and business logic is needed.  It can be very complex if each modification uses the same controller and model logic!  I&amp;rsquo;ve tried and ist crazy difficult.  The best solution I have found is to use Commands and separate Controllers.  It became practical to treat a command object as a Rails Model as of Rails 5.2 when the Attribute API allows Plain Old Ruby Objects (POROs) to use Attributes.&lt;/p&gt;
+&lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
+&lt;p&gt;We have a workflow (at a school) where a young student submits a request.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Student creates a request&lt;/li&gt;
+&lt;li&gt;This is reviewed by the &amp;lsquo;assistant to the dean&amp;rsquo; (approved, conditional, declined)&lt;/li&gt;
+&lt;li&gt;When approved it is forwarded to the student&amp;rsquo;s guardian for guardian_approval (approved, conditional, declined)&lt;/li&gt;
+&lt;li&gt;When approved it is forwarded to the  &amp;lsquo;Dean of Students&amp;rsquo; for final_approval (approved, conditional, declined)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This example will omit much of the real-world complexities especially the relationships between users and the related security and scoping.  But the focus here is to build validations and logic outside the controllers and base model.  (the base model will only contains logic that is always true)&lt;/p&gt;
+&lt;h2 id=&#34;create-a-project&#34;&gt;create a project&lt;/h2&gt;
+&lt;p&gt;We will ensure we are using Rails 5.2 (but it can be later and there are be more features in later versions of Rails)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rbenv install 2.7.5
+rbenv local 2.7.5
+
+gem install rails -v 5.2.7
+rails _5.2.7_ new commands_n_attributes --skip-spring
+
+cd commands_n_attributes
+
+bin/rails db:drop
+bin/rails db:create
+bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s create a landing page using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bin/rails g controller landing index&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And now update routes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/routes.rb
+Rails.application.routes.draw do
+  get &#39;landing/index&#39;
+  root &#39;landing#index&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you start rails with &lt;code&gt;bin/rails s&lt;/code&gt; &amp;lsquo;/&amp;rsquo; should be the new landing-page.&lt;/p&gt;
+&lt;p&gt;We will need some users and their roles (but we will keep this simple!) using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rails g scaffold User name role email:uniq&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And we will update the migration to require our new fields using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class CreateUsers &amp;lt; ActiveRecord::Migration[5.2]
+  def change
+    create_table :users do |t|
+      t.string :name, null: false
+      t.string :email, null: false
+      t.string :role, default: &#39;student&#39;, null: false
+
+      t.timestamps
+    end
+    add_index :users, :email, unique: true
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since all fields are required all the time we will put the user validations in the model - so we can now update the model using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class User &amp;lt; ApplicationRecord
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :role, presence: true,
+                   inclusion: { in: %w[student assistant parent dean],
+                                message: &#39;%{value} is not a valid role&#39; }
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s migrate &lt;code&gt;bin/rails db:migrate&lt;/code&gt; and make some users with &lt;code&gt;bin/rails db:migrate&lt;/code&gt; or using &lt;code&gt;/users&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+student = User.create(name: &#39;student&#39;, email: &#39;student@example.ch&#39;, role: &#39;student&#39;)
+reviewer = User.create(name: &#39;reviewer&#39;, email: &#39;reviewer@example.ch&#39;, role: &#39;reviewer&#39;)
+bill = User.create(name: &#39;bill&#39;, email: &#39;bill@example.ch&#39;, role: &#39;guardian&#39;)
+dean = User.create(name: &#39;dean&#39;, email: &#39;dean@example.ch&#39;, role: &#39;dean&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;student-request&#34;&gt;Student Request&lt;/h2&gt;
+&lt;p&gt;allow the student to make a request (this stuff will always be required so we will use all rails standards) &amp;ndash; in real-life this would usually be scoped and the only area students can access, but that is beyond the scope of this article.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rails g scaffold Request category description:text student:references&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now lets open this migration and require all fields using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class CreateRequests &amp;lt; ActiveRecord::Migration[5.2]
+  def change
+    create_table :travel_requests do |t|
+      t.string :category, null: false
+      t.text :description, null: false
+      t.references :student, foreign_key: {to_table: :users}, null: false
+
+      t.timestamps
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note we are using the student as an alias for the User class &amp;ndash; so we can eventually allow all the various users to interact and &amp;lsquo;student&amp;rsquo; is much clearer than &lt;code&gt;user&lt;/code&gt; the model name.  And we can enforce these required fields in the model too:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Request &amp;lt; ApplicationRecord
+  belongs_to :student, class_name: &#39;User&#39;
+
+  validates :student, presence: true
+  validates :description, presence: true
+  validates :category, presence: true,
+                       inclusion: { in: %w(travel money),
+                                    message: &amp;quot;%{value} is not a valid category&amp;quot; }
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s migrate again and create some requests:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/seeds.rb
+student = User.create(name: &#39;student&#39;, email: &#39;student@example.ch&#39;, role: &#39;student&#39;)
+reviewer = User.create(name: &#39;reviewer&#39;, email: &#39;reviewer@example.ch&#39;, role: &#39;reviewer&#39;)
+bill = User.create(name: &#39;bill&#39;, email: &#39;bill@example.ch&#39;, role: &#39;guardian&#39;)
+dean = User.create(name: &#39;dean&#39;, email: &#39;dean@example.ch&#39;, role: &#39;dean&#39;)
+
+request_good = Request.create(category: &#39;travel&#39;, description: &#39;reasonable&#39;, student: student)
+request_hmmm = Request.create(category: &#39;travel&#39;, description: &#39;questionable&#39;, student: student)
+request_nope = Request.create(category: &#39;travel&#39;, description: &#39;unreasonable&#39;, student: student)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;review-command&#34;&gt;Review Command&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s add the more complex logic outside the rails-standard way.&lt;/p&gt;
+&lt;p&gt;First let&amp;rsquo;s add the new fields needed by the reviewer:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails g migration AddReviewFieldsToRequests review_decision review_notes:texr \
+                      review_decision_at:timestamp reviewer:references
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Update the migration:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class AddReviewFieldsToRequests &amp;lt; ActiveRecord::Migration[5.2]
+  def change
+    add_column :requests, :review_notes, :string
+    add_column :requests, :review_decision, :string
+    add_column :requests, :review_decision_at, :timestamp
+    add_reference :requests, :reviewer, foreign_key: {to_table: :users}
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we need to update the Review Model too to add the relationship - its critical to add &lt;code&gt;optional: true&lt;/code&gt; in rails 5.2 - otherwise rails thinks it should always be present!  Otherwise, we are not changing the model nor its validations - since these fields are only required by the reviewer while reviewing a request.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Request &amp;lt; ApplicationRecord
+  belongs_to :student, class_name: &#39;User&#39;, foreign_key: &#39;student_id&#39;
+  belongs_to :reviewer, class_name: &#39;User&#39;, foreign_key: &#39;reviewer_id&#39;, optional: true
+
+  validates :student, presence: true
+  validates :description, presence: true
+  validates :category, presence: true,
+                       inclusion: { in: %w(travel money),
+                                    message: &amp;quot;%{value} is not a valid category&amp;quot; }
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;bin/rails db:migrate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s create a new controller to reviews the requests using (note - will will only accept the fields: review_decision review_notes - the others we will set in code) - so we can use the command:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bin/rails g scaffold_controller ReviewRequests review_decision review_notes&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We don&amp;rsquo;t actually want the assistant to create or delete requests so the routes will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
+  resources :review_requests, only: [:index, :show, :edit, :update]
+  resources :requests
+  resources :users
+  get &#39;landing/index&#39;
+  root &#39;landing#index&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let&amp;rsquo;s create out command (since we will have many commands we will make a folder called commands):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;mkdir -p app/commands
+touch app/commands/review_request_command.rb
+
+class ReviewRequestCommand
+  # Model and Attributes are BOTH needed to user Rails attributes in a Plain Ruby class
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+  include ActiveModel::AttributeAssignment # allows direct assignment `.assign_attributes`
+  include ActiveModel::AttributeMethods # allows attribute prefixing, etc
+  include ActiveModel::Conversion # provides: #to_model, #to_key, #to_param, and to_partial_path
+  include ActiveModel::Dirty # needed to track changes
+  include ActiveModel::Validations
+
+  # allow at least request to be seen outside this model (to display above the form)
+  attr_reader :params, :request
+
+  # unless all attributes are in the accessor you will get
+  # `undefined method `write_from_user&#39; for nil:NilClass` with normal attribute assignment
+  # although you can use @id = params[:id] instead
+  attr_accessor :id, :reviewer_id, :review_decision, :review_notes,
+                :review_decision_at, :reviewer
+
+  # our attributes (these are the only things the form can access/submit)
+  attribute :id, :integer
+  attribute :reviewer, User
+  attribute :reviewer_id, :integer
+  attribute :review_notes, :string
+  attribute :review_decision, :string
+  attribute :review_decision_at, :datetime
+
+  # our rewiewer validations
+  validates :id, presence: true
+  validates :reviewer_id, presence: true
+  validates :review_decision, presence: true,
+                              inclusion: { in: %w[approved conditional declined],
+                                           message: &#39;%{value} is not a valid decision&#39; }
+  # a complex validation with logic
+  validate :validate_review_notes
+
+  # not needed but convenient
+  def self.call(params = {})
+    new(params).run
+  end
+
+  def initialize(params = {})
+    @params = params # helps with debugging
+
+    # get the request and pre-populate our attributes from there
+    @request = Request.find(params[:id])
+    self.review_notes = @request.review_notes
+    self.review_decision = @request.review_decision
+
+    # set the attributes (incoming attributes overwrite those from the request)
+    assign_attributes(params)
+  end
+
+  # what does the action
+  def run
+    request.reviewer_id = reviewer_id
+    request.review_notes = review_notes
+    request.review_decision = review_decision
+    request.review_decision_at = review_decision_at
+
+    # return errors if not valid
+    return self unless valid? &amp;amp;&amp;amp; request.valid? &amp;amp;&amp;amp; request.save
+
+    # if success updating the original request - then do our additional logic
+    case request.review_decision
+    when &#39;approved&#39;
+      puts &#39;notify parent of request&#39;
+      puts &#39;notify student of approval&#39;
+    else
+      puts &amp;quot;notify student that the request is #{review_decision} because #{review_notes}&amp;quot;
+    end
+
+    self
+  end
+
+  # without this method path(object) doesn&#39;t work or you can just use path(id: object.id) instead
+  def to_param
+    id
+  end
+
+  # this must answer true for the form to use patch instead of post!
+  def persisted?
+    true
+  end
+
+  # rails 5.2 requires this to work with forms and dirty tracking
+  # unfortunately, rails 5.2 can&#39;t self-discover its own attributes
+  # without this you get: `undefined method `to_hash&#39; for nil:NilClass` in the form
+  def attributes
+    {
+      id: id,
+      reviewer_id: reviewer_id,
+      review_notes: review_notes,
+      review_decision: review_decision,
+      review_decision_at: review_decision_at,
+      request: request
+    }
+  end
+  alias_method :to_hash, :attributes
+
+  private
+
+  def validate_review_notes
+    # don&#39;t report an error when the decision is &#39;approved&#39; or decision is invalid
+    return unless %w[conditional declined].include? review_decision
+    return unless review_notes.blank?
+
+    errors.add(:review_notes, &#39;is required when request is not approved&#39;)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can test this Command in console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;student = User.create(name: &#39;student&#39;, email: &#39;student@example.ch&#39;, role: &#39;student&#39;)
+reviewer = User.create(name: &#39;reviewer&#39;, email: &#39;reviewer@example.ch&#39;, role: &#39;reviewer&#39;)
+bill = User.create(name: &#39;bill&#39;, email: &#39;bill@example.ch&#39;, role: &#39;guardian&#39;)
+dean = User.create(name: &#39;dean&#39;, email: &#39;dean@example.ch&#39;, role: &#39;dean&#39;)
+
+request_good = Request.create(category: &#39;travel&#39;, description: &#39;reasonable&#39;, student: student)
+request_hmmm = Request.create(category: &#39;travel&#39;, description: &#39;questionable&#39;, student: student)
+request_nope = Request.create(category: &#39;travel&#39;, description: &#39;unreasonable&#39;, student: student)
+
+review = ReviewRequestCommand.new(id: request_good.id, reviewer_id: reviewer.id)
+review.valid?
+review.errors.messages
+request_good.reload # should be unchanged
+
+review = ReviewRequestCommand.call(id: request_good.id, reviewer_id: reviewer.id)
+review.valid?
+review.errors.messages
+request_good.reload # should be unchanged
+
+review = ReviewRequestCommand.call(id: request_good.id, reviewer_id: reviewer.id, review_decision: &#39;accepted&#39;)
+review.valid?
+review.errors.messages
+request_good.reload # SHOULD BE CHANGED
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;adapt-the-review-controller&#34;&gt;Adapt the Review Controller&lt;/h2&gt;
+&lt;p&gt;Basically we need to treat the command as the model and send in the reviewer and the proper params.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class ReviewRequestsController &amp;lt; ApplicationController
+  def index
+    @review_requests = Request.all
+  end
+
+  def edit
+    @review_request = ReviewRequestCommand.new(command_params)
+  end
+
+  def update
+    @review_request = ReviewRequestCommand.call review_request_params.merge(command_params)
+    respond_to do |format|
+      if @review_request.valid?
+        format.html { redirect_to review_requests_url, notice: &#39;Review request was successfully updated.&#39; }
+        format.json { render :show, status: :ok, location: @review_request }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @review_request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+  def command_params
+    # {id: params[:id].to_i, reviewer_id: current_user.id}
+    {id: params[:id].to_i, reviewer_id: current_user.id, reviewer: current_user}
+  end
+
+  # Only allow a list of trusted parameters through.
+  def review_request_params
+    params.require(:review_request_command) # must be the model name
+          .permit(:review_decision, :review_notes)
+  end
+
+  def current_user
+    User.where(role: %w[reviewer admin]).first
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;adapting-the-view-form&#34;&gt;Adapting the View Form&lt;/h2&gt;
+&lt;p&gt;This next part is always tricky (rails likes working with Default models) &amp;ndash; the important thing is the &lt;code&gt;form&lt;/code&gt; command needs the URL since the model is called &lt;code&gt;review_request_command&lt;/code&gt;, but the route is called &lt;code&gt;review_request_path&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if you get a url error that review_request_command_path doesn&amp;rsquo;t exist - check the form url&lt;/li&gt;
+&lt;li&gt;if this form sends a POST be sure &lt;code&gt;review_request.persisted?&lt;/code&gt; returns &lt;code&gt;true&lt;/code&gt;!&lt;/li&gt;
+&lt;li&gt;if the form returns the error: &lt;code&gt;undefined method &lt;/code&gt;to_hash&amp;rsquo; for nil:NilClass&lt;code&gt;in the form - be sure your attribute is returned in&lt;/code&gt;review_request.attributes`&lt;/li&gt;
+&lt;li&gt;if you get the error &lt;code&gt;review_request&lt;/code&gt; wasn&amp;rsquo;t included, be sure you check the controller&amp;rsquo;s review_request_params method requires the &lt;code&gt;review_request_command&lt;/code&gt; not &lt;code&gt;review_request&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- app/views/review_requests/_form.html.erb --&amp;gt;
+&amp;lt;!-- add the url to the form and all should work :) --&amp;gt;
+&amp;lt;%= form_with(model: review_request, local: true,
+              url: review_request_path(id: review_request.id)) do |form| %&amp;gt;
+
+  &amp;lt;% if review_request.errors.any? %&amp;gt;
+    &amp;lt;div id=&amp;quot;error_explanation&amp;quot;&amp;gt;
+      &amp;lt;h2&amp;gt;&amp;lt;%= pluralize(review_request.errors.count, &amp;quot;error&amp;quot;) %&amp;gt; prohibited this review_request from being saved:&amp;lt;/h2&amp;gt;
+
+      &amp;lt;ul&amp;gt;
+      &amp;lt;% review_request.errors.full_messages.each do |message| %&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;%= message %&amp;gt;&amp;lt;/li&amp;gt;
+      &amp;lt;% end %&amp;gt;
+      &amp;lt;/ul&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;% end %&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :review_decision %&amp;gt;
+    &amp;lt;%= form.text_field :review_decision %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;field&amp;quot;&amp;gt;
+    &amp;lt;%= form.label :review_notes %&amp;gt;
+    &amp;lt;%= form.text_field :review_notes %&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;div class=&amp;quot;actions&amp;quot;&amp;gt;
+    &amp;lt;%= form.submit %&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;% end %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can have complex process logic isolated in your commands and all your models, controllers and views can be focused on their simple tasks.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;h3 id=&#34;attributes-allowed-in-non-ar-models&#34;&gt;attributes allowed in non-ar models&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/rails/rails/issues/28020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/issues/28020&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;rails-52-docs&#34;&gt;Rails 5.2 Docs&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2/&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;default-attribute-types&#34;&gt;default attribute types:&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;book-using-poro-with-attributes&#34;&gt;book using PORO with attributes&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://products.arkency.com/domain-driven-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://products.arkency.com/domain-driven-rails&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;helpful-blogs&#34;&gt;helpful blogs&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
+
+&lt;a href=&#34;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
+
+&lt;a href=&#34;https://blog.dario-hamidi.de/a/rails-hidden-type-system&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.dario-hamidi.de/a/rails-hidden-type-system&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;custom-attribute-types&#34;&gt;custom Attribute types&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;
+
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
+
+&lt;a href=&#34;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;
+
+&lt;a href=&#34;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&lt;/a&gt;
+
+&lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;
+
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;
+
+&lt;a href=&#34;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;
+
+&lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;custom-attributes-when-inherited-from-acitivemodel&#34;&gt;Custom Attributes (when inherited from AcitiveModel)&lt;/h2&gt;
+&lt;p&gt;This is good with a &amp;rsquo;normal&amp;rsquo; active record model you can add &amp;lsquo;virtual&amp;rsquo; attributes - just for the form pages&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/attribute_types/squished_string.rb
+class SquishedString &amp;lt; ActiveRecord::Type::Value
+  include ActiveModel::Type::Helpers::Mutable
+  def type
+    :squished_string
+  end
+
+  def cast(value)
+    value.to_s.squish.strip
+  end
+
+  # def cast_value(value)
+  # end
+
+  # def deserialize(value)
+  # end
+
+  # def serialize(value)
+  # end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/attribute_types.rb
+ActiveRecord::Type.register(:squished_string, SquishedString)
+ActiveModel::Type.register(:squished_string, SquishedString)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;custom-attributes-in-poro---not-yet-in-rails-52&#34;&gt;Custom Attributes (in PORO - not yet in Rails 5.2)&lt;/h2&gt;
+&lt;p&gt;Without access to attribute_type it seems this only works with Manual casting - without explict casting.&lt;/p&gt;
+&lt;p&gt;@review_notes = TrimmedText.new.cast(&amp;rsquo; lots to     say &amp;lsquo;)
+&amp;ldquo;lots to say&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;ActiveModels have: #attribute_types &amp;amp; #attribute_names &amp;amp; #columns &amp;amp; #reflections (associations) - when a model has attribute types all works well as documented.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;[26] pry(Request):2&amp;gt; attribute_types
+=&amp;gt; {&amp;quot;id&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveModel::Type::Integer:0x00007f8382cf5b18 @limit=8, @precision=nil, @range=-9223372036854775808...9223372036854775808, @scale=nil&amp;gt;,
+ &amp;quot;category&amp;quot;=&amp;gt;#&amp;lt;ActiveModel::Type::String:0x00007f8383c36be0 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;description&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::Type::Text:0x00007f8382cf5708 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;student_id&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveModel::Type::Integer:0x00007f8382cf5b18 @limit=8, @precision=nil, @range=-9223372036854775808...9223372036854775808, @scale=nil&amp;gt;,
+ &amp;quot;created_at&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime:0x00007f8383c35c68 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;updated_at&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime:0x00007f8383c35c68 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;review_notes&amp;quot;=&amp;gt;#&amp;lt;ActiveRecord::Type::Text:0x00007f8382cf5708 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;review_decision&amp;quot;=&amp;gt;#&amp;lt;ActiveModel::Type::String:0x00007f8383c36be0 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;review_decision_at&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime:0x00007f8383c35c68 @limit=nil, @precision=nil, @scale=nil&amp;gt;,
+ &amp;quot;reviewer_id&amp;quot;=&amp;gt;
+  #&amp;lt;ActiveModel::Type::Integer:0x00007f8382cf5b18 @limit=8, @precision=nil, @range=-9223372036854775808...9223372036854775808, @scale=nil&amp;gt;}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -653,7 +1148,7 @@ EOF
 &lt;/ul&gt;
 &lt;h2 id=&#34;define-a-new-collections&#34;&gt;&lt;strong&gt;Define a New Collections&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Lets assume in addition to publishing your blog - you also want to publish your future presentations and past slides.&lt;/p&gt;
-&lt;p&gt;we will start by defining the new collection &amp;lsquo;talks&amp;rsquo; in the &lt;code&gt;bridgetown.config.yml&lt;/code&gt; file - so now the end of the file should look like:&lt;/p&gt;
+&lt;p&gt;we will start by defining the new collection &amp;rsquo;talks&amp;rsquo; in the &lt;code&gt;bridgetown.config.yml&lt;/code&gt; file - so now the end of the file should look like:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;# bridgetown.config.yml
 # ...
 collections:
@@ -686,7 +1181,7 @@ layout: default
 
 EOF
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This layout loads the default layout and for each talk we will have the &amp;lsquo;title&amp;rsquo;, &amp;lsquo;topic&amp;rsquo; and &amp;lsquo;date&amp;rsquo;!&lt;/p&gt;
+&lt;p&gt;This layout loads the default layout and for each talk we will have the &amp;rsquo;title&amp;rsquo;, &amp;rsquo;topic&amp;rsquo; and &amp;lsquo;date&amp;rsquo;!&lt;/p&gt;
 &lt;p&gt;Now we will need the index page for this collection that will list all the talks:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt; src/_pages/talks.md
 ---
@@ -3752,7 +4247,7 @@ ActiveModel::Type.register(:token, Type::Token)
 &lt;a href=&#34;https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/3879680/how-can-i-make-rails-3-localize-my-date-formats/45743846#45743846&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;How Rails Transforms Attributes&lt;/p&gt;
 &lt;p&gt;Here&amp;rsquo;s a quick tour of the Rails Attributes API. You can skip this section, but then you won&amp;rsquo;t know how this stuff works. What fun is that?&lt;/p&gt;
-&lt;p&gt;Understanding how Rails handles user input for your attribute will let us override only one method instead of making a more complete custom type. It will also help you write better code, since rails&#39; code is pretty good.&lt;/p&gt;
+&lt;p&gt;Understanding how Rails handles user input for your attribute will let us override only one method instead of making a more complete custom type. It will also help you write better code, since rails&amp;rsquo; code is pretty good.&lt;/p&gt;
 &lt;p&gt;Since you didn&amp;rsquo;t mention a model, I&amp;rsquo;ll assume you have a Post with a :publish_date attribute (some would prefer the name :published_on, but I digress).
 What is your type?&lt;/p&gt;
 &lt;p&gt;Find out what type :publish_date is. We don&amp;rsquo;t care that it is an instance of Date, we need to know what type_for_attribute returns:&lt;/p&gt;
@@ -3770,7 +4265,7 @@ What is your type?&lt;/p&gt;
 &lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveModel/Type.htmlValue.html)&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;How is user input transformed by &lt;code&gt;ActiveRecord::Type::Date&lt;/code&gt;?&lt;/p&gt;
 &lt;p&gt;So, when you set &lt;code&gt;:publish_date&lt;/code&gt;, the value is passed to cast, which calls cast_value. Since form input is a String, it will try a &lt;code&gt;fast_string_to_date&lt;/code&gt; then &lt;code&gt;fallback_string_to_date&lt;/code&gt; which uses &lt;code&gt;Date._parse&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;If you&amp;rsquo;re getting lost, don&amp;rsquo;t worry. You don&amp;rsquo;t need to understand rails&#39; code to customize an attribute.
+&lt;p&gt;If you&amp;rsquo;re getting lost, don&amp;rsquo;t worry. You don&amp;rsquo;t need to understand rails&amp;rsquo; code to customize an attribute.
 Defining a Custom Type&lt;/p&gt;
 &lt;p&gt;Now that we understand how Rails uses the attributes API, we can easily make our own. Just create a custom type to override cast_value to expect localized date strings:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class LocalizedDate &amp;lt; ActiveRecord::Type::Date
@@ -3791,7 +4286,7 @@ Defining a Custom Type&lt;/p&gt;
     end
 end
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;See how I just copied rails&#39; code and made a small tweak. Easy. You might want to improve on this with a call to super and move the :short format to an option or constant.&lt;/p&gt;
+&lt;p&gt;See how I just copied rails&amp;rsquo; code and made a small tweak. Easy. You might want to improve on this with a call to super and move the :short format to an option or constant.&lt;/p&gt;
 &lt;p&gt;Register your type so it can be referenced by a symbol:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/types.rb
 ActiveRecord::Type.register(:localized_date, LocalizedDate)
@@ -4592,7 +5087,7 @@ end
   &amp;lt;/div&amp;gt;
 &amp;lt;% end %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now when we try &lt;code&gt;/contacts&lt;/code&gt; we notice one more problem - it is always invalid - rails automatically add a leading &amp;quot;&amp;quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &amp;ldquo;&amp;quot;) using:&lt;/p&gt;
+&lt;p&gt;Now when we try &lt;code&gt;/contacts&lt;/code&gt; we notice one more problem - it is always invalid - rails automatically add a leading &amp;quot;&amp;quot; in an array input list :( - so we will have to clean this up in the strong params.  In this case we are working with param objects not a hash so we will do an in-place update (removal of &amp;ldquo;&amp;rdquo;) using:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  contact_attribs[&amp;quot;functions&amp;quot;].reject! {|f| f.blank? }
   contact_attribs
 &lt;/code&gt;&lt;/pre&gt;
@@ -4800,7 +5295,7 @@ git commit -m &amp;quot;initial commit&amp;quot;
 &lt;p&gt;Generating a simple business model.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rails g scaffold Business legal_name
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Lets adjust the migration to require the business&#39; legal name, by adding &lt;code&gt;null: false&lt;/code&gt; to the name:&lt;/p&gt;
+&lt;p&gt;Lets adjust the migration to require the business&amp;rsquo; legal name, by adding &lt;code&gt;null: false&lt;/code&gt; to the name:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# db/migrate/20210516080420_create_businesses.rb
 class CreateBusinesses &amp;lt; ActiveRecord::Migration[6.1]
   def change
@@ -4812,7 +5307,7 @@ class CreateBusinesses &amp;lt; ActiveRecord::Migration[6.1]
   end
 end
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we will validate the business&#39; name in the model:&lt;/p&gt;
+&lt;p&gt;Now we will validate the business&amp;rsquo; name in the model:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/models/business.rb
 class Business &amp;lt; ApplicationRecord
   validates :legal_name, presence: true
@@ -8856,7 +9351,7 @@ export default class extends Controller {
               data: {controller: &amp;quot;reset-form&amp;quot;, action: &amp;quot;turbo:submit-end-&amp;gt;reset-form#reset&amp;quot;}
             ) do |form| %&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&#39;-&amp;gt;&#39;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&#39;#&#39;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This &lt;code&gt;data&lt;/code&gt; tag ties the stimulus &lt;strong&gt;controller&lt;/strong&gt; &lt;code&gt;reset_form_controller.js&lt;/code&gt; with the &lt;code&gt;reset-form&lt;/code&gt; setting &amp;ndash; notice the html uses a &lt;code&gt;-&lt;/code&gt; when ruby uses &lt;code&gt;_&lt;/code&gt;. On the form &lt;strong&gt;action&lt;/strong&gt; &lt;code&gt;submit-end&lt;/code&gt; then execute (&amp;rsquo;-&amp;gt;&amp;rsquo;) in the controller &lt;code&gt;reset-form&lt;/code&gt; the function (&amp;rsquo;#&amp;rsquo;) &lt;code&gt;reset&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Fairly straight-forward, but it helps to be aware of the syntax and the differences between Ruby and Javascript.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;p&gt;The repo where you can find this code in the branch:
@@ -9928,13 +10423,13 @@ git commit -m &amp;quot;likes and retweets enabled and also &#39;stay&#39; on in
 &lt;p&gt;As a &lt;strong&gt;feedback giver&lt;/strong&gt;: 1) stop and think, then 2) start with what you like and 3) say what you would like to see more of. There is no corrective feedback or discussions of what you dislike. Students (and the teacher) just offer what they would like to see more of. It’s ok, of course, if that feedback excludes some of what’s there!&lt;/p&gt;
 &lt;p&gt;As a &lt;strong&gt;demo presenter&lt;/strong&gt;: 1) listen and 2) do not comment or or mount a defense to what you are hearing, but clarification questions are allowed and encouraged. After the demo, (3) stop and think; then (4) decide what suggestions to act upon and what not to act upon.&lt;/p&gt;
 &lt;p&gt;Students (and many teachers) are not very practiced at Pixar’s &lt;strong&gt;additive feedback&lt;/strong&gt;, so practice is practice is essential.  In fact, initially I guide all demos to ensure they learn the practices to feel safe while demoing, giving and getting additive feedback.  After demos I do a quick reflection with the group to help them think through what ideas to use and what to disregard.  Over time, the students get good at this and I no longer guide the demos.&lt;/p&gt;
-&lt;p&gt;When &amp;lsquo;natural&amp;rsquo; feedback isn&amp;rsquo;t easy or when working with technical topics where there are multiple ways to solve a problem and when judgement is important. Then instead of emphasizing &amp;lsquo;additive&amp;rsquo; feedback, I turn to 
+&lt;p&gt;When &amp;rsquo;natural&amp;rsquo; feedback isn&amp;rsquo;t easy or when working with technical topics where there are multiple ways to solve a problem and when judgement is important. Then instead of emphasizing &amp;lsquo;additive&amp;rsquo; feedback, I turn to 
 &lt;a href=&#34;https://www.michaelagreiler.com/about/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Michaela Greiler (Doctor McKayla)&lt;/a&gt; &lt;strong&gt;code review guidelines&lt;/strong&gt; in her video 
 &lt;a href=&#34;https://www.michaelagreiler.com/respectful-constructive-code-review-feedback/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Respectful, Constructive Code-Review Feedback&lt;/a&gt;.  She developed these guidelines while working at Microsoft&amp;rsquo;s Research and Development Department while studying the effects of code reviews and feedback on team performance.&lt;/p&gt;
 &lt;p&gt;I avoid the phrase &amp;ldquo;constructive feedback,&amp;rdquo; since that phrase is too often code for stating what you personally think is correct. When the teacher does that, from the position of power granted to teachers by way of assigning grades, for example, constructive feedback becomes another way to tell students what is right (according to the teacher) and what students should do. Encouraging additive feedback puts the focus on what the student is learning, not what the teacher is thinking.&lt;/p&gt;
 &lt;p&gt;To ensure that collaborative feedback is practiced I require every project to include at least one adjustment that students must credit to another student’s feedback when they hand-in or present their project.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;Technology companies focus on communication and feedback to create an environment of enthusiastic, engaged learners.  Fundamentally, they are moving away from an &amp;lsquo;authoritative&amp;rsquo;,  &amp;lsquo;telling&amp;rsquo; and &amp;lsquo;corrective&amp;rsquo; approach and instead toward an &amp;lsquo;amplifying&amp;rsquo;, &amp;lsquo;curious&amp;rsquo; and &amp;lsquo;collaborative&amp;rsquo; approach.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Technology companies focus on communication and feedback to create an environment of enthusiastic, engaged learners.  Fundamentally, they are moving away from an &amp;lsquo;authoritative&amp;rsquo;,  &amp;rsquo;telling&amp;rsquo; and &amp;lsquo;corrective&amp;rsquo; approach and instead toward an &amp;lsquo;amplifying&amp;rsquo;, &amp;lsquo;curious&amp;rsquo; and &amp;lsquo;collaborative&amp;rsquo; approach.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Pixar&amp;rsquo;s Plussing&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Amplifying feedback over silencing feedback.&lt;/p&gt;
 &lt;ul&gt;
@@ -11296,7 +11791,7 @@ Now we want to connect the body tag to our controller using an HTML5 data attrib
 &lt;li&gt;etc. (now the students have enough basics to keep learning and progressing).&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;As Bill Rankin said in several keynote addresses, you learn to cook by cooking. In fact, you learn almost anything by doing it. You have to jump in and start, or “get cooking.”&lt;/p&gt;
-&lt;p&gt;Of course, a student who chooses to build a rescue boat will have a different set of small steps, but common to both boats is learning to work incrementally and building on the next workable small step toward the goal. This is a powerful learning technique that builds confidence in students&#39; ability to learn and be successful.&lt;/p&gt;
+&lt;p&gt;Of course, a student who chooses to build a rescue boat will have a different set of small steps, but common to both boats is learning to work incrementally and building on the next workable small step toward the goal. This is a powerful learning technique that builds confidence in students&amp;rsquo; ability to learn and be successful.&lt;/p&gt;
 &lt;p&gt;Once the students get the hang of this process of moving from the big picture, identifying a few critical aspects, and smallifiying their project into small workable steps, they have effectively learned how to learn and self-correct as they move toward a large complex goal. This meta-aspect of the learning process and its deliberate practice may in the long run be a lifeworthy skill that goes far beyond the specific content of a single class. Engineering classes such as the Boat Design class example here work well. So, too, do classes in art and other areas.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Caution:&lt;/strong&gt; Smallification happens in &lt;strong&gt;small&lt;/strong&gt; chunks (one or two steps at a time maximum). In the tech world we call this planning at the last responsible moment, but fundamentally, it is about figuring out the next workable thing when the students have enough information to see that next step. This prevents the feeling that the big goal is just too overwhelming. Students who have never worked this way will need some smallifying guidance. For example, in the Boat Design class, I gave students a few steps to get started and I give the details of the final assessment. (I like a public demonstration and company pitch.)  As a teacher you may want to step through a project to be more confident in the timing, practice the smallifying, etc, but be careful not to give away more than needed and avoid at all costs big and detailed plans! The fun and exploration is a central feature of a motivating and educational experience for the students.&lt;/p&gt;
 &lt;p&gt;Fundamentally, creating a learning environment where having the big picture and exploring the details along the way can create an uplifting educational journey.&lt;/p&gt;
@@ -12859,7 +13354,7 @@ git commit -m &amp;quot;authors names are displayed now with preloading&amp;quot
 &lt;/ul&gt;
 &lt;p&gt;Ideally, as students work, they self-assess, self-reflect, and self-correct their own work. It is, unfortunately, very common that we as teachers correct students and we as teachers tell them not only what to rework, and how to do it. This may be efficient at getting certain results - for example, completed projects. However, I question if that is valuable learning. When we judge student work, students learn to work toward the approval found in a grade, which alters learning. Additionally, when we tell students what to do, they don’t learn to self-regulate and self-motivate their own learning processes.&lt;/p&gt;
 &lt;p&gt;On the other hand, when students can engage in &lt;strong&gt;deliberate practice&lt;/strong&gt; (where they self-assess, self-reflect, self-correct, and choose to &lt;strong&gt;redo&lt;/strong&gt; until they themselves are satisfied), then students not only learn the classroom curriculum, but also lifeworthy skills, including: problem solving skills, balancing competing design needs, grit (stick-to-it-ive-ness), self-directed learning, and the joy of learning and discovery. In this way, students are much more likely to become life-long learners.&lt;/p&gt;
-&lt;p&gt;To ensure that students learn the process of &lt;strong&gt;deliberate practice&lt;/strong&gt;, it is important to create a classroom environment where it is straightforward for students to be able to self-assess. I have found the best way to do this is to use &lt;strong&gt;&amp;lsquo;natural&amp;rsquo; assessments&lt;/strong&gt;. At least in the world of code, engineering, and physics, this is pretty straightforward. Make rubrics in which the students can test themselves, e.g. in a class making boats, the rubric will ask if it floats with a payload, say a large coin. For areas where natural assessment isn’t as easy, I teach the kids how to get (and give) each other helpful feedback (described in a later article). In this way, students are helping each other, learning from each other, and in the end self-assessing what to do with the feedback. They are no longer as reliant on the teacher.&lt;/p&gt;
+&lt;p&gt;To ensure that students learn the process of &lt;strong&gt;deliberate practice&lt;/strong&gt;, it is important to create a classroom environment where it is straightforward for students to be able to self-assess. I have found the best way to do this is to use &lt;strong&gt;&amp;rsquo;natural&amp;rsquo; assessments&lt;/strong&gt;. At least in the world of code, engineering, and physics, this is pretty straightforward. Make rubrics in which the students can test themselves, e.g. in a class making boats, the rubric will ask if it floats with a payload, say a large coin. For areas where natural assessment isn’t as easy, I teach the kids how to get (and give) each other helpful feedback (described in a later article). In this way, students are helping each other, learning from each other, and in the end self-assessing what to do with the feedback. They are no longer as reliant on the teacher.&lt;/p&gt;
 &lt;p&gt;The beauty of letting students learn this way, when there is safety to explore &lt;i&gt;&lt;b&gt;(&amp;amp; make mistakes)&lt;/b&gt;&lt;/i&gt;, is that the students often enjoy the learning, gain self-confidence, and possibly learn the &lt;strong&gt;JOY&lt;/strong&gt; of learning. If this joy of learning becomes commonplace in education, we are very likely to have many more joyful, lifelong learners and innovators.&lt;/p&gt;
 </description>
     </item>
@@ -13021,7 +13516,7 @@ If a state or other external final exam like an AP test is part of the course &a
 &lt;li&gt;&lt;strong&gt;Demos &amp;amp; Constructive Feedback&lt;/strong&gt; - ideally I have the kids have a project journal and demo notes and reflections need to be recorded&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;Demos are IMPORTANT - putting students in the learners driver seat.  Students need to learn to get / ask for (&lt;strong&gt;pull&lt;/strong&gt;) their feedback to assess and adjust the quality and progress of their work (with help from the &lt;em&gt;Natural Assessment as a reality check &amp;ndash; not the teacher - &amp;lsquo;What does the water say?&#39;&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;Demos are IMPORTANT - putting students in the learners driver seat.  Students need to learn to get / ask for (&lt;strong&gt;pull&lt;/strong&gt;) their feedback to assess and adjust the quality and progress of their work (with help from the &lt;em&gt;Natural Assessment as a reality check &amp;ndash; not the teacher - &amp;lsquo;What does the water say?&amp;rsquo;&lt;/em&gt;)&lt;/li&gt;
 &lt;li&gt;Students must learn to give &amp;amp; hear &amp;amp; accept feedback in their work.  To that end there are 4 rules to make this work - with more experience these can be loosened some:
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;plan&lt;/strong&gt; what and how to present the demo (&amp;amp; what the feedback might be - both likes and changes)&lt;/li&gt;
@@ -13030,7 +13525,7 @@ If a state or other external final exam like an AP test is part of the course &a
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;what is &lt;strong&gt;liked&lt;/strong&gt; and how that matches what is understood about the group&amp;rsquo;s goals&lt;/li&gt;
-&lt;li&gt;what they think would make the work &lt;strong&gt;even better&lt;/strong&gt; (if something should change then is needs to be worded as - &amp;ldquo;I like this &amp;lsquo;pointy bow&amp;rsquo; and think it would be even better with a rounded bow&amp;rdquo;) - constructive and positive feedback (this takes practice &amp;ndash; kids (and teachers) are not well versed in &lt;strong&gt;&amp;ldquo;Pixar&amp;rsquo;s yes and &amp;hellip;&amp;quot;&lt;/strong&gt; feedback process&lt;/li&gt;
+&lt;li&gt;what they think would make the work &lt;strong&gt;even better&lt;/strong&gt; (if something should change then is needs to be worded as - &amp;ldquo;I like this &amp;lsquo;pointy bow&amp;rsquo; and think it would be even better with a rounded bow&amp;rdquo;) - constructive and positive feedback (this takes practice &amp;ndash; kids (and teachers) are not well versed in &lt;strong&gt;&amp;ldquo;Pixar&amp;rsquo;s yes and &amp;hellip;&amp;rdquo;&lt;/strong&gt; feedback process&lt;/li&gt;
 &lt;/ul&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;&lt;strong&gt;using a suggestion&lt;/strong&gt; each project must accept at least &lt;strong&gt;ONE&lt;/strong&gt; suggestion from another group (and credit them) and explain how they made the suggestion their own and integrated it into the project.  Without this - they cannot submit the project (its incomplete)!&lt;/li&gt;
@@ -13730,30 +14225,30 @@ git commit -m &amp;quot;counter with live update&amp;quot;
   &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
 &amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now point &lt;code&gt;lib/counter_web/live/counter_live/index.ex&lt;/code&gt; to this file by replacing render with an apply command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;defp&lt;/span&gt; apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    socket
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;# remove this funtion&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;# def render(assigns) do&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;#  ~L&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;#   ...&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;#   &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# add this new function&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;defp&lt;/span&gt; apply_action(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:index&lt;/span&gt;, _params) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    socket
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# remove this funtion&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# def render(assigns) do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#  ~L&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#   ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#   &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; &lt;code&gt;apply_action&lt;/code&gt; understands the &lt;strong&gt;rest&lt;/strong&gt; verbs such as &lt;code&gt;:new&lt;/code&gt;, &lt;code&gt;:show&lt;/code&gt; etc.&lt;/p&gt;
@@ -13770,72 +14265,72 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;p&gt;&lt;code&gt;use CounterWeb, :live_component&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;In order to encapsulate the events into the component we will also move the event handlers into the component file.&lt;/p&gt;
 &lt;p&gt;So this file will now look like:
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;29
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;30
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;31
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/counter_component.ex&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.CounterComponent&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_component&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;h2&amp;gt;The count is: &amp;lt;%= @val %&amp;gt;&amp;lt;/h2&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;dec&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;-&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;inc&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;+&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;div&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;button phx-click=&amp;#34;clear&amp;#34; phx-target=&amp;#34;&amp;lt;%= @myself %&amp;gt;&amp;#34;&amp;gt;clear&amp;lt;/button&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/div&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inc&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dec&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; handle_event(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clear&amp;#34;&lt;/span&gt;, _, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# {:noreply, update(socket, :val, 0)} # very slow - why?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {&lt;span style=&#34;color:#e6db74&#34;&gt;:noreply&lt;/span&gt;, update(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&amp;amp;1 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &amp;amp;1))}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Notice the button tags are slightly more complex&lt;/p&gt;
@@ -13847,62 +14342,62 @@ git commit -m &amp;quot;counter using a template&amp;quot;
 &lt;p&gt;&lt;code&gt;id: 0, val: @val&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;its a little wierd, but we need to pass an &lt;strong&gt;id&lt;/strong&gt; even if there is no ecto backed record.&lt;/p&gt;
 &lt;p&gt;Now the template file looks like a normal template file again (focused on formating):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
-
-  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-elixir&#34; data-lang=&#34;elixir&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# lib/counter_web/live/counter_live/index.ex&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;defmodule&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb.CounterLive.Index&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CounterWeb&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;:live_view&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# since we don&amp;#39;t have a db to pull from we initialize on mount&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;@impl&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; mount(_params, _session, socket) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {&lt;span style=&#34;color:#e6db74&#34;&gt;:ok&lt;/span&gt;, assign(socket, &lt;span style=&#34;color:#e6db74&#34;&gt;:val&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; render(assigns) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;~L&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;h1&amp;gt;Live Counter&amp;lt;/h1&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;b&amp;gt;Here is a great complex page&amp;lt;/b&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;p&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      &amp;lt;i&amp;gt;even more awesome content&amp;lt;/i&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;lt;/p&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Lets check that this still works.&lt;/p&gt;

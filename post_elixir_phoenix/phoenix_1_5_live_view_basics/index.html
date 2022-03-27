@@ -837,30 +837,30 @@ git commit -m &quot;counter with live update&quot;
   &lt;i&gt;even more awesome content&lt;/i&gt;
 &lt;/p&gt;</code></pre>
 <p>Now point <code>lib/counter_web/live/counter_live/index.ex</code> to this file by replacing render with an apply command:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">  <span style="color:#75715e"># add this new function</span>
-  <span style="color:#66d9ef">defp</span> apply_action(socket, <span style="color:#e6db74">:index</span>, _params) <span style="color:#66d9ef">do</span>
-    socket
-  <span style="color:#66d9ef">end</span>
-  <span style="color:#75715e"># remove this funtion</span>
-  <span style="color:#75715e"># def render(assigns) do</span>
-  <span style="color:#75715e">#  ~L&#34;&#34;&#34;</span>
-  <span style="color:#75715e">#   ...</span>
-  <span style="color:#75715e">#   &#34;&#34;&#34;</span>
-  <span style="color:#75715e"># end</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-elixir" data-lang="elixir"><span style="display:flex;"><span>  <span style="color:#75715e"># add this new function</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">defp</span> apply_action(socket, <span style="color:#e6db74">:index</span>, _params) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    socket
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># remove this funtion</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># def render(assigns) do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#  ~L&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   ...</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># end</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
 <p><strong>NOTE:</strong> <code>apply_action</code> understands the <strong>rest</strong> verbs such as <code>:new</code>, <code>:show</code> etc.</p>
@@ -877,72 +877,72 @@ git commit -m &quot;counter using a template&quot;
 <p><code>use CounterWeb, :live_component</code></p>
 <p>In order to encapsulate the events into the component we will also move the event handlers into the component file.</p>
 <p>So this file will now look like:
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># lib/counter_web/live/counter_live/counter_component.ex</span>
-<span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">CounterWeb.CounterLive.CounterComponent</span> <span style="color:#66d9ef">do</span>
-  <span style="color:#f92672">use</span> <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_component</span>
-
-  <span style="color:#66d9ef">def</span> render(assigns) <span style="color:#66d9ef">do</span>
-    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    &lt;div&gt;
-</span><span style="color:#e6db74">      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
-</span><span style="color:#e6db74">      &lt;button phx-click=&#34;dec&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;-&lt;/button&gt;
-</span><span style="color:#e6db74">      &lt;button phx-click=&#34;inc&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;+&lt;/button&gt;
-</span><span style="color:#e6db74">    &lt;/div&gt;
-</span><span style="color:#e6db74">    &lt;div&gt;
-</span><span style="color:#e6db74">      &lt;button phx-click=&#34;clear&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;clear&lt;/button&gt;
-</span><span style="color:#e6db74">    &lt;/div&gt;
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-  <span style="color:#66d9ef">end</span>
-
-  <span style="color:#66d9ef">def</span> handle_event(<span style="color:#e6db74">&#34;inc&#34;</span>, _, socket) <span style="color:#66d9ef">do</span>
-    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))}
-  <span style="color:#66d9ef">end</span>
-
-  <span style="color:#66d9ef">def</span> handle_event(<span style="color:#e6db74">&#34;dec&#34;</span>, _, socket) <span style="color:#66d9ef">do</span>
-    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))}
-  <span style="color:#66d9ef">end</span>
-
-  <span style="color:#66d9ef">def</span> handle_event(<span style="color:#e6db74">&#34;clear&#34;</span>, _, socket) <span style="color:#66d9ef">do</span>
-    <span style="color:#75715e"># {:noreply, update(socket, :val, 0)} # very slow - why?</span>
-    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> &amp;1))}
-  <span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">end</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-elixir" data-lang="elixir"><span style="display:flex;"><span><span style="color:#75715e"># lib/counter_web/live/counter_live/counter_component.ex</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">CounterWeb.CounterLive.CounterComponent</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">use</span> <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_component</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> render(assigns) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;h2&gt;The count is: &lt;%= @val %&gt;&lt;/h2&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;button phx-click=&#34;dec&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;-&lt;/button&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;button phx-click=&#34;inc&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;+&lt;/button&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;button phx-click=&#34;clear&#34; phx-target=&#34;&lt;%= @myself %&gt;&#34;&gt;clear&lt;/button&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> handle_event(<span style="color:#e6db74">&#34;inc&#34;</span>, _, socket) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> handle_event(<span style="color:#e6db74">&#34;dec&#34;</span>, _, socket) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> handle_event(<span style="color:#e6db74">&#34;clear&#34;</span>, _, socket) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># {:noreply, update(socket, :val, 0)} # very slow - why?</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">:noreply</span>, update(socket, <span style="color:#e6db74">:val</span>, <span style="color:#f92672">&amp;</span>(&amp;1 <span style="color:#f92672">-</span> &amp;1))}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span></span></span></code></pre></td></tr></table>
 </div>
 </div></p>
 <p>Notice the button tags are slightly more complex</p>
@@ -954,62 +954,62 @@ git commit -m &quot;counter using a template&quot;
 <p><code>id: 0, val: @val</code></p>
 <p>its a little wierd, but we need to pass an <strong>id</strong> even if there is no ecto backed record.</p>
 <p>Now the template file looks like a normal template file again (focused on formating):</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># lib/counter_web/live/counter_live/index.ex</span>
-<span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">CounterWeb.CounterLive.Index</span> <span style="color:#66d9ef">do</span>
-  <span style="color:#f92672">use</span> <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_view</span>
-
-  <span style="color:#75715e"># since we don&#39;t have a db to pull from we initialize on mount</span>
-  <span style="color:#a6e22e">@impl</span> <span style="color:#66d9ef">true</span>
-  <span style="color:#66d9ef">def</span> mount(_params, _session, socket) <span style="color:#66d9ef">do</span>
-    {<span style="color:#e6db74">:ok</span>, assign(socket, <span style="color:#e6db74">:val</span>, <span style="color:#ae81ff">0</span>)}
-  <span style="color:#66d9ef">end</span>
-
-  <span style="color:#66d9ef">def</span> render(assigns) <span style="color:#66d9ef">do</span>
-    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    &lt;h1&gt;Live Counter&lt;/h1&gt;
-</span><span style="color:#e6db74">    &lt;p&gt;
-</span><span style="color:#e6db74">      &lt;b&gt;Here is a great complex page&lt;/b&gt;
-</span><span style="color:#e6db74">    &lt;/p&gt;
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">    &lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">    &lt;p&gt;
-</span><span style="color:#e6db74">      &lt;i&gt;even more awesome content&lt;/i&gt;
-</span><span style="color:#e6db74">    &lt;/p&gt;
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-  <span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">end</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-elixir" data-lang="elixir"><span style="display:flex;"><span><span style="color:#75715e"># lib/counter_web/live/counter_live/index.ex</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defmodule</span> <span style="color:#a6e22e">CounterWeb.CounterLive.Index</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">use</span> <span style="color:#a6e22e">CounterWeb</span>, <span style="color:#e6db74">:live_view</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># since we don&#39;t have a db to pull from we initialize on mount</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@impl</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> mount(_params, _session, socket) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">:ok</span>, assign(socket, <span style="color:#e6db74">:val</span>, <span style="color:#ae81ff">0</span>)}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> render(assigns) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">~L</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;h1&gt;Live Counter&lt;/h1&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;b&gt;Here is a great complex page&lt;/b&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;%= live_component @socket, CounterWeb.CounterLive.CounterComponent, id: 0, val: @val %&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &lt;i&gt;even more awesome content&lt;/i&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
 <p>Lets check that this still works.</p>
@@ -1372,7 +1372,7 @@ git commit -m &quot;live pages using isolated components - like JS does&quot;
     
     
     
-    <script src="/js/academic.min.4aaf2d64e50f8e54cf66dcc54147a22e.js"></script>
+    <script src="/js/academic.min.b83f17b8257ec03d591fc1860efee439.js"></script>
 
     
 
