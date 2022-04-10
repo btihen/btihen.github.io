@@ -396,75 +396,137 @@ end
 &lt;p&gt;Now you can have complex process logic isolated in your commands and all your models, controllers and views can be focused on their simple tasks.&lt;/p&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;h3 id=&#34;attributes-allowed-in-non-ar-models&#34;&gt;attributes allowed in non-ar models&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://github.com/rails/rails/issues/28020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/issues/28020&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/rails/rails/issues/28020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/issues/28020&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;attribute-assignment-methods&#34;&gt;Attribute Assignment methods&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://scottbartell.com/2020/01/30/set-attributes-in-active-record-rails-6/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://scottbartell.com/2020/01/30/set-attributes-in-active-record-rails-6/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;rails-52-docs&#34;&gt;Rails 5.2 Docs&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2/&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/AttributeMethods/Read.html#method-i-read_attribute&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Conversion.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeMethods.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/AttributeAssignment.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;default-attribute-types&#34;&gt;default attribute types:&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
-
-&lt;a href=&#34;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rails/rails/tree/v6.0.2.1/activemodel/lib/active_model/type&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;book-using-poro-with-attributes&#34;&gt;book using PORO with attributes&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://products.arkency.com/domain-driven-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://products.arkency.com/domain-driven-rails&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://products.arkency.com/domain-driven-rails&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://products.arkency.com/domain-driven-rails&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;helpful-blogs&#34;&gt;helpful blogs&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
-
-&lt;a href=&#34;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
-
-&lt;a href=&#34;https://blog.dario-hamidi.de/a/rails-hidden-type-system&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.dario-hamidi.de/a/rails-hidden-type-system&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://codeclimate.com/blog/7-ways-to-decompose-fat-activerecord-models/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://blog.dario-hamidi.de/a/rails-hidden-type-system&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.dario-hamidi.de/a/rails-hidden-type-system&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://stuff-things.net/2015/07/21/validating-rails-forms-without-a-model/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stuff-things.net/2015/07/21/validating-rails-forms-without-a-model/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;custom-attribute-types&#34;&gt;custom Attribute types&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;
-
-&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;
-
-&lt;a href=&#34;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;
-
-&lt;a href=&#34;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&lt;/a&gt;
-
-&lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;
-
-&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;
-
-&lt;a href=&#34;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;
-
+&lt;a href=&#34;https://boringrails.com/tips/rails-attributes-api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://boringrails.com/tips/rails-attributes-api&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://jakeyesbeck.com/2015/12/20/rails-5-attributes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jakeyesbeck.com/2015/12/20/rails-5-attributes/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://oozou.com/blog/custom-attribute-types-in-rails-5-77&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Type.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveModel/Type/Value.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jetrockets.com/blog/rails-5-attributes-api-value-objects-and-jsonb&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
 &lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/v5.2.3/classes/ActiveRecord/Aggregations/ClassMethods.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://edgeapi.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html#method-i-attribute&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://metova.com/rails-5-attributes-api/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://metova.com/rails-5-attributes-api/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/swanson/automatically-cast-params-with-the-rails-attributes-api-446a&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/52711754/casting-to-custom-type-a-postgresql-array&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/52711754/casting-to-custom-type-a-postgresql-array&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;form_with&#34;&gt;Form_with&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://apidock.com/rails/ActionView/Helpers/FormHelper/form_with&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://apidock.com/rails/ActionView/Helpers/FormHelper/form_with&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/43868976/rails-5-form-for-vs-form-with&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/43868976/rails-5-form-for-vs-form-with&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/5160733/ror-using-form-tag-without-an-ar-model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stackoverflow.com/questions/5160733/ror-using-form-tag-without-an-ar-model&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://rubyinrails.com/2018/02/19/rails-form-with-alternative-to-form-for-and-form-tag/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://rubyinrails.com/2018/02/19/rails-form-with-alternative-to-form-for-and-form-tag/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;custom-attributes-when-inherited-from-acitivemodel&#34;&gt;Custom Attributes (when inherited from AcitiveModel)&lt;/h2&gt;
 &lt;p&gt;This is good with a &amp;rsquo;normal&amp;rsquo; active record model you can add &amp;lsquo;virtual&amp;rsquo; attributes - just for the form pages&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/attribute_types/squished_string.rb

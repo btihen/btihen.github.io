@@ -5,7 +5,7 @@
     <link>https://btihen.me/tags/phoenix-1.6.x/</link>
       <atom:link href="https://btihen.me/tags/phoenix-1.6.x/index.xml" rel="self" type="application/rss+xml" />
     <description>Phoenix 1.6.x</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Fri, 04 Mar 2022 01:01:53 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 09 Apr 2022 01:01:53 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>Phoenix 1.6.x</title>
@@ -13,7 +13,212 @@
     </image>
     
     <item>
-      <title>Phoenix 1.6 PETAL Stack Setup (w/a Custom Font) using Phoenix Generator</title>
+      <title>Phoenix 1.6 Easy PETAL Stack with DaisyUI</title>
+      <link>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_daisyui/</link>
+      <pubDate>Sat, 09 Apr 2022 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_daisyui/</guid>
+      <description>&lt;p&gt;I have been enjoying the tools associated with Elixir and exploring the frontend. LiveView helps make that more intuitive and when that isn&amp;rsquo;t enough, AlpineJS is a lightweight JS tool with a similar syntax as Vue.&lt;/p&gt;
+&lt;h2 id=&#34;install-asdf---and-required-software&#34;&gt;Install asdf - and required software&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On a Mac I used Homebrew:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install asdf
+echo -e &#39;\n. $(brew --prefix asdf)/asdf.sh&#39; &amp;gt;&amp;gt; ~/.bash_profile
+echo -e &#39;\n. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash&#39; &amp;gt;&amp;gt; ~/.bash_profile
+source ~/.bash_profile  # (or open a new terminal)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can install asdf software packages:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf plugin-add erlang
+asdf plugin-add elixir
+asdf plugin-add Postgres
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you need to install the desired versions (usually the newest) - currently:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf list all erlang
+asdf install erlang 24.3.3
+asdf global erlang 24.3.3
+
+
+# note the elixir version otp must match the erlang version!
+asdf list all elixir
+asdf install elixir 1.13.4-otp-24
+asdf global elixir 1.13.4-otp-24
+
+# asdf install elixir 1.11.4-otp-24
+# if you mismatch elixir with erlang you will get errors like:
+# {&amp;quot;init terminating in do_boot&amp;quot;,{undef,[{elixir,start_cli,[],[]},{init,start_em,1,[]},{init,do_boot,3,[]}]}}
+
+asdf list all Postgres
+asdf install Postgres 14.2 # Slow! (maybe just use homebrew&#39;s version)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;get-the-newest-elixir-tools&#34;&gt;Get the newest Elixir tools&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mix local.rebar --force
+mix local.hex --force
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;get-the-newest-phoenix-hex-package&#34;&gt;Get the newest Phoenix Hex Package&lt;/h2&gt;
+&lt;p&gt;Once you have established you have the requirements - the download the newest version of Phoenix (go to: 
+&lt;a href=&#34;https://hexdocs.pm/phoenix/installation.html#phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hexdocs.pm/phoenix/installation.html#phoenix&lt;/a&gt; to see the newest version) - at the time of this writing its 1.5.8 - be sure its installed using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix archive.install hex phx_new 1.6.6 --force
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-project-with-asdf-settings&#34;&gt;create a project with asdf settings&lt;/h2&gt;
+&lt;p&gt;First we will create the folder / project location&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir petal
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will tell it which software to use :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch petal/.tool-versions
+cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;petal/.tool-versions
+erlang 24.3.3
+elixir 1.13.3-otp-24
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-new-phoenix-project&#34;&gt;Create a new Phoenix Project&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now you can simply do:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix phx.new petal --live
+cd petal
+mix ecto.create
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;assuming all is good lets configure git:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git init
+git add .
+git commit -m &amp;quot;initial Phoneix install with LiveView&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;credo&#34;&gt;credo&lt;/h2&gt;
+&lt;p&gt;add credo to mix.exs (optional but often useful)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;{:credo, &amp;quot;~&amp;gt; 1.6&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;configure credo&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mix deps.get
+mix credo gen.config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;tailwind--daisyui&#34;&gt;Tailwind &amp;amp; DaisyUI&lt;/h2&gt;
+&lt;p&gt;Add to mix.exs&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-elixir&#34;&gt;{:phx_gen_tailwind, &amp;quot;~&amp;gt; 0.1&amp;quot;, only: :dev, runtime: false}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;configure TailwindCSS&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mix deps.get
+mix phx.gen.tailwind
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-tailwindcss&#34;&gt;Test TailwindCSS&lt;/h2&gt;
+&lt;p&gt;add to the top of: &lt;code&gt;lib/slacker_gen_tail_web/templates/page/index.html.heex&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;&amp;lt;div class=&amp;quot;text-green-500 text-5xl text-center&amp;quot;&amp;gt;Large Centered Green TailwindCSS&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;start phoenix &lt;code&gt;mix -S phx.server&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;add-daisyui&#34;&gt;Add DaisyUI&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://daisyui.com/docs/install/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://daisyui.com/docs/install/&lt;/a&gt;
+
+&lt;a href=&#34;https://elixirforum.com/t/how-to-get-daisyui-and-phoenix-to-work/46612/8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixirforum.com/t/how-to-get-daisyui-and-phoenix-to-work/46612/8&lt;/a&gt; (also explains what to do when using/deploying to Fly.io)!&lt;/p&gt;
+&lt;p&gt;first we need to initialize npm (otherwise DaisyUI won&amp;rsquo;t load / integrate with esbuild)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd assets
+npm init
+# just using the defaults seems to work
+npm install daisyui
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now configure Tailwind (&lt;code&gt;assets/tailwind.config.js&lt;/code&gt;) to use daisyui&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// assets/tailwind.config.js
+module.exports = {
+  mode: &#39;jit&#39;,
+  purge: [
+    &#39;./js/**/*.js&#39;,
+    &#39;../lib/*_web/**/*.*ex&#39;
+  ],
+  theme: {
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [require(&amp;quot;daisyui&amp;quot;)],
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-daisyui&#34;&gt;Test DaisyUI&lt;/h2&gt;
+&lt;p&gt;now lets add a DaisyUI Button to the default page &lt;code&gt;lib/fare_web/templates/page/index.html.heex&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;button class=&amp;quot;btn btn-primary&amp;quot;&amp;gt;Button&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ideally when we start phoenix:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;iex -S mix phx.server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;we should now see in the log:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;warn - You have enabled the JIT engine which is currently in preview.
+warn - Preview features are not covered by semver, may introduce breaking changes, and can change at any time.
+
+Rebuilding...
+
+🌼 daisyUI components 2.13.6  https://github.com/saadeghi/daisyui
+  ✔︎ Including:  base, components, themes[29], utilities
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now when we look at the landing page we should see a rounded blue button!&lt;/p&gt;
+&lt;h2 id=&#34;install--test-alpine-js&#34;&gt;install &amp;amp; test Alpine JS&lt;/h2&gt;
+&lt;p&gt;see the article on 
+&lt;a href=&#34;https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;phoenix installer (easiest)&lt;/a&gt; or 
+&lt;a href=&#34;https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_setup_with_asdf/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;by hand&lt;/a&gt; to install aplinejs&lt;/p&gt;
+&lt;h2 id=&#34;see-adding-fonts-for-more-options&#34;&gt;See Adding fonts for more options&lt;/h2&gt;
+&lt;p&gt;see the article on adding a 
+&lt;a href=&#34;https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;custom font&lt;/a&gt; for font information&lt;/p&gt;
+&lt;h2 id=&#34;tailwind--daisyui-with-flyio&#34;&gt;Tailwind &amp;amp; DaisyUI with Fly.io&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://elixirforum.com/t/how-to-get-daisyui-and-phoenix-to-work/46612/8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixirforum.com/t/how-to-get-daisyui-and-phoenix-to-work/46612/8&lt;/a&gt;
+
+&lt;a href=&#34;https://elixirforum.com/t/tailwind-not-working-in-production-no-styles-just-plain-html/45192&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixirforum.com/t/tailwind-not-working-in-production-no-styles-just-plain-html/45192&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;resources-16x&#34;&gt;Resources (1.6.x)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=vZBHkvTAb2U&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=vZBHkvTAb2U&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://sergiotapia.com/phoenix-160-liveview-esbuild-tailwind-jit-alpinejs-a-brief-tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thinkingelixir.com/petal-stack-in-elixir/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thinkingelixir.com/petal-stack-in-elixir/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://larainfo.com/blogs/build-simple-count-app-using-apline-js-with-tailwind-css&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://larainfo.com/blogs/build-simple-count-app-using-apline-js-with-tailwind-css&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://carlyleec.medium.com/create-an-elixir-phoenix-app-with-asdf-e918649b4d58&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://tailwindcss.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://tailwindcss.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/alpinejs/alpine&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/alpinejs/alpine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/tailwindlabs/tailwindcss&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/tailwindlabs/tailwindcss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://experimentingwithcode.com/custom-fonts-with-phoenix-and-tailwind/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/add-tailwind-html-generators-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://elixirforum.com/t/how-do-i-use-a-custom-font-with-phoenix-1-6-and-esbuild/43791/16&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;older-resources&#34;&gt;Older Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=o4Prej0wIZA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=o4Prej0wIZA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://blog.pthompson.org/alpine-js-and-liveview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.pthompson.org/alpine-js-and-liveview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/get-started-with-tailwind-in-phoenix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://fullstackphoenix.com/tutorials/combine-phoenix-liveview-with-alpine-js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://medium.com/mindvalley-technology/how-to-add-tailwindcss-to-your-phoenix-project-e2250ad31ace&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thinkingelixir.com/podcast-episodes/021-tailwind-css-alpine-js-and-liveview-with-patrick-thompson/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phoenix 1.6 Easy PETAL Stack Setup (w/a Custom Font</title>
       <link>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/</link>
       <pubDate>Fri, 04 Mar 2022 01:01:53 +0200</pubDate>
       <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/</guid>
