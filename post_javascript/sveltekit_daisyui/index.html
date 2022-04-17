@@ -1,0 +1,1527 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A straight forward way to build websites with lots of features">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_javascript/sveltekit_daisyui/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://btihen.me/post_javascript/sveltekit_daisyui/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_javascript/sveltekit_daisyui/">
+  <meta property="og:title" content="SvelteKit, TailwindCSS and DaisyUI Website | btihen">
+  <meta property="og:description" content="A straight forward way to build websites with lots of features"><meta property="og:image" content="https://btihen.me/post_javascript/sveltekit_daisyui/featured.webp">
+  <meta property="twitter:image" content="https://btihen.me/post_javascript/sveltekit_daisyui/featured.webp"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-04-16T01:01:53&#43;02:00">
+    
+    <meta property="article:modified_time" content="2021-04-16T01:01:53&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>SvelteKit, TailwindCSS and DaisyUI Website | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://container4.ch/" target="_blank" rel="noopener"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Media</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>SvelteKit, TailwindCSS and DaisyUI Website</h1>
+
+  
+  <p class="page-subtitle">Building a Static Site / Blog with SvelteKit</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Fri, Apr 16, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/code/">Code</a>, <a href="/categories/javascript/">JavaScript</a>, <a href="/categories/website/">Website</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 302px;">
+  <div style="position: relative">
+    <img src="/post_javascript/sveltekit_daisyui/featured_hud4fc503984f2216419d76f4c659a0f27_4750_720x0_resize_q90_h2_lanczos_2.webp" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="intro">Intro</h2>
+<p>I&rsquo;ve been looking for a flexible, yet easy to setup and manage website / blog &ndash; which also easily formats and accommodates code!</p>
+<p>I have been playing with the combination of SvelteKit, TailwindCSS and DaisyUI, MDsveX (for MD blog pages).</p>
+<p>Here&rsquo;s what I&rsquo;ve learned so far.</p>
+<h2 id="base-software-nodejs">Base Software (nodejs)</h2>
+<p>be sure to have a modern version of nodejs</p>
+<pre><code class="language-bash">asdf install nodejs 16.14.2
+asdf global nodejs 16.14.2
+</code></pre>
+<h2 id="create-a-sveltekit-site">Create a SvelteKit Site</h2>
+<p>Install base Sveltekit (still in beta so <code>@next</code> is included)</p>
+<pre><code class="language-bash">npm init svelte@next sveltekit_w_daisyui
+cd sveltekit_w_daisyui
+
+# install sveltekit packages
+npm install
+
+# initialize Git
+git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;Initial commit&quot;
+
+# starts sveltekit
+npm run dev -- --open
+</code></pre>
+<h2 id="installconfigure-components">Install/Configure Components</h2>
+<p>we want to install and configure TailwindCSS, DaisyUI and MDsvex (markdown), <code>svelte-add@latest</code> installs and configures too!</p>
+<pre><code class="language-bash"># Tailwind and PostCSS
+npx svelte-add@latest tailwindcss
+npm i
+
+# MD pages
+npx svelte-add@latest mdsvex
+npm i
+</code></pre>
+<p>now install DaisyUI (note <code>npm i daisyui</code> didn&rsquo;t work, but adding <code>-D</code> did)</p>
+<pre><code class="language-bash">npm install -D daisyui
+</code></pre>
+<p>Now to configure <code>tailwind.config.js</code> - add daisyui as a plugin at the end of the file:</p>
+<pre><code class="language-js">module.exports = {
+  //...
+  plugins: [require(&quot;daisyui&quot;)],
+}
+</code></pre>
+<p>My config with a theme looks like (I left my experiments - so you can see how easy it is to adjust and play with):</p>
+<pre><code class="language-js">const config = {
+  content: [&quot;./src/**/*.{html,js,svelte,ts}&quot;],
+
+  theme: {
+    extend: {},
+  },
+  // http://colorcode.is/ - helpful color site
+  daisyui: {
+    themes: [
+      {
+        // corporate adapted light
+        btihenl: {
+          primary: &quot;#3985ff&quot;, // &quot;#1F75FF&quot;, // &quot;#4b6bff&quot;, // &quot;#2d8659&quot;, // &quot;#4b6bfb&quot;,
+          secondary: &quot;#7bc8a4&quot;, // &quot;#57b88c&quot;, // &quot;#16b34a&quot;, //&quot;#1eb854&quot;, //&quot;#3399ff&quot;, // &quot;#4da6ff&quot;, // &quot;#7b92b2&quot;,
+          accent: &quot;#f1db85&quot;, // &quot;#ecce57&quot;, // &quot;#F7F9CA&quot;, // &quot;#EA6947&quot;,
+          neutral: &quot;#3a3a3a&quot;, // &quot;#181a2a&quot;,
+          &quot;neutral-content&quot;: &quot;#edf2f7&quot;,
+          &quot;base-100&quot;: &quot;#e9e7e7&quot;, // &quot;#ffffff&quot;,
+          &quot;base-content&quot;: &quot;#100f0f&quot;, //&quot;#181a2a&quot;,
+          info: &quot;#0080bc&quot;, // &quot;#0091D5&quot;,
+          success: &quot;#5aa867&quot;, // &quot;#6bb176&quot;, // &quot;#6BB187&quot;,
+          warning: &quot;#d29a2f&quot;, // &quot;#DBAE59&quot;,
+          error: &quot;#b53729&quot;, // &quot;#AC3E31&quot;,
+        },
+        // business adapted darker
+        btihend: {
+          primary: &quot;#004d99&quot;, //&quot;#22228B&quot;, //&quot;#206040&quot;, // &quot;#1C4E80&quot;,
+          secondary: &quot;#7bc8a4&quot;,  // &quot;#57b88c&quot;, // &quot;#16b34a&quot;, //&quot;#1eb854&quot;, //&quot;#3399ff&quot;, // &quot;#4da6ff&quot;, // &quot;#7b92b2&quot;,
+          accent: &quot;#f1db85&quot;, // &quot;#ecce57&quot;, // &quot;#F7F9CA&quot;, // &quot;#EA6947&quot;,
+          neutral: &quot;#23282E&quot;,
+          &quot;base-100&quot;: &quot;#3a3a3a&quot;, // &quot;#202020&quot;,
+          info: &quot;#0080bc&quot;, // &quot;#0091D5&quot;,
+          success: &quot;#5aa867&quot;, // &quot;#6bb176&quot;, // &quot;#6BB187&quot;,
+          warning: &quot;#d29a2f&quot;, // &quot;#DBAE59&quot;,
+          error: &quot;#b53729&quot;, // &quot;#AC3E31&quot;,
+        },
+      }
+    ],
+  },
+  plugins: [require(&quot;daisyui&quot;)],
+};
+
+module.exports = config;
+</code></pre>
+<p>finally install theme-change: 
+<a href="https://github.com/saadeghi/theme-change" target="_blank" rel="noopener">https://github.com/saadeghi/theme-change</a></p>
+<pre><code class="language-bash">npm i theme-change --save
+</code></pre>
+<p>Now configure themechanger:</p>
+<pre><code class="language-css">/* src/app.css */
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Allow system color */
+:root {
+  --color-default: #f2f3f4;
+}
+/* set a default theme - btihenl is my light theme - more later*/
+@media (prefers-color-scheme: btihenl) {
+  :root {
+    --my-color: #252b30;
+  }
+}
+
+/* basic important css */
+h1 {
+  margin: 1rem 0 3rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.0rem;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+</code></pre>
+<h2 id="update-your-homepage">Update your homepage</h2>
+<p>All pages will be within <code>src/routes</code></p>
+<p>This is at: <code>src/routes/index.svelte</code></p>
+<p>The following will make it easy to tweak your theme:</p>
+<pre><code class="language-svelte">&lt;h1&gt;Welcome to SvelteKit&lt;/h1&gt;
+&lt;p&gt;Visit &lt;a href=&quot;https://kit.svelte.dev&quot;&gt;kit.svelte.dev&lt;/a&gt; to read the documentation&lt;/p&gt;
+
+&lt;div class=&quot;badge&quot;&gt;neutral&lt;/div&gt;
+&lt;div class=&quot;badge badge-primary&quot;&gt;primary&lt;/div&gt;
+&lt;div class=&quot;badge badge-secondary&quot;&gt;secondary&lt;/div&gt;
+&lt;div class=&quot;badge badge-accent&quot;&gt;accent&lt;/div&gt;
+&lt;div class=&quot;badge badge-ghost&quot;&gt;ghost&lt;/div&gt;
+
+&lt;div class=&quot;alert shadow-lg&quot;&gt;
+  &lt;div&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; class=&quot;stroke-info flex-shrink-0 w-6 h-6&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+    &lt;span&gt;Shadow Notice&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-info shadow-lg&quot;&gt;
+  &lt;div&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; class=&quot;stroke-current flex-shrink-0 w-6 h-6&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+    &lt;span&gt;Info notice.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-success shadow-lg&quot;&gt;
+  &lt;div&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; class=&quot;stroke-current flex-shrink-0 h-6 w-6&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z&quot; /&gt;&lt;/svg&gt;
+    &lt;span&gt;Suceess Notice&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-warning shadow-lg&quot;&gt;
+  &lt;div&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; class=&quot;stroke-current flex-shrink-0 h-6 w-6&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z&quot; /&gt;&lt;/svg&gt;
+    &lt;span&gt;Warning: Invalid email address!&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-error shadow-lg&quot;&gt;
+  &lt;div&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; class=&quot;stroke-current flex-shrink-0 h-6 w-6&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z&quot; /&gt;&lt;/svg&gt;
+    &lt;span&gt;Error! Task failed successfully.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="create-an-about-page">Create an About Page</h2>
+<pre><code class="language-bash">touch src/routes/about.svelte
+cat &lt;&lt;EOF&gt;&gt;src/routes/about.svelte
+&lt;h1&gt;Hi&lt;/h1&gt;
+
+&lt;p&gt;This is my about page.&lt;/p&gt;
+EOF
+</code></pre>
+<p>now go to</p>
+<p>individual page content will go into the <code>slot</code> tag.</p>
+<p>Now every page will have a header and footer</p>
+<h2 id="create-components">Create Components</h2>
+<pre><code class="language-bash">mkdir -p src/lib/components
+touch src/lib/components/Navbar.svelte
+touch src/lib/components/Footer.svelte
+</code></pre>
+<h3 id="navbar">Navbar</h3>
+<p>I&rsquo;ll explain / Setup the Themechange in a bit</p>
+<pre><code class="language-svelte">cat &lt;&lt;EOF &gt;&gt;src/lib/components/Navbar.svelte
+&lt;script&gt;
+  import { onMount } from 'svelte'
+  import { themeChange } from 'theme-change'
+
+  // NOTE: the element that is using one of the theme attributes must be in the DOM on mount
+  onMount(() =&gt; {
+    themeChange(false)
+    // false parameter is required for svelte
+  })
+&lt;/script&gt;
+
+&lt;navbar&gt;
+  &lt;div class=&quot;bg-black h-2.5&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;flex items-center justify-center sticky top-0 z-50 bg-green-700&quot;&gt;
+
+    &lt;div class=&quot;navbar w-4/5&quot;&gt;
+
+      &lt;div class=&quot;navbar-start&quot;&gt;
+        &lt;div class=&quot;dropdown&quot;&gt;
+          &lt;div tabindex=&quot;0&quot; class=&quot;btn btn-ghost btn-circle&quot;&gt;
+            &lt;!-- menu-alt1 - hero-icon --&gt;
+            &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; class=&quot;h-5 w-5&quot; fill=&quot;none&quot; viewBox=&quot;0 0 22 22&quot; stroke=&quot;currentColor&quot;&gt;
+              &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;4&quot; d=&quot;M2 6h16M2 12h8m-8 6h16&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+          &lt;ul tabindex=&quot;0&quot; class=&quot;menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-62&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Item 1&lt;/a&gt;&lt;/li&gt;
+            &lt;li tabindex=&quot;0&quot;&gt;
+              &lt;a class=&quot;justify-between&quot; href=&quot;/&quot;&gt;
+                Parent
+                &lt;svg class=&quot;fill-current&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+                  &lt;path d=&quot;M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z&quot;/&gt;
+                &lt;/svg&gt;
+              &lt;/a&gt;
+              &lt;ul class=&quot;p-2 shadow bg-base-100&quot;&gt;
+                &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Submenu 1&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Submenu 2&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Item 3&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;
+              &lt;div class=&quot;form-control&quot;&gt;
+                &lt;input type=&quot;text&quot; placeholder=&quot;Search&quot; class=&quot;input input-bordered&quot;&gt;
+              &lt;/div&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;navbar-center&quot;&gt;
+        &lt;a href=&quot;/&quot; class=&quot;btn btn-ghost normal-case text-2xl&quot;&gt;btihen.dev&lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;navbar-end space-x-2&quot;&gt;
+        &lt;!-- sun - heroicon.dev --&gt;
+        &lt;svg class=&quot;w-6 h-6&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+          &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+        &lt;!-- https://github.com/saadeghi/theme-change --&gt;
+        &lt;input type=&quot;checkbox&quot; class=&quot;toggle&quot; id=&quot;theme-toggle&quot; data-toggle-theme=&quot;btihenl,btihend&quot; data-act-class=&quot;ACTIVECLASS&quot;&gt;
+        &lt;!-- moon - heroicon.dev --&gt;
+        &lt;svg class=&quot;w-6 h-6&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+          &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/navbar&gt;
+EOF
+</code></pre>
+<h3 id="footer">Footer</h3>
+<pre><code class="language-svelte">cat &lt;&lt;EOF &gt;&gt;src/lib/components/Footer.svelte
+&lt;footer class=&quot;flex items-center justify-center p-4 bg-green-700 shadow-md&quot;&gt;
+  &lt;div class=&quot;footer w-4/5&quot;&gt;
+    &lt;div class=&quot;items-center grid-flow-col place-self-center md:place-self-start&quot;&gt;
+      &lt;a href=&quot;/&quot; class=&quot;btn btn-ghost normal-case text-2xl&quot;&gt;btihen.dev&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;grid-flow-col gap-4 place-self-center md:justify-self-end&quot;&gt;
+      &lt;!-- github - cons.getbootstrap.com--&gt;
+      &lt;a href=&quot;/&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-github&quot; viewBox=&quot;0 0 16 16&quot;&gt;
+          &lt;path d=&quot;M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+      &lt;!-- linked-in - cons.getbootstrap.com --&gt;
+      &lt;a href=&quot;/&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-linkedin&quot; viewBox=&quot;0 0 16 16&quot;&gt;
+          &lt;path d=&quot;M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+      &lt;!-- twitter - cons.getbootstrap.com--&gt;
+      &lt;a href=&quot;/&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-twitter&quot; viewBox=&quot;0 0 16 16&quot;&gt;
+          &lt;path d=&quot;M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+      &lt;!-- facebook --&gt;
+      &lt;!--
+      &lt;a href=&quot;/&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; class=&quot;fill-current&quot;&gt;
+          &lt;path d=&quot;M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+      --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+&lt;div class=&quot;bg-black flex items-center justify-center h-3.5&quot;&gt;
+  &lt;p class=&quot;text-white text-2xs&quot;&gt;Copyright © 2022 - All right reserved&lt;/p&gt;
+&lt;/div&gt;
+EOF
+</code></pre>
+<h2 id="create-a-base-layout">Create a Base Layout</h2>
+<p>To create a layout <code>__layout.svelte</code> (so we can add components to each page like navbars, etc)</p>
+<pre><code class="language-svelte">touch src/routes/__layout.svelte
+cat &lt;&lt;EOF&gt;&gt;src/routes/__layout.svelte
+&lt;script&gt;
+  import &quot;../app.css&quot;;
+  import Navbar from '$lib/components/Navbar.svelte'
+  import Footer from '$lib/components/Footer.svelte'
+&lt;/script&gt;
+
+&lt;Navbar /&gt;
+
+&lt;main class=&quot;flex items-center justify-center bg-base-100&quot;&gt;
+  &lt;div class=&quot;w-4/5 m-4 px-4 py-4 sm:px-0&quot;&gt;
+    &lt;slot /&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+
+&lt;Footer /&gt;
+EOF
+</code></pre>
+<h2 id="markdown-setup">Markdown Setup</h2>
+<h3 id="front-mater">Front-mater</h3>
+<h3 id="reading-time">Reading time</h3>
+<h2 id="blog-index-page">Blog Index Page</h2>
+<h2 id="blog-tag-search--pages">Blog Tag Search / Pages</h2>
+<h2 id="contact-page-netlify">Contact page (netlify)</h2>
+<h2 id="deployment-netlify">Deployment (netlify)</h2>
+<h2 id="deployment-render">Deployment (render)</h2>
+<h2 id="to-solve">To Solve</h2>
+<ul>
+<li>MDsvex CSS</li>
+<li>MDsvex - layouts</li>
+<li>DaisyUI dropdowns don&rsquo;t close with a second click, but on a focus change :(</li>
+</ul>
+<h2 id="resources">Resources</h2>
+<h3 id="svelte-resources">Svelte Resources</h3>
+<ul>
+<li>
+<p>
+<a href="https://www.youtube.com/watch?v=haKnkk6ds20" target="_blank" rel="noopener">https://www.youtube.com/watch?v=haKnkk6ds20</a></p>
+</li>
+<li>
+<p>
+<a href="https://joshcollinsworth.com/blog/build-static-sveltekit-markdown-blog" target="_blank" rel="noopener">https://joshcollinsworth.com/blog/build-static-sveltekit-markdown-blog</a></p>
+</li>
+<li>
+<p>
+<a href="https://kit.svelte.dev/" target="_blank" rel="noopener">https://kit.svelte.dev/</a></p>
+</li>
+<li>
+<p>
+<a href="https://megzari.com/blog/about_this_site" target="_blank" rel="noopener">https://megzari.com/blog/about_this_site</a></p>
+</li>
+<li>
+<p>
+<a href="https://svelte.dev/examples#dom-event-forwarding" target="_blank" rel="noopener">https://svelte.dev/examples#dom-event-forwarding</a></p>
+</li>
+<li>
+<p>
+<a href="https://prismic.io/blog/svelte-sveltekit-tutorial" target="_blank" rel="noopener">https://prismic.io/blog/svelte-sveltekit-tutorial</a></p>
+</li>
+<li>
+<p>
+<a href="https://www.liip.ch/en/blog/sveltekit-and-tailwind-windi-css" target="_blank" rel="noopener">https://www.liip.ch/en/blog/sveltekit-and-tailwind-windi-css</a></p>
+</li>
+<li>
+<p>
+<a href="https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/" target="_blank" rel="noopener">https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/</a></p>
+</li>
+</ul>
+<h3 id="mdsvex-svelte-markdown">MDsveX (Svelte Markdown)</h3>
+<ul>
+<li>reading time</li>
+<li>template, &hellip;</li>
+<li>
+<a href="https://mdsvex.com/docs" target="_blank" rel="noopener">https://mdsvex.com/docs</a></li>
+<li>
+<a href="https://mdsvex.com/docs#integrations" target="_blank" rel="noopener">https://mdsvex.com/docs#integrations</a></li>
+<li>
+<a href="https://github.com/spences10/sveltekit-mdsvex-starter-blog/blob/main/mdsvex.config.js" target="_blank" rel="noopener">https://github.com/spences10/sveltekit-mdsvex-starter-blog/blob/main/mdsvex.config.js</a></li>
+</ul>
+<h3 id="daisyui--themes">DaisyUI &amp; Themes</h3>
+<ul>
+<li>
+<a href="https://daisyui.com/" target="_blank" rel="noopener">https://daisyui.com/</a></li>
+<li>
+<a href="https://github.com/saadeghi/daisyui" target="_blank" rel="noopener">https://github.com/saadeghi/daisyui</a></li>
+<li>
+<a href="https://github.com/saadeghi/theme-change" target="_blank" rel="noopener">https://github.com/saadeghi/theme-change</a></li>
+</ul>
+<h3 id="icons">Icons</h3>
+<ul>
+<li>
+<a href="https://heroicons.dev/" target="_blank" rel="noopener">https://heroicons.dev/</a></li>
+<li>
+<a href="https://icons.getbootstrap.com/icons/" target="_blank" rel="noopener">https://icons.getbootstrap.com/icons/</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/svelte/">Svelte</a>
+  
+  <a class="badge badge-light" href="/tags/sveltekit/">SvelteKit</a>
+  
+  <a class="badge badge-light" href="/tags/tailwindcss/">TailwindCSS</a>
+  
+  <a class="badge badge-light" href="/tags/daisyui/">DaisyUI</a>
+  
+  <a class="badge badge-light" href="/tags/blog/">Blog</a>
+  
+  <a class="badge badge-light" href="/tags/staticsite/">StaticSite</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_javascript/sveltekit_daisyui/&amp;text=SvelteKit,%20TailwindCSS%20and%20DaisyUI%20Website" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_javascript/sveltekit_daisyui/&amp;t=SvelteKit,%20TailwindCSS%20and%20DaisyUI%20Website" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=SvelteKit,%20TailwindCSS%20and%20DaisyUI%20Website&amp;body=https://btihen.me/post_javascript/sveltekit_daisyui/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_javascript/sveltekit_daisyui/&amp;title=SvelteKit,%20TailwindCSS%20and%20DaisyUI%20Website" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=SvelteKit,%20TailwindCSS%20and%20DaisyUI%20Website%20https://btihen.me/post_javascript/sveltekit_daisyui/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_javascript/sveltekit_daisyui/&amp;title=SvelteKit,%20TailwindCSS%20and%20DaisyUI%20Website" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.b83f17b8257ec03d591fc1860efee439.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2022
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

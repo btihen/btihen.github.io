@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript | btihen</title>
+    <link>https://btihen.me/categories/javascript/</link>
+      <atom:link href="https://btihen.me/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <description>JavaScript</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sat, 16 Apr 2022 01:01:53 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>JavaScript</title>
+      <link>https://btihen.me/categories/javascript/</link>
+    </image>
+    
+    <item>
+      <title>SvelteKit, TailwindCSS and DaisyUI Website</title>
+      <link>https://btihen.me/post_javascript/sveltekit_daisyui/</link>
+      <pubDate>Sat, 16 Apr 2022 01:01:53 +0200</pubDate>
+      <guid>https://btihen.me/post_javascript/sveltekit_daisyui/</guid>
+      <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;ve been looking for a flexible, yet easy to setup and manage website / blog &amp;ndash; which also easily formats and accommodates code!&lt;/p&gt;
+&lt;p&gt;I have been playing with the combination of SvelteKit, TailwindCSS and DaisyUI, MDsveX (for MD blog pages).&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s what I&amp;rsquo;ve learned so far.&lt;/p&gt;
+&lt;h2 id=&#34;base-software-nodejs&#34;&gt;Base Software (nodejs)&lt;/h2&gt;
+&lt;p&gt;be sure to have a modern version of nodejs&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;asdf install nodejs 16.14.2
+asdf global nodejs 16.14.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-sveltekit-site&#34;&gt;Create a SvelteKit Site&lt;/h2&gt;
+&lt;p&gt;Install base Sveltekit (still in beta so &lt;code&gt;@next&lt;/code&gt; is included)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npm init svelte@next sveltekit_w_daisyui
+cd sveltekit_w_daisyui
+
+# install sveltekit packages
+npm install
+
+# initialize Git
+git init &amp;amp;&amp;amp; git add -A &amp;amp;&amp;amp; git commit -m &amp;quot;Initial commit&amp;quot;
+
+# starts sveltekit
+npm run dev -- --open
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;installconfigure-components&#34;&gt;Install/Configure Components&lt;/h2&gt;
+&lt;p&gt;we want to install and configure TailwindCSS, DaisyUI and MDsvex (markdown), &lt;code&gt;svelte-add@latest&lt;/code&gt; installs and configures too!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Tailwind and PostCSS
+npx svelte-add@latest tailwindcss
+npm i
+
+# MD pages
+npx svelte-add@latest mdsvex
+npm i
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now install DaisyUI (note &lt;code&gt;npm i daisyui&lt;/code&gt; didn&amp;rsquo;t work, but adding &lt;code&gt;-D&lt;/code&gt; did)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npm install -D daisyui
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now to configure &lt;code&gt;tailwind.config.js&lt;/code&gt; - add daisyui as a plugin at the end of the file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;module.exports = {
+  //...
+  plugins: [require(&amp;quot;daisyui&amp;quot;)],
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;My config with a theme looks like (I left my experiments - so you can see how easy it is to adjust and play with):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const config = {
+  content: [&amp;quot;./src/**/*.{html,js,svelte,ts}&amp;quot;],
+
+  theme: {
+    extend: {},
+  },
+  // http://colorcode.is/ - helpful color site
+  daisyui: {
+    themes: [
+      {
+        // corporate adapted light
+        btihenl: {
+          primary: &amp;quot;#3985ff&amp;quot;, // &amp;quot;#1F75FF&amp;quot;, // &amp;quot;#4b6bff&amp;quot;, // &amp;quot;#2d8659&amp;quot;, // &amp;quot;#4b6bfb&amp;quot;,
+          secondary: &amp;quot;#7bc8a4&amp;quot;, // &amp;quot;#57b88c&amp;quot;, // &amp;quot;#16b34a&amp;quot;, //&amp;quot;#1eb854&amp;quot;, //&amp;quot;#3399ff&amp;quot;, // &amp;quot;#4da6ff&amp;quot;, // &amp;quot;#7b92b2&amp;quot;,
+          accent: &amp;quot;#f1db85&amp;quot;, // &amp;quot;#ecce57&amp;quot;, // &amp;quot;#F7F9CA&amp;quot;, // &amp;quot;#EA6947&amp;quot;,
+          neutral: &amp;quot;#3a3a3a&amp;quot;, // &amp;quot;#181a2a&amp;quot;,
+          &amp;quot;neutral-content&amp;quot;: &amp;quot;#edf2f7&amp;quot;,
+          &amp;quot;base-100&amp;quot;: &amp;quot;#e9e7e7&amp;quot;, // &amp;quot;#ffffff&amp;quot;,
+          &amp;quot;base-content&amp;quot;: &amp;quot;#100f0f&amp;quot;, //&amp;quot;#181a2a&amp;quot;,
+          info: &amp;quot;#0080bc&amp;quot;, // &amp;quot;#0091D5&amp;quot;,
+          success: &amp;quot;#5aa867&amp;quot;, // &amp;quot;#6bb176&amp;quot;, // &amp;quot;#6BB187&amp;quot;,
+          warning: &amp;quot;#d29a2f&amp;quot;, // &amp;quot;#DBAE59&amp;quot;,
+          error: &amp;quot;#b53729&amp;quot;, // &amp;quot;#AC3E31&amp;quot;,
+        },
+        // business adapted darker
+        btihend: {
+          primary: &amp;quot;#004d99&amp;quot;, //&amp;quot;#22228B&amp;quot;, //&amp;quot;#206040&amp;quot;, // &amp;quot;#1C4E80&amp;quot;,
+          secondary: &amp;quot;#7bc8a4&amp;quot;,  // &amp;quot;#57b88c&amp;quot;, // &amp;quot;#16b34a&amp;quot;, //&amp;quot;#1eb854&amp;quot;, //&amp;quot;#3399ff&amp;quot;, // &amp;quot;#4da6ff&amp;quot;, // &amp;quot;#7b92b2&amp;quot;,
+          accent: &amp;quot;#f1db85&amp;quot;, // &amp;quot;#ecce57&amp;quot;, // &amp;quot;#F7F9CA&amp;quot;, // &amp;quot;#EA6947&amp;quot;,
+          neutral: &amp;quot;#23282E&amp;quot;,
+          &amp;quot;base-100&amp;quot;: &amp;quot;#3a3a3a&amp;quot;, // &amp;quot;#202020&amp;quot;,
+          info: &amp;quot;#0080bc&amp;quot;, // &amp;quot;#0091D5&amp;quot;,
+          success: &amp;quot;#5aa867&amp;quot;, // &amp;quot;#6bb176&amp;quot;, // &amp;quot;#6BB187&amp;quot;,
+          warning: &amp;quot;#d29a2f&amp;quot;, // &amp;quot;#DBAE59&amp;quot;,
+          error: &amp;quot;#b53729&amp;quot;, // &amp;quot;#AC3E31&amp;quot;,
+        },
+      }
+    ],
+  },
+  plugins: [require(&amp;quot;daisyui&amp;quot;)],
+};
+
+module.exports = config;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;finally install theme-change: 
+&lt;a href=&#34;https://github.com/saadeghi/theme-change&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/saadeghi/theme-change&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npm i theme-change --save
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now configure themechanger:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/* src/app.css */
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Allow system color */
+:root {
+  --color-default: #f2f3f4;
+}
+/* set a default theme - btihenl is my light theme - more later*/
+@media (prefers-color-scheme: btihenl) {
+  :root {
+    --my-color: #252b30;
+  }
+}
+
+/* basic important css */
+h1 {
+  margin: 1rem 0 3rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.0rem;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;update-your-homepage&#34;&gt;Update your homepage&lt;/h2&gt;
+&lt;p&gt;All pages will be within &lt;code&gt;src/routes&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This is at: &lt;code&gt;src/routes/index.svelte&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The following will make it easy to tweak your theme:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-svelte&#34;&gt;&amp;lt;h1&amp;gt;Welcome to SvelteKit&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;Visit &amp;lt;a href=&amp;quot;https://kit.svelte.dev&amp;quot;&amp;gt;kit.svelte.dev&amp;lt;/a&amp;gt; to read the documentation&amp;lt;/p&amp;gt;
+
+&amp;lt;div class=&amp;quot;badge&amp;quot;&amp;gt;neutral&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;badge badge-primary&amp;quot;&amp;gt;primary&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;badge badge-secondary&amp;quot;&amp;gt;secondary&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;badge badge-accent&amp;quot;&amp;gt;accent&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;badge badge-ghost&amp;quot;&amp;gt;ghost&amp;lt;/div&amp;gt;
+
+&amp;lt;div class=&amp;quot;alert shadow-lg&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;
+    &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; fill=&amp;quot;none&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot; class=&amp;quot;stroke-info flex-shrink-0 w-6 h-6&amp;quot;&amp;gt;&amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;&amp;lt;/svg&amp;gt;
+    &amp;lt;span&amp;gt;Shadow Notice&amp;lt;/span&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div class=&amp;quot;alert alert-info shadow-lg&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;
+    &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; fill=&amp;quot;none&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot; class=&amp;quot;stroke-current flex-shrink-0 w-6 h-6&amp;quot;&amp;gt;&amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;&amp;lt;/svg&amp;gt;
+    &amp;lt;span&amp;gt;Info notice.&amp;lt;/span&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div class=&amp;quot;alert alert-success shadow-lg&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;
+    &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; class=&amp;quot;stroke-current flex-shrink-0 h-6 w-6&amp;quot; fill=&amp;quot;none&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot;&amp;gt;&amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z&amp;quot; /&amp;gt;&amp;lt;/svg&amp;gt;
+    &amp;lt;span&amp;gt;Suceess Notice&amp;lt;/span&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div class=&amp;quot;alert alert-warning shadow-lg&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;
+    &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; class=&amp;quot;stroke-current flex-shrink-0 h-6 w-6&amp;quot; fill=&amp;quot;none&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot;&amp;gt;&amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z&amp;quot; /&amp;gt;&amp;lt;/svg&amp;gt;
+    &amp;lt;span&amp;gt;Warning: Invalid email address!&amp;lt;/span&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;div class=&amp;quot;alert alert-error shadow-lg&amp;quot;&amp;gt;
+  &amp;lt;div&amp;gt;
+    &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; class=&amp;quot;stroke-current flex-shrink-0 h-6 w-6&amp;quot; fill=&amp;quot;none&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot;&amp;gt;&amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z&amp;quot; /&amp;gt;&amp;lt;/svg&amp;gt;
+    &amp;lt;span&amp;gt;Error! Task failed successfully.&amp;lt;/span&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-an-about-page&#34;&gt;Create an About Page&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;touch src/routes/about.svelte
+cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/routes/about.svelte
+&amp;lt;h1&amp;gt;Hi&amp;lt;/h1&amp;gt;
+
+&amp;lt;p&amp;gt;This is my about page.&amp;lt;/p&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now go to&lt;/p&gt;
+&lt;p&gt;individual page content will go into the &lt;code&gt;slot&lt;/code&gt; tag.&lt;/p&gt;
+&lt;p&gt;Now every page will have a header and footer&lt;/p&gt;
+&lt;h2 id=&#34;create-components&#34;&gt;Create Components&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p src/lib/components
+touch src/lib/components/Navbar.svelte
+touch src/lib/components/Footer.svelte
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;navbar&#34;&gt;Navbar&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ll explain / Setup the Themechange in a bit&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-svelte&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;src/lib/components/Navbar.svelte
+&amp;lt;script&amp;gt;
+  import { onMount } from &#39;svelte&#39;
+  import { themeChange } from &#39;theme-change&#39;
+
+  // NOTE: the element that is using one of the theme attributes must be in the DOM on mount
+  onMount(() =&amp;gt; {
+    themeChange(false)
+    // false parameter is required for svelte
+  })
+&amp;lt;/script&amp;gt;
+
+&amp;lt;navbar&amp;gt;
+  &amp;lt;div class=&amp;quot;bg-black h-2.5&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+  &amp;lt;div class=&amp;quot;flex items-center justify-center sticky top-0 z-50 bg-green-700&amp;quot;&amp;gt;
+
+    &amp;lt;div class=&amp;quot;navbar w-4/5&amp;quot;&amp;gt;
+
+      &amp;lt;div class=&amp;quot;navbar-start&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;dropdown&amp;quot;&amp;gt;
+          &amp;lt;div tabindex=&amp;quot;0&amp;quot; class=&amp;quot;btn btn-ghost btn-circle&amp;quot;&amp;gt;
+            &amp;lt;!-- menu-alt1 - hero-icon --&amp;gt;
+            &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; class=&amp;quot;h-5 w-5&amp;quot; fill=&amp;quot;none&amp;quot; viewBox=&amp;quot;0 0 22 22&amp;quot; stroke=&amp;quot;currentColor&amp;quot;&amp;gt;
+              &amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;4&amp;quot; d=&amp;quot;M2 6h16M2 12h8m-8 6h16&amp;quot; /&amp;gt;
+            &amp;lt;/svg&amp;gt;
+          &amp;lt;/div&amp;gt;
+          &amp;lt;ul tabindex=&amp;quot;0&amp;quot; class=&amp;quot;menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-62&amp;quot;&amp;gt;
+            &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;Item 1&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+            &amp;lt;li tabindex=&amp;quot;0&amp;quot;&amp;gt;
+              &amp;lt;a class=&amp;quot;justify-between&amp;quot; href=&amp;quot;/&amp;quot;&amp;gt;
+                Parent
+                &amp;lt;svg class=&amp;quot;fill-current&amp;quot; xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; width=&amp;quot;24&amp;quot; height=&amp;quot;24&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot;&amp;gt;
+                  &amp;lt;path d=&amp;quot;M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z&amp;quot;/&amp;gt;
+                &amp;lt;/svg&amp;gt;
+              &amp;lt;/a&amp;gt;
+              &amp;lt;ul class=&amp;quot;p-2 shadow bg-base-100&amp;quot;&amp;gt;
+                &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;Submenu 1&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;Submenu 2&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+              &amp;lt;/ul&amp;gt;
+            &amp;lt;/li&amp;gt;
+            &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;Item 3&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+            &amp;lt;li&amp;gt;
+              &amp;lt;div class=&amp;quot;form-control&amp;quot;&amp;gt;
+                &amp;lt;input type=&amp;quot;text&amp;quot; placeholder=&amp;quot;Search&amp;quot; class=&amp;quot;input input-bordered&amp;quot;&amp;gt;
+              &amp;lt;/div&amp;gt;
+            &amp;lt;/li&amp;gt;
+          &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+      &amp;lt;/div&amp;gt;
+
+      &amp;lt;div class=&amp;quot;navbar-center&amp;quot;&amp;gt;
+        &amp;lt;a href=&amp;quot;/&amp;quot; class=&amp;quot;btn btn-ghost normal-case text-2xl&amp;quot;&amp;gt;btihen.dev&amp;lt;/a&amp;gt;
+      &amp;lt;/div&amp;gt;
+
+      &amp;lt;div class=&amp;quot;navbar-end space-x-2&amp;quot;&amp;gt;
+        &amp;lt;!-- sun - heroicon.dev --&amp;gt;
+        &amp;lt;svg class=&amp;quot;w-6 h-6&amp;quot; fill=&amp;quot;none&amp;quot; stroke=&amp;quot;currentColor&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot; xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot;&amp;gt;
+          &amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;
+        &amp;lt;/svg&amp;gt;
+        &amp;lt;!-- https://github.com/saadeghi/theme-change --&amp;gt;
+        &amp;lt;input type=&amp;quot;checkbox&amp;quot; class=&amp;quot;toggle&amp;quot; id=&amp;quot;theme-toggle&amp;quot; data-toggle-theme=&amp;quot;btihenl,btihend&amp;quot; data-act-class=&amp;quot;ACTIVECLASS&amp;quot;&amp;gt;
+        &amp;lt;!-- moon - heroicon.dev --&amp;gt;
+        &amp;lt;svg class=&amp;quot;w-6 h-6&amp;quot; fill=&amp;quot;none&amp;quot; stroke=&amp;quot;currentColor&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot; xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot;&amp;gt;
+          &amp;lt;path stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot; stroke-width=&amp;quot;2&amp;quot; d=&amp;quot;M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;
+        &amp;lt;/svg&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+  &amp;lt;/div&amp;gt;
+&amp;lt;/navbar&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;footer&#34;&gt;Footer&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-svelte&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt;&amp;gt;src/lib/components/Footer.svelte
+&amp;lt;footer class=&amp;quot;flex items-center justify-center p-4 bg-green-700 shadow-md&amp;quot;&amp;gt;
+  &amp;lt;div class=&amp;quot;footer w-4/5&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;items-center grid-flow-col place-self-center md:place-self-start&amp;quot;&amp;gt;
+      &amp;lt;a href=&amp;quot;/&amp;quot; class=&amp;quot;btn btn-ghost normal-case text-2xl&amp;quot;&amp;gt;btihen.dev&amp;lt;/a&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;div class=&amp;quot;grid-flow-col gap-4 place-self-center md:justify-self-end&amp;quot;&amp;gt;
+      &amp;lt;!-- github - cons.getbootstrap.com--&amp;gt;
+      &amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;
+        &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; width=&amp;quot;24&amp;quot; height=&amp;quot;24&amp;quot; fill=&amp;quot;currentColor&amp;quot; class=&amp;quot;bi bi-github&amp;quot; viewBox=&amp;quot;0 0 16 16&amp;quot;&amp;gt;
+          &amp;lt;path d=&amp;quot;M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z&amp;quot;/&amp;gt;
+        &amp;lt;/svg&amp;gt;
+      &amp;lt;/a&amp;gt;
+      &amp;lt;!-- linked-in - cons.getbootstrap.com --&amp;gt;
+      &amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;
+        &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; width=&amp;quot;24&amp;quot; height=&amp;quot;24&amp;quot; fill=&amp;quot;currentColor&amp;quot; class=&amp;quot;bi bi-linkedin&amp;quot; viewBox=&amp;quot;0 0 16 16&amp;quot;&amp;gt;
+          &amp;lt;path d=&amp;quot;M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z&amp;quot;/&amp;gt;
+        &amp;lt;/svg&amp;gt;
+      &amp;lt;/a&amp;gt;
+      &amp;lt;!-- twitter - cons.getbootstrap.com--&amp;gt;
+      &amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;
+        &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; width=&amp;quot;24&amp;quot; height=&amp;quot;24&amp;quot; fill=&amp;quot;currentColor&amp;quot; class=&amp;quot;bi bi-twitter&amp;quot; viewBox=&amp;quot;0 0 16 16&amp;quot;&amp;gt;
+          &amp;lt;path d=&amp;quot;M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z&amp;quot;/&amp;gt;
+        &amp;lt;/svg&amp;gt;
+      &amp;lt;/a&amp;gt;
+      &amp;lt;!-- facebook --&amp;gt;
+      &amp;lt;!--
+      &amp;lt;a href=&amp;quot;/&amp;quot;&amp;gt;
+        &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; width=&amp;quot;24&amp;quot; height=&amp;quot;24&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot; class=&amp;quot;fill-current&amp;quot;&amp;gt;
+          &amp;lt;path d=&amp;quot;M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;
+        &amp;lt;/svg&amp;gt;
+      &amp;lt;/a&amp;gt;
+      --&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/footer&amp;gt;
+&amp;lt;div class=&amp;quot;bg-black flex items-center justify-center h-3.5&amp;quot;&amp;gt;
+  &amp;lt;p class=&amp;quot;text-white text-2xs&amp;quot;&amp;gt;Copyright © 2022 - All right reserved&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-base-layout&#34;&gt;Create a Base Layout&lt;/h2&gt;
+&lt;p&gt;To create a layout &lt;code&gt;__layout.svelte&lt;/code&gt; (so we can add components to each page like navbars, etc)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-svelte&#34;&gt;touch src/routes/__layout.svelte
+cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/routes/__layout.svelte
+&amp;lt;script&amp;gt;
+  import &amp;quot;../app.css&amp;quot;;
+  import Navbar from &#39;$lib/components/Navbar.svelte&#39;
+  import Footer from &#39;$lib/components/Footer.svelte&#39;
+&amp;lt;/script&amp;gt;
+
+&amp;lt;Navbar /&amp;gt;
+
+&amp;lt;main class=&amp;quot;flex items-center justify-center bg-base-100&amp;quot;&amp;gt;
+  &amp;lt;div class=&amp;quot;w-4/5 m-4 px-4 py-4 sm:px-0&amp;quot;&amp;gt;
+    &amp;lt;slot /&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/main&amp;gt;
+
+&amp;lt;Footer /&amp;gt;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;markdown-setup&#34;&gt;Markdown Setup&lt;/h2&gt;
+&lt;h3 id=&#34;front-mater&#34;&gt;Front-mater&lt;/h3&gt;
+&lt;h3 id=&#34;reading-time&#34;&gt;Reading time&lt;/h3&gt;
+&lt;h2 id=&#34;blog-index-page&#34;&gt;Blog Index Page&lt;/h2&gt;
+&lt;h2 id=&#34;blog-tag-search--pages&#34;&gt;Blog Tag Search / Pages&lt;/h2&gt;
+&lt;h2 id=&#34;contact-page-netlify&#34;&gt;Contact page (netlify)&lt;/h2&gt;
+&lt;h2 id=&#34;deployment-netlify&#34;&gt;Deployment (netlify)&lt;/h2&gt;
+&lt;h2 id=&#34;deployment-render&#34;&gt;Deployment (render)&lt;/h2&gt;
+&lt;h2 id=&#34;to-solve&#34;&gt;To Solve&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;MDsvex CSS&lt;/li&gt;
+&lt;li&gt;MDsvex - layouts&lt;/li&gt;
+&lt;li&gt;DaisyUI dropdowns don&amp;rsquo;t close with a second click, but on a focus change :(&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;h3 id=&#34;svelte-resources&#34;&gt;Svelte Resources&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=haKnkk6ds20&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=haKnkk6ds20&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://joshcollinsworth.com/blog/build-static-sveltekit-markdown-blog&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://joshcollinsworth.com/blog/build-static-sveltekit-markdown-blog&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://kit.svelte.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://kit.svelte.dev/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://megzari.com/blog/about_this_site&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://megzari.com/blog/about_this_site&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://svelte.dev/examples#dom-event-forwarding&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://svelte.dev/examples#dom-event-forwarding&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://prismic.io/blog/svelte-sveltekit-tutorial&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://prismic.io/blog/svelte-sveltekit-tutorial&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.liip.ch/en/blog/sveltekit-and-tailwind-windi-css&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.liip.ch/en/blog/sveltekit-and-tailwind-windi-css&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;mdsvex-svelte-markdown&#34;&gt;MDsveX (Svelte Markdown)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;reading time&lt;/li&gt;
+&lt;li&gt;template, &amp;hellip;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://mdsvex.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mdsvex.com/docs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://mdsvex.com/docs#integrations&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://mdsvex.com/docs#integrations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/spences10/sveltekit-mdsvex-starter-blog/blob/main/mdsvex.config.js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/spences10/sveltekit-mdsvex-starter-blog/blob/main/mdsvex.config.js&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;daisyui--themes&#34;&gt;DaisyUI &amp;amp; Themes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://daisyui.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://daisyui.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/saadeghi/daisyui&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/saadeghi/daisyui&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/saadeghi/theme-change&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/saadeghi/theme-change&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;icons&#34;&gt;Icons&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://heroicons.dev/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://heroicons.dev/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://icons.getbootstrap.com/icons/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://icons.getbootstrap.com/icons/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
