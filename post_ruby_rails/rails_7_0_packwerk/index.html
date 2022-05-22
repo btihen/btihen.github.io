@@ -1,0 +1,1474 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Organizing Code Gems and Engines have long been used to organize Ruby and Rails code into workable small units.
+Shopify has introduced a new system called &lsquo;packages&rsquo; - they use the packwerk gem to help us.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_7_0_packwerk/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_7_0_packwerk/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_7_0_packwerk/">
+  <meta property="og:title" content="Rails 7.0 Using Packwerk | btihen">
+  <meta property="og:description" content="Organizing Code Gems and Engines have long been used to organize Ruby and Rails code into workable small units.
+Shopify has introduced a new system called &lsquo;packages&rsquo; - they use the packwerk gem to help us."><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_7_0_packwerk/featured.png">
+  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_7_0_packwerk/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-05-22T01:20:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2022-05-22T01:20:00&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 7.0 Using Packwerk | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://container4.ch/" target="_blank" rel="noopener"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Media</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Rails 7.0 Using Packwerk</h1>
+
+  
+  <p class="page-subtitle">Organizing Rails Apps with Packages</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sun, May 22, 2022
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 474px; max-height: 491px;">
+  <div style="position: relative">
+    <img src="/post_ruby_rails/rails_7_0_packwerk/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="organizing-code">Organizing Code</h2>
+<p>Gems and Engines have long been used to organize Ruby and Rails code into workable small units.</p>
+<p>Shopify has introduced a new system called &lsquo;packages&rsquo; - they use the packwerk gem to help us.  In fact, it is designed to make it easy to take large (and likely highly coupled) large codebase and move toward &lsquo;packages&rsquo; self-contained (or have explicit dependencies).  Ideally the code is in small enough units to help us keep the context in mind as we work on it.</p>
+<p>I found it initially difficult to understand packwerk in the context of a complex codebase.  So instead I built a new &lsquo;play&rsquo; app and then moved each piece into a package.  Hopefully, this will inspire you to use Gem, Engines or Packages to clarify dependencies and make the code a logical until that is easy to reason about.</p>
+<h2 id="ruby-and-rails-environment">Ruby and Rails Environment</h2>
+<p>Using Rails 7 &amp; Ruby 3.1.2 - I found that it is important to update my ruby environment - so before we start this is what I didn&rsquo;t remove errors:</p>
+<pre><code class="language-bash"># I've had the error several times without updating:
+# /Users/btihen/.rbenv/versions/3.1.0/lib/ruby/gems/3.1.0/gems/bundler-2.3.8/lib/bundler/rubygems_ext.rb:18:in `source': uninitialized constant Gem::Source (NameError)
+#
+#       (defined?(@source) &amp;&amp; @source) || Gem::Source::Installed.new
+#                                            ^^^^^^^^
+# Did you mean?  Gem::SourceList
+# this seems to fix it:
+# https://bundler.io/guides/bundler_2_upgrade.html
+# https://stackoverflow.com/questions/4859600/bundler-throws-uninitialized-constant-gemsilentui-nameerror-error-after-upgr
+rbenv local 3.1.2
+gem update --system
+gem install bundler
+gem install rails
+rbenv rehash
+</code></pre>
+<h2 id="rails-project---simple-blog">Rails Project - Simple Blog</h2>
+<p>Since other projects are using esbuild I use that here too</p>
+<pre><code class="language-ruby">rails new rails_pack -T --database=postgresql --css=bootstrap --javascript=esbuild
+cd rails_pack
+bin/rails db:create
+
+# add the packwerk (packages) gem
+bundle add packwerk
+bundle binstub packwerk
+# initialize packwerk
+bin/packwerk init
+
+# to visualize your package design
+bundle add graphwerk
+gem 'graphwerk', group: %i[development test]
+bundle install
+bundle exec rake graphwerk:update
+# (or pocky https://github.com/mquan/pocky)
+</code></pre>
+<p>NOTE: to turn a folder into a package - add the file: <code>package.yml</code> in the package folder - this will be described in more detail as we go.</p>
+<h2 id="configure-packages">Configure Packages</h2>
+<p>in <code>config/application.rb</code> add:</p>
+<pre><code class="language-ruby">config.paths.add 'app/packages', glob: '*/{*,*/concerns}', eager_load: true
+</code></pre>
+<p>So now it might look like:</p>
+<pre><code class="language-ruby"># config/application.rb
+require_relative &quot;boot&quot;
+
+require &quot;rails&quot;
+# Pick the frameworks you want:
+require &quot;active_model/railtie&quot;
+require &quot;active_job/railtie&quot;
+require &quot;active_record/railtie&quot;
+require &quot;active_storage/engine&quot;
+require &quot;action_controller/railtie&quot;
+require &quot;action_mailer/railtie&quot;
+require &quot;action_mailbox/engine&quot;
+require &quot;action_text/engine&quot;
+require &quot;action_view/railtie&quot;
+require &quot;action_cable/engine&quot;
+# require &quot;rails/test_unit/railtie&quot;
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module RailsPack
+  class Application &lt; Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.0
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
+
+    # config packages fur packwerk
+    config.paths.add 'app/packages', glob: '*/{*,*/concerns}', eager_load: true
+  end
+end
+</code></pre>
+<p>Also change <code>app/controllers/application_controller.rb</code> to:</p>
+<pre><code class="language-ruby"># app/controllers/application_controller.rb
+class ApplicationController &lt; ActionController::Base
+  append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
+end
+</code></pre>
+<p>Finally, lets create the location for the packages:</p>
+<pre><code class="language-bash">mkdir app/packages
+</code></pre>
+<h2 id="create-a-landing-page">Create a Landing Page</h2>
+<p>We can generate the code using:</p>
+<pre><code class="language-bash">bin/rails g controller landing index
+</code></pre>
+<p>You will see it creates the files;</p>
+<pre><code class="language-bash">create  app/controllers/landing_controller.rb
+ route  get 'landing/index'
+invoke  erb
+create    app/views/landing
+create    app/views/landing/index.html.erb
+invoke  helper
+create    app/helpers/landing_helper.rb
+</code></pre>
+<p>So we see it has created a controller, a view and a helper - we will copy this structure into a new package <code>landing</code> using:</p>
+<pre><code class="language-bash">mkdir -p app/packages/landing
+mkdir -p app/packages/landing/public
+mkdir -p app/packages/landing/controllers
+mkdir -p app/packages/landing/views
+mkdir -p app/packages/landing/helpers
+
+# copy the generated files
+mv app/controllers/landing_controller.rb app/packages/controllers/.
+mv app/views/landings app/packages/views/landings
+mv app/helpers/landing_helper.rb app/packages/helpers/.
+</code></pre>
+<p>copy our package.yml to configure the package</p>
+<pre><code class="language-yml">cat &lt;&lt;EOF&gt;&gt; app/packages/landing/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package's public path is within the package
+public_path: public/
+
+# A list of this package's dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- '.'
+EOF
+</code></pre>
+<p>Now finally, the update the routing:</p>
+<pre><code class="language-ruby">Rails.application.routes.draw do
+  get 'landing/index'
+  root &quot;landing#index&quot;
+end
+</code></pre>
+<p>lets try the packwerk check to see if we have clearly defined our package:</p>
+<pre><code>bin/packwerk check
+</code></pre>
+<p>Lets generate a diagram of our app:</p>
+<pre><code class="language-bash">bin/rails graphwerk:update
+</code></pre>
+<p>Now you can open <code>packwerk.png</code> and see the code structure and dependencies.</p>
+<p>The <code>application</code> is the rails core.</p>
+<p><img src="packwerk-landing.png" alt="Alt graph of landing and rails package" title="Landing Page and Rails Packages"></p>
+<p>finally, lets be sure all is working:</p>
+<pre><code>bin/rails s
+</code></pre>
+<p><strong>we should be able to get to <code>localhost:3000/</code> and see our landing page</strong></p>
+<p><strong>NOTE:</strong> IF YOU GET ERRORS REGARDING CONTROLLER OBJECT NOT FOUND RESTART RAILS!</p>
+<h2 id="core-data--admin-controlled">Core Data / Admin Controlled</h2>
+<p>most apps need some core data like users, etc. So lets generate this too:</p>
+<pre><code class="language-bash">bin/rails g scaffold user full_name email
+</code></pre>
+<p>now that we have generated the files and see the list lets create the package:</p>
+<pre><code class="language-bash"># create the package
+mkdir -p app/packages/core
+# recreate the structure of created files within the package
+mkdir -p app/packages/core/public
+mkdir -p app/packages/core/controllers
+mkdir -p app/packages/core/helpers
+mkdir -p app/packages/core/models
+mkdir -p app/packages/core/views
+
+# move the generated files into the package
+mv app/controllers/users_controller.rb app/packages/core/controllers/.
+mv app/helpers/users_helper.rb app/packages/core/helpers/.
+mv app/models/user.rb app/packages/core/models/.
+mv app/views/users/views/users app/packages/core/views/.
+</code></pre>
+<p>the package config</p>
+<pre><code class="language-yml">cat &lt;&lt;EOF&gt; app/packages/core/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package's public path is within the package
+public_path: public/
+
+# A list of this package's dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- '.'
+EOF
+</code></pre>
+<p>update the routes (even though the package is called core - lets make the path called <code>admin</code> since that is who will be managing the settings within this package)</p>
+<pre><code class="language-ruby">Rails.application.routes.draw do
+  scope :admin do
+    resources :users
+  end
+  get 'landing/index'
+  get 'landing', to: 'landing#index'
+  root 'landing#index' # Defines the root path route (&quot;/&quot;)
+end
+</code></pre>
+<p>Now that we have created a new model we need to migrate:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>Perhaps it would be good to keep migrations with packages, like we do with engines.  But for now we will let it be.</p>
+<p>lets try the packwerk check to see if we have clearly defined our package:</p>
+<pre><code>bin/packwerk check
+</code></pre>
+<p>If you have used the default <code>package.yml</code> then all should be good.</p>
+<p>Lets update our diagram of our app:</p>
+<pre><code class="language-bash">bin/rails graphwerk:update
+</code></pre>
+<p>you should now see both the landing and core module</p>
+<p><img src="packwerk-landing_core.png" alt="Alt graph of landing, core and rails packages" title="Landing, Core and Rails Packages"></p>
+<p>Lets be sure all is working &amp; we can create a user or two at <code>localhost:3000/admin/users</code></p>
+<p><strong>NOTE:</strong> IF YOU GET ERRORS REGARDING CONTROLLER OBJECT NOT FOUND RESTART RAILS!</p>
+<h2 id="adding-the-blogs">Adding the Blogs</h2>
+<p>Now we need to app to allow some activity.  Let&rsquo;s create a blog site.  We will create a <code>post</code> &amp; later a <code>comment</code> model.  Again we will use a generator and then put everything in its place.</p>
+<pre><code class="language-bash">bin/rails g scaffold post content user:references
+</code></pre>
+<p>Now that we have generated standard code lets create the package:</p>
+<pre><code class="language-bash">mkdir -p app/packages/blogs
+midir -p app/packages/blogs/public
+midir -p app/packages/blogs/controllers
+midir -p app/packages/blogs/helpers
+midir -p app/packages/blogs/models
+midir -p app/packages/blogs/views
+
+# and move the files into the package
+mv app/controllers/posts_controller.rb app/packages/blogs/controllers/.
+mv app/helpers/posts_helpers.rb app/packages/blogs/helpers/.
+mv app/models/post.rb app/packages/blogs/models/.
+mv app/models/views/posts app/packages/blogs/views/.
+</code></pre>
+<p>and now we need the <code>package.yml</code> file to activate the <strong>blogs</strong>s package:</p>
+<pre><code class="language-yml">cat &lt;&lt;EOF&gt; app/packages/blogs/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package's public path is within the package
+public_path: public/
+
+# A list of this package's dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- '.'
+EOF
+</code></pre>
+<p>update the routes (even though the package is called core - lets make the path called <code>admin</code> since that is who will be managing the settings within this package)</p>
+<pre><code class="language-ruby">Rails.application.routes.draw do
+  scope 'blogs' do
+    resources :posts
+  end
+  scope 'admin' do
+    resources :users
+  end
+  get 'landing/index'
+  get 'landing', to: 'landing#index'
+  root 'landing#index' # Defines the root path route (&quot;/&quot;)
+end
+
+</code></pre>
+<p>Now that we have created a new model we need to migrate:</p>
+<pre><code class="language-bash">bin/rails db:migrate
+</code></pre>
+<p>Since I don&rsquo;t want to get fancy with a current_user in the root controller - we can add the following to our new controller in <code>create</code>:</p>
+<pre><code class="language-ruby">  # POST /posts or /posts.json
+  def create
+    current_user = User.first
+    @post = Post.new(post_params.merge(user: current_user))
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to post_url(@post), notice: 'Post was successfully created.' }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+</code></pre>
+<p>lets try the packwerk check to see if we have clearly defined our package:</p>
+<pre><code>bin/packwerk check
+</code></pre>
+<p>Hmmm - now we are getting some problems!</p>
+<ol>
+<li>We are access the User from Core, but we haven&rsquo;t explicitly allow that.</li>
+<li>We depend on Core in Blogs, but we haven&rsquo;t explicity stated that we want that.</li>
+</ol>
+<p>Let&rsquo;s fix the declared dependencies:</p>
+<pre><code class="language-yml"># app/packages/blogs/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package's public path is within the package
+public_path: public/
+
+# A list of this package's dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- '.'
+- 'app/packages/core'
+</code></pre>
+<p>This should fix the declared package dependencies, now lets fix the access problem between the dependencies.  The easiest fix is to put whatever we need accessible by other packages in the package&rsquo;s <code>public</code> folder:</p>
+<pre><code class="language-bash">mkdir app/packages/core/public/models
+mv app/packages/core/models/user.rb app/packages/core/public/models/.
+</code></pre>
+<p>now <code>bin/packwerk check</code> should be clean</p>
+<p><strong>Note:</strong> in a real-world complex application there may be too many dependencies to fix all at once.  In this case you can run:</p>
+<pre><code class="language-bash">bin/packwerk update-deprecations
+</code></pre>
+<p>Now packwerk will ignore the problems and allow you to fix them over-time - this list can be seen in the file: <code>app/packages/blogs/deprecated_references.yml</code> it will look something like:</p>
+<pre><code class="language-yml"># This file contains a list of dependencies that are not part of the long term plan for app/packages/blogs.
+# We should generally work to reduce this list, but not at the expense of actually getting work done.
+#
+# You can regenerate this file using the following command:
+# bin/packwerk update-deprecations app/packages/blogs
+---
+app/packages/core:
+  &quot;::User&quot;:
+    violations:
+    - privacy
+    files:
+    - app/packages/blogs/controllers/posts_controller.rb
+    - app/packages/blogs/models/post.rb
+</code></pre>
+<p>Lets update our diagram of our app:</p>
+<pre><code class="language-bash">bin/rails graphwerk:update
+</code></pre>
+<p>you should now see both the landing and core module</p>
+<p><img src="packwerk-landing_core_blogs.png" alt="Alt graph of landing, core, blog and rails packages" title="Landing, Core, Blogs and Rails Packages"></p>
+<p>You may notice that everything is dependent on <code>application</code> rails.  This is expected for a rails-app.</p>
+<p>Lets be sure all is working &amp; we can create a user or two at <code>localhost:3000/blogs/posts</code></p>
+<p><strong>NOTE:</strong> IF YOU GET ERRORS REGARDING CONTROLLER OBJECT NOT FOUND RESTART RAILS!</p>
+<h2 id="going-further">Going further!</h2>
+<p>To gain more ideas I recommend the book: 
+<a href="https://leanpub.com/package-based-rails-applications" target="_blank" rel="noopener">Package-Based Rails Applications</a>, by Stephan Hagemann (also wrote the book on using engines for modular Rails applications).</p>
+<p>In particular, in the book he discusses ways to reduce even the rails dependencies, integrate events, etc for further loose coupling.</p>
+<h2 id="rails-packwerk-resources">Rails Packwerk Resources</h2>
+<ul>
+<li>site - 
+<a href="https://github.com/Shopify/packwerk/" target="_blank" rel="noopener">https://github.com/Shopify/packwerk/</a></li>
+<li>video - 
+<a href="https://www.youtube.com/watch?v=olEA157z7kU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=olEA157z7kU</a></li>
+<li>book - 
+<a href="https://leanpub.com/package-based-rails-applications" target="_blank" rel="noopener">https://leanpub.com/package-based-rails-applications</a></li>
+<li>docs - 
+<a href="https://github.com/Shopify/packwerk/blob/main/USAGE.md" target="_blank" rel="noopener">https://github.com/Shopify/packwerk/blob/main/USAGE.md</a></li>
+<li>help - 
+<a href="https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md" target="_blank" rel="noopener">https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/packwerk/">packwerk</a>
+  
+  <a class="badge badge-light" href="/tags/architecture/">architecture</a>
+  
+  <a class="badge badge-light" href="/tags/design/">design</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_7_0_packwerk/&amp;text=Rails%207.0%20Using%20Packwerk" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_7_0_packwerk/&amp;t=Rails%207.0%20Using%20Packwerk" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%207.0%20Using%20Packwerk&amp;body=https://btihen.me/post_ruby_rails/rails_7_0_packwerk/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_7_0_packwerk/&amp;title=Rails%207.0%20Using%20Packwerk" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%207.0%20Using%20Packwerk%20https://btihen.me/post_ruby_rails/rails_7_0_packwerk/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_7_0_packwerk/&amp;title=Rails%207.0%20Using%20Packwerk" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.36f3f36c742ad89c07012be8de57ec4c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2022
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>architecture | btihen</title>
+    <link>https://btihen.me/tags/architecture/</link>
+      <atom:link href="https://btihen.me/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <description>architecture</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sun, 22 May 2022 01:20:00 +0200</lastBuildDate>
+    <image>
+      <url>https://btihen.me/img/btihen_landing_page.png</url>
+      <title>architecture</title>
+      <link>https://btihen.me/tags/architecture/</link>
+    </image>
+    
+    <item>
+      <title>Rails 7.0 Using Packwerk</title>
+      <link>https://btihen.me/post_ruby_rails/rails_7_0_packwerk/</link>
+      <pubDate>Sun, 22 May 2022 01:20:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_7_0_packwerk/</guid>
+      <description>&lt;h2 id=&#34;organizing-code&#34;&gt;Organizing Code&lt;/h2&gt;
+&lt;p&gt;Gems and Engines have long been used to organize Ruby and Rails code into workable small units.&lt;/p&gt;
+&lt;p&gt;Shopify has introduced a new system called &amp;lsquo;packages&amp;rsquo; - they use the packwerk gem to help us.  In fact, it is designed to make it easy to take large (and likely highly coupled) large codebase and move toward &amp;lsquo;packages&amp;rsquo; self-contained (or have explicit dependencies).  Ideally the code is in small enough units to help us keep the context in mind as we work on it.&lt;/p&gt;
+&lt;p&gt;I found it initially difficult to understand packwerk in the context of a complex codebase.  So instead I built a new &amp;lsquo;play&amp;rsquo; app and then moved each piece into a package.  Hopefully, this will inspire you to use Gem, Engines or Packages to clarify dependencies and make the code a logical until that is easy to reason about.&lt;/p&gt;
+&lt;h2 id=&#34;ruby-and-rails-environment&#34;&gt;Ruby and Rails Environment&lt;/h2&gt;
+&lt;p&gt;Using Rails 7 &amp;amp; Ruby 3.1.2 - I found that it is important to update my ruby environment - so before we start this is what I didn&amp;rsquo;t remove errors:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# I&#39;ve had the error several times without updating:
+# /Users/btihen/.rbenv/versions/3.1.0/lib/ruby/gems/3.1.0/gems/bundler-2.3.8/lib/bundler/rubygems_ext.rb:18:in `source&#39;: uninitialized constant Gem::Source (NameError)
+#
+#       (defined?(@source) &amp;amp;&amp;amp; @source) || Gem::Source::Installed.new
+#                                            ^^^^^^^^
+# Did you mean?  Gem::SourceList
+# this seems to fix it:
+# https://bundler.io/guides/bundler_2_upgrade.html
+# https://stackoverflow.com/questions/4859600/bundler-throws-uninitialized-constant-gemsilentui-nameerror-error-after-upgr
+rbenv local 3.1.2
+gem update --system
+gem install bundler
+gem install rails
+rbenv rehash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-project---simple-blog&#34;&gt;Rails Project - Simple Blog&lt;/h2&gt;
+&lt;p&gt;Since other projects are using esbuild I use that here too&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;rails new rails_pack -T --database=postgresql --css=bootstrap --javascript=esbuild
+cd rails_pack
+bin/rails db:create
+
+# add the packwerk (packages) gem
+bundle add packwerk
+bundle binstub packwerk
+# initialize packwerk
+bin/packwerk init
+
+# to visualize your package design
+bundle add graphwerk
+gem &#39;graphwerk&#39;, group: %i[development test]
+bundle install
+bundle exec rake graphwerk:update
+# (or pocky https://github.com/mquan/pocky)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE: to turn a folder into a package - add the file: &lt;code&gt;package.yml&lt;/code&gt; in the package folder - this will be described in more detail as we go.&lt;/p&gt;
+&lt;h2 id=&#34;configure-packages&#34;&gt;Configure Packages&lt;/h2&gt;
+&lt;p&gt;in &lt;code&gt;config/application.rb&lt;/code&gt; add:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;config.paths.add &#39;app/packages&#39;, glob: &#39;*/{*,*/concerns}&#39;, eager_load: true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So now it might look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/application.rb
+require_relative &amp;quot;boot&amp;quot;
+
+require &amp;quot;rails&amp;quot;
+# Pick the frameworks you want:
+require &amp;quot;active_model/railtie&amp;quot;
+require &amp;quot;active_job/railtie&amp;quot;
+require &amp;quot;active_record/railtie&amp;quot;
+require &amp;quot;active_storage/engine&amp;quot;
+require &amp;quot;action_controller/railtie&amp;quot;
+require &amp;quot;action_mailer/railtie&amp;quot;
+require &amp;quot;action_mailbox/engine&amp;quot;
+require &amp;quot;action_text/engine&amp;quot;
+require &amp;quot;action_view/railtie&amp;quot;
+require &amp;quot;action_cable/engine&amp;quot;
+# require &amp;quot;rails/test_unit/railtie&amp;quot;
+
+# Require the gems listed in Gemfile, including any gems
+# you&#39;ve limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module RailsPack
+  class Application &amp;lt; Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.0
+
+    # Don&#39;t generate system test files.
+    config.generators.system_tests = nil
+
+    # config packages fur packwerk
+    config.paths.add &#39;app/packages&#39;, glob: &#39;*/{*,*/concerns}&#39;, eager_load: true
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Also change &lt;code&gt;app/controllers/application_controller.rb&lt;/code&gt; to:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# app/controllers/application_controller.rb
+class ApplicationController &amp;lt; ActionController::Base
+  append_view_path(Dir.glob(Rails.root.join(&#39;app/packages/*/views&#39;)))
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, lets create the location for the packages:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/packages
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-a-landing-page&#34;&gt;Create a Landing Page&lt;/h2&gt;
+&lt;p&gt;We can generate the code using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g controller landing index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You will see it creates the files;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;create  app/controllers/landing_controller.rb
+ route  get &#39;landing/index&#39;
+invoke  erb
+create    app/views/landing
+create    app/views/landing/index.html.erb
+invoke  helper
+create    app/helpers/landing_helper.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So we see it has created a controller, a view and a helper - we will copy this structure into a new package &lt;code&gt;landing&lt;/code&gt; using:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p app/packages/landing
+mkdir -p app/packages/landing/public
+mkdir -p app/packages/landing/controllers
+mkdir -p app/packages/landing/views
+mkdir -p app/packages/landing/helpers
+
+# copy the generated files
+mv app/controllers/landing_controller.rb app/packages/controllers/.
+mv app/views/landings app/packages/views/landings
+mv app/helpers/landing_helper.rb app/packages/helpers/.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;copy our package.yml to configure the package&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt; app/packages/landing/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package&#39;s public path is within the package
+public_path: public/
+
+# A list of this package&#39;s dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- &#39;.&#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now finally, the update the routing:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
+  get &#39;landing/index&#39;
+  root &amp;quot;landing#index&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets try the packwerk check to see if we have clearly defined our package:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/packwerk check
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets generate a diagram of our app:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails graphwerk:update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can open &lt;code&gt;packwerk.png&lt;/code&gt; and see the code structure and dependencies.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;application&lt;/code&gt; is the rails core.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;packwerk-landing.png&#34; alt=&#34;Alt graph of landing and rails package&#34; title=&#34;Landing Page and Rails Packages&#34;&gt;&lt;/p&gt;
+&lt;p&gt;finally, lets be sure all is working:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/rails s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;we should be able to get to &lt;code&gt;localhost:3000/&lt;/code&gt; and see our landing page&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; IF YOU GET ERRORS REGARDING CONTROLLER OBJECT NOT FOUND RESTART RAILS!&lt;/p&gt;
+&lt;h2 id=&#34;core-data--admin-controlled&#34;&gt;Core Data / Admin Controlled&lt;/h2&gt;
+&lt;p&gt;most apps need some core data like users, etc. So lets generate this too:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g scaffold user full_name email
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now that we have generated the files and see the list lets create the package:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# create the package
+mkdir -p app/packages/core
+# recreate the structure of created files within the package
+mkdir -p app/packages/core/public
+mkdir -p app/packages/core/controllers
+mkdir -p app/packages/core/helpers
+mkdir -p app/packages/core/models
+mkdir -p app/packages/core/views
+
+# move the generated files into the package
+mv app/controllers/users_controller.rb app/packages/core/controllers/.
+mv app/helpers/users_helper.rb app/packages/core/helpers/.
+mv app/models/user.rb app/packages/core/models/.
+mv app/views/users/views/users app/packages/core/views/.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the package config&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt; app/packages/core/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package&#39;s public path is within the package
+public_path: public/
+
+# A list of this package&#39;s dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- &#39;.&#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the routes (even though the package is called core - lets make the path called &lt;code&gt;admin&lt;/code&gt; since that is who will be managing the settings within this package)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
+  scope :admin do
+    resources :users
+  end
+  get &#39;landing/index&#39;
+  get &#39;landing&#39;, to: &#39;landing#index&#39;
+  root &#39;landing#index&#39; # Defines the root path route (&amp;quot;/&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have created a new model we need to migrate:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Perhaps it would be good to keep migrations with packages, like we do with engines.  But for now we will let it be.&lt;/p&gt;
+&lt;p&gt;lets try the packwerk check to see if we have clearly defined our package:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/packwerk check
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you have used the default &lt;code&gt;package.yml&lt;/code&gt; then all should be good.&lt;/p&gt;
+&lt;p&gt;Lets update our diagram of our app:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails graphwerk:update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you should now see both the landing and core module&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;packwerk-landing_core.png&#34; alt=&#34;Alt graph of landing, core and rails packages&#34; title=&#34;Landing, Core and Rails Packages&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Lets be sure all is working &amp;amp; we can create a user or two at &lt;code&gt;localhost:3000/admin/users&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; IF YOU GET ERRORS REGARDING CONTROLLER OBJECT NOT FOUND RESTART RAILS!&lt;/p&gt;
+&lt;h2 id=&#34;adding-the-blogs&#34;&gt;Adding the Blogs&lt;/h2&gt;
+&lt;p&gt;Now we need to app to allow some activity.  Let&amp;rsquo;s create a blog site.  We will create a &lt;code&gt;post&lt;/code&gt; &amp;amp; later a &lt;code&gt;comment&lt;/code&gt; model.  Again we will use a generator and then put everything in its place.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails g scaffold post content user:references
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have generated standard code lets create the package:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p app/packages/blogs
+midir -p app/packages/blogs/public
+midir -p app/packages/blogs/controllers
+midir -p app/packages/blogs/helpers
+midir -p app/packages/blogs/models
+midir -p app/packages/blogs/views
+
+# and move the files into the package
+mv app/controllers/posts_controller.rb app/packages/blogs/controllers/.
+mv app/helpers/posts_helpers.rb app/packages/blogs/helpers/.
+mv app/models/post.rb app/packages/blogs/models/.
+mv app/models/views/posts app/packages/blogs/views/.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and now we need the &lt;code&gt;package.yml&lt;/code&gt; file to activate the &lt;strong&gt;blogs&lt;/strong&gt;s package:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;cat &amp;lt;&amp;lt;EOF&amp;gt; app/packages/blogs/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package&#39;s public path is within the package
+public_path: public/
+
+# A list of this package&#39;s dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- &#39;.&#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;update the routes (even though the package is called core - lets make the path called &lt;code&gt;admin&lt;/code&gt; since that is who will be managing the settings within this package)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;Rails.application.routes.draw do
+  scope &#39;blogs&#39; do
+    resources :posts
+  end
+  scope &#39;admin&#39; do
+    resources :users
+  end
+  get &#39;landing/index&#39;
+  get &#39;landing&#39;, to: &#39;landing#index&#39;
+  root &#39;landing#index&#39; # Defines the root path route (&amp;quot;/&amp;quot;)
+end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have created a new model we need to migrate:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since I don&amp;rsquo;t want to get fancy with a current_user in the root controller - we can add the following to our new controller in &lt;code&gt;create&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;  # POST /posts or /posts.json
+  def create
+    current_user = User.first
+    @post = Post.new(post_params.merge(user: current_user))
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to post_url(@post), notice: &#39;Post was successfully created.&#39; }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lets try the packwerk check to see if we have clearly defined our package:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/packwerk check
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hmmm - now we are getting some problems!&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We are access the User from Core, but we haven&amp;rsquo;t explicitly allow that.&lt;/li&gt;
+&lt;li&gt;We depend on Core in Blogs, but we haven&amp;rsquo;t explicity stated that we want that.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let&amp;rsquo;s fix the declared dependencies:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;# app/packages/blogs/package.yml
+# Turn on dependency checks for this package
+enforce_dependencies: true
+
+# Turn on privacy checks for this package
+enforce_privacy: true
+
+# this allows you to modify what your package&#39;s public path is within the package
+public_path: public/
+
+# A list of this package&#39;s dependencies
+# Note that packages in this list require their own `package.yml` file
+dependencies:
+- &#39;.&#39;
+- &#39;app/packages/core&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This should fix the declared package dependencies, now lets fix the access problem between the dependencies.  The easiest fix is to put whatever we need accessible by other packages in the package&amp;rsquo;s &lt;code&gt;public&lt;/code&gt; folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir app/packages/core/public/models
+mv app/packages/core/models/user.rb app/packages/core/public/models/.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;now &lt;code&gt;bin/packwerk check&lt;/code&gt; should be clean&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; in a real-world complex application there may be too many dependencies to fix all at once.  In this case you can run:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/packwerk update-deprecations
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now packwerk will ignore the problems and allow you to fix them over-time - this list can be seen in the file: &lt;code&gt;app/packages/blogs/deprecated_references.yml&lt;/code&gt; it will look something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;# This file contains a list of dependencies that are not part of the long term plan for app/packages/blogs.
+# We should generally work to reduce this list, but not at the expense of actually getting work done.
+#
+# You can regenerate this file using the following command:
+# bin/packwerk update-deprecations app/packages/blogs
+---
+app/packages/core:
+  &amp;quot;::User&amp;quot;:
+    violations:
+    - privacy
+    files:
+    - app/packages/blogs/controllers/posts_controller.rb
+    - app/packages/blogs/models/post.rb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets update our diagram of our app:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/rails graphwerk:update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;you should now see both the landing and core module&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;packwerk-landing_core_blogs.png&#34; alt=&#34;Alt graph of landing, core, blog and rails packages&#34; title=&#34;Landing, Core, Blogs and Rails Packages&#34;&gt;&lt;/p&gt;
+&lt;p&gt;You may notice that everything is dependent on &lt;code&gt;application&lt;/code&gt; rails.  This is expected for a rails-app.&lt;/p&gt;
+&lt;p&gt;Lets be sure all is working &amp;amp; we can create a user or two at &lt;code&gt;localhost:3000/blogs/posts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; IF YOU GET ERRORS REGARDING CONTROLLER OBJECT NOT FOUND RESTART RAILS!&lt;/p&gt;
+&lt;h2 id=&#34;going-further&#34;&gt;Going further!&lt;/h2&gt;
+&lt;p&gt;To gain more ideas I recommend the book: 
+&lt;a href=&#34;https://leanpub.com/package-based-rails-applications&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Package-Based Rails Applications&lt;/a&gt;, by Stephan Hagemann (also wrote the book on using engines for modular Rails applications).&lt;/p&gt;
+&lt;p&gt;In particular, in the book he discusses ways to reduce even the rails dependencies, integrate events, etc for further loose coupling.&lt;/p&gt;
+&lt;h2 id=&#34;rails-packwerk-resources&#34;&gt;Rails Packwerk Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;site - 
+&lt;a href=&#34;https://github.com/Shopify/packwerk/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Shopify/packwerk/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;video - 
+&lt;a href=&#34;https://www.youtube.com/watch?v=olEA157z7kU&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=olEA157z7kU&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;book - 
+&lt;a href=&#34;https://leanpub.com/package-based-rails-applications&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://leanpub.com/package-based-rails-applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;docs - 
+&lt;a href=&#34;https://github.com/Shopify/packwerk/blob/main/USAGE.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Shopify/packwerk/blob/main/USAGE.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;help - 
+&lt;a href=&#34;https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

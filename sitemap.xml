@@ -46,20 +46,41 @@
     <loc>https://btihen.me/courses/robot_gardner/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/authors/</loc>
-    <lastmod>2022-04-11T01:01:53+02:00</lastmod>
+    <loc>https://btihen.me/tags/architecture/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/</loc>
-    <lastmod>2022-04-11T01:01:53+02:00</lastmod>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/authors/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/authors/btihen/</loc>
-    <lastmod>2022-04-11T01:01:53+02:00</lastmod>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/design/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/packwerk/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/rails/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_7_0_packwerk/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/</loc>
+    <lastmod>2022-05-22T01:20:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/blog/</loc>
     <lastmod>2021-04-18T01:01:53+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/</loc>
-    <lastmod>2022-04-11T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/</loc>
     <lastmod>2022-04-11T01:01:53+02:00</lastmod>
@@ -87,9 +108,6 @@
   </url><url>
     <loc>https://btihen.me/post_javascript/sveltekit_daisyui/</loc>
     <lastmod>2021-04-18T01:01:53+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/</loc>
-    <lastmod>2022-04-11T01:01:53+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/tailwindcss/</loc>
     <lastmod>2022-04-11T01:01:53+02:00</lastmod>
@@ -142,13 +160,7 @@
     <loc>https://btihen.me/tags/command-object/</loc>
     <lastmod>2022-03-27T01:57:00+02:00</lastmod>
   </url><url>
-    <loc>https://btihen.me/tags/rails/</loc>
-    <lastmod>2022-03-27T01:57:00+02:00</lastmod>
-  </url><url>
     <loc>https://btihen.me/post_ruby_rails/rails_5_2_command_objects_attributes/</loc>
-    <lastmod>2022-03-27T01:57:00+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/post_ruby_rails/</loc>
     <lastmod>2022-03-27T01:57:00+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/tags/simplify-complexity/</loc>
@@ -543,9 +555,6 @@
   </url><url>
     <loc>https://btihen.me/tags/tooling/</loc>
     <lastmod>2020-11-13T01:19:09+02:00</lastmod>
-  </url><url>
-    <loc>https://btihen.me/tags/design/</loc>
-    <lastmod>2021-08-07T01:57:16+02:00</lastmod>
   </url><url>
     <loc>https://btihen.me/categories/design/</loc>
     <lastmod>2021-08-07T01:57:16+02:00</lastmod>

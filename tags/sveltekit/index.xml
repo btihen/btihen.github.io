@@ -349,6 +349,7 @@ cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;src/routes/__layout.svelte
 &amp;lt;Footer /&amp;gt;
 EOF
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svg-images&#34;&gt;SVG Images&lt;/h2&gt;
 &lt;h2 id=&#34;blog-setup&#34;&gt;Blog setup&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/spences10/sveltekit-mdsvex-starter-blog/tree/main/src/lib&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/spences10/sveltekit-mdsvex-starter-blog/tree/main/src/lib&lt;/a&gt;&lt;/p&gt;
@@ -620,6 +621,10 @@ pre[class*=&amp;quot;language-&amp;quot;] {
 &lt;li&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://svelteland.github.io/svelte-kit-blog-demo/create-your-blog/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://blog.logrocket.com/exploring-sveltekit-the-newest-svelte-based-framework/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.logrocket.com/exploring-sveltekit-the-newest-svelte-based-framework/&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;mdsvex-svelte-markdown&#34;&gt;MDsveX (Svelte Markdown)&lt;/h3&gt;
