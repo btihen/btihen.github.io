@@ -542,7 +542,9 @@ class SquishedString &amp;lt; ActiveRecord::Type::Value
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/attribute_types.rb
-ActiveRecord::Type.register(:squished_string, SquishedString)
+# Not needed unless truely a new Datbase type
+# ActiveRecord::Type.register(:squished_string, SquishedString)
+# critical to define ActiveModel to use within the model
 ActiveModel::Type.register(:squished_string, SquishedString)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;custom-attributes-in-poro---not-yet-in-rails-52&#34;&gt;Custom Attributes (in PORO - not yet in Rails 5.2)&lt;/h2&gt;

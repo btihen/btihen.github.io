@@ -1790,11 +1790,12 @@ EOF
 config :esbuild,
   version: &amp;quot;0.12.18&amp;quot;,
   default: [
-    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2016 --outdir=../priv/static/assets),
+    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand(&amp;quot;../assets&amp;quot;, __DIR__),
     env: %{&amp;quot;NODE_PATH&amp;quot; =&amp;gt; Path.expand(&amp;quot;../deps&amp;quot;, __DIR__)}
   ]
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;be careful &lt;code&gt;--target=es2017&lt;/code&gt; in also &lt;code&gt;--target=es2016&lt;/code&gt; in some Phoenix versions, but best to upgrade.&lt;/p&gt;
 &lt;h3 id=&#34;update-the-tailwind-configuration&#34;&gt;Update the Tailwind configuration&lt;/h3&gt;
 &lt;p&gt;The final step is to update Tailwind (set NotoSans to the default font &amp;amp; make quickens available)&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;# /assets/tailwind.config.js

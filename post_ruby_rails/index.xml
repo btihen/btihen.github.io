@@ -39,7 +39,7 @@ gem install rails
 rbenv rehash
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;rails-project---simple-blog&#34;&gt;Rails Project - Simple Blog&lt;/h2&gt;
-&lt;p&gt;Since other projects are using esbuild I use that here too&lt;/p&gt;
+&lt;p&gt;Since my other projects are using &lt;code&gt;esbuild&lt;/code&gt; I use that here too&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;rails new rails_pack -T --database=postgresql --css=bootstrap --javascript=esbuild
 cd rails_pack
 bin/rails db:create
@@ -359,7 +359,7 @@ app/packages/core:
 &lt;p&gt;To gain more ideas I recommend the book: 
 &lt;a href=&#34;https://leanpub.com/package-based-rails-applications&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Package-Based Rails Applications&lt;/a&gt;, by Stephan Hagemann (also wrote the book on using engines for modular Rails applications).&lt;/p&gt;
 &lt;p&gt;In particular, in the book he discusses ways to reduce even the rails dependencies, integrate events, etc for further loose coupling.&lt;/p&gt;
-&lt;h2 id=&#34;rails-packwerk-resources&#34;&gt;Rails Packwerk Resources&lt;/h2&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;site - 
 &lt;a href=&#34;https://github.com/Shopify/packwerk/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Shopify/packwerk/&lt;/a&gt;&lt;/li&gt;
@@ -371,6 +371,17 @@ app/packages/core:
 &lt;a href=&#34;https://github.com/Shopify/packwerk/blob/main/USAGE.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Shopify/packwerk/blob/main/USAGE.md&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;help - 
 &lt;a href=&#34;https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Shopify/packwerk/blob/main/TROUBLESHOOT.md&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;articles&#34;&gt;Articles&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.shopify.com/partners/blog/monolith-software&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.shopify.com/partners/blog/monolith-software&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://shopify.engineering/enforcing-modularity-rails-apps-packwerk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://shopify.engineering/enforcing-modularity-rails-apps-packwerk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://thecodest.co/blog/ruby-on-rails-modularization-with-packwerk-episode-i/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://thecodest.co/blog/ruby-on-rails-modularization-with-packwerk-episode-i/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.globalapptesting.com/engineering/implementing-packwerk-to-delimit-bounded-contexts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.globalapptesting.com/engineering/implementing-packwerk-to-delimit-bounded-contexts&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -905,7 +916,9 @@ class SquishedString &amp;lt; ActiveRecord::Type::Value
 end
 &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config/initializers/attribute_types.rb
-ActiveRecord::Type.register(:squished_string, SquishedString)
+# Not needed unless truely a new Datbase type
+# ActiveRecord::Type.register(:squished_string, SquishedString)
+# critical to define ActiveModel to use within the model
 ActiveModel::Type.register(:squished_string, SquishedString)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;custom-attributes-in-poro---not-yet-in-rails-52&#34;&gt;Custom Attributes (in PORO - not yet in Rails 5.2)&lt;/h2&gt;

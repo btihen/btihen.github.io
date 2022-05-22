@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2022-03-26T01:57:00&#43;02:00">
     
-    <meta property="article:modified_time" content="2022-03-27T01:57:00&#43;02:00">
+    <meta property="article:modified_time" content="2022-05-22T01:57:00&#43;02:00">
   
 
   
@@ -626,7 +626,7 @@
           Last updated on
       
     
-    Sun, Mar 27, 2022
+    Sun, May 22, 2022
   </span>
   
 
@@ -1191,7 +1191,9 @@ class SquishedString &lt; ActiveRecord::Type::Value
 end
 </code></pre>
 <pre><code class="language-ruby"># config/initializers/attribute_types.rb
-ActiveRecord::Type.register(:squished_string, SquishedString)
+# Not needed unless truely a new Datbase type
+# ActiveRecord::Type.register(:squished_string, SquishedString)
+# critical to define ActiveModel to use within the model
 ActiveModel::Type.register(:squished_string, SquishedString)
 </code></pre>
 <h2 id="custom-attributes-in-poro---not-yet-in-rails-52">Custom Attributes (in PORO - not yet in Rails 5.2)</h2>

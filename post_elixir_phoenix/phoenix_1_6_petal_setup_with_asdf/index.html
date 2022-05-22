@@ -244,7 +244,7 @@
     
       <meta property="article:published_time" content="2022-02-27T01:01:53&#43;02:00">
     
-    <meta property="article:modified_time" content="2022-03-04T01:01:53&#43;02:00">
+    <meta property="article:modified_time" content="2022-05-22T01:01:53&#43;02:00">
   
 
   
@@ -634,7 +634,7 @@
           Last updated on
       
     
-    Fri, Mar 4, 2022
+    Sun, May 22, 2022
   </span>
   
 
@@ -1105,11 +1105,12 @@ EOF
 config :esbuild,
   version: &quot;0.12.18&quot;,
   default: [
-    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2016 --outdir=../priv/static/assets),
+    args: ~w(js/app.js vendor/fonts/NotoSans/noto_sans.css vendor/fonts/Quickens/quickens.css --bundle --loader:.woff2=file --loader:.woff=file --target=es2017 --outdir=../priv/static/assets),
     cd: Path.expand(&quot;../assets&quot;, __DIR__),
     env: %{&quot;NODE_PATH&quot; =&gt; Path.expand(&quot;../deps&quot;, __DIR__)}
   ]
 </code></pre>
+<p>be careful <code>--target=es2017</code> in also <code>--target=es2016</code> in some Phoenix versions, but best to upgrade.</p>
 <h3 id="update-the-tailwind-configuration">Update the Tailwind configuration</h3>
 <p>The final step is to update Tailwind (set NotoSans to the default font &amp; make quickens available)</p>
 <pre><code class="language-js"># /assets/tailwind.config.js
