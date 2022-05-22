@@ -79,6 +79,21 @@
     <loc>https://btihen.me/tags/</loc>
     <lastmod>2022-05-22T01:57:00+02:00</lastmod>
   </url><url>
+    <loc>https://btihen.me/tags/command-class/</loc>
+    <lastmod>2022-04-23T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/event-bus/</loc>
+    <lastmod>2022-04-23T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/high-coehsion/</loc>
+    <lastmod>2022-04-23T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/tags/low-coupling/</loc>
+    <lastmod>2022-04-23T01:20:00+02:00</lastmod>
+  </url><url>
+    <loc>https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/</loc>
+    <lastmod>2022-04-23T01:20:00+02:00</lastmod>
+  </url><url>
     <loc>https://btihen.me/tags/blog/</loc>
     <lastmod>2021-04-18T01:01:53+02:00</lastmod>
   </url><url>
@@ -1012,6 +1027,8 @@
     <loc>https://btihen.me/authors/btihen/_index_original_bio/</loc>
   </url><url>
     <loc>https://btihen.me/contact/</loc>
+  </url><url>
+    <loc>https://btihen.me/tags/publish/subscribe-pattern/</loc>
   </url><url>
     <loc>https://btihen.me/talk/</loc>
   </url>

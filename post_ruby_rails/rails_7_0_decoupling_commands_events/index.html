@@ -1,0 +1,1420 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bill Tihen">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="NOTE: the concepts work (we use them at work) - but this particular code hasn&rsquo;t yet been tested. (just recording these ideas for me, but feel free to let me know of any suggestions)">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#00008b">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/xcode.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
+
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@btihen">
+  <meta property="twitter:creator" content="@btihen">
+  
+  <meta property="og:site_name" content="btihen">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/">
+  <meta property="og:title" content="Rails 7.0 - Decoupling with Commands and Events | btihen">
+  <meta property="og:description" content="NOTE: the concepts work (we use them at work) - but this particular code hasn&rsquo;t yet been tested. (just recording these ideas for me, but feel free to let me know of any suggestions)"><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
+  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-04-23T01:20:00&#43;02:00">
+    
+    <meta property="article:modified_time" content="2022-04-23T01:20:00&#43;02:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Rails 7.0 - Decoupling with Commands and Events | btihen</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/images/logo_hu0d53a2a03d4a529abcdd0318d0f2ad50_8175_0x70_resize_lanczos_3.png" alt="btihen"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/authors/btihen/"><span>.me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://container4.ch/" target="_blank" rel="noopener"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_ruby_rails"><span>Ruby</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_elixir_phoenix"><span>Elixir</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_tech_notes"><span>Tech</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#post_edu"><span>Edu</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Media</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Rails 7.0 - Decoupling with Commands and Events</h1>
+
+  
+  <p class="page-subtitle">Using Commands and Events for simple Models, Controllers, Loose Coupling and Business Logic is in a predicable, highly coehsive location</p>
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/btihen/">Bill Tihen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sat, Apr 23, 2022
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>NOTE:</strong> the concepts work (we use them at work) - but this particular code hasn&rsquo;t yet been tested.  (just recording these ideas for me, but feel free to let me know of any suggestions)</p>
+<h2 id="organizing-code">Organizing Code</h2>
+<p>In Rails its all too easy to accidentally tightly couple controller activities with follow-up actions - resulting in bloated controllers and / or tight coupling with models.</p>
+<p>A relatively simple fix to help with this is to use Events.</p>
+<p>Observer &amp; Pub/Sub differences</p>
+<h2 id="ruby-and-rails-environment">Ruby and Rails Environment</h2>
+<p>Using Rails 7 &amp; Ruby 3.1.2 - I found that it is important to update my ruby environment - so before we start this is what I didn&rsquo;t remove errors:</p>
+<pre><code class="language-bash"># I've had the error several times without updating:
+# /Users/btihen/.rbenv/versions/3.1.0/lib/ruby/gems/3.1.0/gems/bundler-2.3.8/lib/bundler/rubygems_ext.rb:18:in `source': uninitialized constant Gem::Source (NameError)
+#
+#       (defined?(@source) &amp;&amp; @source) || Gem::Source::Installed.new
+#                                            ^^^^^^^^
+# Did you mean?  Gem::SourceList
+# this seems to fix it:
+# https://bundler.io/guides/bundler_2_upgrade.html
+# https://stackoverflow.com/questions/4859600/bundler-throws-uninitialized-constant-gemsilentui-nameerror-error-after-upgr
+rbenv local 3.1.2
+gem update --system
+gem install bundler
+gem install rails
+rbenv rehash
+</code></pre>
+<h2 id="rails-project---simple-blog">Rails Project - Simple Blog</h2>
+<p>Since my other projects are using <code>esbuild</code> I use that here too</p>
+<pre><code class="language-ruby">rails new rails_events -T --database=postgresql --css=bootstrap --javascript=esbuild
+cd rails_events
+bin/rails db:create
+
+# add the helper gem
+bundle add wisper_next
+</code></pre>
+<p>NOTE: wisper_next works very similar to the other gems (wisper, event_bg_bus, ma).</p>
+<h2 id="idea">Idea</h2>
+<p>Lets do some activities after a user changes:</p>
+<ul>
+<li>on create: A confirmation email, an invoice email and some setup for the service.</li>
+<li>on change: A confirmation email of change &amp; setup change as needed</li>
+</ul>
+<p>Fundamentally, events should be a past tense fact:
+*</p>
+<h2 id="code">Code</h2>
+<p>First lets create the users model</p>
+<pre><code class="language-bash">bin/rails g scaffold user name config email
+</code></pre>
+<h2 id="user-hooks">User Hooks</h2>
+<p>Lets do the simplest possible thing - we can use after commits and use them to start activities.</p>
+<p>This is ok when very simple, but is highly coupled and requires changes to the user model instead of classes designed to handle the after creation processes.</p>
+<pre><code class="language-ruby">class User &lt; ApplicationRecord
+  after_commit :user_created_event, on: :create
+  after_commit :user_updated_event, on: :update
+
+  def user_created_event
+    # lots of complicated business logic
+    puts &quot;UserCreatedConfirmJob: #{email} - send creation confirmation email&quot;
+    puts &quot;UserCreatedConfigJob: #{self.changes} - create user setup&quot;
+  end
+
+  def user_updated_event
+    # lots of complicated business logic
+    puts &quot;UserUpdatedConfirmJob: #{email} - send change confirmation email&quot;
+    puts &quot;UserUpdatedConfirmJob: #{self.changes} - updated user account config&quot;
+  end
+end
+</code></pre>
+<h2 id="controller-alternative">Controller Alternative</h2>
+<p>In reality the user isn&rsquo;t responsible for the app so lets try moving the business logic into the Controller where the change is made.  Lets move our Event methods to the controlle, change the create &amp; update actions &amp; leave the model empty.</p>
+<pre><code class="language-ruby"># app/models/user.rb
+class User &lt; ApplicationRecord
+end
+
+# app/controllers/users_controller.rb
+class UsersController &lt; ApplicationController
+  # ...
+  def create
+    @user = User.new(user_params)
+    respond_to do |format|
+      if @user.save
+        # add event call here on success
+        user_created_event(@user, @user.changes)
+        format.html { redirect_to user_url(@user), notice: &quot;User was successfully created.&quot; }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @user.update(user_params)
+        # add event call here on success
+        user_updated_event(@user, @user.changes)
+        format.html { redirect_to user_url(@user), notice: &quot;User was successfully updated.&quot; }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+  def user_created_event(user, changes)
+    changed_attributes = changes
+    # lots of complicated business logic
+    puts &quot;UserCreatedConfirmJob: #{user.email} - send creation confirmation email&quot;
+    puts &quot;UserCreatedConfigJob: #{changed_attributes} - create user setup&quot;
+  end
+
+  def user_updated_event(user, changes)
+    changed_attributes = changes
+    # lots of complicated business logic
+    puts &quot;UserUpdatedConfirmJob #{user.email} - send change confirmation email&quot;
+    puts &quot;UserUpdatedConfigJob: #{changed_attributes} - updated user account config&quot;
+  end
+end
+</code></pre>
+<p>this is a bit better, now the business logic isn&rsquo;t embedded in the models.</p>
+<h2 id="using-commands-to-decouple">Using Commands to Decouple</h2>
+<p>Ideally, I like having Business Logic in its own class and decoupled from Rails.  Lets move our methods into classes.</p>
+<pre><code class="language-ruby"># app/commands/user_created_command.rb
+class UserCreatedCommand
+  attr_reader :user, :changes
+
+  def initialize(user:, changes: nil)
+    @user = user
+    @changes = changes
+  end
+
+  def self.call(user:, changes: nil)
+    new(user: user, changes: changes).run
+  end
+
+  def run
+    # lots of complicated business logic
+    puts &quot;UserCreatedConfirmJob: #{user.email} - send creation confirmation email&quot;
+    puts &quot;UserCreatedConfigJob: #{changes} - create user setup&quot;
+  end
+end
+
+# app/commands/user_updated_command.rb
+class UserUpdatedCommand
+  attr_reader :user, :changes
+
+  def initialize(user:, changes:)
+    @user = user
+    @changes = changes
+  end
+
+  def self.call(user:, changes:)
+    new(user: user, changes: changes).run
+  end
+
+  def run
+    puts &quot;UserUpdatedConfirmJob: #{user.email} - send change confirmation email&quot;
+    puts &quot;UserUpdatedConfigJob: #{changes} - updated user account config&quot;
+  end
+end
+
+</code></pre>
+<p>so now we can adjust the controller</p>
+<pre><code class="language-ruby"># app/controllers/users_controller.rb
+class UsersController &lt; ApplicationController
+  # ...
+  def create
+    @user = User.new(user_params)
+    respond_to do |format|
+      if @user.save
+        # add event call here on success
+        UserCreatedCommand.call(@user, @user.changes)
+        format.html { redirect_to user_url(@user), notice: &quot;User was successfully created.&quot; }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @user.update(user_params)
+        # add event call here on success
+        UserUpdatedCommand.call(@user, @user.changes)
+        format.html { redirect_to user_url(@user), notice: &quot;User was successfully updated.&quot; }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+end
+</code></pre>
+<p>Commands allow lots of decoupling</p>
+<h2 id="events">Events</h2>
+<p>Commands are great, but what if we want well partitioned code, but various parts of the code need to be notified and act on events (if activated)?</p>
+<p>This is where events are great!</p>
+<p>Lets build our listeners (notice the prefix and async):</p>
+<pre><code class="language-ruby"># app/listeners/user_created_listener.rb
+class UserCreatedListener
+  include Wisper.subscriber(prefix: true, async: true)
+
+  def on_user_created(user, changes)
+    UserCreatedCommand.call(user: user, changes: user.changes)
+  end
+end
+
+# app/listeners/user_updated_listener.rb
+class UserUpdatedListener
+  include Wisper.subscriber(prefix: true, async: true)
+
+  def on_user_updated(user, changes)
+    UserUpdatedCommand.call(user: user, changes: user.changes)
+  end
+end
+
+</code></pre>
+<p>We need to define an event_bus and register our listeners (they can be registered on the fly too) - not just at start-up</p>
+<pre><code class="language-ruby"># config/initializers/event_bus.rb
+EVENT_BUS = WisperNext::Events.new
+
+EVENT_BUS.subscribe(UserCreatedListener.new)
+EVENT_BUS.subscribe(UserUpdatedListener.new)
+</code></pre>
+<p>Now we can update the controller again (we need to add the include and broadcast)</p>
+<pre><code class="language-ruby"># app/controllers/users_controller.rb
+class UsersController &lt; ApplicationController
+  include WisperNext.publisher
+  # ...
+  def create
+    @user = User.new(user_params)
+    respond_to do |format|
+      if @user.save
+        # add event call here on success - all listers for this event must have :on_user_created
+        EVENT_BUS.broadcast(:user_created, user: @user, changes: @user.changes)
+        # UserCreatedCommand.call(@user, @user.changes)
+        # user_created_event(@user, @user.changes)
+        format.html { redirect_to user_url(@user), notice: &quot;User was successfully created.&quot; }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @user.update(user_params)
+        # add event call here on success - all listers for this event must have :on_user_updated
+        EVENT_BUS.broadcast(:user_updated, user: user, changes: @user.changes)
+        # UserUpdatedCommand.call(@user, @user.changes)
+        # user_updated_event(@user, @user.changes)
+        format.html { redirect_to user_url(@user), notice: &quot;User was successfully updated.&quot; }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+end
+</code></pre>
+<p>Now we are quite flexible - but debugging fully async and decoupled behaviors is difficult - so I generally stay with calling commands directly until I need the configuration flexibility</p>
+<h2 id="summary">summary</h2>
+<p>Commands are the sweet spot - until config flexibility is needed</p>
+<h2 id="gems">Gems</h2>
+<ul>
+<li>wisper_next - 
+<a href="https://gitlab.com/kris.leech/wisper_next" target="_blank" rel="noopener">https://gitlab.com/kris.leech/wisper_next</a> (active, with sync and async options) - 
+<a href="https://github.com/krisleech/wisper" target="_blank" rel="noopener">https://github.com/krisleech/wisper</a> (inactive 3 years)</li>
+<li>ma - 
+<a href="https://gitlab.com/kris.leech/ma" target="_blank" rel="noopener">https://gitlab.com/kris.leech/ma</a> (active, Events as Objects, built upon wisper_next)</li>
+<li>event_bg_bus - 
+<a href="https://github.com/indiereign/event_bg_bus" target="_blank" rel="noopener">https://github.com/indiereign/event_bg_bus</a> (active with backgrounding) - 
+<a href="https://github.com/kevinrutherford/event_bus" target="_blank" rel="noopener">https://github.com/kevinrutherford/event_bus</a> (no activity 8 years)</li>
+<li>eventmachine - 
+<a href="https://github.com/eventmachine/eventmachine/" target="_blank" rel="noopener">https://github.com/eventmachine/eventmachine/</a></li>
+<li>rails_event_store (saves the events too) - 
+<a href="https://github.com/RailsEventStore/rails_event_store" target="_blank" rel="noopener">https://github.com/RailsEventStore/rails_event_store</a></li>
+</ul>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>
+<a href="https://www.youtube.com/watch?v=q0LtzYTrmMY&amp;t=270s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=q0LtzYTrmMY&t=270s</a></li>
+<li>
+<a href="https://www.toptal.com/ruby-on-rails/the-publish-subscribe-pattern-on-rails" target="_blank" rel="noopener">https://www.toptal.com/ruby-on-rails/the-publish-subscribe-pattern-on-rails</a></li>
+<li>
+<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/" target="_blank" rel="noopener">https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/</a></li>
+<li>
+<a href="https://www.mikeperham.com/2010/03/30/using-activerecord-with-eventmachine/" target="_blank" rel="noopener">https://www.mikeperham.com/2010/03/30/using-activerecord-with-eventmachine/</a></li>
+<li>
+<a href="https://www.mikeperham.com/2010/01/27/scalable-ruby-processing-with-eventmachine/" target="_blank" rel="noopener">https://www.mikeperham.com/2010/01/27/scalable-ruby-processing-with-eventmachine/</a></li>
+</ul>
+<h2 id="going-further-with-events--ddd">Going Further with Events &amp; DDD</h2>
+<ul>
+<li>
+<a href="https://github.com/RailsEventStore/rails_event_store" target="_blank" rel="noopener">https://github.com/RailsEventStore/rails_event_store</a></li>
+<li>
+<a href="https://medium.com/kontenainc/event-driven-microservices-with-rabbitmq-and-ruby-7a54ae01b285" target="_blank" rel="noopener">https://medium.com/kontenainc/event-driven-microservices-with-rabbitmq-and-ruby-7a54ae01b285</a></li>
+<li>
+<a href="https://www.globalapptesting.com/engineering/design-the-unknown-with-the-help-of-event-storming" target="_blank" rel="noopener">https://www.globalapptesting.com/engineering/design-the-unknown-with-the-help-of-event-storming</a></li>
+<li>Event-Driven Architecture and Messaging Patterns for Ruby Microservices - Kirill Shevchenko - 
+<a href="https://www.youtube.com/watch?v=e9AAUy4kkek" target="_blank" rel="noopener">https://www.youtube.com/watch?v=e9AAUy4kkek</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rails/">Rails</a>
+  
+  <a class="badge badge-light" href="/tags/event-bus/">event bus</a>
+  
+  <a class="badge badge-light" href="/tags/publish/subscribe-pattern/">publish/subscribe pattern</a>
+  
+  <a class="badge badge-light" href="/tags/command-class/">command class</a>
+  
+  <a class="badge badge-light" href="/tags/architecture/">architecture</a>
+  
+  <a class="badge badge-light" href="/tags/design/">design</a>
+  
+  <a class="badge badge-light" href="/tags/high-coehsion/">high coehsion</a>
+  
+  <a class="badge badge-light" href="/tags/low-coupling/">low coupling</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;text=Rails%207.0%20-%20Decoupling%20with%20Commands%20and%20Events" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;t=Rails%207.0%20-%20Decoupling%20with%20Commands%20and%20Events" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rails%207.0%20-%20Decoupling%20with%20Commands%20and%20Events&amp;body=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;title=Rails%207.0%20-%20Decoupling%20with%20Commands%20and%20Events" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Rails%207.0%20-%20Decoupling%20with%20Commands%20and%20Events%20https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;title=Rails%207.0%20-%20Decoupling%20with%20Commands%20and%20Events" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/btihen/avatar_hu1862451442ed779787ed1b218e0a75c3_96954_270x270_fill_q90_lanczos_center.jpeg" alt="Bill Tihen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://btihen.me/">Bill Tihen</a></h5>
+        <h6 class="card-subtitle">Developer, Data Enthusiast, Educator and Nature&rsquo;s Friend</h6>
+        <p class="card-text">very curious &ndash; known to explore knownledge and nature</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/btihen" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bill-tihen" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/TihenWilliamResume-2020.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/crystal.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/elixir.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/ruby.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/swift.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.36f3f36c742ad89c07012be8de57ec4c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © 2022
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
