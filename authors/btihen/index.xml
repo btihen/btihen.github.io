@@ -426,7 +426,7 @@ app/packages/core:
     </item>
     
     <item>
-      <title>Rails 7.0 - Decoupling with Commands and Events</title>
+      <title>Rails 7.0 - Decoupling with Events (or Commands / Service Objects)</title>
       <link>https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/</link>
       <pubDate>Sat, 23 Apr 2022 01:20:00 +0200</pubDate>
       <guid>https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/</guid>
