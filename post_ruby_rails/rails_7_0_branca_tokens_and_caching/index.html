@@ -27,10 +27,11 @@
   
     
   
-  <meta name="description" content="It&#39;s possible to loosen the Coupling between Rails, Models and Controllers from your Business Logic (Commands/Service Objects) by enabling an Event architecture.  Ruby has several lightweight Event Buses (&amp; full featured and Event Stores)">
+  <meta name="description" content="Organizing Code Gems and Engines have long been used to organize Ruby and Rails code into workable small units.
+Shopify has introduced a new system called &lsquo;packages&rsquo; - they use the packwerk gem to help us.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/">
+  <link rel="alternate" hreflang="en-us" href="https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/">
 
   
 
@@ -218,7 +219,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_32x32_fill_lanczos_center_3.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu9e8c7d04b47910fd67a38e5a526b68e7_64368_192x192_fill_lanczos_center_3.png">
 
-  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/">
+  <link rel="canonical" href="https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/">
 
   
   
@@ -236,13 +237,14 @@
   <meta property="twitter:creator" content="@btihen">
   
   <meta property="og:site_name" content="btihen">
-  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/">
-  <meta property="og:title" content="Rails 7.0 - Decoupling with Events (or Commands / Service Objects) | btihen">
-  <meta property="og:description" content="It&#39;s possible to loosen the Coupling between Rails, Models and Controllers from your Business Logic (Commands/Service Objects) by enabling an Event architecture.  Ruby has several lightweight Event Buses (&amp; full featured and Event Stores)"><meta property="og:image" content="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/featured.png">
-  <meta property="twitter:image" content="https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/">
+  <meta property="og:title" content="Rails 7.0 Branca and Caching | btihen">
+  <meta property="og:description" content="Organizing Code Gems and Engines have long been used to organize Ruby and Rails code into workable small units.
+Shopify has introduced a new system called &lsquo;packages&rsquo; - they use the packwerk gem to help us."><meta property="og:image" content="https://btihen.me/img/btihen_landing_page.png">
+  <meta property="twitter:image" content="https://btihen.me/img/btihen_landing_page.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2022-04-23T01:20:00&#43;02:00">
+      <meta property="article:published_time" content="2022-05-26T01:20:00&#43;02:00">
     
     <meta property="article:modified_time" content="2022-05-26T01:20:00&#43;02:00">
   
@@ -263,7 +265,7 @@
 
 
 
-  <title>Rails 7.0 - Decoupling with Events (or Commands / Service Objects) | btihen</title>
+  <title>Rails 7.0 Branca and Caching | btihen</title>
 
 </head>
 
@@ -587,26 +589,20 @@
 
 
 
-
-
-
-
-
-
-
+  
 
   
   
-
-
+  
 <div class="article-container pt-3">
-  <h1>Rails 7.0 - Decoupling with Events (or Commands / Service Objects)</h1>
+  <h1>Rails 7.0 Branca and Caching</h1>
 
   
-  <p class="page-subtitle">Decoupling for slim Models and slim Controllers</p>
+  <p class="page-subtitle">Organizing Rails Apps with Packages</p>
   
 
   
+    
 
 
 <div class="article-metadata">
@@ -629,8 +625,6 @@
     
     
       
-          Last updated on
-      
     
     Thu, May 26, 2022
   </span>
@@ -649,29 +643,22 @@
 
 </div>
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 634px; max-height: 590px;">
-  <div style="position: relative">
-    <img src="/post_ruby_rails/rails_7_0_decoupling_commands_events/featured.png" alt="" class="featured-image">
     
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </div>
 
 
@@ -679,12 +666,14 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p><strong>NOTE:</strong> the concepts work (we use them at work) - but this particular code hasn&rsquo;t yet been tested.  (just recording these ideas for me, but feel free to let me know of any suggestions)</p>
-<h2 id="organizing-code">Organizing Code</h2>
-<p>In Rails its all too easy to accidentally tightly couple controller activities with follow-up actions - resulting in bloated controllers and / or tight coupling with models.</p>
-<p>A relatively simple fix to help with this is to use Events.</p>
-<p>Observer &amp; Pub/Sub differences</p>
-<h2 id="ruby-and-rails-environment">Ruby and Rails Environment</h2>
+      <h2 id="organizing-code">Organizing Code</h2>
+<p>Gems and Engines have long been used to organize Ruby and Rails code into workable small units.</p>
+<p>Shopify has introduced a new system called &lsquo;packages&rsquo; - they use the packwerk gem to help us.  In fact, it is designed to make it easy to take large (and likely highly coupled) large codebase and move toward &lsquo;packages&rsquo; self-contained (or have explicit dependencies).  Ideally the code is in small enough units to help us keep the context in mind as we work on it.</p>
+<p>I found it initially difficult to understand packwerk in the context of a complex codebase.  So instead I built a new &lsquo;play&rsquo; app and then moved each piece into a package.  Hopefully, this will inspire you to use Gem, Engines or Packages to clarify dependencies and make the code a logical until that is easy to reason about.</p>
+<h2 id="environment">Environment</h2>
+<p>First you will need <code>libsodium</code> installed;</p>
+<pre><code class="language-bash">brew install libsodium
+</code></pre>
 <p>Using Rails 7 &amp; Ruby 3.1.2 - I found that it is important to update my ruby environment - so before we start this is what I didn&rsquo;t remove errors:</p>
 <pre><code class="language-bash"># I've had the error several times without updating:
 # /Users/btihen/.rbenv/versions/3.1.0/lib/ruby/gems/3.1.0/gems/bundler-2.3.8/lib/bundler/rubygems_ext.rb:18:in `source': uninitialized constant Gem::Source (NameError)
@@ -703,293 +692,133 @@ rbenv rehash
 </code></pre>
 <h2 id="rails-project---simple-blog">Rails Project - Simple Blog</h2>
 <p>Since my other projects are using <code>esbuild</code> I use that here too</p>
-<pre><code class="language-ruby">rails new rails_events -T --database=postgresql --css=bootstrap --javascript=esbuild
-cd rails_events
+<pre><code class="language-ruby">rails new rails_branca -T --database=postgresql --css=bootstrap --javascript=esbuild
+cd rails_branca
 bin/rails db:create
 
-# add the helper gem
-bundle add wisper_next
+# add the packwerk (packages) gem
+bundle add branca-ruby
 </code></pre>
-<p>NOTE: wisper_next works very similar to the other gems (wisper, event_bg_bus, ma).</p>
-<h2 id="idea">Idea</h2>
-<p>Lets do some activities after a user changes:</p>
-<ul>
-<li>on create: A confirmation email, an invoice email and some setup for the service.</li>
-<li>on change: A confirmation email of change &amp; setup change as needed</li>
-</ul>
-<p>Fundamentally, events should be a past tense fact:
-*</p>
-<h2 id="code">Code</h2>
-<p>First lets create the users model</p>
-<pre><code class="language-bash">bin/rails g scaffold user name config email
+<h2 id="quick-test">Quick Test</h2>
+<p>Let&rsquo;s try this library in the console:</p>
+<pre><code class="language-ruby">bin/rails c
+
+require 'branca'
+
+# key must be at least 33 Characters long!
+Branca.secret_key = 'supersecretkeyyoushouldnotcommit'.b
+Branca.ttl = 30 # in seconds
+
+token = Branca.encode 'btihen@example.com'
+decoded = Branca.decode token
+message = decoded.message
+&gt; 'btihen@example.com'
+
+# now wait 20 Seconds and you should get the error
+decoded = Branca.decode token
+&gt; Token is expired (Branca::ExpiredTokenError)
+# now the token is encrypted and no longer usable
+
+
+# Branca encodes strings - but we can convert to json and encrypt complex data
+token = Branca.encode({email: 'btihen@example.com'}.to_json)
+decoded = Branca.decode token
+message = JSON.parse decoded.message
+&gt; {&quot;email&quot;=&gt;&quot;btihen@example.com&quot;}
 </code></pre>
-<h2 id="user-hooks">User Hooks</h2>
-<p>Lets do the simplest possible thing - we can use after commits and use them to start activities.</p>
-<p>This is ok when very simple, but is highly coupled and requires changes to the user model instead of classes designed to handle the after creation processes.</p>
-<pre><code class="language-ruby">class User &lt; ApplicationRecord
-  after_commit :user_created_event, on: :create
-  after_commit :user_updated_event, on: :update
+<h2 id="configure-rails">Configure Rails</h2>
+<p>Let&rsquo;s setup rails to use Branca (and expire tokens after 15 Mins)</p>
+<p>Let&rsquo;s get rails to read the env file (append dotenv-rails to the Gemfile):</p>
+<pre><code class="language-bash"># append gem to the GEMFILE with the &gt;&gt;
+cat &lt;&lt;EOF&gt;&gt;Gemfile
 
-  def user_created_event
-    # lots of complicated business logic
-    puts &quot;UserCreatedConfirmJob: #{email} - send creation confirmation email&quot;
-    puts &quot;UserCreatedConfigJob: #{self.changes} - create user setup&quot;
-  end
-
-  def user_updated_event
-    # lots of complicated business logic
-    puts &quot;UserUpdatedConfirmJob: #{email} - send change confirmation email&quot;
-    puts &quot;UserUpdatedConfirmJob: #{self.changes} - updated user account config&quot;
-  end
-end
+gem 'dotenv-rails', groups: [:development, :test]
+EOF
+bundle
 </code></pre>
-<h2 id="controller-alternative">Controller Alternative</h2>
-<p>In reality the user isn&rsquo;t responsible for the app so lets try moving the business logic into the Controller where the change is made.  Lets move our Event methods to the controlle, change the create &amp; update actions &amp; leave the model empty.</p>
-<pre><code class="language-ruby"># app/models/user.rb
-class User &lt; ApplicationRecord
+<p>Now add the needed config files:</p>
+<pre><code class="language-ruby"># create the environmental variables
+cat &lt;&lt;EOF&gt; .env
+BRANCA_SECRET='SuperSecretKeyHiddenInEnvFile'
+BRANCA_TTL=900
+EOF
+
+# create the rails initializer for branca
+touch config/initializers/branca.rb
+cat &lt;&lt;EOF&gt; config/initializers/branca.rb
+# require is needed since the gem name is branca-ruby, but needs to load: branca
+require 'branca'
+
+Branca.configure do |config|
+  # .b ensures 8 bit String Encoding
+  config.secret_key = ENV['BRANCA_SECRET'].b
+  config.ttl = ENV['BRANCA_TTL']
 end
-
-# app/controllers/users_controller.rb
-class UsersController &lt; ApplicationController
-  # ...
-  def create
-    @user = User.new(user_params)
-    respond_to do |format|
-      if @user.save
-        # add event call here on success
-        user_created_event(@user, @user.changes)
-        format.html { redirect_to user_url(@user), notice: &quot;User was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        # add event call here on success
-        user_updated_event(@user, @user.changes)
-        format.html { redirect_to user_url(@user), notice: &quot;User was successfully updated.&quot; }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  private
-
-  def user_created_event(user, changes)
-    changed_attributes = changes
-    # lots of complicated business logic
-    puts &quot;UserCreatedConfirmJob: #{user.email} - send creation confirmation email&quot;
-    puts &quot;UserCreatedConfigJob: #{changed_attributes} - create user setup&quot;
-  end
-
-  def user_updated_event(user, changes)
-    changed_attributes = changes
-    # lots of complicated business logic
-    puts &quot;UserUpdatedConfirmJob #{user.email} - send change confirmation email&quot;
-    puts &quot;UserUpdatedConfigJob: #{changed_attributes} - updated user account config&quot;
-  end
-end
+EOF
 </code></pre>
-<p>this is a bit better, now the business logic isn&rsquo;t embedded in the models.</p>
-<h2 id="using-commands-to-decouple">Using Commands to Decouple</h2>
-<p>Ideally, I like having Business Logic in its own class and decoupled from Rails.  Lets move our methods into classes.</p>
-<pre><code class="language-ruby"># app/commands/user_created_command.rb
-class UserCreatedCommand
-  attr_reader :user, :changes
+<p>Lets be sure Rails loads Branca properly:</p>
+<pre><code class="language-ruby">bin/rails c
+Branca.ttl
+&gt; &quot;900&quot; # hopefully :)
 
-  def initialize(user:, changes: nil)
-    @user = user
-    @changes = changes
-  end
-
-  def self.call(user:, changes: nil)
-    new(user: user, changes: changes).run
-  end
-
-  def run
-    # lots of complicated business logic
-    puts &quot;UserCreatedConfirmJob: #{user.email} - send creation confirmation email&quot;
-    puts &quot;UserCreatedConfigJob: #{changes} - create user setup&quot;
-  end
-end
-
-# app/commands/user_updated_command.rb
-class UserUpdatedCommand
-  attr_reader :user, :changes
-
-  def initialize(user:, changes:)
-    @user = user
-    @changes = changes
-  end
-
-  def self.call(user:, changes:)
-    new(user: user, changes: changes).run
-  end
-
-  def run
-    puts &quot;UserUpdatedConfirmJob: #{user.email} - send change confirmation email&quot;
-    puts &quot;UserUpdatedConfigJob: #{changes} - updated user account config&quot;
-  end
-end
-
+token = Branca.encode({email: 'btihen@example.com'}.to_json)
+decoded = Branca.decode token
+message = JSON.parse decoded.message
+&gt; {&quot;email&quot;=&gt;&quot;btihen@example.com&quot;}
 </code></pre>
-<p>so now we can adjust the controller</p>
-<pre><code class="language-ruby"># app/controllers/users_controller.rb
-class UsersController &lt; ApplicationController
-  # ...
-  def create
-    @user = User.new(user_params)
-    respond_to do |format|
-      if @user.save
-        # add event call here on success
-        UserCreatedCommand.call(@user, @user.changes)
-        format.html { redirect_to user_url(@user), notice: &quot;User was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        # add event call here on success
-        UserUpdatedCommand.call(@user, @user.changes)
-        format.html { redirect_to user_url(@user), notice: &quot;User was successfully updated.&quot; }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-end
-</code></pre>
-<p>Commands allow lots of decoupling</p>
-<h2 id="events">Events</h2>
-<p>Commands are great, but what if we want well partitioned code, but various parts of the code need to be notified and act on events (if activated)?</p>
-<p>This is where events are great!</p>
-<p>Lets build our listeners (notice the prefix and async):</p>
-<pre><code class="language-ruby"># app/listeners/user_created_listener.rb
-class UserCreatedListener
-  include Wisper.subscriber(prefix: true, async: true)
-
-  def on_user_created(user, changes)
-    UserCreatedCommand.call(user: user, changes: user.changes)
-  end
-end
-
-# app/listeners/user_updated_listener.rb
-class UserUpdatedListener
-  include Wisper.subscriber(prefix: true, async: true)
-
-  def on_user_updated(user, changes)
-    UserUpdatedCommand.call(user: user, changes: user.changes)
-  end
-end
-
-</code></pre>
-<p>We need to define an event_bus and register our listeners (they can be registered on the fly too) - not just at start-up</p>
-<pre><code class="language-ruby"># config/initializers/event_bus.rb
-EVENT_BUS = WisperNext::Events.new
-
-EVENT_BUS.subscribe(UserCreatedListener.new)
-EVENT_BUS.subscribe(UserUpdatedListener.new)
-</code></pre>
-<p>Now we can update the controller again (we need to add the include and broadcast)</p>
-<pre><code class="language-ruby"># app/controllers/users_controller.rb
-class UsersController &lt; ApplicationController
-  include WisperNext.publisher
-  # ...
-  def create
-    @user = User.new(user_params)
-    respond_to do |format|
-      if @user.save
-        # add event call here on success - all listers for this event must have :on_user_created
-        EVENT_BUS.broadcast(:user_created, user: @user, changes: @user.changes)
-        # UserCreatedCommand.call(@user, @user.changes)
-        # user_created_event(@user, @user.changes)
-        format.html { redirect_to user_url(@user), notice: &quot;User was successfully created.&quot; }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        # add event call here on success - all listers for this event must have :on_user_updated
-        EVENT_BUS.broadcast(:user_updated, user: user, changes: @user.changes)
-        # UserUpdatedCommand.call(@user, @user.changes)
-        # user_updated_event(@user, @user.changes)
-        format.html { redirect_to user_url(@user), notice: &quot;User was successfully updated.&quot; }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-end
-</code></pre>
-<p>Now we are quite flexible - but debugging fully async and decoupled behaviors is difficult - so I generally stay with calling commands directly until I need the configuration flexibility</p>
-<h2 id="summary">summary</h2>
-<p>Commands are the sweet spot - until config flexibility is needed</p>
-<h2 id="gems">Gems</h2>
-<ul>
-<li>ma (active) - 
-<a href="https://gitlab.com/kris.leech/ma" target="_blank" rel="noopener">https://gitlab.com/kris.leech/ma</a> - objects &amp; async</li>
-<li>wisper_next (active) - 
-<a href="https://gitlab.com/kris.leech/wisper_next" target="_blank" rel="noopener">https://gitlab.com/kris.leech/wisper_next</a> - (messages with async)</li>
-<li>eventmachine (active) - 
-<a href="https://github.com/eventmachine/eventmachine/" target="_blank" rel="noopener">https://github.com/eventmachine/eventmachine/</a></li>
-<li>event_bg_bus (active) - 
-<a href="https://github.com/indiereign/event_bg_bus" target="_blank" rel="noopener">https://github.com/indiereign/event_bg_bus</a> (with backgrounding options)</li>
-<li>rails_event_store (active) - 
-<a href="https://github.com/RailsEventStore/rails_event_store" target="_blank" rel="noopener">https://github.com/RailsEventStore/rails_event_store</a> - (focus on DDD - event bus and event storage)</li>
-<li>wisper (inactive 3 years) - 
-<a href="https://github.com/krisleech/wisper" target="_blank" rel="noopener">https://github.com/krisleech/wisper</a></li>
-<li>resugan (inactive 5 years) - 
-<a href="https://github.com/jedld/resugan" target="_blank" rel="noopener">https://github.com/jedld/resugan</a></li>
-<li>event_bus (inactive 8 years) - 
-<a href="https://github.com/kevinrutherford/event_bus" target="_blank" rel="noopener">https://github.com/kevinrutherford/event_bus</a></li>
-</ul>
+<h2 id="using-branca">Using Branca</h2>
 <h2 id="resources">Resources</h2>
 <ul>
-<li>
-<a href="https://www.youtube.com/watch?v=q0LtzYTrmMY&amp;t=270s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=q0LtzYTrmMY&t=270s</a></li>
-<li>
-<a href="https://www.toptal.com/ruby-on-rails/the-publish-subscribe-pattern-on-rails" target="_blank" rel="noopener">https://www.toptal.com/ruby-on-rails/the-publish-subscribe-pattern-on-rails</a></li>
-<li>
-<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/" target="_blank" rel="noopener">https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/</a></li>
-<li>
-<a href="https://www.mikeperham.com/2010/03/30/using-activerecord-with-eventmachine/" target="_blank" rel="noopener">https://www.mikeperham.com/2010/03/30/using-activerecord-with-eventmachine/</a></li>
-<li>
-<a href="https://www.mikeperham.com/2010/01/27/scalable-ruby-processing-with-eventmachine/" target="_blank" rel="noopener">https://www.mikeperham.com/2010/01/27/scalable-ruby-processing-with-eventmachine/</a></li>
+<li>branca - 
+<a href="https://branca.io" target="_blank" rel="noopener">https://branca.io</a></li>
+<li>branca-ruby - 
+<a href="https://github.com/thadeu/branca-ruby" target="_blank" rel="noopener">https://github.com/thadeu/branca-ruby</a></li>
+<li>crossoverhealth-branca - 
+<a href="https://github.com/c" target="_blank" rel="noopener">https://github.com/c</a> (didn&rsquo;t seem to work)</li>
 </ul>
-<h2 id="going-further-with-events--ddd">Going Further with Events &amp; DDD</h2>
+<p><strong>Token Technologies</strong></p>
+<ul>
+<li>JWT - Common but be careful - 
+<a href="https://jwt.io" target="_blank" rel="noopener">https://jwt.io</a> - (everything)</li>
+<li>Branca - Encrypted, simple &amp; secure - 
+<a href="https://github.com/thadeu/branca-ruby" target="_blank" rel="noopener">https://github.com/thadeu/branca-ruby</a> - (closure, .net, elixir, erlang, go, java, javascript, kotlin, php, python, ruby, rust)</li>
+<li>PASETO - Addresses security problems with JWT - 
+<a href="https://paseto.io" target="_blank" rel="noopener">https://paseto.io</a> - (v3/v4: go, node, php, python, rust, swift) &amp; (v1/v2: c, elixir, go, java, javascript, lua, .net, node, php, python, ruby, rust, swift) - 
+<a href="https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c" target="_blank" rel="noopener">https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c</a></li>
+<li>Macaroon - better than cookies - 
+<a href="http://macaroons.io" target="_blank" rel="noopener">http://macaroons.io</a> &amp; 
+<a href="https://research.google/pubs/pub41892/" target="_blank" rel="noopener">https://research.google/pubs/pub41892/</a> &amp; 
+<a href="https://github.com/localmed/ruby-macaroons" target="_blank" rel="noopener">https://github.com/localmed/ruby-macaroons</a> &amp; 
+<a href="https://github.com/rescrv/libmacaroons" target="_blank" rel="noopener">https://github.com/rescrv/libmacaroons</a> - authorization with caveats and 3rd parties (c, .net, elixir, go, java, python, ruby, rust, php)</li>
+<li>Biscuit - has authentication dsl - 
+<a href="https://www.biscuitsec.org" target="_blank" rel="noopener">https://www.biscuitsec.org</a> &amp; 
+<a href="https://github.com/biscuit-auth/biscuit" target="_blank" rel="noopener">https://github.com/biscuit-auth/biscuit</a> - (rust, web assembly, haskell, java, go)</li>
+</ul>
+<h2 id="rails-caching">Rails Caching</h2>
 <ul>
 <li>
-<a href="https://github.com/RailsEventStore/rails_event_store" target="_blank" rel="noopener">https://github.com/RailsEventStore/rails_event_store</a></li>
+<a href="https://avdi.codes/using-hashes-as-caches/" target="_blank" rel="noopener">https://avdi.codes/using-hashes-as-caches/</a></li>
 <li>
-<a href="https://medium.com/kontenainc/event-driven-microservices-with-rabbitmq-and-ruby-7a54ae01b285" target="_blank" rel="noopener">https://medium.com/kontenainc/event-driven-microservices-with-rabbitmq-and-ruby-7a54ae01b285</a></li>
+<a href="https://guides.rubyonrails.org/caching_with_rails.html" target="_blank" rel="noopener">https://guides.rubyonrails.org/caching_with_rails.html</a></li>
 <li>
-<a href="https://www.globalapptesting.com/engineering/design-the-unknown-with-the-help-of-event-storming" target="_blank" rel="noopener">https://www.globalapptesting.com/engineering/design-the-unknown-with-the-help-of-event-storming</a></li>
-<li>Event-Driven Architecture and Messaging Patterns for Ruby Microservices - Kirill Shevchenko - 
-<a href="https://www.youtube.com/watch?v=e9AAUy4kkek" target="_blank" rel="noopener">https://www.youtube.com/watch?v=e9AAUy4kkek</a></li>
+<a href="https://www.honeybadger.io/blog/rails-low-level-caching/" target="_blank" rel="noopener">https://www.honeybadger.io/blog/rails-low-level-caching/</a></li>
+<li>
+<a href="https://devcenter.heroku.com/articles/caching-strategies" target="_blank" rel="noopener">https://devcenter.heroku.com/articles/caching-strategies</a></li>
+<li>
+<a href="https://scoutapm.com/blog/a-complete-guide-to-rails-caching" target="_blank" rel="noopener">https://scoutapm.com/blog/a-complete-guide-to-rails-caching</a></li>
+<li>
+<a href="https://blog.appsignal.com/2018/04/17/rails-built-in-cache-stores.html" target="_blank" rel="noopener">https://blog.appsignal.com/2018/04/17/rails-built-in-cache-stores.html</a></li>
+<li>
+<a href="https://www.toptal.com/ruby-on-rails/field-level-rails-cache-invalidation" target="_blank" rel="noopener">https://www.toptal.com/ruby-on-rails/field-level-rails-cache-invalidation</a></li>
+<li>
+<a href="https://www.justinweiss.com/articles/a-faster-way-to-cache-complicated-data-models/" target="_blank" rel="noopener">https://www.justinweiss.com/articles/a-faster-way-to-cache-complicated-data-models/</a></li>
+</ul>
+<h2 id="intersting-article">Intersting Article</h2>
+<ul>
+<li>using paseto - 
+<a href="https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c" target="_blank" rel="noopener">https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c</a></li>
+<li>go course using paseto with Rest API - 
+<a href="https://github.com/techschool/simplebank" target="_blank" rel="noopener">https://github.com/techschool/simplebank</a></li>
 </ul>
 
     </div>
@@ -1005,19 +834,11 @@ end
   
   <a class="badge badge-light" href="/tags/rails/">Rails</a>
   
-  <a class="badge badge-light" href="/tags/event-bus/">event bus</a>
-  
-  <a class="badge badge-light" href="/tags/publish/subscribe-pattern/">publish/subscribe pattern</a>
-  
-  <a class="badge badge-light" href="/tags/command-class/">command class</a>
+  <a class="badge badge-light" href="/tags/packwerk/">packwerk</a>
   
   <a class="badge badge-light" href="/tags/architecture/">architecture</a>
   
   <a class="badge badge-light" href="/tags/design/">design</a>
-  
-  <a class="badge badge-light" href="/tags/high-coehsion/">high coehsion</a>
-  
-  <a class="badge badge-light" href="/tags/low-coupling/">low coupling</a>
   
 </div>
 
@@ -1034,7 +855,7 @@ end
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;text=Rails%207.0%20-%20Decoupling%20with%20Events%20%28or%20Commands%20/%20Service%20Objects%29" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/&amp;text=Rails%207.0%20Branca%20and%20Caching" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1047,7 +868,7 @@ end
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;t=Rails%207.0%20-%20Decoupling%20with%20Events%20%28or%20Commands%20/%20Service%20Objects%29" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/&amp;t=Rails%207.0%20Branca%20and%20Caching" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1060,7 +881,7 @@ end
       
       
       <li>
-        <a href="mailto:?subject=Rails%207.0%20-%20Decoupling%20with%20Events%20%28or%20Commands%20/%20Service%20Objects%29&amp;body=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Rails%207.0%20Branca%20and%20Caching&amp;body=https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1073,7 +894,7 @@ end
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;title=Rails%207.0%20-%20Decoupling%20with%20Events%20%28or%20Commands%20/%20Service%20Objects%29" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/&amp;title=Rails%207.0%20Branca%20and%20Caching" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1086,7 +907,7 @@ end
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Rails%207.0%20-%20Decoupling%20with%20Events%20%28or%20Commands%20/%20Service%20Objects%29%20https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Rails%207.0%20Branca%20and%20Caching%20https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1099,7 +920,7 @@ end
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_7_0_decoupling_commands_events/&amp;title=Rails%207.0%20-%20Decoupling%20with%20Events%20%28or%20Commands%20/%20Service%20Objects%29" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/&amp;title=Rails%207.0%20Branca%20and%20Caching" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

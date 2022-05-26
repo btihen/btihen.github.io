@@ -5,7 +5,7 @@
     <link>https://btihen.me/</link>
       <atom:link href="https://btihen.me/index.xml" rel="self" type="application/rss+xml" />
     <description>btihen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Sun, 22 May 2022 01:20:00 +0200</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2022</copyright><lastBuildDate>Thu, 26 May 2022 01:20:00 +0200</lastBuildDate>
     <image>
       <url>https://btihen.me/img/btihen_landing_page.png</url>
       <title>btihen</title>
@@ -160,6 +160,168 @@ ARC consortium members contribute by documenting applications of the agile minds
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails 7.0 Branca and Caching</title>
+      <link>https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/</link>
+      <pubDate>Thu, 26 May 2022 01:20:00 +0200</pubDate>
+      <guid>https://btihen.me/post_ruby_rails/rails_7_0_branca_tokens_and_caching/</guid>
+      <description>&lt;h2 id=&#34;organizing-code&#34;&gt;Organizing Code&lt;/h2&gt;
+&lt;p&gt;Gems and Engines have long been used to organize Ruby and Rails code into workable small units.&lt;/p&gt;
+&lt;p&gt;Shopify has introduced a new system called &amp;lsquo;packages&amp;rsquo; - they use the packwerk gem to help us.  In fact, it is designed to make it easy to take large (and likely highly coupled) large codebase and move toward &amp;lsquo;packages&amp;rsquo; self-contained (or have explicit dependencies).  Ideally the code is in small enough units to help us keep the context in mind as we work on it.&lt;/p&gt;
+&lt;p&gt;I found it initially difficult to understand packwerk in the context of a complex codebase.  So instead I built a new &amp;lsquo;play&amp;rsquo; app and then moved each piece into a package.  Hopefully, this will inspire you to use Gem, Engines or Packages to clarify dependencies and make the code a logical until that is easy to reason about.&lt;/p&gt;
+&lt;h2 id=&#34;environment&#34;&gt;Environment&lt;/h2&gt;
+&lt;p&gt;First you will need &lt;code&gt;libsodium&lt;/code&gt; installed;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install libsodium
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using Rails 7 &amp;amp; Ruby 3.1.2 - I found that it is important to update my ruby environment - so before we start this is what I didn&amp;rsquo;t remove errors:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# I&#39;ve had the error several times without updating:
+# /Users/btihen/.rbenv/versions/3.1.0/lib/ruby/gems/3.1.0/gems/bundler-2.3.8/lib/bundler/rubygems_ext.rb:18:in `source&#39;: uninitialized constant Gem::Source (NameError)
+#
+#       (defined?(@source) &amp;amp;&amp;amp; @source) || Gem::Source::Installed.new
+#                                            ^^^^^^^^
+# Did you mean?  Gem::SourceList
+# this seems to fix it:
+# https://bundler.io/guides/bundler_2_upgrade.html
+# https://stackoverflow.com/questions/4859600/bundler-throws-uninitialized-constant-gemsilentui-nameerror-error-after-upgr
+rbenv local 3.1.2
+gem update --system
+gem install bundler
+gem install rails
+rbenv rehash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-project---simple-blog&#34;&gt;Rails Project - Simple Blog&lt;/h2&gt;
+&lt;p&gt;Since my other projects are using &lt;code&gt;esbuild&lt;/code&gt; I use that here too&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;rails new rails_branca -T --database=postgresql --css=bootstrap --javascript=esbuild
+cd rails_branca
+bin/rails db:create
+
+# add the packwerk (packages) gem
+bundle add branca-ruby
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;quick-test&#34;&gt;Quick Test&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s try this library in the console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+
+require &#39;branca&#39;
+
+# key must be at least 33 Characters long!
+Branca.secret_key = &#39;supersecretkeyyoushouldnotcommit&#39;.b
+Branca.ttl = 30 # in seconds
+
+token = Branca.encode &#39;btihen@example.com&#39;
+decoded = Branca.decode token
+message = decoded.message
+&amp;gt; &#39;btihen@example.com&#39;
+
+# now wait 20 Seconds and you should get the error
+decoded = Branca.decode token
+&amp;gt; Token is expired (Branca::ExpiredTokenError)
+# now the token is encrypted and no longer usable
+
+
+# Branca encodes strings - but we can convert to json and encrypt complex data
+token = Branca.encode({email: &#39;btihen@example.com&#39;}.to_json)
+decoded = Branca.decode token
+message = JSON.parse decoded.message
+&amp;gt; {&amp;quot;email&amp;quot;=&amp;gt;&amp;quot;btihen@example.com&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;configure-rails&#34;&gt;Configure Rails&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s setup rails to use Branca (and expire tokens after 15 Mins)&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s get rails to read the env file (append dotenv-rails to the Gemfile):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# append gem to the GEMFILE with the &amp;gt;&amp;gt;
+cat &amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;Gemfile
+
+gem &#39;dotenv-rails&#39;, groups: [:development, :test]
+EOF
+bundle
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now add the needed config files:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# create the environmental variables
+cat &amp;lt;&amp;lt;EOF&amp;gt; .env
+BRANCA_SECRET=&#39;SuperSecretKeyHiddenInEnvFile&#39;
+BRANCA_TTL=900
+EOF
+
+# create the rails initializer for branca
+touch config/initializers/branca.rb
+cat &amp;lt;&amp;lt;EOF&amp;gt; config/initializers/branca.rb
+# require is needed since the gem name is branca-ruby, but needs to load: branca
+require &#39;branca&#39;
+
+Branca.configure do |config|
+  # .b ensures 8 bit String Encoding
+  config.secret_key = ENV[&#39;BRANCA_SECRET&#39;].b
+  config.ttl = ENV[&#39;BRANCA_TTL&#39;]
+end
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets be sure Rails loads Branca properly:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;bin/rails c
+Branca.ttl
+&amp;gt; &amp;quot;900&amp;quot; # hopefully :)
+
+token = Branca.encode({email: &#39;btihen@example.com&#39;}.to_json)
+decoded = Branca.decode token
+message = JSON.parse decoded.message
+&amp;gt; {&amp;quot;email&amp;quot;=&amp;gt;&amp;quot;btihen@example.com&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;using-branca&#34;&gt;Using Branca&lt;/h2&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;branca - 
+&lt;a href=&#34;https://branca.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://branca.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;branca-ruby - 
+&lt;a href=&#34;https://github.com/thadeu/branca-ruby&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/thadeu/branca-ruby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;crossoverhealth-branca - 
+&lt;a href=&#34;https://github.com/c&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/c&lt;/a&gt; (didn&amp;rsquo;t seem to work)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Token Technologies&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JWT - Common but be careful - 
+&lt;a href=&#34;https://jwt.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jwt.io&lt;/a&gt; - (everything)&lt;/li&gt;
+&lt;li&gt;Branca - Encrypted, simple &amp;amp; secure - 
+&lt;a href=&#34;https://github.com/thadeu/branca-ruby&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/thadeu/branca-ruby&lt;/a&gt; - (closure, .net, elixir, erlang, go, java, javascript, kotlin, php, python, ruby, rust)&lt;/li&gt;
+&lt;li&gt;PASETO - Addresses security problems with JWT - 
+&lt;a href=&#34;https://paseto.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://paseto.io&lt;/a&gt; - (v3/v4: go, node, php, python, rust, swift) &amp;amp; (v1/v2: c, elixir, go, java, javascript, lua, .net, node, php, python, ruby, rust, swift) - 
+&lt;a href=&#34;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Macaroon - better than cookies - 
+&lt;a href=&#34;http://macaroons.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://macaroons.io&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://research.google/pubs/pub41892/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://research.google/pubs/pub41892/&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/localmed/ruby-macaroons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/localmed/ruby-macaroons&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/rescrv/libmacaroons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rescrv/libmacaroons&lt;/a&gt; - authorization with caveats and 3rd parties (c, .net, elixir, go, java, python, ruby, rust, php)&lt;/li&gt;
+&lt;li&gt;Biscuit - has authentication dsl - 
+&lt;a href=&#34;https://www.biscuitsec.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.biscuitsec.org&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/biscuit-auth/biscuit&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/biscuit-auth/biscuit&lt;/a&gt; - (rust, web assembly, haskell, java, go)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;rails-caching&#34;&gt;Rails Caching&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://avdi.codes/using-hashes-as-caches/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://avdi.codes/using-hashes-as-caches/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://guides.rubyonrails.org/caching_with_rails.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://guides.rubyonrails.org/caching_with_rails.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.honeybadger.io/blog/rails-low-level-caching/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.honeybadger.io/blog/rails-low-level-caching/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://devcenter.heroku.com/articles/caching-strategies&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://devcenter.heroku.com/articles/caching-strategies&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://scoutapm.com/blog/a-complete-guide-to-rails-caching&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://scoutapm.com/blog/a-complete-guide-to-rails-caching&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://blog.appsignal.com/2018/04/17/rails-built-in-cache-stores.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.appsignal.com/2018/04/17/rails-built-in-cache-stores.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.toptal.com/ruby-on-rails/field-level-rails-cache-invalidation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.toptal.com/ruby-on-rails/field-level-rails-cache-invalidation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.justinweiss.com/articles/a-faster-way-to-cache-complicated-data-models/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.justinweiss.com/articles/a-faster-way-to-cache-complicated-data-models/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;intersting-article&#34;&gt;Intersting Article&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;using paseto - 
+&lt;a href=&#34;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;go course using paseto with Rest API - 
+&lt;a href=&#34;https://github.com/techschool/simplebank&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/techschool/simplebank&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
@@ -813,18 +975,22 @@ end
 &lt;p&gt;Commands are the sweet spot - until config flexibility is needed&lt;/p&gt;
 &lt;h2 id=&#34;gems&#34;&gt;Gems&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;wisper_next - 
-&lt;a href=&#34;https://gitlab.com/kris.leech/wisper_next&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/wisper_next&lt;/a&gt; (active, with sync and async options) - 
-&lt;a href=&#34;https://github.com/krisleech/wisper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/krisleech/wisper&lt;/a&gt; (inactive 3 years)&lt;/li&gt;
-&lt;li&gt;ma - 
-&lt;a href=&#34;https://gitlab.com/kris.leech/ma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/ma&lt;/a&gt; (active, Events as Objects, built upon wisper_next)&lt;/li&gt;
-&lt;li&gt;event_bg_bus - 
-&lt;a href=&#34;https://github.com/indiereign/event_bg_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/indiereign/event_bg_bus&lt;/a&gt; (active with backgrounding) - 
-&lt;a href=&#34;https://github.com/kevinrutherford/event_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kevinrutherford/event_bus&lt;/a&gt; (no activity 8 years)&lt;/li&gt;
-&lt;li&gt;eventmachine - 
+&lt;li&gt;ma (active) - 
+&lt;a href=&#34;https://gitlab.com/kris.leech/ma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/ma&lt;/a&gt; - objects &amp;amp; async&lt;/li&gt;
+&lt;li&gt;wisper_next (active) - 
+&lt;a href=&#34;https://gitlab.com/kris.leech/wisper_next&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/wisper_next&lt;/a&gt; - (messages with async)&lt;/li&gt;
+&lt;li&gt;eventmachine (active) - 
 &lt;a href=&#34;https://github.com/eventmachine/eventmachine/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/eventmachine/eventmachine/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;rails_event_store (saves the events too) - 
-&lt;a href=&#34;https://github.com/RailsEventStore/rails_event_store&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/RailsEventStore/rails_event_store&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;event_bg_bus (active) - 
+&lt;a href=&#34;https://github.com/indiereign/event_bg_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/indiereign/event_bg_bus&lt;/a&gt; (with backgrounding options)&lt;/li&gt;
+&lt;li&gt;rails_event_store (active) - 
+&lt;a href=&#34;https://github.com/RailsEventStore/rails_event_store&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/RailsEventStore/rails_event_store&lt;/a&gt; - (focus on DDD - event bus and event storage)&lt;/li&gt;
+&lt;li&gt;wisper (inactive 3 years) - 
+&lt;a href=&#34;https://github.com/krisleech/wisper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/krisleech/wisper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;resugan (inactive 5 years) - 
+&lt;a href=&#34;https://github.com/jedld/resugan&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/jedld/resugan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;event_bus (inactive 8 years) - 
+&lt;a href=&#34;https://github.com/kevinrutherford/event_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kevinrutherford/event_bus&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
@@ -4551,6 +4717,24 @@ Rails.application.config.session_store :cookie_store, expire_after: 14.days
 &lt;a href=&#34;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;a href=&#34;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Token Technologies&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JWT - Common but be careful - 
+&lt;a href=&#34;https://jwt.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jwt.io&lt;/a&gt; - (everything)&lt;/li&gt;
+&lt;li&gt;Branca - Encrypted, simple &amp;amp; secure - 
+&lt;a href=&#34;https://github.com/thadeu/branca-ruby&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/thadeu/branca-ruby&lt;/a&gt; - (closure, .net, elixir, erlang, go, java, javascript, kotlin, php, python, ruby, rust)&lt;/li&gt;
+&lt;li&gt;PASETO - Addresses security problems with JWT - 
+&lt;a href=&#34;https://paseto.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://paseto.io&lt;/a&gt; - (v3/v4: go, node, php, python, rust, swift) &amp;amp; (v1/v2: c, elixir, go, java, javascript, lua, .net, node, php, python, ruby, rust, swift) - 
+&lt;a href=&#34;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Macaroon - better than cookies - 
+&lt;a href=&#34;http://macaroons.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://macaroons.io&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://research.google/pubs/pub41892/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://research.google/pubs/pub41892/&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/localmed/ruby-macaroons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/localmed/ruby-macaroons&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/rescrv/libmacaroons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rescrv/libmacaroons&lt;/a&gt; - authorization with caveats and 3rd parties (c, .net, elixir, go, java, python, ruby, rust, php)&lt;/li&gt;
+&lt;li&gt;Biscuit - has authentication dsl - 
+&lt;a href=&#34;https://www.biscuitsec.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.biscuitsec.org&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/biscuit-auth/biscuit&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/biscuit-auth/biscuit&lt;/a&gt; - (rust, web assembly, haskell, java, go)&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

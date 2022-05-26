@@ -420,6 +420,24 @@ Rails.application.config.session_store :cookie_store, expire_after: 14.days
 &lt;li&gt;
 &lt;a href=&#34;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://blog.saeloun.com/2019/09/12/rails-6-adds-dig-to-actiondispatch-request-session.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Token Technologies&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JWT - Common but be careful - 
+&lt;a href=&#34;https://jwt.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://jwt.io&lt;/a&gt; - (everything)&lt;/li&gt;
+&lt;li&gt;Branca - Encrypted, simple &amp;amp; secure - 
+&lt;a href=&#34;https://github.com/thadeu/branca-ruby&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/thadeu/branca-ruby&lt;/a&gt; - (closure, .net, elixir, erlang, go, java, javascript, kotlin, php, python, ruby, rust)&lt;/li&gt;
+&lt;li&gt;PASETO - Addresses security problems with JWT - 
+&lt;a href=&#34;https://paseto.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://paseto.io&lt;/a&gt; - (v3/v4: go, node, php, python, rust, swift) &amp;amp; (v1/v2: c, elixir, go, java, javascript, lua, .net, node, php, python, ruby, rust, swift) - 
+&lt;a href=&#34;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dev.to/techschoolguru/why-paseto-is-better-than-jwt-for-token-based-authentication-1b0c&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Macaroon - better than cookies - 
+&lt;a href=&#34;http://macaroons.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://macaroons.io&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://research.google/pubs/pub41892/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://research.google/pubs/pub41892/&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/localmed/ruby-macaroons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/localmed/ruby-macaroons&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/rescrv/libmacaroons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rescrv/libmacaroons&lt;/a&gt; - authorization with caveats and 3rd parties (c, .net, elixir, go, java, python, ruby, rust, php)&lt;/li&gt;
+&lt;li&gt;Biscuit - has authentication dsl - 
+&lt;a href=&#34;https://www.biscuitsec.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.biscuitsec.org&lt;/a&gt; &amp;amp; 
+&lt;a href=&#34;https://github.com/biscuit-auth/biscuit&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/biscuit-auth/biscuit&lt;/a&gt; - (rust, web assembly, haskell, java, go)&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

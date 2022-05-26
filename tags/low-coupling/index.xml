@@ -288,18 +288,22 @@ end
 &lt;p&gt;Commands are the sweet spot - until config flexibility is needed&lt;/p&gt;
 &lt;h2 id=&#34;gems&#34;&gt;Gems&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;wisper_next - 
-&lt;a href=&#34;https://gitlab.com/kris.leech/wisper_next&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/wisper_next&lt;/a&gt; (active, with sync and async options) - 
-&lt;a href=&#34;https://github.com/krisleech/wisper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/krisleech/wisper&lt;/a&gt; (inactive 3 years)&lt;/li&gt;
-&lt;li&gt;ma - 
-&lt;a href=&#34;https://gitlab.com/kris.leech/ma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/ma&lt;/a&gt; (active, Events as Objects, built upon wisper_next)&lt;/li&gt;
-&lt;li&gt;event_bg_bus - 
-&lt;a href=&#34;https://github.com/indiereign/event_bg_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/indiereign/event_bg_bus&lt;/a&gt; (active with backgrounding) - 
-&lt;a href=&#34;https://github.com/kevinrutherford/event_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kevinrutherford/event_bus&lt;/a&gt; (no activity 8 years)&lt;/li&gt;
-&lt;li&gt;eventmachine - 
+&lt;li&gt;ma (active) - 
+&lt;a href=&#34;https://gitlab.com/kris.leech/ma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/ma&lt;/a&gt; - objects &amp;amp; async&lt;/li&gt;
+&lt;li&gt;wisper_next (active) - 
+&lt;a href=&#34;https://gitlab.com/kris.leech/wisper_next&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gitlab.com/kris.leech/wisper_next&lt;/a&gt; - (messages with async)&lt;/li&gt;
+&lt;li&gt;eventmachine (active) - 
 &lt;a href=&#34;https://github.com/eventmachine/eventmachine/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/eventmachine/eventmachine/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;rails_event_store (saves the events too) - 
-&lt;a href=&#34;https://github.com/RailsEventStore/rails_event_store&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/RailsEventStore/rails_event_store&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;event_bg_bus (active) - 
+&lt;a href=&#34;https://github.com/indiereign/event_bg_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/indiereign/event_bg_bus&lt;/a&gt; (with backgrounding options)&lt;/li&gt;
+&lt;li&gt;rails_event_store (active) - 
+&lt;a href=&#34;https://github.com/RailsEventStore/rails_event_store&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/RailsEventStore/rails_event_store&lt;/a&gt; - (focus on DDD - event bus and event storage)&lt;/li&gt;
+&lt;li&gt;wisper (inactive 3 years) - 
+&lt;a href=&#34;https://github.com/krisleech/wisper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/krisleech/wisper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;resugan (inactive 5 years) - 
+&lt;a href=&#34;https://github.com/jedld/resugan&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/jedld/resugan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;event_bus (inactive 8 years) - 
+&lt;a href=&#34;https://github.com/kevinrutherford/event_bus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/kevinrutherford/event_bus&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
