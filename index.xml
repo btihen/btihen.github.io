@@ -3312,7 +3312,7 @@ This should be interesting and fun.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Phoenix 1.6 Easy PETAL Stack Setup (w/a Custom Font</title>
+      <title>Phoenix 1.6 Easy PETAL Stack Setup (w/ Custom Font)</title>
       <link>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/</link>
       <pubDate>Fri, 04 Mar 2022 01:01:53 +0200</pubDate>
       <guid>https://btihen.me/post_elixir_phoenix/phoenix_1_6_petal_w_gen_n_custom_fonts/</guid>
@@ -3488,7 +3488,7 @@ let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {
   &amp;lt;div x-data=&amp;quot;{name:&#39;&#39;}&amp;quot;&amp;gt;
     &amp;lt;label for=&amp;quot;name&amp;quot;&amp;gt;Name:&amp;lt;/label&amp;gt;
     &amp;lt;input id=&amp;quot;name&amp;quot; type=&amp;quot;text&amp;quot; x-model=&amp;quot;name&amp;quot; /&amp;gt;
-    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt;
   &amp;lt;/div&amp;gt;
 &amp;lt;/section&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -3928,7 +3928,7 @@ let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {
   &amp;lt;div x-data=&amp;quot;{name:&#39;&#39;}&amp;quot;&amp;gt;
     &amp;lt;label for=&amp;quot;name&amp;quot;&amp;gt;Name:&amp;lt;/label&amp;gt;
     &amp;lt;input id=&amp;quot;name&amp;quot; type=&amp;quot;text&amp;quot; x-model=&amp;quot;name&amp;quot; /&amp;gt;
-    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt;
   &amp;lt;/div&amp;gt;
 &amp;lt;/section&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;

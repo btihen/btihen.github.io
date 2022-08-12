@@ -346,7 +346,7 @@ let liveSocket = new LiveSocket(&amp;quot;/live&amp;quot;, Socket, {
   &amp;lt;div x-data=&amp;quot;{name:&#39;&#39;}&amp;quot;&amp;gt;
     &amp;lt;label for=&amp;quot;name&amp;quot;&amp;gt;Name:&amp;lt;/label&amp;gt;
     &amp;lt;input id=&amp;quot;name&amp;quot; type=&amp;quot;text&amp;quot; x-model=&amp;quot;name&amp;quot; /&amp;gt;
-    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;&amp;lt;em&amp;gt;Output:&amp;lt;/em&amp;gt;&amp;lt;/b&amp;gt; &amp;lt;span x-text=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt;
   &amp;lt;/div&amp;gt;
 &amp;lt;/section&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
