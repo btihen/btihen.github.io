@@ -238,8 +238,8 @@ git push
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;To github.com:username/username.github.io.git
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If instead you get the error:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;remote: Permission to peakchallenges/peakchallenges.github.io.git denied to btihen.
-fatal: unable to access &#39;https://github.com/peakchallenges/peakchallenges.github.io.git/&#39;: The requested URL returned error: 403
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;remote: Permission to btihen/challenges.github.io.git denied to btihen.
+fatal: unable to access &#39;https://github.com/btihen/challenges.github.io.git/&#39;: The requested URL returned error: 403
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;go back and check your site permissions.&lt;/p&gt;
 &lt;p&gt;If site permissions aren&amp;rsquo;t a problem do the following:&lt;/p&gt;
